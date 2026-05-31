@@ -419,3 +419,6 @@ class _ApplicantDetailScreenState extends State<ApplicantDetailScreen> {
     );
   }
 }
+
+
+
