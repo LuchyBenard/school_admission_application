@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:school_admission_application/core/constants/app_colors.dart';
 import 'package:school_admission_application/core/constants/app_text_styles.dart';
@@ -14,16 +15,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
 
-  final List<Map> <String, String> _slides = [
+  final List<Map<String, String>> _slides = [
     {
-    'title': 'Find Your Perfect School',
-    'subtitle': 'Explore thousands of universities and institutions across Nigeria and worldwide all in one place.',
-    'image': 'assets/images/' // Will attach a picture later to it.
-    }
+      'title': 'Find Your Perfect School',
+      'subtitle': 'Explore thousands of universities and institutions across Nigeria and worldwide all in one place.',
+      'image': 'assets/images/universitybuilding.jpg', // Will attach a picture later to it.
+    },
     {
       'title': 'Apply & Track With Ease',
       'subtitle': 'Submit applications, upload documents, pay fees and get real-time updates on your admission status.',
-      'image': 'assets/images/' // also will attach picture to this later.
+      'image': 'assets/images/studentUpload.png', // also will attach picture to this later.
     },
   ];
 
@@ -36,17 +37,21 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   void _goToNextPage() {
     if (_currentPage < _slides.length - 1) {
       _pageController.nextPage(
-        duration: Duration(milliseconds: 400),
-        curve: Curves.easeInOut
-        );
+          duration: Duration(milliseconds: 400),
+          curve: Curves.easeInOut
+      );
     } else {
-      // Last slide - go to login
-
-    Navigator.pushReplacementNamed(context, '/login');
+      // Save that onboarding has been seen
+      final box = GetStorage();
+      box.write('hasSeenOnboarding', true);
+      Navigator.pushReplacementNamed(context, '/login');
     }
   }
 
   void _skip() {
+    // Save that onboarding has been seen
+    final box = GetStorage();
+    box.write('hasSeenOnboarding', true);
     Navigator.pushReplacementNamed(context, '/login');
   }
   @override
@@ -57,62 +62,63 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         child: Column(
           children: [
             // Skip Button
-          Align(
-            alignment: Alignment.topRight,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 16.h),
-              child: _currentPage < _slides.length - 1
-              ? GestureDetector(
-                onTap: _skip,
-                child: Text(
-                  'Skip',
-                  style: AppTextStyles.bodyMedium.copyWith(
-                    color: AppColors.primary,
-                    fontWeight: FontWeight.w600,
+            Align(
+              alignment: Alignment.topRight,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 16.h),
+                child: _currentPage < _slides.length - 1
+                    ? GestureDetector(
+                  onTap: _skip,
+                  child: Text(
+                    'Skip',
+                    style: AppTextStyles.bodyMedium.copyWith(
+                      color: AppColors.primary,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                ),
-              )
-              : SizedBox(), // hides skip on the last slide
-
-              //Pageview
-              Expanded(
-                child: PageView.builder(
-                  controller: _pageController,
-                  onPageChanged: _onPageChanged,
-                  itemCount: _slides.length,
-                  itemBuilder: (context, index) {
-                    return _buildSlide(
-                      title: _slides[index] ['title'] !,
-                      subtitle: _slides[index] ['subtitle']!,
-                      image: _slides[index] ['image']!,
-                    );
-                  },
-                  ), 
-                ),
-
-                // Dot Indicators
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _slides.length,
+                )
+                    : SizedBox(), // hides skip on the last slide
+              ),
+            ),
+            // PageView
+            Expanded(
+              child: PageView.builder(
+                controller: _pageController,
+                onPageChanged: _onPageChanged,
+                itemCount: _slides.length,
+                itemBuilder: (context, index) {
+                  return _buildSlide(
+                    title: _slides[index]['title']!,
+                    subtitle: _slides[index]['subtitle']!,
+                    image: _slides[index]['image']!,
+                  );
+                },
+              ),
+            ),
+            // Dot Indicators
+            // Dot Indicators
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(
+                _slides.length,
                     (index) => AnimatedContainer(
-                      duration: Duration(milliseconds: 300),
-                      margin: EdgeInsets.symmetric(horizontal: 4.w),
-                      width: _currentPage == index ? 24.w : 8.w,
-                      height: 8.h,
-                      decoration: BoxDecoration(
-                        color: _currentPage == index  
+                  duration: const Duration(milliseconds: 300),
+                  margin: EdgeInsets.symmetric(horizontal: 4.w),
+                  width: _currentPage == index ? 24.w : 8.w,
+                  height: 8.h,
+                  decoration: BoxDecoration(
+                    color: _currentPage == index
                         ? AppColors.primary
                         : AppColors.border,
-                        borderRadius: BorderRadius.circular(4.r),                    
-                        ),
-                       ),
+                    borderRadius: BorderRadius.circular(4.r),
+                  ),
                 ),
+              ),
             ),
 
             SizedBox(height: 40.h),
 
-            // Botton
+            // Button
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 24.w),
               child: ElevatedButton(
@@ -121,14 +127,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   _currentPage < _slides.length -1 ? 'Next' : 'Get Started',
                 ),
               ),
-              ),
+            ),
 
-              SizedBox(height: 40.h),
-                  ],
-                ),
+            SizedBox(height: 40.h),
+          ],
+        ),
 
-              ),
-            );
+      ),
+    );
   }
 
   Widget _buildSlide({
@@ -142,10 +148,30 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           // Image
-          Image.asset() // that will be later
-          
+          Image.asset(
+            image,
+            width: 260.w,
+            height: 260.w,
+            fit: BoxFit.contain,
+          ), // that will be later
+          SizedBox(height: 48.h),
+
+          // Title
+          Text(
+            title,
+            style: AppTextStyles.displayMedium,
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: 16.h),
+
+          // Subtitle
+          Text(
+            subtitle,
+            style: AppTextStyles.bodyMedium,
+            textAlign: TextAlign.center,
+          ),
         ],
       ),
-    )
+    );
   }
 }
