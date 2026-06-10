@@ -10,6 +10,7 @@ import 'features/splash/splash_screen.dart';
 import 'features/onboarding/onboarding_screen.dart';
 import 'package:get_storage/get_storage.dart';
 import 'features/auth/login_screen.dart';
+import 'features/auth/signup_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -112,6 +113,7 @@ class MyApp extends StatelessWidget {
                   '/': (context) => SplashScreen(),
                   '/onboarding': (context) => OnboardingScreen(),
                   '/login': (context) => LoginScreen(),
+                  '/register': (context) => SignupScreen(),
                 },
             ),
           ),
