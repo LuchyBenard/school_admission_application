@@ -31,31 +31,41 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         await FirebaseAuth.instance.sendPasswordResetEmail(
           email: _emailController.text.trim(),
         );
+
         if (!mounted) return;
         setState(() => _isLoading = false);
-        // Navigate to OPT screen and pass the email along
+
+        showToast(
+          "Reset link sent to your email!",
+          backgroundColor: Colors.green,
+        );
+
+        // Navigate to the next screen (Note: Firebase sends a link, not an OTP)
         Navigator.pushNamed(
           context,
           '/otp-verification',
           arguments: _emailController.text.trim(),
         );
-      } FirebaseAuthException catch (e) {
-    setState(() => _isLoading = false);
+      } on FirebaseAuthException catch (e) {
+        if (!mounted) return;
+        setState(() => _isLoading = false);
 
-    String message = 'Something went wrong. Please try again.';
-    if (e.code == 'User-not-found') {
-    message = 'No account found with email address.';
-    } else if (e.code == 'Invalid email') {
-    message = 'Please enter a valid email address.';
-    }
-    showToast(
-    message,
-    backgroundColor: AppColors.error,
-    textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
-    );
+        String message = 'Something went wrong. Please try again.';
+        if (e.code == 'user-not-found') {
+          message = 'No account found with this email address.';
+        } else if (e.code == 'invalid-email') {
+          message = 'Please enter a valid email address.';
+        }
+
+        showToast(
+          message,
+          backgroundColor: AppColors.error,
+          textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
+        );
+      }
     }
   }
-  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,7 +75,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         elevation: 0,
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
-          child: Icon(
+          child: const Icon(
             Icons.arrow_back_ios,
             color: AppColors.textPrimary,
           ),
@@ -88,92 +98,109 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     color: AppColors.surfaceAlt,
                     borderRadius: BorderRadius.circular(16.r),
                   ),
-                  child: Icon(
+                  child: const Icon(
                     Icons.lock_reset_rounded,
                     color: AppColors.textPrimary,
                   ),
                 ),
-
+                SizedBox(height: 24.h),
                 //Title
                 Text(
                   'Forgot Password?',
                   style: AppTextStyles.displayMedium,
                 ),
-            SizedBox(height: 8.h),
-            Text(
-              'Enter your email address and w\'ll send you a 6-digit OTP to reset your password.',
-              style: AppTextStyles.bodyMedium,
-            ),
-            SizedBox(height: 40.h),
-
-            // Email field
-            Text(
-              'Email Address',
-              style: AppTextStyles.label,
-            ),
-            SizedBox(height: 8.h),
-            TextFormField(
-              controller: _emailController,
-              keyboardType: TextInputType.emailAddress,
-              textInputAction: TextInputAction.done,
-              style: AppTextStyles.bodyLarge,
-              decoration: InputDecoration(
-                hintText: 'Enter your email',
-                prefixIcon: Icon(
-                  Icons.email_outlined,
-                  color: AppColors.textHint,
+                SizedBox(height: 8.h),
+                Text(
+                  'Enter your email address and we\'ll send you a link to reset your password.',
+                  style: AppTextStyles.bodyMedium,
                 ),
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter your email';
-                }
-                if (!value.contains(@)) {
-                  return 'Please enter a valid email address';
-                }
-                return null;
-                },
-            ),
-              SizedBox(height: 32.h),
+                SizedBox(height: 40.h),
 
-              // send OTP button
-              ElevatedButton(
-                  onPressed: _isLoading ? null : _sendOTP,
-                  child: _isLoading ? SizedBox(
-                    width: 20.w,
-                    height: 20.w,
-                    child: CircularProgressIndicator(
-                      color: AppColors.background,
-                      strokeWidth: 2,
+                // Email field
+                Text(
+                  'Email Address',
+                  style: AppTextStyles.label,
+                ),
+                SizedBox(height: 8.h),
+                TextFormField(
+                  controller: _emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  textInputAction: TextInputAction.done,
+                  style: AppTextStyles.bodyLarge,
+                  decoration: InputDecoration(
+                    hintText: 'Enter your email',
+                    prefixIcon: Icon(
+                      Icons.email_outlined,
+                      color: AppColors.textHint,
                     ),
-                  )
-                      : Text('Send OTP'),
                   ),
-              SizedBox(height: 24.h),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your email';
+                    }
+                    if (!value.contains('@')) {
+                      return 'Please enter a valid email address';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 32.h),
 
-              // Back to Login
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Remember your password?',
-                    style: AppTextStyles.bodyMedium,
-              ),
-              GestureDetector(
-                onTap: () => Navigator.pop(context),
-                child: Text(
-                  'Sign In',
-                  style: AppTextStyles.bodyMedium.copyWith(
-                    color: AppColors.primary,
-                    fontWeight: FontWeight.w700,
+                // Send Button
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: _isLoading ? null : _sendOTP,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.primary,
+                      padding: EdgeInsets.symmetric(vertical: 16.h),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.r),
+                      ),
+                    ),
+                    child: _isLoading
+                        ? SizedBox(
+                      width: 20.w,
+                      height: 20.w,
+                      child: const CircularProgressIndicator(
+                        color: Colors.white,
+                        strokeWidth: 2,
+                      ),
+                    )
+                        : const Text(
+                      'Send Reset Link',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ],
+                SizedBox(height: 24.h),
+
+                // Back to Login
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Remember your password? ',
+                      style: AppTextStyles.bodyMedium,
+                    ),
+                    GestureDetector(
+                      onTap: () => Navigator.pop(context),
+                      child: Text(
+                        'Sign In',
+                        style: AppTextStyles.bodyMedium.copyWith(
+                          color: AppColors.primary,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ], // End Column Children
+            ),
           ),
-            ],
-        ),
-      ),
         ),
       ),
     );

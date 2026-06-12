@@ -11,6 +11,7 @@ import 'features/onboarding/onboarding_screen.dart';
 import 'package:get_storage/get_storage.dart';
 import 'features/auth/login_screen.dart';
 import 'features/auth/signup_screen.dart';
+import 'providers/auth_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,7 +33,9 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return OKToast(
           child: MultiProvider(
-            providers: [],
+            providers: [
+              ChangeNotifierProvider(create: (_) => AuthProvider()),
+            ],
             child: MaterialApp(
                 debugShowCheckedModeBanner: false,
                 title: 'School Admission',

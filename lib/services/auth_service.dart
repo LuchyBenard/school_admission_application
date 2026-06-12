@@ -7,14 +7,14 @@ class AuthService {
     final FirebaseFirestore _firestore = FirebaseFirestore.instance;
     
     // Get current user
-User? get CurrentUser => _auth.currentUser;
+User? get currentUser => _auth.currentUser;
 
 // Auth state stream
 // Listens for login/logout changes in real state
-Stream<User> get authStateChanges => _auth.authStateChanges();
+Stream<User?> get authStateChanges => _auth.authStateChanges();
 
 // Register
-Future<UserCredentials> register({
+Future<UserCredential> register({
 required String fullName,
 required String email,
 required String phone, 
@@ -29,14 +29,14 @@ final UserCredential credential = await _auth.createUserWithEmailAndPassword(
 // Save extra details to Firestore
 // Firebase Auth only stores email and password. Everything else goes to Firestore
 await _firestore
-  . collection ('users')
-  . doc(credential.user!.uid)
-  . set({
+  .collection ('users')
+  .doc(credential.user!.uid)
+  .set({
   'uid': credential.user!.uid,
   'fullName': fullName,
   'email': email,
   'phone': phone,
-  'role': student,
+  'role': 'student',
   'createdat': FieldValue.serverTimestamp(),
   });
 
@@ -81,8 +81,10 @@ Future<void> confirmPasswordReset({
 }
 
 // GET USER PROFILE FROM FIRESTORE
-Future<Map<String, dynamic>?> getUserProfile(String, uid) async {
-  final doc = await _firestore.collection('users').doc(uid).get();
+Future<Map<String, dynamic>?> getUserProfile(String uid) async {
+  final doc = await _firestore
+      .collection('users')
+      .doc(uid).get();
   return doc.exists ? doc.data() : null;
 }
 }

@@ -20,7 +20,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
   bool _obscurePassword = true;
-  bool _obscurePassword = true;
+  bool _obscureConfirm = true;
   String _email = '';
 
   @override
