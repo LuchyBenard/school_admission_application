@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:school_admission_application/core/constants/app_text_styles.dart';
 import 'package:school_admission_application/core/constants/app_colors.dart';
 import 'package:oktoast/oktoast.dart';
+import 'package:provider/provider.dart';
+import '../../providers/auth_provider.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -45,14 +47,27 @@ class _SignupScreenState extends State<SignupScreen> {
   }
 
   if (_formKey.currentState!.validate()) {
-  setState(() => _isLoading = true);
+      final authProvider = context.read<AuthProvider>();
 
-  // WE WILL CONNECT TO AUTHPROVIDER LATER
-  await Future.delayed(Duration(seconds: 2)); // placeholder
+      final success = await authProvider.register(
+        fullName: _fullNameController.text.trim(),
+        email: _emailController.text.trim(),
+        phone: _phoneController.text.trim(),
+        password: _passwordController.text.trim(),
+        context: context,
+      );
 
-  if (!mounted) return;
-  setState(() => _isLoading = false);
-  }
+      if (!mounted) return;
+
+      if (success) {
+        // Go to the dashboard and Clear all previous screens
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          '/dashboard',
+              (route) => false,
+        );
+      }
+    }
   }
 
   @override
@@ -331,17 +346,21 @@ class _SignupScreenState extends State<SignupScreen> {
                 SizedBox(height: 32.h),
 
                 // Register Button
-                ElevatedButton(
-                  onPressed: _isLoading ? null : _register,
-                  child: _isLoading ? SizedBox(
-                    width: 20.w,
-                    height: 20.w,
-                    child: CircularProgressIndicator(
-                      color: AppColors.background,
-                      strokeWidth: 2,
-                    ),
-                  )
-                      : Text('Register'),
+                Consumer<AuthProvider>(
+                  builder: (context, authProvider, child) {
+                    return  ElevatedButton(
+                      onPressed: authProvider.isLoading ? null : _register,
+                      child: authProvider.isLoading ? SizedBox(
+                        width: 20.w,
+                        height: 20.w,
+                        child: CircularProgressIndicator(
+                          color: AppColors.background,
+                          strokeWidth: 2,
+                        ),
+                      )
+                          : Text('Register'),
+                    );
+                  }
                 ),
                 SizedBox(height: 24.h),
 

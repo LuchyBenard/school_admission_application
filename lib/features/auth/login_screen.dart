@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:school_admission_application/core/constants/app_colors.dart';
 import 'package:school_admission_application/core/constants/app_text_styles.dart';
+import 'package:provider/provider.dart';
+import '../../providers/auth_provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -31,11 +33,24 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _login() async {
     if (_formKey.currentState!.validate()) {
-      setState(() => _isLoading =true);
+      final authProvider = context.read<AuthProvider>();
 
-      // WE WILL CONNECT TO AUTHPROVIDER LATER
-      await Future.delayed(Duration(seconds: 2)); // placeholder
-      setState(() => _isLoading = false);
+      final success = await authProvider.login(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+        context: context,
+      );
+
+      if (!mounted) return;
+
+      if (success) {
+        // Go to the dashboard and Clear all previous screens
+        Navigator.pushNamedAndRemoveUntil(
+            context,
+            '/dashboard',
+            (route) => false,
+        );
+      }
     }
   }
   @override
@@ -173,18 +188,23 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(height: 32.h),
 
                 // Login Button
-                ElevatedButton(
-                  onPressed: _isLoading ? null : _login,
-                  child: _isLoading ? SizedBox(
-                    width: 20.w,
-                    height: 20.w,
-                    child: CircularProgressIndicator(
-                      color: AppColors.background,
-                      strokeWidth: 2,
-                    ),
-                  )
-                      : Text('Sign In'),
-                ),
+               Consumer<AuthProvider> (
+                 builder: (context, authProvider, child){
+                   return ElevatedButton(
+                     onPressed: authProvider.isLoading ? null : _login,
+                     child: authProvider.isLoading ? SizedBox(
+                       width: 20.w,
+                       height: 20.w,
+                       child: CircularProgressIndicator(
+                         color: AppColors.background,
+                         strokeWidth: 2,
+                       ),
+                     )
+                         : Text('Sign In'),
+                   );
+                 }
+
+               ),
 
                 SizedBox(height: 24.r),
 

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:school_admission_application/core/constants/app_colors.dart';
 import 'package:school_admission_application/core/constants/app_text_styles.dart';
+import 'package:provider/provider.dart';
+import '../../providers/auth_provider.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -25,19 +26,19 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   void _sendOTP() async {
     if (_formKey.currentState!.validate()) {
-      setState(() => _isLoading = true);
+      final authProvider = context.read<AuthProvider>();
 
-      try {
-        await FirebaseAuth.instance.sendPasswordResetEmail(
-          email: _emailController.text.trim(),
-        );
+      final success = await authProvider.sendPasswordResetEmail(
+        email: _emailController.text.trim(),
+      );
 
-        if (!mounted) return;
-        setState(() => _isLoading = false);
+      if (!mounted) return;
 
+      if (success) {
         showToast(
-          "Reset link sent to your email!",
-          backgroundColor: Colors.green,
+          "OTP sent! Please check your email",
+          backgroundColor: AppColors.success,
+          textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
         );
 
         // Navigate to the next screen (Note: Firebase sends a link, not an OTP)
@@ -46,23 +47,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           '/otp-verification',
           arguments: _emailController.text.trim(),
         );
-      } on FirebaseAuthException catch (e) {
-        if (!mounted) return;
-        setState(() => _isLoading = false);
-
-        String message = 'Something went wrong. Please try again.';
-        if (e.code == 'user-not-found') {
-          message = 'No account found with this email address.';
-        } else if (e.code == 'invalid-email') {
-          message = 'Please enter a valid email address.';
-        }
-
-        showToast(
-          message,
-          backgroundColor: AppColors.error,
-          textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
-        );
       }
+      // If it fails, AuthProvider already shows the error toast
     }
   }
 
@@ -147,34 +133,38 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 SizedBox(height: 32.h),
 
                 // Send Button
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: _isLoading ? null : _sendOTP,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.primary,
-                      padding: EdgeInsets.symmetric(vertical: 16.h),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12.r),
+                Consumer(
+                  builder: (context, authProvider, child){
+                    return SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: authProvider.isLoading ? null : _sendOTP,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.primary,
+                          padding: EdgeInsets.symmetric(vertical: 16.h),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12.r),
+                          ),
+                        ),
+                        child: authProvider.isLoading
+                            ? SizedBox(
+                          width: 20.w,
+                          height: 20.w,
+                          child: const CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 2,
+                          ),
+                        )
+                            : const Text(
+                          'Send OTP',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
-                    ),
-                    child: _isLoading
-                        ? SizedBox(
-                      width: 20.w,
-                      height: 20.w,
-                      child: const CircularProgressIndicator(
-                        color: Colors.white,
-                        strokeWidth: 2,
-                      ),
-                    )
-                        : const Text(
-                      'Send Reset Link',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
+                    );
+                  }
                 ),
                 SizedBox(height: 24.h),
 

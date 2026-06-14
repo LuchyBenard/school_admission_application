@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pinput/pinput.dart';
 import 'package:oktoast/oktoast.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_text_styles.dart';
+import 'package:provider/provider.dart';
+import '../../providers/auth_provider.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
   const OtpVerificationScreen({super.key});
@@ -47,60 +48,37 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
         return;
       }
 
-      setState(() => _isLoading = true);
+      final authProvider = context.read<AuthProvider>();
 
-      try {
-        // Confirm the OTP code and reset password
-        await FirebaseAuth.instance.confirmPasswordReset(
-            code: _otpController.text,
-            newPassword: _newPasswordController.text.trim(),
-        );
+      final success = await authProvider.confirmPasswordReset(
+          otp: _otpController.text.trim(),
+          newPassword: _newPasswordController.text.trim(),
+      );
+
         if (!mounted) return;
-        setState(() => _isLoading = false);
 
-        showToast(
-          'Password reset successful! Please sign in.',
-            backgroundColor: AppColors.success,
-          textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
-        );
-
+        if (success) {
         // Go back to login and clear all screens
         Navigator.pushNamedAndRemoveUntil(
           context,
           '/login',
           (route) => false,
         );
-      } on FirebaseAuthException catch (e) {
-        setState(() => _isLoading = false);
-
-        String message = 'Something went wrong. Please try again.';
-        if (e.code == 'invalid-action-code') {
-          message = 'invalid or expired OTP. Please request a new one,';
-        } else if (e.code == 'expired-action-code') {
-          message = 'OTP has expired. Please request a new one.';
-        } else if (e.code == 'weak password') {
-          message = 'Password is too weak. Use at least 6 characters.';
-        }
-        showToast(
-          message,
-          backgroundColor: AppColors.error,
-          textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
-        );
       }
+        // if it fails, AuthProvider already showsthe error toast
   }
   }
   void _resendOTP() async {
-    try {
-      await FirebaseAuth.instance.sendPasswordResetEmail(email: _email);
+    final authProvider = context.read<AuthProvider>();
+
+    final success = await authProvider.sendPasswordResetEmail(email: _email);
+
+    if (!mounted) return;
+
+    if (success) {
       showToast(
         'A new OTP has been sent to $_email',
         backgroundColor: AppColors.success,
-        textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
-      );
-    } catch (e) {
-      showToast(
-        'Failed to resend OTP. Please try again,',
-        backgroundColor: AppColors.error,
         textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
       );
     }
@@ -167,7 +145,166 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                     size: 32.w,
                   ),
                 ),
+                SizedBox(height: 24.h),
 
+                // Title
+                Text(
+                  'Check your Email',
+                  style: AppTextStyles.displayMedium,
+                ),
+
+                SizedBox(height: 8.h),
+
+                // Subtitle with email
+                RichText(
+                  text: TextSpan(
+                    style: AppTextStyles.bodyMedium,
+                    children: [
+                      TextSpan(text: 'We sent a 6-digit OTP to '),
+                      TextSpan(
+                        text: _email,
+                        style: AppTextStyles.bodyMedium.copyWith(
+                          color: AppColors.primary,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      TextSpan(
+                          text: '. Enter it below along with your new password.'),
+                    ],
+                  ),
+                ),
+
+                SizedBox(height: 40.h),
+
+                // OTP input
+                Text('Enter OTP', style: AppTextStyles.label),
+                SizedBox(height: 12.h),
+                Center(
+                  child: Pinput(
+                    controller: _otpController,
+                    length: 6,
+                    defaultTheme: defaultPinTheme,
+                    focusedPinTheme: focusedPinTheme,
+                    submittedPinTheme: submittedPinTheme,
+                    keyboardType: TextInputType.number,
+                  ),
+                ),
+
+                SizedBox(height: 8.h),
+
+                // Resend OTP
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: GestureDetector(
+                    onTap: _resendOTP,
+                    child: Text(
+                      'Resend OTP',
+                      style: AppTextStyles.bodyMedium.copyWith(
+                        color: AppColors.primary,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ),
+
+                SizedBox(height: 28.h),
+
+                // New password
+                Text('New Password', style: AppTextStyles.label),
+                SizedBox(height: 8.h),
+                TextFormField(
+                  controller: _newPasswordController,
+                  obscureText: _obscurePassword,
+                  textInputAction: TextInputAction.next,
+                  style: AppTextStyles.bodyLarge,
+                  decoration: InputDecoration(
+                    hintText: 'Enter new password',
+                    prefixIcon: Icon(
+                      Icons.lock_outline,
+                      color: AppColors.textHint,
+                    ),
+                    suffixIcon: GestureDetector(
+                      onTap: () => setState(
+                              () => _obscurePassword = !_obscurePassword),
+                      child: Icon(
+                        _obscurePassword
+                            ? Icons.visibility_outlined
+                            : Icons.visibility_off_outlined,
+                        color: AppColors.textHint,
+                      ),
+                    ),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a new password';
+                    }
+                    if (value.length < 6) {
+                      return 'Password must be at least 6 characters';
+                    }
+                    return null;
+                  },
+                ),
+
+                SizedBox(height: 20.h),
+
+                // Confirm password
+                Text('Confirm Password', style: AppTextStyles.label),
+                SizedBox(height: 8.h),
+                TextFormField(
+                  controller: _confirmPasswordController,
+                  obscureText: _obscureConfirm,
+                  textInputAction: TextInputAction.done,
+                  style: AppTextStyles.bodyLarge,
+                  decoration: InputDecoration(
+                    hintText: 'Confirm new password',
+                    prefixIcon: const Icon(
+                      Icons.lock_outline,
+                      color: AppColors.textHint,
+                    ),
+                    suffixIcon: GestureDetector(
+                      onTap: () =>
+                          setState(() => _obscureConfirm = !_obscureConfirm),
+                      child: Icon(
+                        _obscureConfirm
+                            ? Icons.visibility_outlined
+                            : Icons.visibility_off_outlined,
+                        color: AppColors.textHint,
+                      ),
+                    ),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please confirm your password';
+                    }
+                    if (value != _newPasswordController.text) {
+                      return 'Passwords do not match';
+                    }
+                    return null;
+                  },
+                ),
+
+                SizedBox(height: 32.h),
+
+                // Reset button
+                Consumer(
+                  builder: (context, authProvider, child){
+                    return ElevatedButton(
+                      onPressed: authProvider.isLoading ? null : _resetPassword,
+                      child: authProvider.isLoading
+                          ? SizedBox(
+                        width: 20.w,
+                        height: 20.w,
+                        child: CircularProgressIndicator(
+                          color: AppColors.background,
+                          strokeWidth: 2,
+                        ),
+                      )
+                          : const Text('Reset Password'),
+                    );
+                  }
+                ),
+
+                SizedBox(height: 40.h),
               ],
             ),
           ),
