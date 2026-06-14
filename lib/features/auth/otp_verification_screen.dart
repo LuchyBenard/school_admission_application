@@ -17,9 +17,8 @@ class OtpVerificationScreen extends StatefulWidget {
 class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   final _otpController = TextEditingController();
   final _newPasswordController = TextEditingController();
-  final _confirmPasswordConfirm = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  bool _isLoading = false;
   bool _obscurePassword = true;
   bool _obscureConfirm = true;
   String _email = '';
@@ -34,7 +33,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   void dispose() {
     _otpController.dispose();
     _newPasswordController.dispose();
-    _confirmPasswordConfirm.dispose();
+    _confirmPasswordController.dispose();
     super.dispose();
   }
   void _resetPassword() async {
@@ -65,7 +64,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
           (route) => false,
         );
       }
-        // if it fails, AuthProvider already showsthe error toast
+        // if it fails, AuthProvider already shows the error toast
   }
   }
   void _resendOTP() async {
@@ -85,7 +84,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   }
   @override
   Widget build(BuildContext context) {
-    //Pinput theme
+    //Pinput theme setup
     final defaultPinTheme = PinTheme(
       width: 52.w,
       height: 56.h,
@@ -183,7 +182,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                   child: Pinput(
                     controller: _otpController,
                     length: 6,
-                    defaultTheme: defaultPinTheme,
+                    defaultPinTheme: defaultPinTheme,
                     focusedPinTheme: focusedPinTheme,
                     submittedPinTheme: submittedPinTheme,
                     keyboardType: TextInputType.number,
@@ -286,7 +285,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                 SizedBox(height: 32.h),
 
                 // Reset button
-                Consumer(
+                Consumer<AuthProvider>(
                   builder: (context, authProvider, child){
                     return ElevatedButton(
                       onPressed: authProvider.isLoading ? null : _resetPassword,

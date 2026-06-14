@@ -133,7 +133,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 SizedBox(height: 32.h),
 
                 // Send Button
-                Consumer(
+                Consumer<AuthProvider>(
                   builder: (context, authProvider, child){
                     return SizedBox(
                       width: double.infinity,
