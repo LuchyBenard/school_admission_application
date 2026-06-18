@@ -12,6 +12,7 @@ import 'package:get_storage/get_storage.dart';
 import 'features/auth/login_screen.dart';
 import 'features/auth/signup_screen.dart';
 import 'providers/auth_provider.dart';
+import 'features/dashboard/dashboard_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -117,6 +118,7 @@ class MyApp extends StatelessWidget {
                   '/onboarding': (context) => OnboardingScreen(),
                   '/login': (context) => LoginScreen(),
                   '/register': (context) => SignupScreen(),
+                  '/dashboard': (context) => DashboardScreen(),
                 },
             ),
           ),
