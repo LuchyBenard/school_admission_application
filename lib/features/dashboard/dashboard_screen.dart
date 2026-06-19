@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../home/home_screen.dart';
-import '../school/school_list_screen.dart';
+import '../schools/school_list_screen.dart';
 import '../applications/application_form_screen.dart';
 import '../profile/profile_screen.dart';
 import 'widgets/custom_bottom_nav_bar.dart';
@@ -18,7 +18,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   final List<Widget> _screens = [
     HomeScreen(),
     SchoolListScreen(),
-    ApplicationStatusScreen(),
+    ApplicationFormScreen(),
     ProfileScreen(),
   ];
 

@@ -3,15 +3,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_text_styles.dart';
 
-class CustomBottomNavBar extends StatelessWidget{
+class CustomBottomNavBar extends StatelessWidget {
   final int currentIndex;
   final Function(int) onTap;
 
-  CustomBottomNavBar({
+  const CustomBottomNavBar({
     super.key,
     required this.currentIndex,
     required this.onTap,
-});
+  });
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,26 +33,26 @@ class CustomBottomNavBar extends StatelessWidget{
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               _buildNavItem(
-                index = 0,
+                index: 0,
                 outlineIcon: Icons.home_outlined,
                 filledIcon: Icons.home,
                 label: 'Home',
               ),
               _buildNavItem(
-                index = 1,
+                index: 1,
                 outlineIcon: Icons.school_outlined,
                 filledIcon: Icons.school,
                 label: 'Schools',
               ),
               _buildNavItem(
-                index = 2,
+                index: 2,
                 outlineIcon: Icons.assignment_outlined,
                 filledIcon: Icons.assignment,
                 label: 'Applications',
               ),
               _buildNavItem(
-                index = 3,
-                outlineIcon: Icons.person_outlined,
+                index: 3,
+                outlineIcon: Icons.person_outline,
                 filledIcon: Icons.person,
                 label: 'Profile',
               ),
@@ -61,38 +62,37 @@ class CustomBottomNavBar extends StatelessWidget{
       ),
     );
   }
-}
 
-Widget _buildNavItem({
-  required int index,
-required IconData outlineIcon,
-required IconData filledIcon,
- required String label,
-}) {
-  final bool isActive = currentIndex == index;
+  Widget _buildNavItem({
+    required int index,
+    required IconData outlineIcon,
+    required IconData filledIcon,
+    required String label,
+  }) {
+    final bool isActive = currentIndex == index;
 
-  return GestureDetector(
-    onTap: () => onTap(index),
-    behavior: HitTestBehavior.opaque,
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(
-          isActive ? filledIcon : outlineIcon,
-          color: isActive ? AppColors.primary : AppColors.textHint,
-          size: 24.w,
-        ),
-        SizedBox(height: 4.h),
-
-        Text(
-          label,
-          style: AppTextStyles.caption.copyWith(
+    return GestureDetector(
+      onTap: () => onTap(index),
+      behavior: HitTestBehavior.opaque,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            isActive ? filledIcon : outlineIcon,
             color: isActive ? AppColors.primary : AppColors.textHint,
-            fontWeight: isActive ? FontWeight.w600 : FontWeight.w400,
+            size: 24.w,
           ),
-        ),
-      ],
-    ),
-  );
-}
+          SizedBox(height: 4.h),
+
+          Text(
+            label,
+            style: AppTextStyles.caption.copyWith(
+              color: isActive ? AppColors.primary : AppColors.textHint,
+              fontWeight: isActive ? FontWeight.w600 : FontWeight.w400,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }

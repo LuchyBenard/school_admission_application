@@ -10,15 +10,12 @@ class ApplicationFormScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: Text(
-          'Applications',
-          style: AppTextStyles.h2,
-        ),
-        body: Center(
-          child: Text(
-            'Applications - coming soon',
-            style: AppTextStyles.bodyMedium,
-          ),
+        title: Text('Applications', style: AppTextStyles.h2),
+      ),
+      body: Center(
+        child: Text(
+          'Applications - coming soon',
+          style: AppTextStyles.bodyMedium,
         ),
       ),
     );
