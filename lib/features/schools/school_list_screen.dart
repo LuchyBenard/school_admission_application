@@ -14,13 +14,13 @@ class SchoolListScreen extends StatelessWidget {
           'Schools',
           style: AppTextStyles.h2,
         ),
+      ),
         body: Center(
           child: Text(
             'School Listing - coming soon',
             style: AppTextStyles.bodyMedium,
           ),
         ),
-      ),
     );
   }
 }

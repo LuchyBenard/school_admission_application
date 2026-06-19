@@ -15,13 +15,13 @@ class HomeScreen extends StatelessWidget {
           'Home',
           style: AppTextStyles.h2,
         ),
+      ),
         body: Center(
           child: Text(
-            'Home screen coing soon...',
+            'Home screen coming soon...',
             style: AppTextStyles.bodyMedium,
           ),
         ),
-      ),
     );
   }
 }

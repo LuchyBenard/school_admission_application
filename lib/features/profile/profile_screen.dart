@@ -14,13 +14,13 @@ class ProfileScreen extends StatelessWidget {
           'Profile',
           style: AppTextStyles.h2,
         ),
+        ),
         body: Center(
           child: Text(
             'User Profile coming soon',
             style: AppTextStyles.bodyMedium,
           ),
         ),
-      ),
     );
   }
 }
