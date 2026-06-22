@@ -63,6 +63,7 @@ class HomeScreen extends StatelessWidget {
                        border: Border.all(
                          color: AppColors.border,
                        ),
+                     ),
                        child: Icon(
                          Icons.notifications_outlined,
                          color: AppColors.textPrimary,
@@ -70,7 +71,6 @@ class HomeScreen extends StatelessWidget {
                        ),
                      ),
                    ),
-                 ),
                ],
              ),
              SizedBox(height: 28.h),
@@ -95,7 +95,7 @@ class HomeScreen extends StatelessWidget {
              GridView.count(
                 crossAxisCount: 2,
                shrinkWrap: true,
-               physics: const NeverScrollableScrollPhysice(),
+               physics: const NeverScrollableScrollPhysics(),
                crossAxisSpacing: 12.w,
                mainAxisSpacing: 12.h,
                childAspectRatio: 1.1,
@@ -186,6 +186,7 @@ class HomeScreen extends StatelessWidget {
           border: Border.all(
             color: AppColors.border,
           ),
+        ),
           child: Row(
             children: [
               Icon(
@@ -204,7 +205,6 @@ class HomeScreen extends StatelessWidget {
             ],
           ),
         ),
-      ),
     );
   }
 }
