@@ -47,11 +47,22 @@ class _FeaturedSchoolsBannerState extends State<FeaturedSchoolsBanner> {
             itemCount: _featuredSchools.length,
             itemBuilder: (context, index, realIndex){
               final school = _featuredSchools[index];
-              return _buildBannerCard(school);
+              // return _buildBannerCard(school);
+              return Container(
+                width: double.infinity,
+                height: 100.h,
+                decoration: BoxDecoration(
+                  color: AppColors.surface,
+                  borderRadius: BorderRadius.circular(12.r),
+                  border: Border.all(
+                    color: AppColors.border,
+                  ),
+                ),
+              );
             },
           options: CarouselOptions(
             height: 160.h,
-            viewportFraction: 0.92
+            viewportFraction: 0.92,
               enlargeCenterPage: true,
             autoPlay: true,
             autoPlayInterval: Duration(seconds: 4),
