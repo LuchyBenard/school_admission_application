@@ -1,19 +1,3 @@
-buildscript {
-    repositories {
-        google() // Should be first
-        mavenCentral()
-    }
-    dependencies {
-        classpath("com.android.tools.build:gradle:8.5.1")
-    }
-}
-
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
 
 val newBuildDir: Directory =
     rootProject.layout.buildDirectory
