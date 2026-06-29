@@ -86,7 +86,7 @@ class _SplashScreenState extends State<SplashScreen>
                     borderRadius: BorderRadius.circular(28.r),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.15),
+                        color: Colors.black.withValues(alpha: 0.15),
                         blurRadius: 30,
                         offset: Offset(0, 10),
                       ),
@@ -119,7 +119,7 @@ class _SplashScreenState extends State<SplashScreen>
                 Text(
                   'Your Admission, Simplified',
                   style: AppTextStyles.bodyMedium.copyWith(
-                    color: AppColors.background.withOpacity(0.75),
+                    color: AppColors.background.withValues(alpha: 0.75),
                   ),
                 ),
 
@@ -131,7 +131,7 @@ class _SplashScreenState extends State<SplashScreen>
                   width: 24.w,
                   height: 24.w,
                   child: CircularProgressIndicator(
-                    color: AppColors.background.withOpacity(0.6),
+                    color: AppColors.background.withValues(alpha: 0.6),
                     strokeWidth: 2.5,
                   ),
                 ),

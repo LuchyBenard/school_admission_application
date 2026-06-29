@@ -68,24 +68,24 @@ flutter:
     
    - family: Inter
      fonts:
-      - asset: assets/fonts/Inter/Inter-Regular.ttf
+      - asset: assets/fonts/Inter/Inter_18pt-Regular.ttf
         weight: 400
-      - asset: assets/fonts/Inter/Inter-Medium.ttf
+      - asset: assets/fonts/Inter/Inter_18pt-Medium.ttf
         weight: 500
-      - asset: assets/fonts/Inter/Inter-SemiBold.ttf
+      - asset: assets/fonts/Inter/Inter_18pt-SemiBold.ttf
         weight: 600
-      - asset: assets/fonts/Inter/Inter-Bold.ttf
+      - asset: assets/fonts/Inter/Inter_18pt-Bold.ttf
         weight: 700
 
    - family: DMSans
      fonts:
-      - asset: assets/fonts/DMSans/DMSans-Regular.ttf
+      - asset: assets/fonts/DMSans/DMSans_18pt-Regular.ttf
         weight: 400
-      - asset: assets/fonts/DMSans/DMSans-Medium.ttf
+      - asset: assets/fonts/DMSans/DMSans_18pt-Medium.ttf
         weight: 500
-      - asset: assets/fonts/DMSans/DMSans-SemiBold.ttf
+      - asset: assets/fonts/DMSans/DMSans_18pt-SemiBold.ttf
         weight: 600
-      - asset: assets/fonts/DMSans/DMSans-Bold.ttf
+      - asset: assets/fonts/DMSans/DMSans_18pt-Bold.ttf
         weight: 700
 
 

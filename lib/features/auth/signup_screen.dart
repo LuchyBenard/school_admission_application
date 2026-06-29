@@ -23,7 +23,6 @@ class _SignupScreenState extends State<SignupScreen> {
 
   bool _obscurePassword = true;
   bool _obscureConfirm = true;
-  bool _isLoading = false;
   bool _acceptedTerms = false;
 
   @override

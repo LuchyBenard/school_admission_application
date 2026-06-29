@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:oktoast/oktoast.dart';
-import 'package:school_admission_application/core/constants/app_colors.dart';
 import '../services/auth_service.dart';
 
 enum AuthStatus {
@@ -15,7 +13,6 @@ enum AuthStatus {
 
 class AuthProvider extends ChangeNotifier {
   final AuthService _authService = AuthService();
-  final GetStorage _box = GetStorage();
 
   // State Variables
   AuthStatus _status = AuthStatus.initial;

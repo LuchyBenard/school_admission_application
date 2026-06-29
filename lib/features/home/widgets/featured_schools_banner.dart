@@ -103,7 +103,7 @@ class _FeaturedSchoolsBannerState extends State<FeaturedSchoolsBanner> {
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primary.withOpacity(0.3),
+            color: AppColors.primary.withValues(alpha: 0.3),
             blurRadius: 12,
             offset: Offset(0, 4),
           ),
@@ -119,7 +119,7 @@ class _FeaturedSchoolsBannerState extends State<FeaturedSchoolsBanner> {
             Container(
               padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
               decoration: BoxDecoration(
-                color: AppColors.background.withOpacity(0.2),
+                color: AppColors.background.withValues(alpha: 0.2),
                 borderRadius: BorderRadius.circular(20.r),
               ),
               child: Text(
@@ -146,14 +146,14 @@ class _FeaturedSchoolsBannerState extends State<FeaturedSchoolsBanner> {
                   children: [
                     Icon(
                       Icons.location_on_outlined,
-                      color: AppColors.background.withOpacity(0.8),
+                      color: AppColors.background.withValues(alpha: 0.8),
                       size: 14.w,
                     ),
                     SizedBox(width: 4.w),
                     Text(
                       school['location']!,
                           style: AppTextStyles.bodySmall.copyWith(
-                        color: AppColors.background.withOpacity(0.8),
+                        color: AppColors.background.withValues(alpha: 0.8),
                     ),
                     ),
                   ],
