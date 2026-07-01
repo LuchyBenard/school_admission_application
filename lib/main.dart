@@ -13,6 +13,7 @@ import 'features/auth/login_screen.dart';
 import 'features/auth/signup_screen.dart';
 import 'providers/auth_provider.dart';
 import 'features/dashboard/dashboard_screen.dart';
+import 'providers/school_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
           child: MultiProvider(
             providers: [
               ChangeNotifierProvider(create: (_) => AuthProvider()),
+              ChangeNotifierProvider(create: (_) => SchoolProvider()),
             ],
             child: MaterialApp(
                 debugShowCheckedModeBanner: false,
