@@ -9,7 +9,7 @@ final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 // Base URL for Hipolabs API
 static const String _baseURL = 'http://Universities.hipolabs.com/search';
 
-// Ftech from Hipolabs API
+// Fetch from Hipolabs API
 Future<List<SchoolModel>> fetchSchoolsFromApi({
 String country = 'Nigeria',
 }) async {
@@ -19,7 +19,7 @@ _baseURL,
 queryParameters: {'country': country},
 options: Options(
 receiveTimeout: Duration(seconds: 10),
-sendtimeout: Duration(seconds: 10),
+sendTimeout: Duration(seconds: 10),
 ),
 );
 
