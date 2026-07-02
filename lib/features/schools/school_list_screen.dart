@@ -6,9 +6,14 @@ import 'package:provider/provider.dart';
 import '../../providers/school_provider.dart';
 import 'widgets/school_card.dart';
 
-class SchoolListScreen extends StatelessWidget {
+class SchoolListScreen extends StatefulWidget {
   const SchoolListScreen({super.key});
 
+  @override
+  State<SchoolListScreen> createState() => _SchoolListScreenState();
+}
+
+class _SchoolListScreenState extends State<SchoolListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
