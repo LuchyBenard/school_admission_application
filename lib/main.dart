@@ -121,8 +121,7 @@ class MyApp extends StatelessWidget {
                   '/login': (context) => LoginScreen(),
                   '/register': (context) => SignupScreen(),
                   '/dashboard': (context) => DashboardScreen(),
-                  // coming after we build school detail
-                  // '/school-detail': (context) => const SchoolDetailScreen(),
+                   '/school-detail': (context) => const SchoolDetailScreen(),
                 },
             ),
           ),

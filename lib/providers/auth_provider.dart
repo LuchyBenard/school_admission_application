@@ -70,13 +70,13 @@ class AuthProvider extends ChangeNotifier {
         backgroundColor: const Color(0xFF10B981),
       );
       return true;
-    } on FirebaseAuthException catch (e) {
-      _errorMessage = _handleFirebaseError(e.code);
+    } catch (e) {
+      _errorMessage = e.toString();
       _status = AuthStatus.error;
       notifyListeners();
 
       showToast(
-        _errorMessage!,
+        e.toString(),
         backgroundColor: const Color(0xFFEF4444),
       );
       return false;
