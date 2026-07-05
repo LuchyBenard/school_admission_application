@@ -3,7 +3,7 @@ class SchoolModel {
   final String country;
   final String state;
   final String website;
-  final String? imageURL;
+  final String? imageUrl;
   final String? description;
   final String? applicationFee;
   final String? deadline;
@@ -15,7 +15,7 @@ class SchoolModel {
     required this.country,
     required this.state,
     required this.website,
-    this.imageURL,
+    this.imageUrl,
     this.description,
     this.applicationFee,
     this.deadline,
@@ -41,7 +41,7 @@ class SchoolModel {
       country: json['country'] ?? '',
       state: json['state'] ?? '',
       website: json['website'] ?? '',
-      imageURL: json['imageURL'],
+      imageUrl: json['imageUrl'],
       description: json['description'],
       applicationFee: json['applicationFee'],
       deadline: json['deadline'],
@@ -57,7 +57,7 @@ class SchoolModel {
       'country': country,
       'state': state,
       'website': website,
-      'imageURL': imageURL,
+      'imageURL': imageUrl,
       'description': description,
       'applicationFee': applicationFee,
       'deadline': deadline,

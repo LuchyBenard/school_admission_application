@@ -10,7 +10,7 @@ final SchoolApiService _schoolApiService = SchoolApiService();
 // State
 SchoolStatus _status = SchoolStatus.initial;
 List<SchoolModel> _schools = [];
-List<SchoolModel> _filteredSchools[];
+List<SchoolModel> _filteredSchools = [];
 List<String> _availableCountries = [];
 String _selectedCountry = 'Nigeria';
 String _searchQuery = '';
@@ -18,7 +18,7 @@ String? _errorMessage;
 
 // Getters
 SchoolStatus get status => _status;
-List<SchoolModel> get schools => _availableCountries;
+List<SchoolModel> get schools => _filteredSchools;
 List<String> get availableCountries => _availableCountries;
 String get selectedCountry => _selectedCountry;
 String get searchQuery => _searchQuery;
@@ -58,7 +58,7 @@ _availableCountries = [
 ];
 
 _applyFilters();
-_status = Schoolstatus.loaded;
+_status = SchoolStatus.loaded;
 
 } catch (e) {
 _errorMessage = 'Failed to load schools. Please try again.';
@@ -76,7 +76,7 @@ notifyListeners();
 }
 
 // Filter by country
-void filterByCountry(string country) {
+void filterByCountry(String country) {
 _selectedCountry = country;
 loadSchools(country: country);
 }
@@ -84,7 +84,8 @@ loadSchools(country: country);
 void _applyFilters() {
 _filteredSchools = _schools.where((school) {
 final matchesSearch = _searchQuery.isEmpty ||
-school.name.toLowerCase(),
+school.name.toLowerCase().contains(
+_searchQuery.toLowerCase(),
 );
 return matchesSearch;
 }).toList();

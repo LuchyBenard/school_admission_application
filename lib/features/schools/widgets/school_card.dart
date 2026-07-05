@@ -7,7 +7,7 @@ import '../../../models/school_model.dart';
 
 class SchoolCard extends StatelessWidget {
   final SchoolModel school;
-  final VoidCallback;
+  final VoidCallback onTap;
 
   const SchoolCard({
     super.key,
@@ -31,7 +31,15 @@ class SchoolCard extends StatelessWidget {
     };
     return countryCodes[country] ?? 'NG';
   }
-
+  Widget _buildFlag() {
+    return Padding (
+      padding: EdgeInsets.all(8.w),
+      child: CountryFlag.fromCountryCode(
+        _getCountryCode(school.country),
+        shape: const RoundedRectangle(8),
+      ),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -45,9 +53,9 @@ class SchoolCard extends StatelessWidget {
           border: Border.all(color: AppColors.border),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.04),
+              color: Colors.black.withValues(alpha: 0.04),
               blurRadius: 8,
-              offset: Offset(0, 2),
+              offset: const Offset(0, 2),
             ),
           ],
         ),
@@ -63,9 +71,9 @@ class SchoolCard extends StatelessWidget {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12.r),
-                child: school.imageURL != null
+                child: school.imageUrl != null
                     ? Image.network(
-                  school.imageURL!,
+                  school.imageUrl!,
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) =>
                       _buildFlag(),
@@ -148,7 +156,7 @@ class SchoolCard extends StatelessWidget {
                             vertical: 3.h,
                           ),
                           decoration: BoxDecoration(
-                            color: AppColors.primary.withOpacity(0.1),
+                            color: AppColors.primary.withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(6.r),
                           ),
                           child: Text(

@@ -99,7 +99,7 @@ class _SchoolListScreenState extends State<SchoolListScreen> {
                       scrollDirection: Axis.horizontal,
                       padding: EdgeInsets.symmetric(horizontal: 24.w),
                       itemCount: schoolProvider.availableCountries.length,
-                      separatorBuilder: (_, __) => SizedBox(width: 8.w),
+                      separatorBuilder: (_, _) => SizedBox(width: 8.w),
                       itemBuilder: (context, index) {
                         final country =
                             schoolProvider.availableCountries[index];

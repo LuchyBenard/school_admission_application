@@ -134,6 +134,7 @@ class AuthProvider extends ChangeNotifier {
     _setLoading();
     try {
       await _authService.logout();
+      if (!context.mounted) return;
       _user = null;
       _userProfile = null;
       _status = AuthStatus.unauthenticated;
