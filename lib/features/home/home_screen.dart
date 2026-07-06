@@ -1,18 +1,63 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:school_admission_application/providers/application_provider.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_text_styles.dart';
 import '../../providers/auth_provider.dart';
 import 'widgets/featured_schools_banner.dart';
 import 'widgets/application_summary_card.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class HomeScreen extends StatefulWidget {
+  final VoidCallback? onFindSchoolsTapped;
 
+  const HomeScreen({
+    super.key,
+  this.onFindSchoolsTapped,
+  });
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<ApplicationProvider>().loadApplicationStats();
+    });
+  }
+
+  // Update cards to use real counts:
+  ApplicationSummaryCard(
+      count: appProvider.totalApplied.toString(),
+  label: 'Total Applied',
+  color: AppColors.primary,
+  icon: Icons.assignment_outlined,
+      ),
+  ApplicationSummaryCard(
+  count: appProvider.underReview.toString(),
+  label: 'Under Review',
+  color: AppColors.warning,
+  icon: Icons.hourglass_empty_outlined,
+  ),
+  ApplicationSummaryCard(
+  count: appProvider.accepted.toString(),
+  label: 'Accepted',
+  color: AppColors.success,
+  icon: Icons.check_circle_outlined,
+  ),
+  ApplicationSummaryCard(
+  count: appProvider.rejected.toString(),
+  label: 'Rejected',
+  color: AppColors.error,
+  icon: Icons.cancel_outlined,
+  ),
   @override
   Widget build(BuildContext context) {
     final authProvider = context.watch<AuthProvider>();
+    final appProvider = context.watch<ApplicationProvider>();
     final String firstName = authProvider.userProfile?['fullName']
     ?.toString()
     .split(' ')
@@ -52,7 +97,7 @@ class HomeScreen extends StatelessWidget {
                  // Notification bell
                  GestureDetector(
                    onTap: () {
-                     // Navigate to notifications later
+                     Navigator.pushNamed(context, '/notifications');
                    },
                    child: Container(
                      width: 44.w,
@@ -144,7 +189,7 @@ class HomeScreen extends StatelessWidget {
                      icon: Icons.search,
                      label: 'Find Schools',
                      onTap: () {
-                       // Switch to school tabs
+                       widget.onFindSchoolsTapped?.call();
                      },
                    ),
                  ),

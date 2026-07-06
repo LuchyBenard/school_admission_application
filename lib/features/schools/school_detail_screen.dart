@@ -9,6 +9,53 @@ class SchoolDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    final school = ModalRoute.of(context)!.settings.arguments as SchoolModel;
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      appBar: AppBar(
+        title: Text(school.name, style: AppTextStyles.h2),
+        leading: GestureDetector(
+          onTap: () => Navigator.pop(context),
+          child: Icon(
+            Icons.arrow_back_ios,
+            color: AppColors.primary,
+          ),
+        ),
+      ),
+      body: Padding(
+          padding: EdgeInsets.all(24.w),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+                'Country',
+              style: AppTextStyles.label,
+            ),
+            SizedBox(height: 4.h),
+            Text(school.country, style: AppTextStyles.bodyLarge),
+            SizedBox(height: 16.h),
+            Text('Location', style: AppTextStyles.label),
+            SizedBox(height: 4.h),
+            Text(
+              school.state.isNotEmpty
+                  ? '${school.state}, ${school.country}'
+                  : school.country,
+              style: AppTextStyles.bodyLarge,
+            ),
+            SizedBox(height: 16.h),
+            Text(school.website, style: AppTextStyles.bodyMedium.copyWith(
+              color: AppColors.primary,
+            )),
+            SizedBox(height: 32.h),
+            ElevatedButton(
+                onPressed: () {
+                  // Apply button - coming soon
+                },
+              child: Text('Apply Now'),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

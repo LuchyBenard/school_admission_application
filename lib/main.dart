@@ -14,6 +14,7 @@ import 'features/auth/signup_screen.dart';
 import 'providers/auth_provider.dart';
 import 'features/dashboard/dashboard_screen.dart';
 import 'providers/school_provider.dart';
+import 'providers/application_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
             providers: [
               ChangeNotifierProvider(create: (_) => AuthProvider()),
               ChangeNotifierProvider(create: (_) => SchoolProvider()),
+              ChangeNotifierProvider(create: (_) => ApplicationProvider()),
             ],
             child: MaterialApp(
                 debugShowCheckedModeBanner: false,
@@ -121,7 +123,11 @@ class MyApp extends StatelessWidget {
                   '/login': (context) => LoginScreen(),
                   '/register': (context) => SignupScreen(),
                   '/dashboard': (context) => DashboardScreen(),
-                   '/school-detail': (context) => const SchoolDetailScreen(),
+                  '/school-detail': (context) => const SchoolDetailScreen(),
+                  '/notifications': (context) => Scaffold(
+                    appBar: AppBar(title: Text('Notificatios')),
+                    body: Center(child: Text('Notifications coming soon')),
+                  ),
                 },
             ),
           ),
