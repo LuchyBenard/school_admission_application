@@ -15,15 +15,16 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   int _currentIndex = 0;
 
-  final List<Widget> _getScreens = [
+  // ✅ Method not field
+  List<Widget> _getScreens() => [
     HomeScreen(
       onFindSchoolsTapped: () {
-        setState(() => _currentIndex = 1); // Switch to school tabs
+        setState(() => _currentIndex = 1);
       },
     ),
-    SchoolListScreen(),
-    ApplicationFormScreen(),
-    ProfileScreen(),
+    const SchoolListScreen(),
+    const ApplicationFormScreen(),
+    const ProfileScreen(),
   ];
 
   void _onTabTapped(int index) {
@@ -31,15 +32,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
       _currentIndex = index;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: IndexedStack(
         index: _currentIndex,
-        children: _getScreens,
+        children: _getScreens(), // ✅ calling with ()
       ),
       bottomNavigationBar: CustomBottomNavBar(
-        currentIndex:  _currentIndex,
+        currentIndex: _currentIndex,
         onTap: _onTabTapped,
       ),
     );
