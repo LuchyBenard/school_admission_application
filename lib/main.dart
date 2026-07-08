@@ -15,6 +15,7 @@ import 'providers/auth_provider.dart';
 import 'features/dashboard/dashboard_screen.dart';
 import 'providers/school_provider.dart';
 import 'providers/application_provider.dart';
+import 'features/schools/school_detail_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

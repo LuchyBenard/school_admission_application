@@ -11,6 +11,11 @@ class ApplicationProvider extends ChangeNotifier{
   int _accepted = 0;
   int _rejected = 0;
 
+  int get totalApplied => _totalApplied;
+  int get underReview => _underReview;
+  int get accepted => _accepted;
+  int get rejected => _rejected;
+
   Future<void> loadApplicationStats() async {
     final uid = _auth.currentUser?.uid;
     if (uid == null) return;
