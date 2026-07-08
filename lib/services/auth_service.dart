@@ -87,4 +87,15 @@ Future<Map<String, dynamic>?> getUserProfile(String uid) async {
       .doc(uid).get();
   return doc.exists ? doc.data() : null;
 }
+
+// UPDATE USER PROFILE
+Future<void> updateUserProfile({
+  required String uid,
+  required Map<String, dynamic> data,
+}) async {
+  await _firestore
+      .collection('users')
+      .doc(uid)
+      .update(data);
+  }
 }

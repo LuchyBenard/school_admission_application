@@ -208,6 +208,56 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
+  // UPDATE PROFILE
+  Future<bool> updateProfile({
+    required String fullName,
+    required String phone,
+    required String dateOfBirth,
+    required String stateOfOrigin,
+  }) async {
+    if (_user == null) return false;
+    _setLoading();
+    try {
+      final uid = _user!.uid;
+
+      await _authService.updateUserProfile(
+        uid: uid,
+        data: {
+          'fullName': fullName,
+          'phone': phone,
+          'dateOfBirth': dateOfBirth,
+          'stateOfOrigin': stateOfOrigin,
+        },
+      );
+
+      // Update local profile
+      _userProfile = {
+        ..._userProfile ?? {},
+        'fullName': fullName,
+        'phone': phone,
+        'dateOfBirth': dateOfBirth,
+        'stateOfOrigin': stateOfOrigin,
+      };
+      _status = AuthStatus.authenticated;
+      notifyListeners();
+
+      showToast(
+        'Profile updated successfully',
+        backgroundColor: const Color(0xFF10B981),
+      );
+      return true;
+    } catch (e) {
+      _errorMessage = 'Failed to update profile. Please try again.';
+      _status = AuthStatus.error;
+      notifyListeners();
+      showToast(
+        _errorMessage!,
+        backgroundColor: const Color(0xFFEF4444),
+      );
+      return false;
+    }
+  }
+
   // Helpers
   void _setLoading() {
     _status = AuthStatus.loading;
