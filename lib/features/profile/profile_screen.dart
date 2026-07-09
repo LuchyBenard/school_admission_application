@@ -72,22 +72,106 @@ class _ProfileScreenState extends State<ProfileScreen> {
       }
     }
   }
-  // continue from future void <selectdata>
+ Future<void> _selectDate() async {
+   final DateTime? picked = await showDatePicker(
+       context: context,
+       initialDate: DateTime(2000),
+       firstDate: DateTime(1950),
+       lastDate: DateTime.now(),
+       builder: (context, child) {
+         return Theme(
+           date: Theme.of(context).copyWith(
+             colorScheme: ColorScheme.light(
+               primary: AppColors.primary,
+               onPrimary: AppColors.backgroud,
+               surface: AppColors.backgroud,
+             ),
+           ),
+           child: child!,
+         );
+       }
+   );
+
+   if (picked != null) {
+     setState(() {
+       _dobController.text = '${picked.day}/${picked.month}/${picked.year}';
+     });
+   }
+ }
   @override
   Widget build(BuildContext context) {
+    final authProvider = context.watch<AuthProvider>();
+    final profile = authProvider.userProfile;
+    final String fullName = profile?['fullName'] ?? 'Student';
+    final String email = profile?['email'] ??
+    authProvider.user?.email??'';
+    final String initials = fullName.isNotEmpty
+    ? fullName.trim().split(' ').map((e) => e[0].take(2).join()
+    : 'S';
+
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
+        backgroundColor: AppColors.background,
+        elevation: 0,
         title: Text(
           'Profile',
           style: AppTextStyles.h2,
         ),
-        ),
-        body: Center(
-          child: Text(
-            'User Profile coming soon',
-            style: AppTextStyles.bodyMedium,
+        actions: GestureDetector(
+          onTap: _toggleEdit,
+          child: Padding(
+              padding: EdgeInsets.only(right: 24.w),
+            child: Text(
+              _isEditing ? 'Cancel' : 'Edit',
+              style: AppTextStyles.bodyMedium.copyWith(
+                color: AppColors.primary,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ),
+        ),
+        ],
+        ),
+        body: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(horizontal: 24.w),
+          child: Form (
+            key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 24.h),
+
+              // Avatar
+              Center(
+                child: Colunm(
+                  children:[
+                    Container(
+                      width: 90.w,
+                      height: 90.w,
+                      decoration: BoxDecoration(
+                          decoration: BoxDecoration(
+                            color: AppColors.primary,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Center(
+                              child: Text(
+                                  initials.toUpperCase(),
+                                  style: AppTextStyles.displayMedium.copyWith(
+                                    color: AppColors.background,
+                                    fontSize: 32,
+                                  ),
+                              ),
+                      ),
+                    ),
+                    SizedBox(height: 12.h),
+                    // CONTINUE FROM TEXT()
+                  ]
+                )
+              )
+            ],
+          )
+
         ),
     );
   }
