@@ -16,6 +16,7 @@ import 'features/dashboard/dashboard_screen.dart';
 import 'providers/school_provider.dart';
 import 'providers/application_provider.dart';
 import 'features/schools/school_detail_screen.dart';
+import 'features/applications/application_form_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -129,6 +130,7 @@ class MyApp extends StatelessWidget {
                     appBar: AppBar(title: Text('Notificatios')),
                     body: Center(child: Text('Notifications coming soon')),
                   ),
+                  '/application-form': (context) => ApplicationFormScreen(),
                 },
             ),
           ),

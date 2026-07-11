@@ -9,6 +9,11 @@ class ApplicationProvider extends ChangeNotifier{
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  ApplicationStatus _status = ApplicationStatus.initial;
+  List<ApplicationModel> _applications = [];
+  String? _errorMessage;
+
+
   // Stats
   int _totalApplied = 0;
   int _underReview = 0;

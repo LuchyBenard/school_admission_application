@@ -22,7 +22,7 @@ final String nationality;
 
   // Status
   final String status;
-  dinal DateTime? createdAt;
+  final DateTime? createdAt;
 
   ApplicationModel({
     this.id,
@@ -79,7 +79,7 @@ factory ApplicationModel.fromFirestore(
       qualification: json ['qualification'] ?? '',
       grade: json ['grade'] ?? '',
       graduationYear: json ['graduationYear'] ?? '',
-      courseOfStudy: json [' courseOfStudy'] ?? '',
+      courseOfStudy: json ['courseOfStudy'] ?? '',
       entryLevel: json ['entryLevel'] ?? '',
       session: json ['session'] ?? '',
     status: json ['status'] ?? 'pending',

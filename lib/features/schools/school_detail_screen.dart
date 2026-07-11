@@ -49,7 +49,11 @@ class SchoolDetailScreen extends StatelessWidget {
             SizedBox(height: 32.h),
             ElevatedButton(
                 onPressed: () {
-                  // Apply button - coming soon
+                  Navigator.pushNamed(
+                    context,
+                    '/application_form',
+                    arguments: school,
+                  );
                 },
               child: Text('Apply Now'),
             ),
