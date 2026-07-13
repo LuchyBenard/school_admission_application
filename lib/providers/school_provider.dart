@@ -55,6 +55,17 @@ _availableCountries = [
 'Ghana',
 'Canada',
 'Australia',
+  'Sweden',
+  'Belgium',
+  'Kenya',
+  'Germany',
+  'France',
+  'Netherlands',
+  'Denmark',
+  'Finland',
+  'Italy',
+  'Spain',
+  'Norway',
 ];
 
 _applyFilters();
