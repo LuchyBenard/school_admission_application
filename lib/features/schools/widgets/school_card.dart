@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:country_flags/country_flags.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_text_styles.dart';
 import '../../../models/school_model.dart';
@@ -128,24 +129,44 @@ class SchoolCard extends StatelessWidget {
                     children: [
                       // Website chip
                       if (school.website.isNotEmpty)
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 8.w,
-                            vertical: 3.h,
-                          ),
-                          decoration: BoxDecoration(
-                            color: AppColors.surfaceAlt,
-                            borderRadius: BorderRadius.circular(6.r),
-                          ),
-                          child: Text(
-                            'Website',
-                            style: AppTextStyles.caption.copyWith(
-                              color: AppColors.primary,
-                              fontWeight: FontWeight.w600,
+                        GestureDetector(
+                          onTap: () async {
+                            final url = Uri.parse(school.website);
+                            if (await canLaunchUrl(url)) {
+                              await launchUrl(
+                                  url,
+                                mode: LaunchMode.externalApplication,
+                              );
+                            }
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 8.w,
+                              vertical: 3.h,
+                            ),
+                            decoration: BoxDecoration(
+                              color: AppColors.surfaceAlt,
+                              borderRadius: BorderRadius.circular(6.r),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  Icons.language_outlined,
+                                  color: AppColors.primary,
+                                ),
+                                SizedBox(width: 4.w),
+                                Text(
+                                  'Website',
+                                  style: AppTextStyles.caption.copyWith(
+                                    color: AppColors.primary,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
-
                       Spacer(),
 
                       // Featured badge
