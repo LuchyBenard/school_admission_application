@@ -14,6 +14,8 @@ final String nationality;
   final String qualification;
   final String grade;
   final String graduationYear;
+  final String jambScore;
+  final String jambYear;
 
   // Programme Details
   final String courseOfStudy;
@@ -36,6 +38,8 @@ final String nationality;
     required this.qualification,
     required this.grade,
     required this.graduationYear,
+    required this.jambScore,
+    required this.jambYear,
     required this.courseOfStudy,
     required this.entryLevel,
     required this.session,
@@ -56,6 +60,8 @@ Map<String, dynamic> toMap() {
     'qualification': qualification,
     'grade': grade,
     'graduationYear': graduationYear,
+    'jambScore': jambScore,
+    'jambYear': jambYear,
     'courseOfStudy': courseOfStudy,
     'entryLevel': entryLevel,
     'session': session,
@@ -79,6 +85,8 @@ factory ApplicationModel.fromFirestore(
       qualification: json ['qualification'] ?? '',
       grade: json ['grade'] ?? '',
       graduationYear: json ['graduationYear'] ?? '',
+      jambScore: json ['jambScore'] ?? '',
+      jambYear: json ['jambYear'] ?? '',
       courseOfStudy: json ['courseOfStudy'] ?? '',
       entryLevel: json ['entryLevel'] ?? '',
       session: json ['session'] ?? '',

@@ -31,6 +31,8 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
   String? _selectedQualification;
   final _gradeController = TextEditingController();
   final _graduationYearController = TextEditingController();
+  final _jambScoreController = TextEditingController();
+  final _jambYearController = TextEditingController();
 
   // Step 3 controllers
   final _courseController = TextEditingController();
@@ -58,6 +60,8 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
     _nationalityController.dispose();
     _gradeController.dispose();
     _graduationYearController.dispose();
+    _jambScoreController.dispose();
+    _jambYearController.dispose();
     _courseController.dispose();
     _sessionController.dispose();
     super.dispose();
@@ -105,6 +109,8 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
       qualification: _selectedQualification ?? '',
       grade: _gradeController.text.trim(),
       graduationYear: _graduationYearController.text.trim(),
+      jambScore: _jambScoreController.text.trim(),
+      jambYear: _jambYearController.text.trim(),
       courseOfStudy: _courseController.text.trim(),
       entryLevel: _selectedEntryLevel ?? '',
       session: _sessionController.text.trim(),
@@ -380,6 +386,8 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
               },
             ),
             SizedBox(height: 16.h),
+
+            // Grade
             Text('Grade', style: AppTextStyles.label),
             SizedBox(height: 8.h),
             TextFormField(
@@ -411,6 +419,57 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                 return null;
               },
             ),
+            SizedBox(height: 16.h),
+
+            // JAMB Score
+            Text('JAMB Score', style: AppTextStyles.label),
+            SizedBox(height: 8.h),
+            TextFormField(
+              controller: _jambScoreController,
+              style: AppTextStyles.bodyLarge,
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(
+                hintText: 'e.g 200',
+                prefixIcon: Icon(Icons.score_outlined, color: AppColors.textHint),
+              ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter your JAMB score';
+                }
+                final score = int.tryParse(value);
+                if (score == null || score < 0 || score > 400) {
+                  return 'Please enter a valid JAMB score (0-400)';
+                }
+                return null;
+              },
+            ),
+            SizedBox(height: 16.h),
+
+            // JAMB Year
+            Text('JAMB Year', style: AppTextStyles.label),
+            SizedBox(height: 8.h),
+            TextFormField(
+              controller: _jambYearController,
+              style: AppTextStyles.bodyLarge,
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(
+                hintText: 'e.g 2023',
+                prefixIcon: Icon(
+                  Icons.calendar_month_outlined,
+                  color: AppColors.textHint,
+                ),
+              ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter your JAMB year';
+                }
+                if (value.length != 4) {
+                  return 'Please enter a valid year';
+                }
+                return null;
+              },
+            ),
+
             SizedBox(height: 40.h),
           ],
         ),
