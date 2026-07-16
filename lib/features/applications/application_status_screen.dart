@@ -15,7 +15,7 @@ class ApplicationStatusScreen extends StatefulWidget {
 
 class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
   String _selectedFilter = 'All';
-  final List<String> _filter = [
+  final List<String> _filters = [
     'All',
     'Pending',
     'Under Review',
@@ -23,7 +23,7 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
     'Rejected',
   ];
 
-  @overridevoid @override
+  @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -33,13 +33,19 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
 
   String _filterToStatus(String filter) {
     switch (filter) {
-      case 'Pending': return 'pending';
-      case 'Under Review': return 'under_review';
-      case 'Accepted': return 'accepted';
-      case 'Rejected': return 'rejected';
-      default: return 'all';
+      case 'Pending':
+        return 'pending';
+      case 'Under Review':
+        return 'under_review';
+      case 'Accepted':
+        return 'accepted';
+      case 'Rejected':
+        return 'rejected';
+      default:
+        return 'all';
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,45 +80,46 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
             SizedBox(
               height: 36.h,
               child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  padding: EdgeInsets.symmetric(horizontal: 24.w),
-                  itemCount: _filters.length,
+                scrollDirection: Axis.horizontal,
+                padding: EdgeInsets.symmetric(horizontal: 24.w),
+                itemCount: _filters.length,
                 separatorBuilder: (_, __) => SizedBox(width: 8.w),
-                  itemBuilder: (context, index) {
-                    final filter = _filter[index];
-                    final isSelected = _selectedFilter == filter;
+                itemBuilder: (context, index) {
+                  final filter = _filters[index];
+                  final isSelected = _selectedFilter == filter;
 
-                    return GestureDetector(
-                      onTap: () {
-                        setState(() => _selectedFilter = filter);
-                      },
-                      child: AnimatedContainer(
-                          duration: Duration(milliseconds: 200),
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 16.w,
-                          vertical: 8.h,
-                        ),
-                        decoration: BoxDecoration(
-                          color: isSelected
-                              ? AppColors.primary
-                          : AppColors.border,
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() => _selectedFilter = filter);
+                    },
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 200),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16.w,
+                        vertical: 8.h,
+                      ),
+                      decoration: BoxDecoration(
+                        color: isSelected ? AppColors.primary : AppColors.surface,
+                        borderRadius: BorderRadius.circular(18.r),
+                        border: Border.all(
+                          color: isSelected ? AppColors.primary : AppColors.border,
                         ),
                       ),
-                      child: Text(
-                        filter,
-                        style: AppTextStyles.label.copyWith(
-                          color: isSelected
-                              ? AppColors.background
-                              : AppColors.textSecondary,
-                          fontWeight: isSelected
-                            ? FontWeight.w600
-                              : FontWeight.w400,
+                      child: Center(
+                        child: Text(
+                          filter,
+                          style: AppTextStyles.label.copyWith(
+                            color: isSelected
+                                ? AppColors.background
+                                : AppColors.textSecondary,
+                            fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
+                          ),
                         ),
                       ),
                     ),
-                    );
-                  }
-                 ),
+                  );
+                },
+              ),
             ),
 
             SizedBox(height: 16.h),
@@ -123,7 +130,7 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
                 builder: (context, appProvider, child) {
                   // Loading state
                   if (appProvider.isLoading) {
-                    return Center(
+                    return const Center(
                       child: CircularProgressIndicator(
                         color: AppColors.primary,
                       ),
@@ -143,15 +150,13 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
                           ),
                           SizedBox(height: 16.h),
                           Text(
-                              'Failed to load applications',
+                            'Failed to load applications',
                             style: AppTextStyles.h3,
                           ),
-
                           SizedBox(height: 8.h),
                           ElevatedButton(
                             onPressed: () {
-                              context.read<ApplicationProvider>()
-                                  .loadApplications();
+                              context.read<ApplicationProvider>().loadApplications();
                             },
                             child: const Text('Try Again'),
                           ),
@@ -162,10 +167,10 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
 
                   // Filter applications
                   final filtered = _selectedFilter == 'All'
-                  ? appProvider.applications
+                      ? appProvider.applications
                       : appProvider.applications
-                  .where((a) => a.status == _filterToStatus(_selectedFilter))
-                  .toList();
+                          .where((a) => a.status == _filterToStatus(_selectedFilter))
+                          .toList();
 
                   // empty State
                   if (filtered.isEmpty) {
@@ -182,21 +187,21 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
                           Text(
                             _selectedFilter == 'All'
                                 ? 'No Applications yet'
-                            : 'No $_selectedFilter applications',
+                                : 'No $_selectedFilter applications',
                             style: AppTextStyles.bodyMedium,
                             textAlign: TextAlign.center,
                           ),
                           if (_selectedFilter == 'All') ...[
                             SizedBox(height: 24.h),
                             ElevatedButton(
-                                onPressed: () {
-                  Navigator.pushNamed(
-                  context, '/school-detail',
-                  );
-                  },
-                                  child: const Text('Browse Schools'),
-
-                                ),
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  '/dashboard', // Or school list
+                                );
+                              },
+                              child: const Text('Browse Schools'),
+                            ),
                           ],
                         ],
                       ),
@@ -210,14 +215,14 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
                     itemBuilder: (context, index) {
                       final application = filtered[index];
                       return ApplicationCard(
-                          application: application,
-                          onTap: () {
-                            Navigator.pushNamed(
-                              context,
-                              '/application-detail',
-                              arguments: application,
-                            );
-                          },
+                        application: application,
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            '/application-detail',
+                            arguments: application,
+                          );
+                        },
                       );
                     },
                   );

@@ -8,28 +8,33 @@ class ApplicationCard extends StatelessWidget {
   final ApplicationModel application;
   final VoidCallback onTap;
 
-
   const ApplicationCard({
     super.key,
-  required this.application,
-  required this.onTap,
+    required this.application,
+    required this.onTap,
   });
 
   Color _getStatusColor(String status) {
     switch (status) {
-      case 'accepted': return 'Accepted';
-      case 'rejected': return 'Rejected';
-      case 'under_review': return 'Under Review';
+      case 'accepted':
+        return AppColors.success;
+      case 'rejected':
+        return AppColors.error;
+      case 'under_review':
+        return AppColors.warning;
       default:
-        return 'Pending';
+        return AppColors.info;
     }
   }
 
-  String _getStatusLabel (String status) {
+  String _getStatusLabel(String status) {
     switch (status) {
-      case 'accepted': return 'Accepted';
-      case 'rejected': return 'Rejected';
-      case 'under_review': return 'Under Review';
+      case 'accepted':
+        return 'Accepted';
+      case 'rejected':
+        return 'Rejected';
+      case 'under_review':
+        return 'Under Review';
       default:
         return 'Pending';
     }
@@ -37,9 +42,12 @@ class ApplicationCard extends StatelessWidget {
 
   IconData _getStatusIcon(String status) {
     switch (status) {
-      case 'accepted': return Icons.check_circle_outline;
-      case 'rejected': return Icons.cancel_outlined;
-      case 'under_review': return Icons.hourglass_empty_outlined;
+      case 'accepted':
+        return Icons.check_circle_outline;
+      case 'rejected':
+        return Icons.cancel_outlined;
+      case 'under_review':
+        return Icons.hourglass_empty_outlined;
       default:
         return Icons.access_time_outlined;
     }
@@ -48,7 +56,7 @@ class ApplicationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final statusColor = _getStatusColor(application.status);
-    final statusLable = _getStatusLabel(application.status);
+    final statusLabel = _getStatusLabel(application.status);
     final statusIconData = _getStatusIcon(application.status);
 
     return GestureDetector(
@@ -57,7 +65,7 @@ class ApplicationCard extends StatelessWidget {
         margin: EdgeInsets.only(bottom: 12.h),
         padding: EdgeInsets.all(16.w),
         decoration: BoxDecoration(
-          color: AppColors.background,
+          color: AppColors.surface,
           borderRadius: BorderRadius.circular(16.r),
           border: Border.all(color: AppColors.border),
           boxShadow: [
@@ -67,7 +75,7 @@ class ApplicationCard extends StatelessWidget {
               offset: const Offset(0, 2),
             ),
           ],
-      ),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -78,44 +86,44 @@ class ApplicationCard extends StatelessWidget {
               children: [
                 // School Name
                 Expanded(
-                    child: Text (
-                      application.schoolName,
-                      style: AppTextStyles.h3,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    ),
+                  child: Text(
+                    application.schoolName,
+                    style: AppTextStyles.h3,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
 
-      SizedBox(width: 8.w),
+                SizedBox(width: 8.w),
 
-      // status badge
-      Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: 10.w,
-          vertical: 4.h,
-        ),
-        decoration: BoxDecoration(
-          color: statusColor.withValues(alpha: 0.1),
-          borderRadius: BorderRadius.circular(20.r),
-      ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              statusIcon,
-              size: 12.w,
-              color: statusColor,
-            ),
-            SizedBox(width: 4.w),
-            Text(
-              statusLabel,
-              style: AppTextStyles.caption.copyWith(
-                color: statusColor,
-                fontWeight: FontWeight.w600,
-              ),
-            )
-          ],
-        ),
+                // status badge
+                Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10.w,
+                    vertical: 4.h,
+                  ),
+                  decoration: BoxDecoration(
+                    color: statusColor.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(20.r),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        statusIconData,
+                        size: 12.w,
+                        color: statusColor,
+                      ),
+                      SizedBox(width: 4.w),
+                      Text(
+                        statusLabel,
+                        style: AppTextStyles.caption.copyWith(
+                          color: statusColor,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -124,14 +132,16 @@ class ApplicationCard extends StatelessWidget {
             Row(
               children: [
                 Icon(
-                  Icons.book_outlined,
+                  Icons.location_on_outlined,
                   size: 14.w,
                   color: AppColors.textHint,
                 ),
                 SizedBox(width: 6.w),
                 Text(
                   application.schoolCountry,
-                  style: AppTextStyles.bodySmall,
+                  style: AppTextStyles.bodySmall.copyWith(
+                    color: AppColors.textSecondary,
+                  ),
                 ),
               ],
             ),
