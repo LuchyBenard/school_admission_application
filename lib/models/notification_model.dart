@@ -5,7 +5,7 @@ class NotificationModel {
   final String message;
   final String type;
   final bool isRead;
-  final dateTime createdAt;
+  final DateTime createdAt;
 
   NotificationModel({
     required this.id,
@@ -18,7 +18,7 @@ class NotificationModel {
   });
 
   factory NotificationModel.fromFireStore(
-  Map<String, dynamic> json, String is) {
+  Map<String, dynamic> json, String id) {
     return NotificationModel(
   id: id,
   userId: json['userId'] ?? '',
@@ -27,7 +27,7 @@ class NotificationModel {
   type: json['type'] ?? '',
   isRead: json['isRead'] ?? false,
   createdAt: json['createdAt'] != null
-  ? Datetime.parse(json['createdAt'])
+  ? DateTime.parse(json['createdAt'])
   : DateTime.now(),
   );
   }
@@ -43,4 +43,3 @@ class NotificationModel {
     };
   }
   }
-}
