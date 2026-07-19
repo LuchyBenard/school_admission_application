@@ -41,7 +41,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
         Navigator.pushNamedAndRemoveUntil(
           context,
           '/admin-dashboard',
-              (route) => false,
+          (route) => false,
         );
       } catch (e) {
         if (!mounted) return;
@@ -54,9 +54,10 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
       if (mounted) setState(() => _isLoading = false);
     }
   }
+
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -72,7 +73,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                 Container(
                   width: 64.w,
                   height: 64.w,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     color: AppColors.primary,
                     borderRadius: BorderRadius.circular(16.r),
                   ),
@@ -97,26 +98,26 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                 Text('Email Address', style: AppTextStyles.label),
                 SizedBox(height: 8.h),
                 TextFormField(
-                    controller: _emailController,
-                    style: AppTextStyles.bodyLarge,
-                    keyboardType: TextInputType.emailAddress,
-                    textInputAction: TextInputAction.next,
-                    decoration: InputDecoration(
-                      hintText: 'Enter admin email',
-                      prefixIcon: Icon(
-                        Icons.email_outlined,
-                        color: AppColors.textHint,
-                      ),
+                  controller: _emailController,
+                  style: AppTextStyles.bodyLarge,
+                  keyboardType: TextInputType.emailAddress,
+                  textInputAction: TextInputAction.next,
+                  decoration: const InputDecoration(
+                    hintText: 'Enter admin email',
+                    prefixIcon: Icon(
+                      Icons.email_outlined,
+                      color: AppColors.textHint,
                     ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your email address';
-                      }
-                      if (!value.contains('@')) {
-                        return 'Please enter a valid email address';
-                      }
-                      return null;
-                    },
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your email address';
+                    }
+                    if (!value.contains('@')) {
+                      return 'Please enter a valid email address';
+                    }
+                    return null;
+                  },
                 ),
 
                 SizedBox(height: 20.h),
@@ -124,80 +125,85 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                 Text(
                   'Password',
                   style: AppTextStyles.label,
+                ),
                 SizedBox(height: 8.h),
-                  TextFormField(
+                TextFormField(
                   controller: _passwordController,
-                  obscureText: _obscurePassword,
+                  obscureText: _obscureText,
                   textInputAction: TextInputAction.done,
                   style: AppTextStyles.bodyLarge,
-                    decoration: InputDecoration(
-                      hintText: 'Enter Password',
-                      prefixIcon: Icon(
-                        Icons.lock_outline,
+                  decoration: InputDecoration(
+                    hintText: 'Enter Password',
+                    prefixIcon: const Icon(
+                      Icons.lock_outline,
+                      color: AppColors.textHint,
+                    ),
+                    suffixIcon: GestureDetector(
+                      onTap: () => setState(() => _obscureText = !_obscureText),
+                      child: Icon(
+                        _obscureText
+                            ? Icons.visibility_outlined
+                            : Icons.visibility_off_outlined,
                         color: AppColors.textHint,
                       ),
-                      suffixIcon: GestureDetector(
-                        onTap: () => setState(
-                                () => _obscureText = !_obscureText),
-                        child: Icon(
-                          _obscurePassword ? Icons.visibility_outlined
-                              : Icons.visibility_off_outlined,
-                          color: AppColors.textHint,
-                        ),
-                      ),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your password';
-                      }
-                      return null;
-                    },
-                ),
-                  SizedBox(height: 30.h),
-
-                  // Login button
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: _isLoading ? null : _login,
-                      child: _isLoading
-                          ? SizedBox(
-                        width: 20.w,
-                        height: 20.w,
-                        child: const CircularProgressIndicator(
-                          color: AppColors.background,
-                          strokeWidth: 2,
-                        ),
-                      )
-                          : const Text('Sign In as Admin'),
                     ),
                   ),
-                  SizedBox(height: 24.h),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your password';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 30.h),
 
-                  // Back to student login
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Are you a student?',
-                        style: AppTextStyles.bodyMedium,
-                      ),
-                      GestureDetector(
-                        onTap: () => Navigator.pushNamed(
-                            context, '/login'),
-                        Text(
+                // Login button
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: _isLoading ? null : _login,
+                    child: _isLoading
+                        ? SizedBox(
+                            width: 20.w,
+                            height: 20.w,
+                            child: const CircularProgressIndicator(
+                              color: AppColors.background,
+                              strokeWidth: 2,
+                            ),
+                          )
+                        : const Text('Sign In as Admin'),
+                  ),
+                ),
+                SizedBox(height: 24.h),
+
+                // Back to student login
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Are you a student?',
+                      style: AppTextStyles.bodyMedium,
+                    ),
+                    GestureDetector(
+                      onTap: () => Navigator.pushNamed(context, '/login'),
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 4.w),
+                        child: Text(
                           'Student Login',
                           style: AppTextStyles.bodyMedium.copyWith(
                             color: AppColors.primary,
                             fontWeight: FontWeight.w700,
-                          )
-                        )
-
-                      )
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ],
             ),
+          ),
         ),
-      )
+      ),
     );
   }
 }

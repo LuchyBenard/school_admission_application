@@ -57,6 +57,28 @@ required String email,
   );
 }
 
+// ADMIN LOGIN
+Future<UserCredential> adminLogin({
+  required String email,
+  required String password,
+}) async {
+  final credential = await _auth.signInWithEmailAndPassword(
+    email: email,
+    password: password,
+  );
+
+  // Check if user is admin
+  final userDoc = await _firestore.collection('users').doc(credential.user!.uid).get();
+  final userData = userDoc.data();
+
+  if (userData == null || userData['role'] != 'admin') {
+    await _auth.signOut();
+    throw Exception('Unauthorized access. Admin only.');
+  }
+
+  return credential;
+}
+
 // LOGOUT
 Future<void> logout() async {
   await _auth.signOut();

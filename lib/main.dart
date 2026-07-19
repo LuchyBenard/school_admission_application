@@ -21,6 +21,7 @@ import 'features/applications/widgets/application_detail_screen.dart';
 import 'features/applications/application_status_screen.dart';
 import 'features/notifications/notification_screen.dart';
 import 'providers/notification_provider.dart';
+import 'features/admin/admin_login_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -125,17 +126,18 @@ class MyApp extends StatelessWidget {
                 // app routing
                 initialRoute: '/',
                 routes: {
-                  '/': (context) => SplashScreen(),
-                  '/onboarding': (context) => OnboardingScreen(),
-                  '/login': (context) => LoginScreen(),
-                  '/register': (context) => SignupScreen(),
-                  '/dashboard': (context) => DashboardScreen(),
+                  '/': (context) => const SplashScreen(),
+                  '/onboarding': (context) => const OnboardingScreen(),
+                  '/login': (context) => const LoginScreen(),
+                  '/register': (context) => const SignupScreen(),
+                  '/dashboard': (context) => const DashboardScreen(),
                   '/school-detail': (context) => const SchoolDetailScreen(),
                   '/application-form': (context) => const ApplicationFormScreen(),
                   '/application-detail': (context) =>
                       const ApplicationDetailScreen(),
                   '/notifications': (context) => const NotificationsScreen(),
                   '/application-status': (context) => const ApplicationStatusScreen(),
+                  '/admin-login': (context) => const AdminLoginScreen(),
                 },
             ),
           ),
