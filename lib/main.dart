@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
+import 'package:school_admission_application/features/applications/document_upload_screen.dart';
+import 'package:school_admission_application/features/applications/payment_screen.dart';
 import 'firebase_options.dart';
 import 'core/constants/app_colors.dart';
 import 'core/constants/app_text_styles.dart';
@@ -22,6 +24,8 @@ import 'features/applications/application_status_screen.dart';
 import 'features/notifications/notification_screen.dart';
 import 'providers/notification_provider.dart';
 import 'features/admin/admin_login_screen.dart';
+import 'features/applications/document_upload_screen.dart';
+import 'features/applications/payment_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -137,6 +141,8 @@ class MyApp extends StatelessWidget {
                       const ApplicationDetailScreen(),
                   '/notifications': (context) => const NotificationsScreen(),
                   '/application-status': (context) => const ApplicationStatusScreen(),
+                  '/document-upload': (context) => const DocumentUploadScreen(),
+                  '/payment': (context) => const PaymentScreen(),
                   '/admin-login': (context) => const AdminLoginScreen(),
                 },
             ),

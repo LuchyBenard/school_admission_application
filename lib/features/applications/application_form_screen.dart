@@ -123,11 +123,16 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
 
     if (success) {
       showToast(
-        'Application submitted successfully!',
+        'Application saved! Please upload your documents.',
         backgroundColor: AppColors.success,
         textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
       );
-      Navigator.pop(context);
+      // Navigate to document upload - pass application ID
+      Navigator.pop(
+          context,
+      '/document-upload',
+      // We will pass the application ID once provider returns it
+      );
     } else {
       showToast(
         'Failed to submit application. Please try again.',
