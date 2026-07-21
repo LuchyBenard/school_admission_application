@@ -120,4 +120,29 @@ Future<void> updateUserProfile({
       .doc(uid)
       .update(data);
   }
+
+  // ADMIN LOGIN
+Future<UserCredential> adminLogin({
+    required String email,
+  required String password,
+}) async {
+  final credential = await _auth.signInWithEmailAndPassword(
+    email: email,
+    password: password,
+);
+
+  // Check if user has an admin role in firestore
+final doc = await _firestore
+.collection('users')
+.doc(credential.user!.uid)
+.get();
+
+if (doc.data()?['role'] != 'admin') {
+  // not an admin - sign them out immediately
+  await _auth.signOut();
+  throw Exception('Unauthorized access. Admin accounts only.');
+}
+
+return credential;
+}
 }

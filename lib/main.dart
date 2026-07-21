@@ -26,6 +26,10 @@ import 'providers/notification_provider.dart';
 import 'features/admin/admin_login_screen.dart';
 import 'features/applications/document_upload_screen.dart';
 import 'features/applications/payment_screen.dart';
+import 'features/admin/admin_login_screen.dart';
+import 'features/admin/admin_dashboard_screen.dart';
+import 'features/admin/applicant_detail_screen.dart';
+import 'features/admin/applicant_list_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -144,6 +148,9 @@ class MyApp extends StatelessWidget {
                   '/document-upload': (context) => const DocumentUploadScreen(),
                   '/payment': (context) => const PaymentScreen(),
                   '/admin-login': (context) => const AdminLoginScreen(),
+                  '/admin-dashoard': (context) => const AdminDashboardScreen(),
+                  '/admin-applicants': (context) => const ApplicantListScreen(),
+                  '/admin-applicant-detail': (context) => const ApplicationDetailScreen(),
                 },
             ),
           ),

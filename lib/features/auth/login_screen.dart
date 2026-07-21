@@ -246,6 +246,20 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
                 SizedBox(height: 40.h),
+
+                // Admin portal Link
+                GestureDetector(
+                  onTap: () => Navigator.pushNamed(context, '/admin-login'),
+                  child: Center(
+                    child: Text(
+                      'Admin Portal',
+                      style: AppTextStyles.bodyMedium.copyWith(
+                        color: AppColors.textHint,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
