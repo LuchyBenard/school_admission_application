@@ -116,22 +116,22 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
       session: _sessionController.text.trim(),
     );
 
-    final success =
+    final applicationId =
         await context.read<ApplicationProvider>().submitApplication(application);
 
     if (!mounted) return;
 
-    if (success) {
+    if (applicationId != null) {
       showToast(
         'Application saved! Please upload your documents.',
         backgroundColor: AppColors.success,
         textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
       );
       // Navigate to document upload - pass application ID
-      Navigator.pop(
+      Navigator.pushNamed(
           context,
       '/document-upload',
-      // We will pass the application ID once provider returns it
+      arguments: applicationId,
       );
     } else {
       showToast(

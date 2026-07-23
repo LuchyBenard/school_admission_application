@@ -90,12 +90,12 @@ Future<void> loadApplications() async {
 }
 
 // Submit application
-Future<bool> submitApplication(ApplicationModel application) async {
+Future<String> submitApplication(ApplicationModel application) async {
     _status = ApplicationStatus.loading;
     notifyListeners();
 
     try {
-      await _firestore.collection('applications').add({
+      final docRef = await _firestore.collection('applications').add({
         ...application.toMap(),
         'createdAt': FieldValue.serverTimestamp(),
       });
@@ -106,12 +106,12 @@ Future<bool> submitApplication(ApplicationModel application) async {
       _status = ApplicationStatus.loaded;
       notifyListeners();
 
-      return true;
+      return docRef.id;;
     } catch (e) {
       _errorMessage = 'Failed to submit applications. Please try again.';
       _status = ApplicationStatus.error;
       notifyListeners();
-      return false;
+      return null;
     }
 }
 }
