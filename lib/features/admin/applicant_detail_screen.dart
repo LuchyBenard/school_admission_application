@@ -179,7 +179,187 @@ class _ApplicantDetailScreenState extends State<ApplicantDetailScreen> {
   }
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      appBar: AppBar(
+        backgroundColor: AppColors.background,
+        elevation: 0,
+        leading: GestureDetector(
+          onTap: () => Navigator.pop(context),
+          child: Icon(
+            Icons.arrow_back_ios,
+            color: AppColors.textPrimary,
+          ),
+        ),
+        title: Text('Applicant Details', style: AppTextStyles.h2),
+      ),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(24.w),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Applicant header
+          Row(
+            children: [
+              Container(
+                width: 56.w,
+                height: 56.w,
+                decoration: BoxDecoration(
+                  color: AppColors.primary,
+                  shape: BoxShape.circle,
+                ),
+          child: Center(
+            child: Text(
+              _application.fullName.isNotEmpty
+                  ? _application.fullName
+                  .trim()
+                  .split(' ')
+                  .map((e) => e[0])
+                  .take(2)
+                  .join()
+                  .toUpperCase()
+                  : 'NA',
+              style: AppTextStyles.bodyMedium.copyWith(
+                color: AppColors.background,
+              ),
+            ),
+          ),
+          ),
+        SizedBox(width: 16.w),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                _application.fullName,
+                style: AppTextStyles.h2,
+              ),
+          Text(
+            _application.courseOfStudy,
+            style: AppTextStyles.bodyMedium,
+          ),
+          Text(
+            _application.schoolName,
+            style: AppTextStyles.bodyMedium,
+          ),
+          ],
+          ),
+        ),
+        ],
+          ),
+
+      SizedBox(height: 24.h),
+
+      // Details Section
+      _buildSection('Personal Details', [
+        _buildRow('Full Name', _application.fullName),
+        _buildRow('Date of Birth', _application.dateOfBirth),
+        _buildRow('Gender', _application.gender),
+        _buildRow('Nationality', _application.nationality),
+      ]),
+
+        SizedBox(height: 16.h),
+
+        _buildSection('Academic Details', [
+          _buildRow('Qualification', _application.qualification),
+          _buildRow('Grade', _application.grade),
+          _buildRow('Graduation Year',
+              _application.graduationYear),
+        ]),
+
+        SizedBox(height: 16.h),
+
+        _buildSection('Programme Details', [
+          _buildRow(
+              'Course of Study', _application.courseOfStudy),
+          _buildRow('Entry Level', _application.entryLevel),
+          _buildRow('Session', _application.session),
+        ]),
+
+        SizedBox(height: 32.h)
+
+        // Action Buttons
+      if (!_isLoading) ...[
+        Text('Take Action', style: AppTextStyles.h3),
+        SizedBox(height: 16.h),
+
+    // Accept
+    SizedBox(
+    width: double.infinity,
+    child: ElevatedButton(
+    onPressed: () => _showActionDialog(
+    'accepted',
+    'Accept Application',
+    AppColors.success,
+    ),
+    style: ElevatedButton.styleFrom(
+    backgroundColor: AppColors.success,
+    ),
+    icon: Icon(Icons.check_circle_outlined),
+    label: Text('Accept Application'),
+    ),
+    ),
+
+    SizedBox(height: 12.h),
+
+    // Request more documents
+    SizedBox(
+    width: double.infinity,
+    child: ElevatedButton.icon(
+    onPressed: () => _showActionDialog(
+    'more_documents',
+    'Request More Documents',
+    AppColors.warning,
+    ),
+    style: ElevatedButton.styleFrom(
+    backgroundColor: AppColors.warning,
+    ),
+    icon: Icon(Icons.folder_outlined),
+    label: Text('Request More Documents'),
+    ),
+    ),
+
+    SizedBox(height: 12.h),
+
+    // Mark under review
+    SizedBox(
+    width: double.infinity
+    child: ElevatedButton.icon(
+    onPressed: () => _showActionDialog(
+    'under_review',
+    'Mark Under Review',
+    AppColors.info,
+    ),
+    style: ElevatedButton.styleFrom(
+    backgroundColor: AppColors.info,
+    ),
+    icon: Icon(Icons.hourglass_empty_outlined),
+    label: Text('Mark as Under Review'),
+    ),
+    ),
+
+    SizedBox(height: 12.h),
+
+    // Reject
+    SizedBox(
+    width: double.infinity,
+    child: ElevatedButton(
+    onPressed: () => _showActionDialog(
+    'rejected',
+    'Reject Application',
+    AppColors.error,
+    ),
+    style: ElevatedButton.styleFrom(
+    backgroundColor: AppColors.error,
+    ),
+    icon: Icon(Icons.cancel_outlined),
+    label: Text('Reject Application'),
+    ),
+    ),
+
+    ]
+
+    );
   }
 }
 
