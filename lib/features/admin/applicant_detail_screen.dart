@@ -356,9 +356,67 @@ class _ApplicantDetailScreenState extends State<ApplicantDetailScreen> {
     label: Text('Reject Application'),
     ),
     ),
+    ] else
+      Center(
+    child: CircularProgressIndicator(
+    color: AppColors.primary,
+    ),
+    ),
 
-    ]
+    SizedBox(height: 40.h),
+    ],
+    ),
+    ),
+    );
+  }
 
+  Widget _buildSection(String title, List<Widget> rows) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(title, style: AppTextStyles.h3),
+        SizedBox(height: 12.h),
+        Container(
+          padding: EdgeInsets.all(16.w),
+          decoration: BoxDecoration(
+            color: AppColors.surface,
+            borderRadius: BorderRadius.circular(12.r),
+            border: Border.all(color: AppColors.border),
+          ),
+          child: Column(
+            children: rows,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildRow(String label, String value) {
+    return Padding(
+      padding: EdgeInsets.symmetric(verticaal: 8.h),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+          width: 130.w,
+          child: Text(
+          label,
+          style: AppTextStyles.bodySmall.copyWith(
+            color: AppColors.textHint,
+          ),
+          ),
+          ),
+          SizedBox(width: 8.w),
+          Expanded(
+          child: Text(
+          value.isNotEmpty ? value : '_',
+          style: AppTextStyles.bodyMedium.copyWith(
+            fontWeight: FontWeight.w500,
+          ),
+          ),
+          ),
+      ],
+      ),
     );
   }
 }

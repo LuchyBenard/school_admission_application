@@ -7,6 +7,7 @@ import '../../core/constants/app_text_styles.dart';
 import '../../providers/auth_provider.dart';
 import 'widgets/featured_schools_banner.dart';
 import 'widgets/application_summary_card.dart';
+import '../../providers/notification_provider.dart';
 
 class HomeScreen extends StatefulWidget {
   final VoidCallback? onFindSchoolsTapped;
@@ -26,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<ApplicationProvider>().loadApplicationStats();
+      context.read<NotificationProvider>().loadNotifications();
     });
   }
 
@@ -69,27 +71,60 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
 
                   // Notification bell
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/notifications');
+                  Consumer<NotificationProvider>(
+                    builder: (context, notifProvider, child) {
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/notifications');
+                        },
+                        child: Stack(
+                          children: [
+                            Container(
+                              width: 44.w,
+                              height: 44.w,
+                              decoration: BoxDecoration(
+                                color: AppColors.surface,
+                                borderRadius: BorderRadius.circular(12.r),
+                                border: Border.all(color: AppColors.border),
+                              ),
+                              child: Icon(
+                                Icons.notifications_outlined,
+                                color: AppColors.textPrimary,
+                                size: 22.w,
+                              ),
+                            ),
+// Bagde - only shows where there are unread notifications
+                            if (notifProvider.unreadCount > 0)
+                              Positioned(
+                                right: 0,
+                                top: 0,
+                                child: Container(
+                                  width: 18.w,
+                                  height: 18.w,
+                                  decoration: BoxDecoration(
+                                      color: AppColors.error,
+                                      shape: BoxShape.circle
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      notifProvider.unreadCount > 9
+                                          ? '9+'
+                                          : notifProvider.unreadCount
+                                          .toString(),
+                                      style: AppTextStyles.caption.copyWith(
+                                        color: AppColors.background,
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                          ],
+                        ),
+                      );
                     },
-                    child: Container(
-                      width: 44.w,
-                      height: 44.w,
-                      decoration: BoxDecoration(
-                        color: AppColors.surface,
-                        borderRadius: BorderRadius.circular(12.r),
-                        border: Border.all(color: AppColors.border),
-                      ),
-                      child: Icon(
-                        Icons.notifications_outlined,
-                        color: AppColors.textPrimary,
-                        size: 22.w,
-                      ),
-                    ),
                   ),
-                ],
-              ),
 
               SizedBox(height: 28.h),
 
