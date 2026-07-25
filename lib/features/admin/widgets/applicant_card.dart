@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_text_styles.dart';
 import '../../../models/application_model.dart';
+import 'status_badge.dart';
 
 class ApplicantCard extends StatelessWidget {
   final ApplicationModel application;

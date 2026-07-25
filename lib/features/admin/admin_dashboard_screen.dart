@@ -25,7 +25,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
   bool _isLoading = true;
 
   @override
-  void initstate() {
+  void initState() {
     super.initState();
     _loadStats();
   }
@@ -36,10 +36,12 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
       setState(() {
         _total = snapshot.docs.length;
         _pending = snapshot.docs.where((d) => d['status'] == 'pending').length;
-        _underReview = snapshot.docs.where((d) => d['status'] == 'under_review').length;
+        _underReview =
+            snapshot.docs.where((d) => d['status'] == 'under_review').length;
         _accepted = snapshot.docs.where((d) => d['status'] == 'accepted').length;
         _rejected = snapshot.docs.where((d) => d['status'] == 'rejected').length;
-        _moreDocs = snapshot.docs.where((d) => d['status'] == 'more_documents').length;
+        _moreDocs =
+            snapshot.docs.where((d) => d['status'] == 'more_documents').length;
         _isLoading = false;
       });
     } catch (e) {
@@ -51,9 +53,9 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
     await _authService.logout();
     if (!mounted) return;
     Navigator.pushNamedAndRemoveUntil(
-        context,
-        '/admin-login',
-        (route) => false,
+      context,
+      '/admin-login',
+      (route) => false,
     );
   }
 
@@ -64,7 +66,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
       appBar: AppBar(
         backgroundColor: AppColors.background,
         elevation: 0,
-          automaticallyImplyLeading: false,
+        automaticallyImplyLeading: false,
         title: Text('Admin Dashboard', style: AppTextStyles.h2),
         actions: [
           GestureDetector(
@@ -81,128 +83,122 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
         ],
       ),
       body: _isLoading
-        ? Center(
-        child: CircularProgressIndicator(
-          color: AppColors.primary,
-        ),
-      )
-          : SingleChildScrollView(
-        padding: EdgeInsets.all(24.w),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Welcome
-
-            Container(
-              width: double.infinity,
-              padding: EdgeInsets.all(20.w),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    AppColors.primary,
-                    AppColors.primaryDark,
-                  ],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-                borderRadius: BorderRadius.circular(16.r),
+          ? const Center(
+              child: CircularProgressIndicator(
+                color: AppColors.primary,
               ),
+            )
+          : SingleChildScrollView(
+              padding: EdgeInsets.all(24.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                Text(
-                'Welcome, Admin 👋',
-                style: AppTextStyles.h2.copyWith(
-                  color: AppColors.background,
-                ),
-              ),
-              SizedBox(height: 4.h),
-                  Text(
-                    'You have $_pending pending applications to review',
-                    style: AppTextStyles.bodyMedium.copyWith(
-                      color: AppColors.background
-                          .withValues(alpha: 0.8),
+                  // Welcome
+                  Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.all(20.w),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          AppColors.primary,
+                          AppColors.primaryDark,
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      borderRadius: BorderRadius.circular(16.r),
                     ),
-            ),
-          ],
-        ),
-      ),
-        SizedBox(height: 24.h),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Welcome, Admin 👋',
+                          style: AppTextStyles.h2.copyWith(
+                            color: AppColors.background,
+                          ),
+                        ),
+                        SizedBox(height: 4.h),
+                        Text(
+                          'You have $_pending pending applications to review',
+                          style: AppTextStyles.bodyMedium.copyWith(
+                            color: AppColors.background.withValues(alpha: 0.8),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 24.h),
 
-        Text('Overview', style: AppTextStyles.h2),
-        SizedBox(height: 16.h),
+                  Text('Overview', style: AppTextStyles.h2),
+                  SizedBox(height: 16.h),
 
-        // Stats Grid
-        GridView.count(
-          crossAxisCount: 2,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          crossAxisSpacing: 12.w,
-          mainAxisSpacing: 12.h,
-          childAspectRatio: 1.3,
-          children: [
-            _buildStatCard(
-              'Total',
-              _total,
-              AppColors.primary,
-              Icons.assignment_outlined,
-            ),
-            _buildStatCard(
-              'Pending',
-              _pending,
-              AppColors.info,
-              Icons.access_time_outlined,
-            ),
-            _buildStatCard(
-              'Under Review',
-              _underReview,
-              AppColors.warning,
-              Icons.hourglass_empty_outlined,
-            ),
-            _buildStatCard(
-              'Accepted',
-              _accepted,
-              AppColors.success,
-              Icons.check_circle_outlined,
-            ),
-            _buildStatCard(
-              'Rejected',
-              _rejected,
-              AppColors.error,
-              Icons.cancel_outlined,
-            ),
-            _buildStatCard(
-              'Docs Needed',
-              _moreDocs,
-              AppColors.primaryLight,
-              Icons.folder_outlined,
-            ),
-          ],
-        ),
-        SizedBox(height: 24.h),
+                  // Stats Grid
+                  GridView.count(
+                    crossAxisCount: 2,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    crossAxisSpacing: 12.w,
+                    mainAxisSpacing: 12.h,
+                    childAspectRatio: 1.3,
+                    children: [
+                      _buildStatCard(
+                        'Total',
+                        _total,
+                        AppColors.primary,
+                        Icons.assignment_outlined,
+                      ),
+                      _buildStatCard(
+                        'Pending',
+                        _pending,
+                        AppColors.info,
+                        Icons.access_time_outlined,
+                      ),
+                      _buildStatCard(
+                        'Under Review',
+                        _underReview,
+                        AppColors.warning,
+                        Icons.hourglass_empty_outlined,
+                      ),
+                      _buildStatCard(
+                        'Accepted',
+                        _accepted,
+                        AppColors.success,
+                        Icons.check_circle_outlined,
+                      ),
+                      _buildStatCard(
+                        'Rejected',
+                        _rejected,
+                        AppColors.error,
+                        Icons.cancel_outlined,
+                      ),
+                      _buildStatCard(
+                        'Docs Needed',
+                        _moreDocs,
+                        AppColors.primaryLight,
+                        Icons.folder_outlined,
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 24.h),
 
-        // Quick Action
-        SizedBox(
-          width: double.infinity,
-          child: ElevatedButton(
-            onPressed: () {
-              Navigator.pushNamed(
-                context, '/admin-applicants'
-              );
-            },
-            icon: Icon(Icons.people_outline),
-            label: Text('View All Applicants'),
-          ),
-        ),
-        ],
-        ),
-      ),
-        );
+                  // Quick Action
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/admin-applicants');
+                      },
+                      icon: const Icon(Icons.people_outline),
+                      label: const Text('View All Applicants'),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+    );
   }
 
-  Widget _buildStatCard(
-      String label, int count, Color color, IconData icon
-      ) {
+  Widget _buildStatCard(String label, int count, Color color, IconData icon) {
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(

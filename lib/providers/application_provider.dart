@@ -90,7 +90,7 @@ Future<void> loadApplications() async {
 }
 
 // Submit application
-Future<String> submitApplication(ApplicationModel application) async {
+Future<String?> submitApplication(ApplicationModel application) async {
     _status = ApplicationStatus.loading;
     notifyListeners();
 
@@ -106,7 +106,7 @@ Future<String> submitApplication(ApplicationModel application) async {
       _status = ApplicationStatus.loaded;
       notifyListeners();
 
-      return docRef.id;;
+      return docRef.id;
     } catch (e) {
       _errorMessage = 'Failed to submit applications. Please try again.';
       _status = ApplicationStatus.error;
