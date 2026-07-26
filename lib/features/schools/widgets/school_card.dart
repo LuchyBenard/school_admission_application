@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:country_flags/country_flags.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_text_styles.dart';
@@ -29,6 +30,18 @@ class SchoolCard extends StatelessWidget {
       'Australia': 'AU',
       'Germany': 'DE',
       'France': 'FR',
+      'Sweden': 'SE',
+      'Belgium': 'BE',
+      'Netherlands': 'NL',
+      'Denmark': 'DK',
+      'Finland': 'FI',
+      'Italy': 'IT',
+      'Spain': 'ES',
+      'Norway': 'NO',
+      'Portugal': 'PT',
+      'Switerzland': 'CH',
+      'Austria': 'AT',
+      'Ireland': 'IE'
     };
     return countryCodes[country] ?? 'NG';
   }
@@ -131,11 +144,29 @@ class SchoolCard extends StatelessWidget {
                       if (school.website.isNotEmpty)
                         GestureDetector(
                           onTap: () async {
+                            String websiteUrl = school.website;
+
+                            // Ensure URL has https://
+                            if (!websiteUrl.startsWith('http')){
+                              websiteUrl = 'https://$websiteUrl';
+                            }
                             final url = Uri.parse(school.website);
+                            try {
                             if (await canLaunchUrl(url)) {
                               await launchUrl(
-                                  url,
+                                  uri,
                                 mode: LaunchMode.externalApplication,
+                              );
+                            } else if {
+                              showToast(
+                                'Could not open website',
+                                backgroundColor: AppColors.error,
+                              );
+                            }
+} catch (e) {
+                              showToast(
+                                'Invalid website URL',
+                                backgroundColor: AppColors.error,
                               );
                             }
                           },

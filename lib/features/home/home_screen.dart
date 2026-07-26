@@ -202,7 +202,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       icon: Icons.description_outlined,
                       label: 'My Documents',
                       onTap: () {
-                        // Navigate to documents later
+                        Navigator.pushNamed(context, '/document-upload');
                       },
                     ),
                   ),

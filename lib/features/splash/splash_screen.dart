@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:school_admission_application/core/constants/app_colors.dart';
 import 'package:school_admission_application/core/constants/app_text_styles.dart';
 
@@ -47,17 +49,30 @@ class _SplashScreenState extends State<SplashScreen>
       final User? user = FirebaseAuth.instance.currentUser;
 
       if (user != null) {
-        // Already logged in - go to dashboard
-        Navigator.pushReplacementNamed(context, '/dashboard');
-      } else if (!hasSeenOnboarding) {
-        // First time user - show onboarding
-        Navigator.pushReplacementNamed(context, '/onboarding');
-      } else {
-        // Seen onboarding but has not logged in - go to loin page
-        Navigator.pushReplacementNamed(context, '/login');
-      }
-    });
-  }
+        // Check role in Firestore
+        final doc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.uid)
+        .get();
+        final role = doc.data()?['role'] ?? 'student';
+        if (!mounted) return;
+
+        if (role == 'admin') {
+          Navigator.pushReplacementNamed(context, '/admin-dashboard');
+        } else {
+          Navigator.pushReplacementNamed(context, '/admin-dashboard');
+          }
+        } else if (!hasSeenOnboarding) {
+          // First time user - show onboarding
+          Navigator.pushReplacementNamed(context, '/onboarding');
+        } else {
+          // Seen onboarding but has not logged in - go to loin page
+          Navigator.pushReplacementNamed(context, '/login');
+        }
+      });
+        }
+
+        }
 
   @override
   void dispose() {
