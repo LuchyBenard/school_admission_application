@@ -24,7 +24,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
-    _loadProfileData();
+    // Wait for profile to be available then load
+    WidgetsBinding.instance.addPostFramCallback((_) {
+      _loadProfileData();
+    });
   }
 
   void _loadProfileData() {
@@ -306,7 +309,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                 // Change Password
                 _buildAccountTile(
-                  icon: Icons.lock_outlined,
+                  icon: Icons.lock_outline,
                   label: 'Change Password',
                   onTap: () {
                     Navigator.pushNamed(context, '/forgot-password');
