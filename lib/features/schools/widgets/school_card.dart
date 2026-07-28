@@ -45,8 +45,9 @@ class SchoolCard extends StatelessWidget {
     };
     return countryCodes[country] ?? 'NG';
   }
+
   Widget _buildFlag() {
-    return Padding (
+    return Padding(
       padding: EdgeInsets.all(8.w),
       child: CountryFlag.fromCountryCode(
         _getCountryCode(school.country),
@@ -54,6 +55,7 @@ class SchoolCard extends StatelessWidget {
       ),
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -62,7 +64,7 @@ class SchoolCard extends StatelessWidget {
         margin: EdgeInsets.only(bottom: 12.h),
         padding: EdgeInsets.all(16.w),
         decoration: BoxDecoration(
-          color: AppColors.background,
+          color: AppColors.surface,
           borderRadius: BorderRadius.circular(16.r),
           border: Border.all(color: AppColors.border),
           boxShadow: [
@@ -87,11 +89,10 @@ class SchoolCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12.r),
                 child: school.imageUrl != null
                     ? Image.network(
-                  school.imageUrl!,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) =>
-                      _buildFlag(),
-                )
+                        school.imageUrl!,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) => _buildFlag(),
+                      )
                     : _buildFlag(),
               ),
             ),
@@ -147,23 +148,23 @@ class SchoolCard extends StatelessWidget {
                             String websiteUrl = school.website;
 
                             // Ensure URL has https://
-                            if (!websiteUrl.startsWith('http')){
+                            if (!websiteUrl.startsWith('http')) {
                               websiteUrl = 'https://$websiteUrl';
                             }
-                            final url = Uri.parse(school.website);
+                            final url = Uri.parse(websiteUrl);
                             try {
-                            if (await canLaunchUrl(url)) {
-                              await launchUrl(
-                                  uri,
-                                mode: LaunchMode.externalApplication,
-                              );
-                            } else if {
-                              showToast(
-                                'Could not open website',
-                                backgroundColor: AppColors.error,
-                              );
-                            }
-} catch (e) {
+                              if (await canLaunchUrl(url)) {
+                                await launchUrl(
+                                  url,
+                                  mode: LaunchMode.externalApplication,
+                                );
+                              } else {
+                                showToast(
+                                  'Could not open website',
+                                  backgroundColor: AppColors.error,
+                                );
+                              }
+                            } catch (e) {
                               showToast(
                                 'Invalid website URL',
                                 backgroundColor: AppColors.error,
@@ -185,6 +186,7 @@ class SchoolCard extends StatelessWidget {
                                 Icon(
                                   Icons.language_outlined,
                                   color: AppColors.primary,
+                                  size: 14.w,
                                 ),
                                 SizedBox(width: 4.w),
                                 Text(
@@ -198,7 +200,7 @@ class SchoolCard extends StatelessWidget {
                             ),
                           ),
                         ),
-                      Spacer(),
+                      const Spacer(),
 
                       // Featured badge
                       if (school.isFeatured)
@@ -237,4 +239,3 @@ class SchoolCard extends StatelessWidget {
     );
   }
 }
-

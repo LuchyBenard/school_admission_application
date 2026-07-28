@@ -18,25 +18,26 @@ class SchoolDetailScreen extends StatelessWidget {
         elevation: 0,
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
-          child: Icon(
+          child: const Icon(
             Icons.arrow_back_ios,
             color: AppColors.primary,
           ),
         ),
-        title: Text(school.name,
-            style: AppTextStyles.h2,
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
+        title: Text(
+          school.name,
+          style: AppTextStyles.h2,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
         ),
       ),
       body: SingleChildScrollView(
         child: Padding(
-            padding: EdgeInsets.all(24.w),
+          padding: EdgeInsets.all(24.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // School Name
-              Text(school.name. style: AppTextStyles.displayMedium),
+              Text(school.name, style: AppTextStyles.displayMedium),
               SizedBox(height: 8.h),
 
               // Location
@@ -63,26 +64,23 @@ class SchoolDetailScreen extends StatelessWidget {
               _buildInfoSection(
                 'Location',
                 school.state.isNotEmpty
-                  ? '${school.state}, ${school.country}'
+                    ? '${school.state}, ${school.country}'
                     : school.country,
               ),
               _buildInfoSection('Website', school.website),
 
-              if (school.description != null &&
-              school.description!.isNotEmpty)
-                _buildInfoSection('About', school.description),
+              if (school.description != null && school.description!.isNotEmpty)
+                _buildInfoSection('About', school.description!),
 
-              if (school.applicationFee != null &&
-              school.applicationFee!.isNotEmpty)
-                _buildInfoSection('Application Fee', school.applicationFee),
+              if (school.applicationFee != null && school.applicationFee!.isNotEmpty)
+                _buildInfoSection('Application Fee', school.applicationFee!),
 
-              if (school.deadline != null &&
-                  school.deadline!.isNotEmpty)
-                _buildInfoSection('ADeadline', school.deadline),
+              if (school.deadline != null && school.deadline!.isNotEmpty)
+                _buildInfoSection('Deadline', school.deadline!),
 
               SizedBox(height: 32.h),
 
-              // Website buttion
+              // Website button
               if (school.website.isNotEmpty)
                 OutlinedButton.icon(
                   onPressed: () async {
@@ -95,31 +93,34 @@ class SchoolDetailScreen extends StatelessWidget {
                         mode: LaunchMode.externalApplication,
                       );
                     }
-                }
-                style: OutlinedButton.styleFrom(
-                minimumSize: Size(double.infinity, 52),
-    side: BorderSide(color: AppColors.border),
-    foregroundColor: AppColors.primary,
-    shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(12),
-    ),
-                ),
-    icon: Icon(Icons.language_outlined),
-    label: Text('Visit Website'),
+                  },
+                  style: OutlinedButton.styleFrom(
+                    minimumSize: const Size(double.infinity, 52),
+                    side: BorderSide(color: AppColors.border),
+                    foregroundColor: AppColors.primary,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  icon: const Icon(Icons.language_outlined),
+                  label: const Text('Visit Website'),
                 ),
 
               SizedBox(height: 12.h),
 
               // Apply Now button
-              ElevatedButton(
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
                   onPressed: () {
                     Navigator.pushNamed(
                       context,
-                      '/application_form',
+                      '/application-form',
                       arguments: school,
                     );
                   },
-                child: Text('Apply Now'),
+                  child: const Text('Apply Now'),
+                ),
               ),
             ],
           ),
