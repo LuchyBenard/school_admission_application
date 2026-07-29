@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:school_admission_application/core/constants/app_colors.dart';
-import 'package:school_admission_application/core/constants/app_text_styles.dart';
+import '../../core/constants/app_colors.dart';
+import '../../core/constants/app_text_styles.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -26,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen>
 
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 1200),
+      duration: const Duration(milliseconds: 1200),
     );
 
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
@@ -40,39 +39,45 @@ class _SplashScreenState extends State<SplashScreen>
     _controller.forward();
 
     // Navigate after 3 seconds
-    Future.delayed(
-        Duration(seconds: 3), () {
-      if (!mounted) return;
+    _handleNavigation();
+  }
 
-      final box = GetStorage();
-      final bool hasSeenOnboarding = box.read('hasSeenOnboarding') ?? false;
-      final User? user = FirebaseAuth.instance.currentUser;
+  Future<void> _handleNavigation() async {
+    await Future.delayed(const Duration(seconds: 3));
+    if (!mounted) return;
 
-      if (user != null) {
+    final box = GetStorage();
+    final bool hasSeenOnboarding = box.read('hasSeenOnboarding') ?? false;
+    final User? user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      try {
         // Check role in Firestore
         final doc = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(user.uid)
-        .get();
-        final role = doc.data()?['role'] ?? 'student';
+            .collection('users')
+            .doc(user.uid)
+            .get();
+            
         if (!mounted) return;
 
+        final role = doc.data()?['role'] ?? 'student';
         if (role == 'admin') {
           Navigator.pushReplacementNamed(context, '/admin-dashboard');
         } else {
-          Navigator.pushReplacementNamed(context, '/admin-dashboard');
-          }
-        } else if (!hasSeenOnboarding) {
-          // First time user - show onboarding
-          Navigator.pushReplacementNamed(context, '/onboarding');
-        } else {
-          // Seen onboarding but has not logged in - go to loin page
-          Navigator.pushReplacementNamed(context, '/login');
+          Navigator.pushReplacementNamed(context, '/dashboard');
         }
-      });
-        }
-
-        }
+      } catch (e) {
+        if (!mounted) return;
+        Navigator.pushReplacementNamed(context, '/login');
+      }
+    } else if (!hasSeenOnboarding) {
+      // First time user - show onboarding
+      Navigator.pushReplacementNamed(context, '/onboarding');
+    } else {
+      // Seen onboarding but has not logged in - go to login page
+      Navigator.pushReplacementNamed(context, '/login');
+    }
+  }
 
   @override
   void dispose() {
@@ -103,7 +108,7 @@ class _SplashScreenState extends State<SplashScreen>
                       BoxShadow(
                         color: Colors.black.withValues(alpha: 0.15),
                         blurRadius: 30,
-                        offset: Offset(0, 10),
+                        offset: const Offset(0, 10),
                       ),
                     ],
                   ),
@@ -114,6 +119,8 @@ class _SplashScreenState extends State<SplashScreen>
                       child: Image.asset(
                         'assets/images/universityLogo.png',
                         fit: BoxFit.contain,
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Icon(Icons.school, size: 60, color: AppColors.primary),
                       ),
                     ),
                   ),
@@ -141,7 +148,6 @@ class _SplashScreenState extends State<SplashScreen>
                 SizedBox(height: 80.h),
 
                 // Loading Indicator
-
                 SizedBox(
                   width: 24.w,
                   height: 24.w,
