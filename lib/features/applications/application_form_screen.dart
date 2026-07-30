@@ -576,6 +576,13 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                   : Text(
                       _currentStep < _totalSteps - 1 ? 'Next' : 'Submit Application',
                     ),
+              if (applicationId != null) {
+                Navigator.pushNamed(
+                context,
+                '/document-upload',
+          arguments: applicationId,
+                );
+          }
             ),
           ),
         );
