@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../features/applications/widgets/application_card.dart';
+import 'widgets/applicant_card.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_text_styles.dart';
 import '../../models/application_model.dart';
@@ -155,7 +155,7 @@ class _ApplicantListScreenState extends State<ApplicantListScreen> {
               scrollDirection: Axis.horizontal,
               padding: EdgeInsets.symmetric(horizontal: 24.w),
               itemCount: _filters.length,
-              separatorBuilder: (_, __) => SizedBox(width: 8.w),
+              separatorBuilder: (context, index) => SizedBox(width: 8.w),
               itemBuilder: (context, index) {
                 final filter = _filters[index];
                 final isSelected = _selectedFilter == filter;
@@ -224,7 +224,7 @@ class _ApplicantListScreenState extends State<ApplicantListScreen> {
                         padding: EdgeInsets.symmetric(horizontal: 24.w),
                         itemCount: _filtered.length,
                         itemBuilder: (context, index) {
-                          return ApplicationCard(
+                          return ApplicantCard(
                             application: _filtered[index],
                             onTap: () {
                               Navigator.pushNamed(

@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_text_styles.dart';
 import '../../../models/application_model.dart';
-import 'status_badge.dart';
 
 class ApplicantCard extends StatelessWidget {
   final ApplicationModel application;
@@ -23,12 +22,13 @@ class ApplicantCard extends StatelessWidget {
         return AppColors.error;
       case 'under_review':
         return AppColors.warning;
-        case 'more_documents':
-          return AppColors.info;
+      case 'more_documents':
+        return AppColors.info;
       default:
         return AppColors.textHint;
     }
   }
+
   String _getStatusLabel(String status) {
     switch (status) {
       case 'accepted':
@@ -47,6 +47,7 @@ class ApplicantCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final statusColor = _getStatusColor(application.status);
+    final statusLabel = _getStatusLabel(application.status);
 
     return GestureDetector(
       onTap: onTap,
@@ -54,14 +55,14 @@ class ApplicantCard extends StatelessWidget {
         margin: EdgeInsets.only(bottom: 12.h),
         padding: EdgeInsets.all(16.w),
         decoration: BoxDecoration(
-          color: AppColors.background,
+          color: AppColors.surface,
           borderRadius: BorderRadius.circular(16.r),
           border: Border.all(color: AppColors.border),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.4),
+              color: Colors.black.withValues(alpha: 0.04),
               blurRadius: 8,
-              offset: const Offset(0,2),
+              offset: const Offset(0, 2),
             ),
           ],
         ),
@@ -72,19 +73,19 @@ class ApplicantCard extends StatelessWidget {
               width: 48.w,
               height: 48.w,
               decoration: BoxDecoration(
-                color: AppColors.primaryLight.withValues(alpha: 0.2),
+                color: AppColors.primary.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
               child: Center(
                 child: Text(
                   application.fullName.isNotEmpty
                       ? application.fullName
-                      .trim()
-                      .split(' ')
-                      .map((e) => e[0])
-                      .take(2)
-                      .join()
-                      .toUpperCase()
+                          .trim()
+                          .split(' ')
+                          .take(2)
+                          .map((e) => e.isNotEmpty ? e[0] : '')
+                          .join()
+                          .toUpperCase()
                       : 'NA',
                   style: AppTextStyles.bodyMedium.copyWith(
                     color: AppColors.primary,
@@ -115,9 +116,9 @@ class ApplicantCard extends StatelessWidget {
                   ),
                   SizedBox(height: 2.h),
                   Text(
-                    application.schoolCountry,
+                    application.schoolName,
                     style: AppTextStyles.caption.copyWith(
-                      color: AppColors.textHint,
+                      color: AppColors.textSecondary,
                     ),
                   ),
                 ],
@@ -140,7 +141,7 @@ class ApplicantCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(6.r),
                   ),
                   child: Text(
-                    _getStatusColor(application.status),
+                    statusLabel,
                     style: AppTextStyles.caption.copyWith(
                       color: statusColor,
                       fontWeight: FontWeight.w600,
