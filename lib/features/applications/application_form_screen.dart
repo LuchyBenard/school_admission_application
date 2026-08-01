@@ -117,7 +117,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
     );
 
     final applicationId =
-        await context.read<ApplicationProvider>().submitApplication(application);
+    await context.read<ApplicationProvider>().submitApplication(application);
 
     if (!mounted) return;
 
@@ -129,9 +129,9 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
       );
       // Navigate to document upload - pass application ID
       Navigator.pushNamed(
-          context,
-      '/document-upload',
-      arguments: applicationId,
+        context,
+        '/document-upload',
+        arguments: applicationId,
       );
     } else {
       showToast(
@@ -301,7 +301,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                   decoration: const InputDecoration(
                     hintText: 'Select your date of birth',
                     prefixIcon:
-                        Icon(Icons.calendar_today_outlined, color: AppColors.textHint),
+                    Icon(Icons.calendar_today_outlined, color: AppColors.textHint),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) return 'Please select your date of birth';
@@ -566,16 +566,16 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
               onPressed: appProvider.isLoading ? null : _nextStep,
               child: appProvider.isLoading
                   ? SizedBox(
-                      width: 20.w,
-                      height: 20.w,
-                      child: const CircularProgressIndicator(
-                        color: AppColors.background,
-                        strokeWidth: 2,
-                      ),
-                    )
+                width: 20.w,
+                height: 20.w,
+                child: const CircularProgressIndicator(
+                  color: AppColors.background,
+                  strokeWidth: 2,
+                ),
+              )
                   : Text(
-                      _currentStep < _totalSteps - 1 ? 'Next' : 'Submit Application',
-                    ),
+                _currentStep < _totalSteps - 1 ? 'Next' : 'Submit Application',
+              ),
             ),
           ),
         );
