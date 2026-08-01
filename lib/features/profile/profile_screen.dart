@@ -25,7 +25,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void initState() {
     super.initState();
     // Wait for profile to be available then load
-    WidgetsBinding.instance.addPostFramCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       _loadProfileData();
     });
   }
