@@ -53,3 +53,20 @@ lib/
 ├── profile/ # Tab 4 — view/edit profile, logout
 ├── notifications/ # Notification list screen
 └── admin/ # Admin login, dashboard, applicant list/detail
+
+## Key Routes
+/ → SplashScreen
+/onboarding → OnboardingScreen
+/login → LoginScreen
+/register → SignupScreen
+/dashboard → DashboardScreen (student home)
+/school-detail → SchoolDetailScreen (args: SchoolModel)
+/application-form → ApplicationFormScreen (args: SchoolModel)
+/document-upload → DocumentUploadScreen (args: applicationId String)
+/payment → PaymentScreen (args: applicationId String)
+/application-detail → ApplicationDetailScreen (args: ApplicationModel)
+/notifications → NotificationsScreen
+/admin-login → AdminLoginScreen
+/admin-dashboard → AdminDashboardScreen
+/admin-applicants → ApplicantListScreen
+/admin-applicant-detail → ApplicantDetailScreen (args: ApplicationModel)
