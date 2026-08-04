@@ -93,3 +93,14 @@ users/ # uid, fullName, email, phone, role (student/admin)
 schools/ # name, country, state, website, isFeatured, imageUrl
 applications/ # userId, schoolName, status, jambScore, documents{}
 notifications/ # userId, title, message, type, isRead, createdAt
+
+## Application Flow
+School Detail → Apply Now
+↓
+ApplicationFormScreen (3 steps: personal, academic, programme)
+↓ returns applicationId
+DocumentUploadScreen (WAEC, JAMB, passport, birth cert → Firebase Storage)
+↓ passes applicationId
+PaymentScreen (placeholder — ₦5,000 fee)
+↓
+Dashboard
