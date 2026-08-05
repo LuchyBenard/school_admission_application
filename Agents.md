@@ -104,3 +104,13 @@ DocumentUploadScreen (WAEC, JAMB, passport, birth cert → Firebase Storage)
 PaymentScreen (placeholder — ₦5,000 fee)
 ↓
 Dashboard
+
+## Admin Flow
+AdminLoginScreen → checks role = 'admin' in Firestore
+↓
+AdminDashboardScreen → stats overview
+↓
+ApplicantListScreen → search + filter
+↓
+ApplicantDetailScreen → Accept / Reject / Request Docs / Under Review
+↓ writes to applications/{id} + creates notification for student
