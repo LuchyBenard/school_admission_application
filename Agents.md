@@ -114,3 +114,67 @@ ApplicantListScreen → search + filter
 ↓
 ApplicantDetailScreen → Accept / Reject / Request Docs / Under Review
 ↓ writes to applications/{id} + creates notification for student
+
+## Role Detection
+- On splash screen, after Firebase Auth confirms a logged-in user,
+  the app reads `users/{uid}.role` from Firestore
+- role = 'admin' → navigate to /admin-dashboard
+- role = 'student' → navigate to /dashboard
+- No user → check GetStorage for onboarding flag → /onboarding or /login
+
+## Schools API
+- Provider: Hipolabs (https://universities.hipolabs.com/search)
+- No API key required
+- Called with `?country=Nigeria` etc
+- Results merged with Firestore featured schools
+- URL must use HTTPS
+
+## State Management Rules
+- Use `context.read<Provider>()` inside methods/callbacks (no rebuild)
+- Use `context.watch<Provider>()` inside build() (triggers rebuild)
+- Use `Consumer<Provider>` to rebuild only a small part of the UI
+- StatefulWidget is used when screen has local UI state
+  (controllers, animations, local booleans)
+- Provider handles shared/business logic state only
+
+## Coding Conventions
+- All colors from AppColors — never hardcode hex values
+- All text styles from AppTextStyles — never hardcode TextStyle inline
+- All sizing via ScreenUtil (.w .h .r .sp)
+- Feature folders own their screens and their widgets subfolder
+- Shared widgets go in core/widgets/
+- Services only talk to Firebase/APIs — no UI logic
+- Providers call services and hold state — no widgets
+- Models have fromFirestore(), fromApi(), toMap() methods
+
+## Known Placeholders
+- Payment: currently simulates success after 2s delay
+  Real integration: Paystack or Flutterwave
+- Document upload: uses image_picker (gallery only)
+  Camera support can be added via ImageSource.camera
+- Firebase Cloud Messaging: installed but push notification
+  triggers not yet implemented in Cloud Functions
+
+## Firebase Setup Required
+1. Enable Email/Password in Firebase Auth
+2. Create Firestore database in test mode
+3. Enable Firebase Storage
+4. Add google-services.json to android/app/
+5. Add GoogleService-Info.plist to ios/Runner/
+6. To create admin: set role field to 'admin'
+   in Firestore users collection for that user's document
+
+## Running the Project
+```bash
+flutter pub get
+flutterfire configure   # if firebase_options.dart is missing
+flutter run
+```
+
+## Common Issues
+- Firestore compound query (where + orderBy) requires composite index
+  Fix: remove orderBy and sort list manually in Dart
+- HTTP URLs blocked on Android: use HTTPS for all API calls
+- Gradle build timeout: download gradle zip manually and place in
+  ~/.gradle/wrapper/dists/gradle-X.X-all/[random-folder]/
+- ADB WiFi: run `adb tcpip 5555` then `adb connect [phone-ip]:5555`
