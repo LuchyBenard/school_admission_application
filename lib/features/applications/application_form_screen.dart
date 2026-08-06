@@ -314,7 +314,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
             Text('Gender', style: AppTextStyles.label),
             SizedBox(height: 8.h),
             DropdownButtonFormField<String>(
-              value: _selectedGender,
+              initialValue: _selectedGender,
               style: AppTextStyles.bodyLarge,
               decoration: const InputDecoration(
                 prefixIcon: Icon(Icons.wc_outlined, color: AppColors.textHint),
@@ -369,7 +369,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
             Text('Highest Qualification', style: AppTextStyles.label),
             SizedBox(height: 8.h),
             DropdownButtonFormField<String>(
-              value: _selectedQualification,
+              initialValue: _selectedQualification,
               style: AppTextStyles.bodyLarge,
               decoration: const InputDecoration(
                 prefixIcon: Icon(Icons.school_outlined, color: AppColors.textHint),
@@ -514,7 +514,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
             Text('Entry Level', style: AppTextStyles.label),
             SizedBox(height: 8.h),
             DropdownButtonFormField<String>(
-              value: _selectedEntryLevel,
+              initialValue: _selectedEntryLevel,
               style: AppTextStyles.bodyLarge,
               decoration: const InputDecoration(
                 prefixIcon: Icon(Icons.layers_outlined, color: AppColors.textHint),

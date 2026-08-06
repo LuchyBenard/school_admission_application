@@ -151,7 +151,7 @@ ApplicantDetailScreen → Accept / Reject / Request Docs / Under Review
 - Payment: currently simulates success after 2s delay
   Real integration: Paystack or Flutterwave
 - Document upload: uses image_picker (gallery only)
-  Camera support can be added via ImageSource.camera
+  Camera support can be added via ImageSource. Camera
 - Firebase Cloud Messaging: installed but push notification
   triggers not yet implemented in Cloud Functions
 
@@ -175,6 +175,6 @@ flutter run
 - Firestore compound query (where + orderBy) requires composite index
   Fix: remove orderBy and sort list manually in Dart
 - HTTP URLs blocked on Android: use HTTPS for all API calls
-- Gradle build timeout: download gradle zip manually and place in
+- Gradle build timeout: download Gradle zip manually and place in
   ~/.gradle/wrapper/dists/gradle-X.X-all/[random-folder]/
-- ADB WiFi: run `adb tcpip 5555` then `adb connect [phone-ip]:5555`
+- ADB Wi-Fi: run `adb tcpip 5555` then `adb connect [phone-ip]:5555`

@@ -24,11 +24,9 @@ import 'features/auth/signup_screen.dart';
 
 // Screens - Dashboard & Home
 import 'features/dashboard/dashboard_screen.dart';
-import 'features/home/home_screen.dart';
 import 'features/notifications/notification_screen.dart';
 
 // Screens - Schools
-import 'features/schools/school_list_screen.dart';
 import 'features/schools/school_detail_screen.dart';
 
 // Screens - Applications

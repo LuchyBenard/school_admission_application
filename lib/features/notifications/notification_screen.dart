@@ -169,7 +169,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           return ListView.separated(
             padding: EdgeInsets.all(24.w),
             itemCount: notifProvider.notifications.length,
-            separatorBuilder: (_, __) => SizedBox(height: 8.h),
+            separatorBuilder: (context, index) => SizedBox(height: 8.h),
             itemBuilder: (context, index) {
               final notification =
               notifProvider.notifications[index];

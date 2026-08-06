@@ -83,7 +83,7 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
                 scrollDirection: Axis.horizontal,
                 padding: EdgeInsets.symmetric(horizontal: 24.w),
                 itemCount: _filters.length,
-                separatorBuilder: (_, __) => SizedBox(width: 8.w),
+                separatorBuilder: (context, index) => SizedBox(width: 8.w),
                 itemBuilder: (context, index) {
                   final filter = _filters[index];
                   final isSelected = _selectedFilter == filter;
