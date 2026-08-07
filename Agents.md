@@ -149,7 +149,7 @@ ApplicantDetailScreen → Accept / Reject / Request Docs / Under Review
 
 ## Known Placeholders
 - Payment: currently simulates success after 2s delay
-  Real integration: Paystack or Flutterwave
+  Real integration: PayStack or FlutterWave
 - Document upload: uses image_picker (gallery only)
   Camera support can be added via ImageSource. Camera
 - Firebase Cloud Messaging: installed but push notification
