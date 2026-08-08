@@ -133,6 +133,77 @@ class ApplicationCardSkeleton extends StatelessWidget {
   }
 }
 
+class NotificationSkeleton extends StatelessWidget {
+  const NotificationSkeleton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(bottom: 8.h),
+      padding: EdgeInsets.all(16.w),
+      decoration: BoxDecoration(
+        color: AppColors.background,
+        borderRadius: BorderRadius.circular(12.r),
+        border: Border.all(color: AppColors.border),
+      ),
+      child: Row(
+        children: [
+          SkeletonLoader(width: 40.w, height: 40.w, borderRadius: 10),
+          SizedBox(width: 12.w),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SkeletonLoader(width: double.infinity, height: 14.h),
+                SizedBox(height: 6.h),
+                SkeletonLoader(width: 200.w, height: 12.h),
+                SizedBox(height: 6.h),
+                SkeletonLoader(width: 80.w, height: 10.h),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class HomeSkeleton extends StatelessWidget {
+  const HomeSkeleton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.count(
+      crossAxisCount: 2,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      crossAxisSpacing: 12.w,
+      mainAxisSpacing: 12.h,
+      childAspectRatio: 1.1,
+      children: List.generate(
+        4,
+          (_) => Container(
+            padding: EdgeInsets.all(16.w),
+            decoration: BoxDecoration(
+              color: AppColors.surface,
+              borderRadius: BorderRadius.circular(16.r),
+              border: Border.all(color: AppColors.border),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SkeletonLoader(width: 36.w, height: 36.w, borderRadius: 10),
+                const Spacer(),
+                SkeletonLoader(width: 50.w, height: 28.h),
+                SizedBox(height: 6.h),
+                SkeletonLoader(width: 80.w, height: 12.h),
+              ],
+            ),
+          ),
+      ),
+    );
+  }
+}
 
 
 
