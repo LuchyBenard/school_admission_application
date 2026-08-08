@@ -98,5 +98,42 @@ class SchoolCardSkeleton extends StatelessWidget {
   }
 }
 
+class ApplicationCardSkeleton extends StatelessWidget {
+  const ApplicationCardSkeleton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(bottom: 12.h),
+      padding: EdgeInsets.all(16.w),
+      decoration: BoxDecoration(
+        color: AppColors.background,
+        borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(color: AppColors.border),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SkeletonLoader(width: 180.w, height: 16.h),
+              SkeletonLoader(width: 80.w, height: 24.h, borderRadius: 20),
+                    ],
+          ),
+                    SizedBox(height: 10.h),
+                    SkeletonLoader(width: 140.w, height: 12.h),
+                    SizedBox(height: 6.h),
+                    SkeletonLoader(width: 100.w, height: 12.h),
+                    SizedBox(height: 10.h),
+                    SkeletonLoader(width: 120.w, height: 10.h),
+                  ],
+                ),
+              );
+  }
+}
+
+
+
 
 
