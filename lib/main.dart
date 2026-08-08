@@ -135,6 +135,8 @@ class MyApp extends StatelessWidget {
                 '/onboarding': (context) => const OnboardingScreen(),
                 '/login': (context) => const LoginScreen(),
                 '/register': (context) => const SignupScreen(),
+                '/forgot-password': (context) => const ForgotPasswordScreen(),
+                '/otp-verification': (context) => const OTPVerificationScreen(),
                 '/dashboard': (context) => const DashboardScreen(),
                 '/school-detail': (context) => const SchoolDetailScreen(),
                 '/application-form': (context) => const ApplicationFormScreen(),
