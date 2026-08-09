@@ -152,10 +152,10 @@ class _SchoolListScreenState extends State<SchoolListScreen> {
                   builder: (context, schoolProvider, child) {
                     // Loading State
                     if (schoolProvider.isLoading) {
-                      return Center(
-                        child: CircularProgressIndicator(
-                          color: AppColors.primary,
-                        ),
+                      return ListView.builder(
+                        padding: EdgeInsets.symmetric(horizontal: 24.w),
+                        itemCount: 6,
+                        itemBuilder: (_, __) => SchoolCardSkeleton(),
                       );
                     }
 

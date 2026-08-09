@@ -131,10 +131,10 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         builder: (context, notifProvider, child) {
           // Loading state
           if (notifProvider.isLoading) {
-            return const Center(
-              child: CircularProgressIndicator(
-                color: AppColors.primary,
-              ),
+            return ListView.builder(
+              padding: EdgeInsets.all(24.w),
+              itemCount: 5,
+              itemBuilder: (_,__) => NotificationsScreen(),
             );
           }
 

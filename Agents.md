@@ -17,103 +17,186 @@ documents, make payments, and track admission status all from their phone.
 ## Project Structure
 
 lib/
+
 ├── main.dart # App entry point, Firebase init, routes
+
 ├── firebase_options.dart # Auto-generated Firebase config
+
 │
 ├── core/
+
 │ └── constants/
+
 │ ├── app_colors.dart # Indigo-blue color palette
+
 │ ├── app_text_styles.dart # Typography (PlusJakartaSans, Inter, DMSans)
+
 │ └── app_routes.dart # Route name constants
+
 │
 ├── models/
+
 │ ├── user_model.dart
+
 │ ├── school_model.dart # fromApi() and fromFirestore() factories
+
 │ ├── application_model.dart # Includes jambScore and jambYear fields
+
 │ └── notification_model.dart
+
 │
 ├── services/
+
 │ ├── auth_service.dart # Firebase Auth + Firestore user ops
+
 │ └── school_api_service.dart # Hipolabs API + Firestore school ops
+
 │
 ├── providers/
+
 │ ├── auth_provider.dart # Auth state, login, register, logout
+
 │ ├── school_provider.dart # School listing, search, country filter
+
 │ ├── application_provider.dart # Submit, load, track applications
+
 │ └── notification_provider.dart # Load, read, delete notifications
+
 │
 └── features/
+
 ├── splash/
+
 ├── onboarding/
+
 ├── auth/ # login, signup, forgot_password, otp
+
 ├── dashboard/ # Bottom nav shell (4 tabs)
+
 ├── home/ # Tab 1 — greeting, carousel, stats
+
 ├── schools/ # Tab 2 — listing, detail, card widget
+
 ├── application/ # Tab 3 — form, status, detail, upload, payment
+
 ├── profile/ # Tab 4 — view/edit profile, logout
+
 ├── notifications/ # Notification list screen
+
 └── admin/ # Admin login, dashboard, applicant list/detail
 
-## Key Routes
-/ → SplashScreen
-/onboarding → OnboardingScreen
-/login → LoginScreen
-/register → SignupScreen
-/dashboard → DashboardScreen (student home)
-/school-detail → SchoolDetailScreen (args: SchoolModel)
-/application-form → ApplicationFormScreen (args: SchoolModel)
-/document-upload → DocumentUploadScreen (args: applicationId String)
-/payment → PaymentScreen (args: applicationId String)
-/application-detail → ApplicationDetailScreen (args: ApplicationModel)
-/notifications → NotificationsScreen
-/admin-login → AdminLoginScreen
-/admin-dashboard → AdminDashboardScreen
-/admin-applicants → ApplicantListScreen
-/admin-applicant-detail → ApplicantDetailScreen (args: ApplicationModel)
 
 ## Key Routes
 / → SplashScreen
+
 /onboarding → OnboardingScreen
+
 /login → LoginScreen
+
 /register → SignupScreen
+
 /dashboard → DashboardScreen (student home)
+
 /school-detail → SchoolDetailScreen (args: SchoolModel)
+
 /application-form → ApplicationFormScreen (args: SchoolModel)
+
 /document-upload → DocumentUploadScreen (args: applicationId String)
+
 /payment → PaymentScreen (args: applicationId String)
+
 /application-detail → ApplicationDetailScreen (args: ApplicationModel)
+
 /notifications → NotificationsScreen
+
 /admin-login → AdminLoginScreen
+
 /admin-dashboard → AdminDashboardScreen
+
 /admin-applicants → ApplicantListScreen
+
 /admin-applicant-detail → ApplicantDetailScreen (args: ApplicationModel)
+
+
+## Key Routes
+/ → SplashScreen
+
+/onboarding → OnboardingScreen
+
+/login → LoginScreen
+
+/register → SignupScreen
+
+/dashboard → DashboardScreen (student home)
+
+/school-detail → SchoolDetailScreen (args: SchoolModel)
+
+/application-form → ApplicationFormScreen (args: SchoolModel)
+
+/document-upload → DocumentUploadScreen (args: applicationId String)
+
+/payment → PaymentScreen (args: applicationId String)
+
+/application-detail → ApplicationDetailScreen (args: ApplicationModel)
+
+/notifications → NotificationsScreen
+
+/admin-login → AdminLoginScreen
+
+/admin-dashboard → AdminDashboardScreen
+
+/admin-applicants → ApplicantListScreen
+
+/admin-applicant-detail → ApplicantDetailScreen (args: ApplicationModel)
+
 
 ## Firebase Collections
 users/ # uid, fullName, email, phone, role (student/admin)
+
 schools/ # name, country, state, website, isFeatured, imageUrl
+
 applications/ # userId, schoolName, status, jambScore, documents{}
+
 notifications/ # userId, title, message, type, isRead, createdAt
+
 
 ## Application Flow
 School Detail → Apply Now
+
 ↓
+
 ApplicationFormScreen (3 steps: personal, academic, programme)
+
 ↓ returns applicationId
+
 DocumentUploadScreen (WAEC, JAMB, passport, birth cert → Firebase Storage)
+
 ↓ passes applicationId
+
 PaymentScreen (placeholder — ₦5,000 fee)
+
 ↓
+
 Dashboard
 
 ## Admin Flow
 AdminLoginScreen → checks role = 'admin' in Firestore
+
 ↓
+
 AdminDashboardScreen → stats overview
+
 ↓
+
 ApplicantListScreen → search + filter
+
 ↓
+
 ApplicantDetailScreen → Accept / Reject / Request Docs / Under Review
-↓ writes to applications/{id} + creates notification for student
+
+↓
+
+writes to applications/{id} + creates notification for student
 
 ## Role Detection
 - On splash screen, after Firebase Auth confirms a logged-in user,

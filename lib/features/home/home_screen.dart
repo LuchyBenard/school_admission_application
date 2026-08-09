@@ -8,6 +8,7 @@ import '../../providers/auth_provider.dart';
 import 'widgets/featured_schools_banner.dart';
 import 'widgets/application_summary_card.dart';
 import '../../providers/notification_provider.dart';
+import '../../core/widgets/skeleton_loader.dart';
 
 class HomeScreen extends StatefulWidget {
   final VoidCallback? onFindSchoolsTapped;

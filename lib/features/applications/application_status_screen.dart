@@ -130,10 +130,10 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
                 builder: (context, appProvider, child) {
                   // Loading state
                   if (appProvider.isLoading) {
-                    return const Center(
-                      child: CircularProgressIndicator(
-                        color: AppColors.primary,
-                      ),
+                    return ListView.builder(
+                      padding: EdgeInsets.symmetric(horizontal: 24.w),
+                      itemCount: 4,
+                      itemBuilder: (_,__) => ApplicationCardSkeleton(),
                     );
                   }
 
