@@ -94,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 size: 22.w,
                               ),
                             ),
-// Bagde - only shows where there are unread notifications
+// Badge - only shows where there are unread notifications
                             if (notifProvider.unreadCount > 0)
                               Positioned(
                                 right: 0,
