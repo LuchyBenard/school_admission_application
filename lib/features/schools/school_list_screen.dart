@@ -4,6 +4,7 @@ import '../../core/constants/app_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import '../../providers/school_provider.dart';
+import '../../core/widgets/skeleton_loader.dart';
 import 'widgets/school_card.dart';
 
 class SchoolListScreen extends StatefulWidget {

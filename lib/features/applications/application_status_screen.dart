@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_text_styles.dart';
 import '../../providers/application_provider.dart';
+import '../../core/widgets/skeleton_loader.dart';
 import 'widgets/application_card.dart';
 
 class ApplicationStatusScreen extends StatefulWidget {

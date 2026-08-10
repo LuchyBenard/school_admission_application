@@ -35,11 +35,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final authProvider = context.watch<AuthProvider>();
-    final appProvider = context.watch<ApplicationProvider>();
     final String firstName = authProvider.userProfile?['fullName']
-        ?.toString()
-        .split(' ')
-        .first ??
+            ?.toString()
+            .split(' ')
+            .first ??
         'Student';
 
     return Scaffold(
@@ -94,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 size: 22.w,
                               ),
                             ),
-// Badge - only shows where there are unread notifications
+                            // Badge - only shows where there are unread notifications
                             if (notifProvider.unreadCount > 0)
                               Positioned(
                                 right: 0,
@@ -102,16 +101,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: Container(
                                   width: 18.w,
                                   height: 18.w,
-                                  decoration: BoxDecoration(
-                                      color: AppColors.error,
-                                      shape: BoxShape.circle
-                                  ),
+                                  decoration: const BoxDecoration(
+                                      color: AppColors.error, shape: BoxShape.circle),
                                   child: Center(
                                     child: Text(
                                       notifProvider.unreadCount > 9
                                           ? '9+'
-                                          : notifProvider.unreadCount
-                                          .toString(),
+                                          : notifProvider.unreadCount.toString(),
                                       style: AppTextStyles.caption.copyWith(
                                         color: AppColors.background,
                                         fontSize: 10,
@@ -128,7 +124,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
-        
 
               SizedBox(height: 28.h),
 
@@ -143,40 +138,48 @@ class _HomeScreenState extends State<HomeScreen> {
               Text('My Applications', style: AppTextStyles.h2),
               SizedBox(height: 16.h),
 
-              GridView.count(
-                crossAxisCount: 2,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                crossAxisSpacing: 12.w,
-                mainAxisSpacing: 12.h,
-                childAspectRatio: 1.1,
-                children: [
-                  ApplicationSummaryCard(
-                    count: appProvider.totalApplied.toString(),
-                    label: 'Total Applied',
-                    color: AppColors.primary,
-                    icon: Icons.assignment_outlined,
-                  ),
-                  ApplicationSummaryCard(
-                    count: appProvider.underReview.toString(),
-                    label: 'Under Review',
-                    color: AppColors.warning,
-                    icon: Icons.hourglass_empty_outlined,
-                  ),
-                  ApplicationSummaryCard(
-                    count: appProvider.accepted.toString(),
-                    label: 'Accepted',
-                    color: AppColors.success,
-                    icon: Icons.check_circle_outline, // ← fixed
-                  ),
-                  ApplicationSummaryCard(
-                    count: appProvider.rejected.toString(),
-                    label: 'Rejected',
-                    color: AppColors.error,
-                    icon: Icons.cancel_outlined,
-                  ),
-                ], // ← closes children list
-              ), // ← closes GridView.count
+              Consumer<ApplicationProvider>(
+                builder: (context, appProvider, child) {
+                  if (appProvider.isLoading) {
+                    return const HomeSkeleton();
+                  }
+
+                  return GridView.count(
+                    crossAxisCount: 2,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    crossAxisSpacing: 12.w,
+                    mainAxisSpacing: 12.h,
+                    childAspectRatio: 1.1,
+                    children: [
+                      ApplicationSummaryCard(
+                        count: appProvider.totalApplied.toString(),
+                        label: 'Total Applied',
+                        color: AppColors.primary,
+                        icon: Icons.assignment_outlined,
+                      ),
+                      ApplicationSummaryCard(
+                        count: appProvider.underReview.toString(),
+                        label: 'Under Review',
+                        color: AppColors.warning,
+                        icon: Icons.hourglass_empty_outlined,
+                      ),
+                      ApplicationSummaryCard(
+                        count: appProvider.accepted.toString(),
+                        label: 'Accepted',
+                        color: AppColors.success,
+                        icon: Icons.check_circle_outline,
+                      ),
+                      ApplicationSummaryCard(
+                        count: appProvider.rejected.toString(),
+                        label: 'Rejected',
+                        color: AppColors.error,
+                        icon: Icons.cancel_outlined,
+                      ),
+                    ],
+                  );
+                },
+              ),
 
               SizedBox(height: 28.h),
 
