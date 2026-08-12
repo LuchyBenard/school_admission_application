@@ -136,18 +136,12 @@ class SchoolDetailScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(label,
-              style: const TextStyle(
+              style: AppTextStyles.label.copyWith(
                 color: AppColors.textHint,
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
               )),
           const SizedBox(height: 4),
           Text(value,
-              style: const TextStyle(
-                color: AppColors.textPrimary,
-                fontSize: 16,
-                fontWeight: FontWeight.w400,
-              )),
+              style: AppTextStyles.bodyLarge),
           const Divider(),
         ],
       ),

@@ -19,7 +19,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<NotificationProvider>().loadNotifications();
+      context.read<NotificationProvider>().subscribeToNotifications();
     });
   }
 
@@ -134,7 +134,52 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             return ListView.builder(
               padding: EdgeInsets.all(24.w),
               itemCount: 5,
-              itemBuilder: (_,__) => NotificationsScreen(),
+              itemBuilder: (_, _) => Container(
+                margin: EdgeInsets.only(bottom: 8.h),
+                padding: EdgeInsets.all(16.w),
+                decoration: BoxDecoration(
+                  color: AppColors.surface,
+                  borderRadius: BorderRadius.circular(12.r),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 40.w,
+                      height: 40.w,
+                      decoration: const BoxDecoration(
+                        color: AppColors.border,
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                    SizedBox(width: 12.w),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: 120.w,
+                            height: 12,
+                            decoration: BoxDecoration(
+                              color: AppColors.border,
+                              borderRadius: BorderRadius.circular(4.r),
+                            ),
+                          ),
+                          SizedBox(height: 8.h),
+                          Container(
+                            width: double.infinity,
+                            height: 10,
+                            decoration: BoxDecoration(
+                              color: AppColors.border,
+                              borderRadius: BorderRadius.circular(4.r),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             );
           }
 

@@ -15,6 +15,8 @@ class ApplicationDetailScreen extends StatelessWidget {
         return AppColors.error;
       case 'under_review':
         return AppColors.warning;
+      case 'more_documents':
+        return AppColors.warning;
       default:
         return AppColors.info;
     }
@@ -28,6 +30,8 @@ class ApplicationDetailScreen extends StatelessWidget {
         return 'Rejected';
       case 'under_review':
         return 'Under Review';
+      case 'more_documents':
+        return 'More Documents Required';
       default:
         return 'Pending';
     }

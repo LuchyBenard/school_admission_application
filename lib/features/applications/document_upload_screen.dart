@@ -161,16 +161,24 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
       );
       return;
     }
+
+    if (_applicationId == null) {
+      showToast(
+        'No active application found. Start a new application first.',
+        backgroundColor: AppColors.error,
+        textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
+      );
+      return;
+    }
+
     setState(() => _isSubmitting = true);
 
     try {
       // Save document URLs to Firestore
-      if (_applicationId != null) {
-        await _firestore.collection('applications').doc(_applicationId).update({
-          'documents': _uploadedUrls,
-          'documentsUploaded': true,
-        });
-      }
+      await _firestore.collection('applications').doc(_applicationId).update({
+        'documents': _uploadedUrls,
+        'documentsUploaded': true,
+      });
 
       if (!mounted) return;
 
@@ -181,13 +189,16 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
         arguments: _applicationId,
       );
     } catch (e) {
-      showToast(
-        'Something went wrong. Please try again.',
-        backgroundColor: AppColors.error,
-        textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
-      );
+      if (mounted) {
+        showToast(
+          'Something went wrong. Please try again.',
+          backgroundColor: AppColors.error,
+          textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
+        );
+      }
+    } finally {
+      if (mounted) setState(() => _isSubmitting = false);
     }
-    if (mounted) setState(() => _isSubmitting = false);
   }
 
   @override

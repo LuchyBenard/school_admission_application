@@ -156,7 +156,7 @@ class _SchoolListScreenState extends State<SchoolListScreen> {
                       return ListView.builder(
                         padding: EdgeInsets.symmetric(horizontal: 24.w),
                         itemCount: 6,
-                        itemBuilder: (_, __) => SchoolCardSkeleton(),
+                        itemBuilder: (_, _) => SchoolCardSkeleton(),
                       );
                     }
 

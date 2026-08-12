@@ -122,6 +122,7 @@ class _ApplicantDetailScreenState extends State<ApplicantDetailScreen> {
   }
 
   void _showActionDialog(String status, String title, Color color) {
+    _messageController.clear();
     showDialog(
       context: context,
       builder: (context) => AlertDialog(

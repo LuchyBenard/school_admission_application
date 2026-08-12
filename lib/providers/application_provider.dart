@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,6 +13,9 @@ class ApplicationProvider extends ChangeNotifier{
   ApplicationStatus _status = ApplicationStatus.initial;
   List<ApplicationModel> _applications = [];
   String? _errorMessage;
+
+  StreamSubscription<QuerySnapshot<Map<String, dynamic>>>? _appSub;
+  String? _subscribedUid;
 
 
   // Stats
@@ -41,21 +45,92 @@ class ApplicationProvider extends ChangeNotifier{
           .where('userId', isEqualTo: uid)
           .get();
 
-      _totalApplied = snapshot.docs.length;
-      _underReview = snapshot.docs
-      .where((d) => d['status'] == 'under_review')
-      .length;
-      _accepted = snapshot.docs
-      .where((d) => d['status'] == 'accepted')
-      .length;
-      _rejected = snapshot.docs
-          .where((d) => d['status'] == 'rejected')
-          .length;
+      final apps = snapshot.docs
+          .map((doc) => ApplicationModel.fromFirestore(
+            doc.data(),
+            doc.id,
+          ))
+          .toList();
+
+      _updateStatsFrom(apps);
 
       notifyListeners();
     } catch (e) {
       return;
     }
+  }
+
+  // Subscribe to real-time application updates
+  // Prevents duplicate listeners and keeps stats in sync
+  // when admin updates an application's status
+  void subscribeToApplications() {
+    final uid = _auth.currentUser?.uid;
+    if (uid == null) {
+      _appSub?.cancel();
+      _appSub = null;
+      _subscribedUid = null;
+      _applications = [];
+      _resetStats();
+      _status = ApplicationStatus.initial;
+      notifyListeners();
+      return;
+    }
+
+    if (_subscribedUid == uid) return;
+
+    _appSub?.cancel();
+    _subscribedUid = uid;
+    _status = ApplicationStatus.loading;
+    notifyListeners();
+
+    // No orderBy here - avoids the composite index requirement.
+    // Results are sorted manually in Dart instead.
+    _appSub = _firestore
+        .collection('applications')
+        .where('userId', isEqualTo: uid)
+        .snapshots()
+        .listen((snapshot) {
+      final apps = snapshot.docs
+          .map((doc) => ApplicationModel.fromFirestore(
+            doc.data(),
+            doc.id,
+          ))
+          .toList()
+        ..sort((a, b) {
+          final at = a.createdAt ?? DateTime.fromMillisecondsSinceEpoch(0);
+          final bt = b.createdAt ?? DateTime.fromMillisecondsSinceEpoch(0);
+          return bt.compareTo(at);
+        });
+
+      _applications = apps;
+      _updateStatsFrom(apps);
+      _status = ApplicationStatus.loaded;
+      notifyListeners();
+    }, onError: (e) {
+      _errorMessage = 'Failed to load applications.';
+      _status = ApplicationStatus.error;
+      notifyListeners();
+    });
+  }
+
+  void _updateStatsFrom(List<ApplicationModel> apps) {
+    _totalApplied = apps.length;
+    _underReview = apps.where((a) => a.status == 'under_review').length;
+    _accepted = apps.where((a) => a.status == 'accepted').length;
+    _rejected = apps.where((a) => a.status == 'rejected').length;
+  }
+
+  void _resetStats() {
+    _totalApplied = 0;
+    _underReview = 0;
+    _accepted = 0;
+    _rejected = 0;
+  }
+
+  @override
+  void dispose() {
+    _appSub?.cancel();
+    super.dispose();
   }
 
   // Load all applications
@@ -70,7 +145,6 @@ Future<void> loadApplications() async {
       final snapshot = await _firestore
           .collection('applications')
           .where('userId', isEqualTo: uid)
-          .orderBy('createdAt', descending: true)
           .get();
 
       _applications = snapshot.docs
@@ -78,7 +152,12 @@ Future<void> loadApplications() async {
         doc.data(),
         doc.id,
       ))
-      .toList();
+      .toList()
+      ..sort((a, b) {
+        final at = a.createdAt ?? DateTime.fromMillisecondsSinceEpoch(0);
+        final bt = b.createdAt ?? DateTime.fromMillisecondsSinceEpoch(0);
+        return bt.compareTo(at);
+      });
 
       _status = ApplicationStatus.loaded;
     } catch (e) {

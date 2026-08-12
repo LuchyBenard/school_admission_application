@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,9 +12,69 @@ class NotificationProvider extends ChangeNotifier{
   bool _isLoading = false;
   int _unreadCount = 0;
 
+  StreamSubscription<QuerySnapshot<Map<String, dynamic>>>? _notifSub;
+  String? _subscribedUid;
+
   List<NotificationModel> get notifications => _notifications;
   bool get isLoading => _isLoading;
   int get unreadCount => _unreadCount;
+
+  // Subscribe to real-time notification updates
+  // Prevents duplicate listeners and picks up new
+  // notifications from admin actions immediately
+  void subscribeToNotifications() {
+    final uid = _auth.currentUser?.uid;
+    if (uid == null) {
+      _notifSub?.cancel();
+      _notifSub = null;
+      _subscribedUid = null;
+      _notifications = [];
+      _unreadCount = 0;
+      _isLoading = false;
+      notifyListeners();
+      return;
+    }
+
+    if (_subscribedUid == uid) return;
+
+    _notifSub?.cancel();
+    _subscribedUid = uid;
+    _isLoading = true;
+    notifyListeners();
+
+    // No orderBy here - avoids the composite index requirement.
+    // Results are sorted manually in Dart instead.
+    _notifSub = _firestore
+        .collection('notifications')
+        .where('userId', isEqualTo: uid)
+        .snapshots()
+        .listen((snapshot) {
+      final list = snapshot.docs
+          .map((doc) => NotificationModel.fromFireStore(
+            doc.data(),
+            doc.id,
+          ))
+          .toList()
+        ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
+
+      _notifications = list;
+      _unreadCount = list.where((n) => !n.isRead).length;
+      _isLoading = false;
+      notifyListeners();
+    }, onError: (e) {
+      // if no notifications yet, just show empty list
+      _notifications = [];
+      _unreadCount = 0;
+      _isLoading = false;
+      notifyListeners();
+    });
+  }
+
+  @override
+  void dispose() {
+    _notifSub?.cancel();
+    super.dispose();
+  }
 
   // Load notifications
 Future<void> loadNotifications() async {
@@ -27,7 +88,6 @@ Future<void> loadNotifications() async {
     final snapshot = await _firestore
         .collection('notifications')
         .where('userId', isEqualTo: uid)
-        .orderBy('createdAt', descending: true)
         .get();
 
     _notifications = snapshot.docs
@@ -35,7 +95,8 @@ Future<void> loadNotifications() async {
       doc.data(),
       doc.id,
     ))
-    .toList();
+    .toList()
+      ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
   _unreadCount =
       _notifications.where((n) => !n.isRead).length;
 } catch (e) {

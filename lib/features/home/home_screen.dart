@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:school_admission_application/providers/application_provider.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_text_styles.dart';
@@ -27,8 +28,8 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<ApplicationProvider>().loadApplicationStats();
-      context.read<NotificationProvider>().loadNotifications();
+      context.read<ApplicationProvider>().subscribeToApplications();
+      context.read<NotificationProvider>().subscribeToNotifications();
     });
   }
 
@@ -206,7 +207,24 @@ class _HomeScreenState extends State<HomeScreen> {
                       icon: Icons.description_outlined,
                       label: 'My Documents',
                       onTap: () {
-                        Navigator.pushNamed(context, '/document-upload');
+                        final appProvider =
+                            context.read<ApplicationProvider>();
+                        appProvider.subscribeToApplications();
+                        final apps = appProvider.applications;
+                        if (apps.isEmpty) {
+                          showToast(
+                            'You have no application yet. Apply to a school first.',
+                            backgroundColor: AppColors.warning,
+                            textStyle: AppTextStyles.bodySmall
+                                .copyWith(color: Colors.white),
+                          );
+                          return;
+                        }
+                        Navigator.pushNamed(
+                          context,
+                          '/document-upload',
+                          arguments: apps.first.id,
+                        );
                       },
                     ),
                   ),

@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class ApplicationModel{
   final String? id;
   final String userId;
@@ -91,9 +93,15 @@ factory ApplicationModel.fromFirestore(
       entryLevel: json ['entryLevel'] ?? '',
       session: json ['session'] ?? '',
     status: json ['status'] ?? 'pending',
-    createdAt: json ['createdAt'] != null
-      ? DateTime.parse(json['createdAt'])
-        : null,
+    createdAt: _parseDate(json['createdAt']),
   );
+}
+
+static DateTime? _parseDate(dynamic value) {
+  if (value == null) return null;
+  if (value is DateTime) return value;
+  if (value is Timestamp) return value.toDate();
+  if (value is String) return DateTime.tryParse(value);
+  return null;
 }
 }

@@ -56,7 +56,6 @@ class DefaultFirebaseOptions {
     projectId: 'campusapply',
     storageBucket: 'campusapply.firebasestorage.app',
   );
-
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyBbQQzVWaNgTSHOnmM74Axd_cl1Mf1pc0A',
     appId: '1:183095407106:ios:46500bed980872b811ed1b',

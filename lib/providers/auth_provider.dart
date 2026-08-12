@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:oktoast/oktoast.dart';
+import '../core/constants/app_colors.dart';
 import '../services/auth_service.dart';
 
 enum AuthStatus {
@@ -67,7 +68,7 @@ class AuthProvider extends ChangeNotifier {
 
       showToast(
         'Account created successfully. Welcome',
-        backgroundColor: const Color(0xFF10B981),
+        backgroundColor: AppColors.success,
       );
       return true;
     } catch (e) {
@@ -77,7 +78,7 @@ class AuthProvider extends ChangeNotifier {
 
       showToast(
         e.toString(),
-        backgroundColor: const Color(0xFFEF4444),
+        backgroundColor: AppColors.error,
       );
       return false;
     }
@@ -101,7 +102,7 @@ class AuthProvider extends ChangeNotifier {
 
       showToast(
         'Welcome back!',
-        backgroundColor: const Color(0xFF10B981),
+        backgroundColor: AppColors.success,
       );
 
       return true;
@@ -112,7 +113,7 @@ class AuthProvider extends ChangeNotifier {
 
       showToast(
         _errorMessage!,
-        backgroundColor: const Color(0xFFEF4444),
+        backgroundColor: AppColors.error,
       );
 
       return false;
@@ -123,7 +124,7 @@ class AuthProvider extends ChangeNotifier {
 
       showToast(
         _errorMessage!,
-        backgroundColor: const Color(0xFFEF4444),
+        backgroundColor: AppColors.error,
       );
       return false;
     }
@@ -169,7 +170,7 @@ class AuthProvider extends ChangeNotifier {
 
       showToast(
         _errorMessage!,
-        backgroundColor: const Color(0xFFEF4444),
+        backgroundColor: AppColors.error,
       );
       return false;
     }
@@ -192,7 +193,7 @@ class AuthProvider extends ChangeNotifier {
 
       showToast(
         'Password reset successful! Please sign in.',
-        backgroundColor: const Color(0xFF10B981),
+        backgroundColor: AppColors.success,
       );
       return true;
     } on FirebaseAuthException catch (e) {
@@ -202,7 +203,7 @@ class AuthProvider extends ChangeNotifier {
 
       showToast(
         _errorMessage!,
-        backgroundColor: const Color(0xFFEF4444),
+        backgroundColor: AppColors.error,
       );
       return false;
     }
@@ -243,7 +244,7 @@ class AuthProvider extends ChangeNotifier {
 
       showToast(
         'Profile updated successfully',
-        backgroundColor: const Color(0xFF10B981),
+        backgroundColor: AppColors.success,
       );
       return true;
     } catch (e) {
@@ -252,7 +253,7 @@ class AuthProvider extends ChangeNotifier {
       notifyListeners();
       showToast(
         _errorMessage!,
-        backgroundColor: const Color(0xFFEF4444),
+        backgroundColor: AppColors.error,
       );
       return false;
     }

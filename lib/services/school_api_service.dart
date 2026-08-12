@@ -7,7 +7,7 @@ final Dio _dio = Dio();
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 // Base URL for Hipolabs API
-static const String _baseURL = 'http://universities.hipolabs.com/search';
+static const String _baseURL = 'https://universities.hipolabs.com/search';
 
 // Fetch from Hipolabs API
 Future<List<SchoolModel>> fetchSchoolsFromApi({

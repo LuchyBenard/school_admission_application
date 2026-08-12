@@ -23,7 +23,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
       },
     ),
     const SchoolListScreen(),
-    const ApplicationStatusScreen(),
+    ApplicationStatusScreen(
+      onFindSchoolsTapped: () {
+        setState(() => _currentIndex = 1);
+      },
+    ),
     const ProfileScreen(),
   ];
 

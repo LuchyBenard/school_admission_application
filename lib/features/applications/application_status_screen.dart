@@ -8,7 +8,9 @@ import '../../core/widgets/skeleton_loader.dart';
 import 'widgets/application_card.dart';
 
 class ApplicationStatusScreen extends StatefulWidget {
-  const ApplicationStatusScreen({super.key});
+  final VoidCallback? onFindSchoolsTapped;
+
+  const ApplicationStatusScreen({super.key, this.onFindSchoolsTapped});
 
   @override
   State<ApplicationStatusScreen> createState() => _ApplicationStatusScreenState();
@@ -28,7 +30,7 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<ApplicationProvider>().loadApplications();
+      context.read<ApplicationProvider>().subscribeToApplications();
     });
   }
 
@@ -134,7 +136,7 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
                     return ListView.builder(
                       padding: EdgeInsets.symmetric(horizontal: 24.w),
                       itemCount: 4,
-                      itemBuilder: (_,__) => ApplicationCardSkeleton(),
+                      itemBuilder: (_, _) => ApplicationCardSkeleton(),
                     );
                   }
 
@@ -157,7 +159,7 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
                           SizedBox(height: 8.h),
                           ElevatedButton(
                             onPressed: () {
-                              context.read<ApplicationProvider>().loadApplications();
+                              context.read<ApplicationProvider>().subscribeToApplications();
                             },
                             child: const Text('Try Again'),
                           ),
@@ -196,10 +198,7 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
                             SizedBox(height: 24.h),
                             ElevatedButton(
                               onPressed: () {
-                                Navigator.pushNamed(
-                                  context,
-                                  '/dashboard', // Or school list
-                                );
+                                widget.onFindSchoolsTapped?.call();
                               },
                               child: const Text('Browse Schools'),
                             ),

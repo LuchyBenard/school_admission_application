@@ -57,7 +57,7 @@ class SchoolModel {
       'country': country,
       'state': state,
       'website': website,
-      'imageURL': imageUrl,
+      'imageUrl': imageUrl,
       'description': description,
       'applicationFee': applicationFee,
       'deadline': deadline,

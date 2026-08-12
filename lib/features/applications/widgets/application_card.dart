@@ -22,6 +22,8 @@ class ApplicationCard extends StatelessWidget {
         return AppColors.error;
       case 'under_review':
         return AppColors.warning;
+      case 'more_documents':
+        return AppColors.warning;
       default:
         return AppColors.info;
     }
@@ -35,6 +37,8 @@ class ApplicationCard extends StatelessWidget {
         return 'Rejected';
       case 'under_review':
         return 'Under Review';
+      case 'more_documents':
+        return 'Docs Needed';
       default:
         return 'Pending';
     }
@@ -48,6 +52,8 @@ class ApplicationCard extends StatelessWidget {
         return Icons.cancel_outlined;
       case 'under_review':
         return Icons.hourglass_empty_outlined;
+      case 'more_documents':
+        return Icons.folder_outlined;
       default:
         return Icons.access_time_outlined;
     }
