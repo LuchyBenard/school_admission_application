@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:oktoast/oktoast.dart';
+import 'dart:convert';
 import 'dart:io';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_text_styles.dart';
@@ -18,7 +18,6 @@ class DocumentUploadScreen extends StatefulWidget {
 
 class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
   final ImagePicker _picker = ImagePicker();
-  final FirebaseStorage _storage = FirebaseStorage.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -37,6 +36,7 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
     'birth_certificate': false,
   };
 
+  // Holds the uploaded state per document (base64 string when uploaded)
   final Map<String, String?> _uploadedUrls = {
     'waec_neco': null,
     'jamb_result': null,
@@ -88,7 +88,9 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
     try {
       final XFile? file = await _picker.pickImage(
         source: ImageSource.gallery,
-        imageQuality: 80,
+        maxWidth: 1024,
+        maxHeight: 1024,
+        imageQuality: 70,
       );
 
       if (file != null) {
@@ -115,19 +117,39 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
     final uid = _auth.currentUser?.uid;
     if (uid == null) return;
 
+    if (_applicationId == null) {
+      showToast(
+        'No active application found. Start a new application first.',
+        backgroundColor: AppColors.error,
+        textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
+      );
+      return;
+    }
+
     setState(() => _uploading[dockey] = true);
 
     try {
-      // Upload to Firebase Storage
-      final ref = _storage.ref().child(
-            'documents/$uid/$dockey/${DateTime.now().millisecondsSinceEpoch}.jpg',
-          );
+      // Compress and store the image directly in Firestore as base64.
+      // This avoids Firebase Storage (requires the Blaze plan).
+      final bytes = await file.readAsBytes();
+      final base64Image = base64Encode(bytes);
 
-      await ref.putFile(file);
-      final url = await ref.getDownloadURL();
+      // One subcollection document per image keeps each document
+      // well under Firestore's 1MiB per-document limit.
+      await _firestore
+          .collection('applications')
+          .doc(_applicationId)
+          .collection('documents')
+          .doc(dockey)
+          .set({
+        'docKey': dockey,
+        'data': base64Image,
+        'userId': uid,
+        'uploadedAt': FieldValue.serverTimestamp(),
+      });
 
       setState(() {
-        _uploadedUrls[dockey] = url;
+        _uploadedUrls[dockey] = base64Image;
         _uploading[dockey] = false;
       });
 
@@ -174,9 +196,10 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
     setState(() => _isSubmitting = true);
 
     try {
-      // Save document URLs to Firestore
+      // Mark the application as complete. The images themselves live
+      // in the applications/{id}/documents subcollection.
       await _firestore.collection('applications').doc(_applicationId).update({
-        'documents': _uploadedUrls,
+        'documents': _uploadedUrls.keys.toList(),
         'documentsUploaded': true,
       });
 

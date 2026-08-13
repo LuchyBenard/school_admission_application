@@ -8,7 +8,9 @@ documents, make payments, and track admission status all from their phone.
 
 ## Tech Stack
 - **Framework:** Flutter (Dart)
-- **Backend:** Google Firebase (Auth, Firestore, Storage, Messaging)
+- **Backend:** Google Firebase (Auth, Firestore, Messaging)
+  Document images are stored as compressed base64 in a Firestore
+  subcollection (NO Firebase Storage — requires the Blaze plan).
 - **State Management:** Provider
 - **HTTP Client:** Dio (for Hipolabs Schools API)
 - **Local Storage:** GetStorage
@@ -155,7 +157,8 @@ users/ # uid, fullName, email, phone, role (student/admin)
 
 schools/ # name, country, state, website, isFeatured, imageUrl
 
-applications/ # userId, schoolName, status, jambScore, documents{}
+applications/ # userId, schoolName, status, jambScore, documents[]
+  applications/{id}/documents/ # one doc per image: docKey, data (base64), userId
 
 notifications/ # userId, title, message, type, isRead, createdAt
 
@@ -169,7 +172,7 @@ ApplicationFormScreen (3 steps: personal, academic, programme)
 
 ↓ returns applicationId
 
-DocumentUploadScreen (WAEC, JAMB, passport, birth cert → Firebase Storage)
+DocumentUploadScreen (WAEC, JAMB, passport, birth cert → Firestore documents subcollection as base64)
 
 ↓ passes applicationId
 
@@ -233,7 +236,8 @@ writes to applications/{id} + creates notification for student
 ## Known Placeholders
 - Payment: currently simulates success after 2s delay
   Real integration: PayStack or FlutterWave
-- Document upload: uses image_picker (gallery only)
+- Document upload: uses image_picker (gallery only, max 1024px @
+  quality 70), stored as base64 in a Firestore subcollection
   Camera support can be added via ImageSource. Camera
 - Firebase Cloud Messaging: installed but push notification
   triggers not yet implemented in Cloud Functions
@@ -241,11 +245,11 @@ writes to applications/{id} + creates notification for student
 ## Firebase Setup Required
 1. Enable Email/Password in Firebase Auth
 2. Create Firestore database in test mode
-3. Enable Firebase Storage
-4. Add google-services.json to android/app/
-5. Add GoogleService-Info.plist to ios/Runner/
-6. To create admin: set role field to 'admin'
+3. Add google-services.json to android/app/
+4. Add GoogleService-Info.plist to ios/Runner/
+5. To create admin: set role field to 'admin'
    in Firestore users collection for that user's document
+   (No Firebase Storage needed — documents are base64 in Firestore)
 
 ## Running the Project
 ```bash
