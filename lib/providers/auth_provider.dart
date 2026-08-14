@@ -130,6 +130,14 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
+  // VERIFY PASSWORD (used to enable fingerprint sign-in from profile)
+  Future<bool> verifyPassword({
+    required String email,
+    required String password,
+  }) async {
+    return _authService.verifyPassword(email: email, password: password);
+  }
+
   // LOGOUT
   Future<void> logout(BuildContext context) async {
     _setLoading();

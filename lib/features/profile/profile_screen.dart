@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import '../../core/constants/app_text_styles.dart';
 import '../../core/constants/app_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 import '../../providers/auth_provider.dart';
+import '../../services/biometric_service.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -18,7 +20,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final _phoneController = TextEditingController();
   final _dateOfBirthController = TextEditingController();
   final _stateOfOriginController = TextEditingController();
+  final BiometricService _biometricService = BiometricService();
   bool _isEditing = false;
+  bool _fingerprintEnabled = false;
 
   @override
   void initState() {
@@ -26,7 +30,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
     // Wait for profile to be available then load
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _loadProfileData();
+      _loadFingerprintStatus();
     });
+  }
+
+  Future<void> _loadFingerprintStatus() async {
+    final supported = await _biometricService.isSupported;
+    final credentials = await _biometricService.readCredentials();
+    if (!mounted) return;
+
+    final profile = context.read<AuthProvider>();
+    final currentEmail = profile.userProfile?['email'] ?? profile.user?.email;
+
+    if (supported && credentials != null && currentEmail != null) {
+      setState(() {
+        _fingerprintEnabled = credentials.email == currentEmail;
+      });
+    }
   }
 
   void _loadProfileData() {
@@ -306,6 +326,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Text('Account', style: AppTextStyles.h3),
                 SizedBox(height: 16.h),
 
+                // Fingerprint sign-in toggle
+                _buildFingerprintTile(),
+                SizedBox(height: 12.h),
+
                 // Change Password
                 _buildAccountTile(
                   icon: Icons.lock_outline,
@@ -362,6 +386,203 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
       ],
     );
+  }
+
+  Widget _buildFingerprintTile() {
+    return Container(
+      padding: EdgeInsets.all(16.w),
+      decoration: BoxDecoration(
+        color: AppColors.surface,
+        borderRadius: BorderRadius.circular(12.r),
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 40.w,
+            height: 40.w,
+            decoration: BoxDecoration(
+              color: AppColors.surfaceAlt,
+              borderRadius: BorderRadius.circular(10.r),
+            ),
+            child: Icon(
+              Icons.fingerprint,
+              color: _fingerprintEnabled
+                  ? AppColors.primary
+                  : AppColors.textHint,
+              size: 22.w,
+            ),
+          ),
+          SizedBox(width: 12.w),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Fingerprint sign-in',
+                  style: AppTextStyles.bodyMedium.copyWith(
+                    color: AppColors.textPrimary,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                Text(
+                  _fingerprintEnabled
+                      ? 'Enabled — sign in without your password'
+                      : 'Use your fingerprint to sign in faster',
+                  style: AppTextStyles.bodySmall,
+                ),
+              ],
+            ),
+          ),
+          Switch(
+            value: _fingerprintEnabled,
+            onChanged: _onFingerprintChanged,
+            activeThumbColor: AppColors.primary,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _onFingerprintChanged(bool value) async {
+    if (value) {
+      await _enableFingerprint();
+    } else {
+      await _biometricService.deleteCredentials();
+      if (!mounted) return;
+      setState(() => _fingerprintEnabled = false);
+      showToast(
+        'Fingerprint sign-in disabled',
+        backgroundColor: AppColors.info,
+      );
+    }
+  }
+
+  Future<void> _enableFingerprint() async {
+    final supported = await _biometricService.isSupported;
+    if (!supported) {
+      if (!mounted) return;
+      setState(() => _fingerprintEnabled = false);
+      showToast(
+        'Biometrics are not available on this device',
+        backgroundColor: AppColors.warning,
+        textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
+      );
+      return;
+    }
+
+    if (!mounted) return;
+
+    final profile = context.read<AuthProvider>();
+    final email = profile.userProfile?['email'] ?? profile.user?.email;
+    if (email == null) {
+      if (!mounted) return;
+      showToast(
+        'Could not determine your account email',
+        backgroundColor: AppColors.error,
+        textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
+      );
+      return;
+    }
+
+    final password = await _showPasswordDialog();
+    if (password == null) return;
+
+    final verified = await profile.verifyPassword(
+      email: email,
+      password: password,
+    );
+    if (!mounted) return;
+
+    if (!verified) {
+      showToast(
+        'Incorrect password. Please try again.',
+        backgroundColor: AppColors.error,
+        textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
+      );
+      return;
+    }
+
+    await _biometricService.saveCredentials(email, password);
+    if (!mounted) return;
+    setState(() => _fingerprintEnabled = true);
+    showToast(
+      'Fingerprint sign-in enabled',
+      backgroundColor: AppColors.success,
+    );
+  }
+
+  Future<String?> _showPasswordDialog() async {
+    final controller = TextEditingController();
+    final formKey = GlobalKey<FormState>();
+
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: AppColors.background,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.r),
+        ),
+        title: Text('Confirm password', style: AppTextStyles.h2),
+        content: Form(
+          key: formKey,
+          child: TextFormField(
+            controller: controller,
+            obscureText: true,
+            autofocus: true,
+            style: AppTextStyles.bodyLarge,
+            textInputAction: TextInputAction.done,
+            decoration: const InputDecoration(
+              hintText: 'Enter your password',
+              prefixIcon: Icon(
+                Icons.lock_outline,
+                color: AppColors.textHint,
+              ),
+            ),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter your password';
+              }
+              return null;
+            },
+            onFieldSubmitted: (_) {
+              if (formKey.currentState!.validate()) {
+                Navigator.pop(context, true);
+              }
+            },
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: Text(
+              'Cancel',
+              style: AppTextStyles.bodyMedium.copyWith(
+                color: AppColors.textSecondary,
+              ),
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              if (formKey.currentState!.validate()) {
+                Navigator.pop(context, true);
+              }
+            },
+            child: Text(
+              'Enable',
+              style: AppTextStyles.bodyMedium.copyWith(
+                color: AppColors.primary,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed == true) {
+      return controller.text;
+    }
+    return null;
   }
 
   Widget _buildAccountTile({

@@ -79,6 +79,19 @@ Future<UserCredential> adminLogin({
   return credential;
 }
 
+// VERIFY PASSWORD (used to enable fingerprint sign-in)
+Future<bool> verifyPassword({
+  required String email,
+  required String password,
+}) async {
+  try {
+    await _auth.signInWithEmailAndPassword(email: email, password: password);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
 // LOGOUT
 Future<void> logout() async {
   await _auth.signOut();

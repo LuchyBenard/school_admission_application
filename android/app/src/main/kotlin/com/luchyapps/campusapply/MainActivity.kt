@@ -1,4 +1,4 @@
-package com.example.school_admission_application
+package com.luchyapps.campusapply
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -4,6 +4,7 @@ import 'package:oktoast/oktoast.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_text_styles.dart';
 import '../../services/auth_service.dart';
+import '../../services/biometric_service.dart';
 
 class AdminLoginScreen extends StatefulWidget {
   const AdminLoginScreen({super.key});
@@ -16,15 +17,38 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final AuthService _authService = AuthService();
+  final BiometricService _biometricService = BiometricService();
   bool _obscureText = true;
   bool _isLoading = false;
-  final AuthService _authService = AuthService();
+  bool _biometricAvailable = false;
+  bool _isFingerprintLoading = false;
+  bool _rememberMe = false;
+  String? _savedEmail;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkBiometrics();
+  }
 
   @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
+  }
+
+  Future<void> _checkBiometrics() async {
+    final supported = await _biometricService.isSupported;
+    if (!mounted || !supported) return;
+
+    final credentials = await _biometricService.readAdminCredentials();
+    if (!mounted) return;
+    setState(() {
+      _biometricAvailable = true;
+      _savedEmail = credentials?.email;
+    });
   }
 
   void _login() async {
@@ -35,6 +59,16 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
           email: _emailController.text.trim(),
           password: _passwordController.text.trim(),
         );
+
+        // Save (or keep) credentials for fingerprint sign-in
+        if (_biometricAvailable && _rememberMe) {
+          await _biometricService.saveAdminCredentials(
+            _emailController.text.trim(),
+            _passwordController.text.trim(),
+          );
+          if (!mounted) return;
+          setState(() => _savedEmail = _emailController.text.trim());
+        }
 
         if (!mounted) return;
 
@@ -53,6 +87,32 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
       }
       if (mounted) setState(() => _isLoading = false);
     }
+  }
+
+  Future<void> _signInWithFingerprint() async {
+    final authenticated = await _biometricService.authenticate();
+    if (!authenticated) return;
+
+    final credentials = await _biometricService.readAdminCredentials();
+    if (!mounted) return;
+
+    if (credentials == null) {
+      setState(() => _savedEmail = null);
+      showToast(
+        'No saved credentials found. Sign in manually once first.',
+        backgroundColor: AppColors.warning,
+        textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
+      );
+      return;
+    }
+
+    _emailController.text = credentials.email;
+    _passwordController.text = credentials.password;
+    setState(() => _isFingerprintLoading = true);
+
+    _login();
+
+    if (mounted) setState(() => _isFingerprintLoading = false);
   }
 
   @override
@@ -155,7 +215,49 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                     return null;
                   },
                 ),
-                SizedBox(height: 30.h),
+                SizedBox(height: 20.h),
+
+                // Biometric remember-me
+                if (_biometricAvailable)
+                  GestureDetector(
+                    onTap: () => setState(() => _rememberMe = !_rememberMe),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 20.w,
+                          height: 20.w,
+                          decoration: BoxDecoration(
+                            color: _rememberMe
+                                ? AppColors.primary
+                                : AppColors.surface,
+                            borderRadius: BorderRadius.circular(5.r),
+                            border: Border.all(
+                              color: _rememberMe
+                                  ? AppColors.primary
+                                  : AppColors.border,
+                              width: 1.5,
+                            ),
+                          ),
+                          child: _rememberMe
+                              ? const Icon(
+                                  Icons.check,
+                                  size: 14,
+                                  color: AppColors.background,
+                                )
+                              : null,
+                        ),
+                        SizedBox(width: 8.w),
+                        Text(
+                          'Enable fingerprint sign-in',
+                          style: AppTextStyles.bodySmall.copyWith(
+                            color: AppColors.textSecondary,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                SizedBox(height: 20.h),
 
                 // Login button
                 SizedBox(
@@ -174,6 +276,42 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                         : const Text('Sign In as Admin'),
                   ),
                 ),
+
+                // Fingerprint sign-in
+                if (_biometricAvailable && _savedEmail != null) ...[
+                  SizedBox(height: 16.h),
+                  SizedBox(
+                    width: double.infinity,
+                    child: OutlinedButton.icon(
+                      onPressed:
+                          _isFingerprintLoading ? null : _signInWithFingerprint,
+                      icon: _isFingerprintLoading
+                          ? SizedBox(
+                              width: 18.w,
+                              height: 18.w,
+                              child: const CircularProgressIndicator(
+                                color: AppColors.primary,
+                                strokeWidth: 2,
+                              ),
+                            )
+                          : const Icon(Icons.fingerprint),
+                      label: Text(
+                        _isFingerprintLoading
+                            ? 'Signing in...'
+                            : 'Sign in with fingerprint',
+                      ),
+                      style: OutlinedButton.styleFrom(
+                        minimumSize: const Size(double.infinity, 48),
+                        side: const BorderSide(color: AppColors.border),
+                        foregroundColor: AppColors.primary,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+
                 SizedBox(height: 24.h),
 
                 // Back to student login

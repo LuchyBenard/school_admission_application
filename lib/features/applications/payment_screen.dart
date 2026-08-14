@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:oktoast/oktoast.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_text_styles.dart';
+import '../../services/biometric_service.dart';
 
 class PaymentScreen extends StatefulWidget {
   const PaymentScreen({super.key});
@@ -14,6 +15,7 @@ class PaymentScreen extends StatefulWidget {
 
 class _PaymentScreenState extends State<PaymentScreen> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final BiometricService _biometricService = BiometricService();
   bool _isProcessing = false;
   String? _applicationId;
   String _selectedMethod = 'paystack';
@@ -30,6 +32,24 @@ class _PaymentScreenState extends State<PaymentScreen> {
   }
 
   void _processPayment() async {
+    // Confirm identity with biometrics before payment
+    final supported = await _biometricService.isSupported;
+    if (supported) {
+      final confirmed = await _biometricService.authenticate(
+        reason: 'Confirm your fingerprint to complete payment',
+      );
+      if (!mounted) return;
+      if (!confirmed) {
+        showToast(
+          'Biometric authentication cancelled.',
+          backgroundColor: AppColors.warning,
+          textStyle:
+              AppTextStyles.bodySmall.copyWith(color: Colors.white),
+        );
+        return;
+      }
+    }
+
     setState(() => _isProcessing = true);
 
     // Simulate payment processing — replace with real gateway later

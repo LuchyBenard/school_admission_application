@@ -62,6 +62,6 @@ class DefaultFirebaseOptions {
     messagingSenderId: '183095407106',
     projectId: 'campusapply',
     storageBucket: 'campusapply.firebasestorage.app',
-    iosBundleId: 'com.example.schoolAdmissionApplication',
+    iosBundleId: 'com.luchyapps.campusapply',
   );
 }
