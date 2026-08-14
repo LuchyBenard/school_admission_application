@@ -13,7 +13,6 @@ static const String _baseURL = 'https://universities.hipolabs.com/search';
 Future<List<SchoolModel>> fetchSchoolsFromApi({
 String country = 'Nigeria',
 }) async {
-try {
 final response = await _dio.get(
 _baseURL,
 queryParameters: {'country': country},
@@ -29,10 +28,7 @@ return data
 .map((json) => SchoolModel.fromApi(json))
 .toList();
 }
-return [];
-} catch (e) {
-return [];
-}
+throw Exception('Failed to fetch schools (${response.statusCode})');
 }
 
 // Fetch Featured schools from Firestore

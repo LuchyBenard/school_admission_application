@@ -159,9 +159,10 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
         textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
       );
     } catch (e) {
+      debugPrint('Document upload failed ($dockey): $e');
       setState(() => _uploading[dockey] = false);
       showToast(
-        'Upload failed. Please try again',
+        'Upload failed. Check your Firestore rules and try again.',
         backgroundColor: AppColors.error,
         textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
       );

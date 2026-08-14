@@ -241,6 +241,10 @@ writes to applications/{id} + creates notification for student
   Camera support can be added via ImageSource. Camera
 - Firebase Cloud Messaging: installed but push notification
   triggers not yet implemented in Cloud Functions
+- Fingerprint login: local_auth + flutter_secure_storage
+  On login, checking "Enable fingerprint sign-in" saves the email +
+  password to secure storage; the login screen then shows a
+  fingerprint button that authenticates and signs in automatically
 
 ## Firebase Setup Required
 1. Enable Email/Password in Firebase Auth

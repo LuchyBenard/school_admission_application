@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import '../models/school_model.dart';
 import '../services/school_api_service.dart';
 
@@ -6,6 +7,26 @@ enum SchoolStatus { initial, loading, loaded, error }
 
 class SchoolProvider extends ChangeNotifier {
 final SchoolApiService _schoolApiService = SchoolApiService();
+
+static const List<String> _countries = [
+  'Nigeria',
+  'United States',
+  'United Kingdom',
+  'Ghana',
+  'Canada',
+  'Australia',
+  'Sweden',
+  'Belgium',
+  'Kenya',
+  'Germany',
+  'France',
+  'Netherlands',
+  'Denmark',
+  'Finland',
+  'Italy',
+  'Spain',
+  'Norway',
+];
 
 // State
 SchoolStatus _status = SchoolStatus.initial;
@@ -31,6 +52,8 @@ _status = SchoolStatus.loading;
 _selectedCountry = country;
 notifyListeners();
 
+final box = GetStorage();
+
 try {
 // Fetch from API
 final apiSchools = await _schoolApiService
@@ -47,33 +70,35 @@ final merged = [...featuredSchools, ...apiSchools];
 final seen = <String>{};
 _schools = merged.where((s) => seen.add(s.name)).toList();
 
-// Extract available countries for filter chips
-_availableCountries = [
-'Nigeria',
-'United States',
-'United Kingdom',
-'Ghana',
-'Canada',
-'Australia',
-  'Sweden',
-  'Belgium',
-  'Kenya',
-  'Germany',
-  'France',
-  'Netherlands',
-  'Denmark',
-  'Finland',
-  'Italy',
-  'Spain',
-  'Norway',
-];
+_availableCountries = _countries;
 
 _applyFilters();
 _status = SchoolStatus.loaded;
 
+// Cache API results so the list still works offline
+try {
+await box.write(
+'cached_schools_$country',
+apiSchools.map((s) => s.toMap()).toList(),
+);
 } catch (e) {
+// Cache failure is non-fatal
+}
+} catch (e) {
+// Fall back to cached data when the API is unreachable
+final cached = box.read<List<dynamic>>('cached_schools_$country');
+if (cached != null && cached.isNotEmpty) {
+_schools = cached
+.whereType<Map<String, dynamic>>()
+.map(SchoolModel.fromFirestore)
+.toList();
+_availableCountries = _countries;
+_applyFilters();
+_status = SchoolStatus.loaded;
+} else {
 _errorMessage = 'Failed to load schools. Please try again.';
 _status = SchoolStatus.error;
+}
 }
 
 notifyListeners();
