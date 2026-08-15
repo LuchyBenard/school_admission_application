@@ -91,7 +91,15 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> _signInWithFingerprint() async {
     final authenticated = await _biometricService.authenticate();
-    if (!authenticated) return;
+    if (!authenticated) {
+      if (!mounted) return;
+      showToast(
+        'Fingerprint not recognised. Try again or sign in manually.',
+        backgroundColor: AppColors.warning,
+        textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
+      );
+      return;
+    }
 
     final credentials = await _biometricService.readCredentials();
     if (!mounted) return;

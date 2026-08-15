@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+import 'package:oktoast/oktoast.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_text_styles.dart';
 import '../../../models/application_model.dart';
+import '../../../providers/application_provider.dart';
 
 class ApplicationDetailScreen extends StatelessWidget {
   const ApplicationDetailScreen({super.key});
@@ -152,11 +155,87 @@ class ApplicationDetailScreen extends StatelessWidget {
                 _buildDetailRow('Status', _getStatusLabel(application.status)),
               ],
             ),
+            SizedBox(height: 32.h),
+
+            // Delete application
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton.icon(
+                onPressed: () => _confirmDelete(context, application),
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: AppColors.error,
+                  side: BorderSide(color: AppColors.error.withValues(alpha: 0.4)),
+                  padding: EdgeInsets.symmetric(vertical: 14.h),
+                ),
+                icon: Icon(Icons.delete_outline, size: 20.w),
+                label: const Text('Delete Application'),
+              ),
+            ),
             SizedBox(height: 40.h),
           ],
         ),
       ),
     );
+  }
+
+  Future<void> _confirmDelete(
+    BuildContext context,
+    ApplicationModel application,
+  ) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        backgroundColor: AppColors.background,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.r),
+        ),
+        title: Text('Delete Application', style: AppTextStyles.h2),
+        content: Text(
+          'Are you sure you want to delete your application to '
+          '${application.schoolName}? This cannot be undone.',
+          style: AppTextStyles.bodyMedium,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: Text(
+              'Cancel',
+              style: AppTextStyles.bodyMedium.copyWith(
+                color: AppColors.textSecondary,
+              ),
+            ),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, true),
+            child: Text(
+              'Delete',
+              style: AppTextStyles.bodyMedium.copyWith(
+                color: AppColors.error,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed != true || !context.mounted) return;
+
+    final appId = application.id;
+    if (appId == null) return;
+
+    final success =
+        await context.read<ApplicationProvider>().deleteApplication(appId);
+
+    if (!context.mounted) return;
+
+    if (success) {
+      showToast(
+        'Application deleted',
+        backgroundColor: AppColors.success,
+      );
+      Navigator.pop(context);
+    }
   }
 
   Widget _buildSection({

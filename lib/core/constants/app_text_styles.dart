@@ -11,7 +11,7 @@ class AppTextStyles {
   // Display
   static const TextStyle displayLarge = TextStyle(
     fontFamily: _heading,
-    fontSize: 32,
+    fontSize: 34,
     fontWeight: FontWeight.w700,
     color: AppColors.textPrimary,
     height: 1.2,
@@ -19,7 +19,7 @@ class AppTextStyles {
 
   static const TextStyle displayMedium = TextStyle(
     fontFamily: _heading,
-    fontSize: 26,
+    fontSize: 28,
     fontWeight: FontWeight.w700,
     color: AppColors.textPrimary,
     height: 1.2,
@@ -29,7 +29,7 @@ class AppTextStyles {
 
   static const TextStyle h1 = TextStyle(
     fontFamily: _heading,
-    fontSize: 22,
+    fontSize: 23,
     fontWeight: FontWeight.w700,
     color: AppColors.textPrimary,
     height: 1.3,
@@ -37,7 +37,7 @@ class AppTextStyles {
 
   static const TextStyle h2 = TextStyle(
     fontFamily: _heading,
-    fontSize: 18,
+    fontSize: 19,
     fontWeight: FontWeight.w600,
     color: AppColors.textPrimary,
     height: 1.3,
@@ -45,7 +45,7 @@ class AppTextStyles {
 
   static const TextStyle h3 = TextStyle(
     fontFamily: _heading,
-    fontSize: 16,
+    fontSize: 17,
     fontWeight: FontWeight.w600,
     color: AppColors.textPrimary,
     height: 1.4,
@@ -54,24 +54,24 @@ class AppTextStyles {
   // Body
   static const TextStyle bodyLarge = TextStyle(
     fontFamily: _body,
-    fontSize: 16,
-    fontWeight: FontWeight.w400,
+    fontSize: 17,
+    fontWeight: FontWeight.w500,
     color: AppColors.textPrimary,
     height: 1.5,
   );
 
   static const TextStyle bodyMedium = TextStyle(
     fontFamily: _body,
-    fontSize: 14,
-    fontWeight: FontWeight.w400,
+    fontSize: 15,
+    fontWeight: FontWeight.w500,
     color: AppColors.textSecondary,
     height: 1.5,
   );
 
   static const TextStyle bodySmall = TextStyle(
     fontFamily: _body,
-    fontSize: 12,
-    fontWeight: FontWeight.w400,
+    fontSize: 13,
+    fontWeight: FontWeight.w500,
     color: AppColors.textSecondary,
     height: 1.5,
   );
@@ -80,7 +80,7 @@ class AppTextStyles {
 
   static const TextStyle buttonLarge = TextStyle(
     fontFamily: _label,
-    fontSize: 16,
+    fontSize: 17,
     fontWeight: FontWeight.w600,
     color: AppColors.background,
     height: 1.2,
@@ -88,7 +88,7 @@ class AppTextStyles {
 
   static const TextStyle buttonSmall = TextStyle(
     fontFamily: _label,
-    fontSize: 13,
+    fontSize: 14,
     fontWeight: FontWeight.w500,
     color: AppColors.background,
     height: 1.2,
@@ -96,7 +96,7 @@ class AppTextStyles {
 
   static const TextStyle label = TextStyle(
     fontFamily: _label,
-    fontSize: 12,
+    fontSize: 13,
     fontWeight: FontWeight.w500,
     color: AppColors.textSecondary,
     height: 1.3,
@@ -105,7 +105,7 @@ class AppTextStyles {
 
   static const TextStyle chip = TextStyle(
     fontFamily: _label,
-    fontSize: 12,
+    fontSize: 13,
     fontWeight: FontWeight.w600,
     color: AppColors.primary,
     height: 1.2,
@@ -115,7 +115,7 @@ class AppTextStyles {
 
   static const TextStyle hint = TextStyle(
     fontFamily: _body,
-    fontSize: 13,
+    fontSize: 14,
     fontWeight: FontWeight.w400,
     color: AppColors.textHint,
     height: 1.4,
@@ -123,7 +123,7 @@ class AppTextStyles {
 
   static const TextStyle caption = TextStyle(
     fontFamily: _body,
-    fontSize: 11,
+    fontSize: 12,
     fontWeight: FontWeight.w400,
     color: AppColors.textHint,
     height: 1.4,

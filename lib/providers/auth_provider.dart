@@ -270,6 +270,45 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
+  // UPDATE PROFILE PHOTO
+  // The photo is stored as a compressed base64 string in Firestore
+  // (same approach as document uploads — no Firebase Storage needed).
+  Future<bool> updateProfilePhoto(String photo) async {
+    if (_user == null) return false;
+    _setLoading();
+    try {
+      final uid = _user!.uid;
+
+      await _authService.updateUserProfile(
+        uid: uid,
+        data: {'photo': photo},
+      );
+
+      // Update local profile
+      _userProfile = {
+        ..._userProfile ?? {},
+        'photo': photo,
+      };
+      _status = AuthStatus.authenticated;
+      notifyListeners();
+
+      showToast(
+        'Profile photo updated',
+        backgroundColor: AppColors.success,
+      );
+      return true;
+    } catch (e) {
+      _errorMessage = 'Failed to update profile photo. Please try again.';
+      _status = AuthStatus.error;
+      notifyListeners();
+      showToast(
+        _errorMessage!,
+        backgroundColor: AppColors.error,
+      );
+      return false;
+    }
+  }
+
   // Helpers
   void _setLoading() {
     _status = AuthStatus.loading;

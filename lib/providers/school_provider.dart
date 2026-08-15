@@ -53,9 +53,25 @@ _selectedCountry = country;
 notifyListeners();
 
 final box = GetStorage();
+final cacheKey = 'cached_schools_$country';
+
+// Show cached data immediately so the screen isn't blank while the
+// network request runs (or fails) in the background.
+final cached = box.read<List<dynamic>>(cacheKey);
+final hasCache = cached != null && cached.isNotEmpty;
+if (hasCache) {
+_schools = cached
+.whereType<Map<String, dynamic>>()
+.map(SchoolModel.fromFirestore)
+.toList();
+_availableCountries = _countries;
+_applyFilters();
+_status = SchoolStatus.loaded;
+notifyListeners();
+}
 
 try {
-// Fetch from API
+// Fetch from API (with built-in retry)
 final apiSchools = await _schoolApiService
 .fetchSchoolsFromApi(country: country);
 
@@ -78,26 +94,39 @@ _status = SchoolStatus.loaded;
 // Cache API results so the list still works offline
 try {
 await box.write(
-'cached_schools_$country',
+cacheKey,
 apiSchools.map((s) => s.toMap()).toList(),
 );
 } catch (e) {
 // Cache failure is non-fatal
 }
+
+// Seed Firestore with the API results (once) so there is a durable
+// fallback even when Hipolabs is down and the device cache is cleared.
+try {
+final firestoreSchools = await _schoolApiService
+.fetchSchoolsFromFirestore();
+if (firestoreSchools.isEmpty && apiSchools.isNotEmpty) {
+await _schoolApiService.saveSchoolsToFirestore(apiSchools);
+}
 } catch (e) {
-// Fall back to cached data when the API is unreachable
-final cached = box.read<List<dynamic>>('cached_schools_$country');
-if (cached != null && cached.isNotEmpty) {
-_schools = cached
-.whereType<Map<String, dynamic>>()
-.map(SchoolModel.fromFirestore)
-.toList();
+// Seeding failure is non-fatal
+}
+} catch (e) {
+// API failed. If we couldn't show the cache above, fall back to
+// Firestore schools before giving up.
+if (!hasCache) {
+final firestoreSchools = await _schoolApiService
+.fetchSchoolsFromFirestore();
+if (firestoreSchools.isNotEmpty) {
+_schools = firestoreSchools;
 _availableCountries = _countries;
 _applyFilters();
 _status = SchoolStatus.loaded;
 } else {
-_errorMessage = 'Failed to load schools. Please try again.';
+_errorMessage = 'Failed to load schools. Check your internet connection and try again.';
 _status = SchoolStatus.error;
+}
 }
 }
 

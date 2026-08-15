@@ -1,9 +1,12 @@
+import 'dart:convert';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import '../../core/constants/app_text_styles.dart';
 import '../../core/constants/app_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../providers/auth_provider.dart';
 import '../../services/biometric_service.dart';
 
@@ -21,8 +24,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final _dateOfBirthController = TextEditingController();
   final _stateOfOriginController = TextEditingController();
   final BiometricService _biometricService = BiometricService();
+  final ImagePicker _picker = ImagePicker();
   bool _isEditing = false;
   bool _fingerprintEnabled = false;
+  bool _isUploadingPhoto = false;
 
   @override
   void initState() {
@@ -121,6 +126,111 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
+  Uint8List? _photoBytes(dynamic photo) {
+    if (photo is! String || photo.isEmpty) return null;
+    try {
+      return base64Decode(photo);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  void _showPhotoSource() {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: AppColors.background,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
+      ),
+      builder: (sheetContext) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: EdgeInsets.all(16.w),
+              child: Text(
+                'Choose Photo Source',
+                style: AppTextStyles.h2,
+              ),
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.photo_library_outlined,
+                color: AppColors.primary,
+              ),
+              title: Text(
+                'Choose from Gallery',
+                style: AppTextStyles.bodyMedium.copyWith(
+                  color: AppColors.textPrimary,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              onTap: () {
+                Navigator.pop(sheetContext);
+                _pickPhoto(ImageSource.gallery);
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.camera_alt_outlined,
+                color: AppColors.primary,
+              ),
+              title: Text(
+                'Take a Photo',
+                style: AppTextStyles.bodyMedium.copyWith(
+                  color: AppColors.textPrimary,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              onTap: () {
+                Navigator.pop(sheetContext);
+                _pickPhoto(ImageSource.camera);
+              },
+            ),
+            SizedBox(height: 12.h),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> _pickPhoto(ImageSource source) async {
+    final authProvider = context.read<AuthProvider>();
+    try {
+      final XFile? file = await _picker.pickImage(
+        source: source,
+        maxWidth: 1024,
+        maxHeight: 1024,
+        imageQuality: 70,
+      );
+      if (file == null || !mounted) return;
+
+      final bytes = await file.readAsBytes();
+      final photo = base64Encode(bytes);
+
+      setState(() => _isUploadingPhoto = true);
+      final success = await authProvider.updateProfilePhoto(photo);
+      if (!mounted) return;
+      setState(() => _isUploadingPhoto = false);
+
+      if (!success) {
+        showToast(
+          'Failed to update photo. Please try again.',
+          backgroundColor: AppColors.error,
+          textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
+        );
+      }
+    } catch (e) {
+      if (!mounted) return;
+      setState(() => _isUploadingPhoto = false);
+      showToast(
+        'Failed to pick photo. Please try again.',
+        backgroundColor: AppColors.error,
+        textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final authProvider = context.watch<AuthProvider>();
@@ -171,22 +281,65 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Center(
                 child: Column(
                   children: [
-                    Container(
-                      width: 90.w,
-                      height: 90.w,
-                      decoration: const BoxDecoration(
-                        color: AppColors.primary,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Center(
-                        child: Text(
-                          initials.toUpperCase(),
-                          style: AppTextStyles.displayMedium.copyWith(
-                            color: AppColors.background,
-                            fontSize: 32,
+                    Stack(
+                      children: [
+                        Container(
+                          width: 90.w,
+                          height: 90.w,
+                          decoration: BoxDecoration(
+                            color: AppColors.primary,
+                            shape: BoxShape.circle,
+                            image: _photoBytes(profile?['photo']) != null
+                                ? DecorationImage(
+                                    image: MemoryImage(
+                                      _photoBytes(profile?['photo'])!,
+                                    ),
+                                    fit: BoxFit.cover,
+                                  )
+                                : null,
+                          ),
+                          child: _photoBytes(profile?['photo']) != null
+                              ? null
+                              : Center(
+                                  child: Text(
+                                    initials.toUpperCase(),
+                                    style: AppTextStyles.displayMedium.copyWith(
+                                      color: AppColors.background,
+                                      fontSize: 32,
+                                    ),
+                                  ),
+                                ),
+                        ),
+                        // Camera / change photo button
+                        Positioned(
+                          right: 0,
+                          bottom: 0,
+                          child: GestureDetector(
+                            onTap: _isUploadingPhoto ? null : _showPhotoSource,
+                            child: Container(
+                              width: 28.w,
+                              height: 28.w,
+                              decoration: const BoxDecoration(
+                                color: AppColors.primary,
+                                shape: BoxShape.circle,
+                              ),
+                              child: _isUploadingPhoto
+                                  ? Padding(
+                                      padding: EdgeInsets.all(6.w),
+                                      child: const CircularProgressIndicator(
+                                        color: AppColors.background,
+                                        strokeWidth: 2,
+                                      ),
+                                    )
+                                  : const Icon(
+                                      Icons.camera_alt,
+                                      color: AppColors.background,
+                                      size: 15,
+                                    ),
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
                     SizedBox(height: 12.h),
                     Text(

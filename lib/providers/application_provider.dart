@@ -133,7 +133,37 @@ class ApplicationProvider extends ChangeNotifier{
     super.dispose();
   }
 
-  // Load all applications
+  // Delete application
+Future<bool> deleteApplication(String id) async {
+    if (id.isEmpty) return false;
+
+    try {
+      final docRef = _firestore.collection('applications').doc(id);
+
+      // Remove uploaded documents subcollection first
+      final docsSnapshot = await docRef.collection('documents').get();
+      final batch = _firestore.batch();
+      for (final doc in docsSnapshot.docs) {
+        batch.delete(doc.reference);
+      }
+      await batch.commit();
+
+      // Then remove the application itself
+      await docRef.delete();
+
+      // Remove from local list immediately (stream will also update)
+      _applications.removeWhere((a) => a.id == id);
+      _updateStatsFrom(_applications);
+      notifyListeners();
+      return true;
+    } catch (e) {
+      _errorMessage = 'Failed to delete application. Please try again.';
+      notifyListeners();
+      return false;
+    }
+  }
+
+// Load all applications
 Future<void> loadApplications() async {
     final uid = _auth.currentUser?.uid;
     if (uid == null) return;
