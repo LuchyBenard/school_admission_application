@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:oktoast/oktoast.dart';
 import '../core/constants/app_colors.dart';
 import '../services/auth_service.dart';
+import '../services/notification_service.dart';
 
 enum AuthStatus {
   initial,
@@ -41,6 +42,8 @@ class AuthProvider extends ChangeNotifier {
         _status = AuthStatus.authenticated;
         // Fetch full profile from Firestore
         _userProfile = await _authService.getUserProfile(user.uid);
+        // Register this device for push notifications
+        await NotificationService().registerFcmToken(user.uid);
       } else {
         _user = null;
         _userProfile = null;

@@ -24,6 +24,8 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>CampusApply uses the camera to let you capture documents like your WAEC or JAMB result for upload.</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>CampusApply uses Face ID to let you sign in quickly without your password.</string>
 	<key>UILaunchStoryboardName</key>

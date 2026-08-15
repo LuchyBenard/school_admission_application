@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 import 'package:get_storage/get_storage.dart';
@@ -15,6 +16,9 @@ import 'providers/auth_provider.dart';
 import 'providers/school_provider.dart';
 import 'providers/application_provider.dart';
 import 'providers/notification_provider.dart';
+
+// Services
+import 'services/notification_service.dart';
 
 // Screens - Auth
 import 'features/splash/splash_screen.dart';
@@ -48,6 +52,12 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  // Register the FCM background handler before runApp so push
+  // notifications are handled even when the app is terminated.
+  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+  NotificationService().initialize();
+
   runApp(const MyApp());
 }
 

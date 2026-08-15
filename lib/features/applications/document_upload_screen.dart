@@ -84,10 +84,11 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
     }
   }
 
-  Future<void> _pickFile(String dockey) async {
+  Future<void> _pickFile(String dockey,
+      {ImageSource source = ImageSource.gallery}) async {
     try {
       final XFile? file = await _picker.pickImage(
-        source: ImageSource.gallery,
+        source: source,
         maxWidth: 1024,
         maxHeight: 1024,
         imageQuality: 70,
@@ -108,6 +109,65 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
         textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
       );
     }
+  }
+
+  void _showSourceSheet(String dockey) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: AppColors.background,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
+      ),
+      builder: (sheetContext) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: EdgeInsets.all(16.w),
+              child: Text(
+                'Choose Source',
+                style: AppTextStyles.h2,
+              ),
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.photo_library_outlined,
+                color: AppColors.primary,
+              ),
+              title: Text(
+                'Choose from Gallery',
+                style: AppTextStyles.bodyMedium.copyWith(
+                  color: AppColors.textPrimary,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              onTap: () {
+                Navigator.pop(sheetContext);
+                _pickFile(dockey, source: ImageSource.gallery);
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.camera_alt_outlined,
+                color: AppColors.primary,
+              ),
+              title: Text(
+                'Take a Photo',
+                style: AppTextStyles.bodyMedium.copyWith(
+                  color: AppColors.textPrimary,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              onTap: () {
+                Navigator.pop(sheetContext);
+                _pickFile(dockey, source: ImageSource.camera);
+              },
+            ),
+            SizedBox(height: 12.h),
+          ],
+        ),
+      ),
+    );
   }
 
   Future<void> _uploadFile(String dockey) async {
@@ -382,7 +442,7 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
                       )
                     else
                       GestureDetector(
-                        onTap: () => _pickFile(key),
+                        onTap: () => _showSourceSheet(key),
                         child: Container(
                           padding: EdgeInsets.symmetric(
                             horizontal: 12.w,

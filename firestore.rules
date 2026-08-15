@@ -1,0 +1,49 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    function ownsApplication(applicationId) {
+      return isSignedIn() &&
+        get(/databases/$(database)/documents/applications/$(applicationId)).data.userId == request.auth.uid;
+    }
+
+    // Users — each user manages their own profile; admins can manage anyone
+    match /users/{uid} {
+      allow read, write: if isSignedIn() && (request.auth.uid == uid || isAdmin());
+    }
+
+    // Schools — readable by all signed-in users, only admins can modify
+    match /schools/{id} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+
+    // Applications — students create and manage their own; admins manage all
+    match /applications/{id} {
+      allow create: if isSignedIn();
+      allow read, update, delete: if isAdmin() || ownsApplication(id);
+    }
+
+    // Application documents (base64 images) — owner + admin only
+    match /applications/{id}/documents/{docId} {
+      allow create: if isSignedIn() && ownsApplication(id);
+      allow read, delete: if isAdmin() || ownsApplication(id);
+    }
+
+    // Notifications — admins create them for students; students read/update/delete their own
+    match /notifications/{id} {
+      allow create: if isAdmin();
+      allow read, update, delete:
+        if isSignedIn() && resource.data.userId == request.auth.uid;
+    }
+  }
+}
