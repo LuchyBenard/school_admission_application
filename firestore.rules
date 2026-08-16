@@ -35,8 +35,10 @@ service cloud.firestore {
 
     // Application documents (base64 images) — owner + admin only
     match /applications/{id}/documents/{docId} {
-      allow create: if isSignedIn() && ownsApplication(id);
-      allow read, delete: if isAdmin() || ownsApplication(id);
+      // allow write covers create, update and delete so re-uploading
+      // an existing document is permitted.
+      allow read: if isAdmin() || ownsApplication(id);
+      allow write: if isSignedIn() && ownsApplication(id);
     }
 
     // Notifications — admins create them for students; students read/update/delete their own

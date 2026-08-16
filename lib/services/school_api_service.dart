@@ -9,12 +9,27 @@ final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 // Base URL for Hipolabs API
 static const String _baseURL = 'https://universities.hipolabs.com/search';
 
+// GitHub mirror of the same university dataset. Used when the
+// hipolabs.com server is down or unreachable (it can be unreachable
+// even when the rest of the internet works).
+static const String _fallbackBaseURL = 'https://raw.githubusercontent.com/Hipo/university-domains-list/master/world_universities_and_domains.json';
+
 // Fetch from Hipolabs API
 // Hipolabs can be slow or flaky, so we retry once with a short
-// backoff before giving up.
+// backoff before giving up. If Hipolabs is completely unreachable we
+// fall back to the GitHub mirror of the same dataset.
 Future<List<SchoolModel>> fetchSchoolsFromApi({
 String country = 'Nigeria',
 }) async {
+try {
+return await _fetchFromHipolabs(country);
+} catch (_) {
+// Hipolabs is down/unreachable - try the mirror instead.
+return _fetchFromMirror(country);
+}
+}
+
+Future<List<SchoolModel>> _fetchFromHipolabs(String country) async {
 const timeout = Duration(seconds: 15);
 DioException? lastError;
 
@@ -47,6 +62,31 @@ await Future.delayed(const Duration(seconds: 1));
 }
 
 throw lastError ?? Exception('Failed to fetch schools');
+}
+
+// Fetch from the GitHub mirror and filter for the requested country.
+Future<List<SchoolModel>> _fetchFromMirror(String country) async {
+final response = await _dio.get(
+_fallbackBaseURL,
+options: Options(
+connectTimeout: const Duration(seconds: 20),
+receiveTimeout: const Duration(seconds: 30),
+sendTimeout: const Duration(seconds: 20),
+),
+);
+
+if (response.statusCode != 200) {
+throw Exception('Failed to fetch schools (${response.statusCode})');
+}
+
+final List data = response.data;
+final lowerCountry = country.toLowerCase();
+return data
+.where((e) =>
+e is Map &&
+(e['country'] ?? '').toString().toLowerCase() == lowerCountry)
+.map((json) => SchoolModel.fromApi(json))
+.toList();
 }
 
 // Fetch Featured schools from Firestore

@@ -221,8 +221,14 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
     } catch (e) {
       debugPrint('Document upload failed ($dockey): $e');
       setState(() => _uploading[dockey] = false);
+      final errorText = e.toString();
+      final isPermission =
+          errorText.contains('permission-denied') ||
+          errorText.contains('PERMISSION_DENIED');
       showToast(
-        'Upload failed. Check your Firestore rules and try again.',
+        isPermission
+            ? 'Upload blocked. Deploy the firestore.rules file in the Firebase console.'
+            : 'Upload failed. Please try again.',
         backgroundColor: AppColors.error,
         textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
       );

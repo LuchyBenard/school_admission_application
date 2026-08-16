@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:oktoast/oktoast.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_text_styles.dart';
 import '../../providers/application_provider.dart';
+import '../../models/application_model.dart';
 import '../../core/widgets/skeleton_loader.dart';
 import 'widgets/application_card.dart';
 
@@ -47,6 +49,61 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
       default:
         return 'all';
     }
+  }
+
+  Future<void> _confirmDelete(
+    BuildContext context,
+    ApplicationModel application,
+  ) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        backgroundColor: AppColors.background,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.r),
+        ),
+        title: Text('Delete Application', style: AppTextStyles.h2),
+        content: Text(
+          'Are you sure you want to delete your application to '
+          '${application.schoolName}? This cannot be undone.',
+          style: AppTextStyles.bodyMedium,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: Text(
+              'Cancel',
+              style: AppTextStyles.bodyMedium.copyWith(
+                color: AppColors.textSecondary,
+              ),
+            ),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, true),
+            child: Text(
+              'Delete',
+              style: AppTextStyles.bodyMedium.copyWith(
+                color: AppColors.error,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed != true || !context.mounted) return;
+
+    final success = await context
+        .read<ApplicationProvider>()
+        .deleteApplication(application.id!);
+
+    if (!context.mounted) return;
+
+    showToast(
+      success ? 'Application deleted' : 'Failed to delete application',
+      backgroundColor: success ? AppColors.success : AppColors.error,
+    );
   }
 
   @override
@@ -223,6 +280,9 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
                             arguments: application,
                           );
                         },
+                        onDelete: application.id != null
+                            ? () => _confirmDelete(context, application)
+                            : null,
                       );
                     },
                   );

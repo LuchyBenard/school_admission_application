@@ -7,11 +7,13 @@ import '../../../models/application_model.dart';
 class ApplicationCard extends StatelessWidget {
   final ApplicationModel application;
   final VoidCallback onTap;
+  final VoidCallback? onDelete;
 
   const ApplicationCard({
     super.key,
     required this.application,
     required this.onTap,
+    this.onDelete,
   });
 
   Color _getStatusColor(String status) {
@@ -167,11 +169,36 @@ class ApplicationCard extends StatelessWidget {
                   ),
                 ),
 
-                // Arrow
-                Icon(
-                  Icons.arrow_forward_ios,
-                  size: 12.w,
-                  color: AppColors.textHint,
+                Row(
+                  children: [
+                    // Delete button
+                    if (onDelete != null) ...[
+                      GestureDetector(
+                        onTap: onDelete,
+                        child: Container(
+                          width: 32.w,
+                          height: 32.w,
+                          decoration: BoxDecoration(
+                            color: AppColors.error.withValues(alpha: 0.1),
+                            borderRadius: BorderRadius.circular(10.r),
+                          ),
+                          child: Icon(
+                            Icons.delete_outline,
+                            size: 16.w,
+                            color: AppColors.error,
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 8.w),
+                    ],
+
+                    // Arrow
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      size: 12.w,
+                      color: AppColors.textHint,
+                    ),
+                  ],
                 ),
               ],
             ),
