@@ -19,7 +19,7 @@ class SkeletonLoader extends StatefulWidget {
 }
 
 class _SkeletonLoaderState extends State<SkeletonLoader>
-with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
 
@@ -27,7 +27,7 @@ with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     _controller = AnimationController(
-        vsync: this,
+      vsync: this,
       duration: Duration(milliseconds: 1200),
     )..repeat(reverse: true);
 
@@ -47,7 +47,7 @@ with SingleTickerProviderStateMixin {
         animation: _animation,
         builder: (context, child) {
           return Opacity(
-              opacity: _animation.value,
+            opacity: _animation.value,
             child: Container(
               width: widget.width,
               height: widget.height,
@@ -119,17 +119,17 @@ class ApplicationCardSkeleton extends StatelessWidget {
             children: [
               SkeletonLoader(width: 180.w, height: 16.h),
               SkeletonLoader(width: 80.w, height: 24.h, borderRadius: 20),
-                    ],
+            ],
           ),
-                    SizedBox(height: 10.h),
-                    SkeletonLoader(width: 140.w, height: 12.h),
-                    SizedBox(height: 6.h),
-                    SkeletonLoader(width: 100.w, height: 12.h),
-                    SizedBox(height: 10.h),
-                    SkeletonLoader(width: 120.w, height: 10.h),
-                  ],
-                ),
-              );
+          SizedBox(height: 10.h),
+          SkeletonLoader(width: 140.w, height: 12.h),
+          SizedBox(height: 6.h),
+          SkeletonLoader(width: 100.w, height: 12.h),
+          SizedBox(height: 10.h),
+          SkeletonLoader(width: 120.w, height: 10.h),
+        ],
+      ),
+    );
   }
 }
 
@@ -182,29 +182,25 @@ class HomeSkeleton extends StatelessWidget {
       childAspectRatio: 1.1,
       children: List.generate(
         4,
-          (_) => Container(
-            padding: EdgeInsets.all(16.w),
-            decoration: BoxDecoration(
-              color: AppColors.surface,
-              borderRadius: BorderRadius.circular(16.r),
-              border: Border.all(color: AppColors.border),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SkeletonLoader(width: 36.w, height: 36.w, borderRadius: 10),
-                const Spacer(),
-                SkeletonLoader(width: 50.w, height: 28.h),
-                SizedBox(height: 6.h),
-                SkeletonLoader(width: 80.w, height: 12.h),
-              ],
-            ),
+            (_) => Container(
+          padding: EdgeInsets.all(16.w),
+          decoration: BoxDecoration(
+            color: AppColors.surface,
+            borderRadius: BorderRadius.circular(16.r),
+            border: Border.all(color: AppColors.border),
           ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SkeletonLoader(width: 36.w, height: 36.w, borderRadius: 10),
+              const Spacer(),
+              SkeletonLoader(width: 50.w, height: 28.h),
+              SizedBox(height: 6.h),
+              SkeletonLoader(width: 80.w, height: 12.h),
+            ],
+          ),
+        ),
       ),
     );
   }
 }
-
-
-
-
