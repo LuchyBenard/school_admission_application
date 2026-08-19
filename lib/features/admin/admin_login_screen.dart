@@ -75,7 +75,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
         Navigator.pushNamedAndRemoveUntil(
           context,
           '/admin-dashboard',
-          (route) => false,
+              (route) => false,
         );
       } catch (e) {
         if (!mounted) return;
@@ -240,10 +240,10 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                           ),
                           child: _rememberMe
                               ? const Icon(
-                                  Icons.check,
-                                  size: 14,
-                                  color: AppColors.background,
-                                )
+                            Icons.check,
+                            size: 14,
+                            color: AppColors.background,
+                          )
                               : null,
                         ),
                         SizedBox(width: 8.w),
@@ -266,13 +266,13 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                     onPressed: _isLoading ? null : _login,
                     child: _isLoading
                         ? SizedBox(
-                            width: 20.w,
-                            height: 20.w,
-                            child: const CircularProgressIndicator(
-                              color: AppColors.background,
-                              strokeWidth: 2,
-                            ),
-                          )
+                      width: 20.w,
+                      height: 20.w,
+                      child: const CircularProgressIndicator(
+                        color: AppColors.background,
+                        strokeWidth: 2,
+                      ),
+                    )
                         : const Text('Sign In as Admin'),
                   ),
                 ),
@@ -284,16 +284,16 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                     width: double.infinity,
                     child: OutlinedButton.icon(
                       onPressed:
-                          _isFingerprintLoading ? null : _signInWithFingerprint,
+                      _isFingerprintLoading ? null : _signInWithFingerprint,
                       icon: _isFingerprintLoading
                           ? SizedBox(
-                              width: 18.w,
-                              height: 18.w,
-                              child: const CircularProgressIndicator(
-                                color: AppColors.primary,
-                                strokeWidth: 2,
-                              ),
-                            )
+                        width: 18.w,
+                        height: 18.w,
+                        child: const CircularProgressIndicator(
+                          color: AppColors.primary,
+                          strokeWidth: 2,
+                        ),
+                      )
                           : const Icon(Icons.fingerprint),
                       label: Text(
                         _isFingerprintLoading
