@@ -23,7 +23,7 @@ class _ApplicantDetailScreenState extends State<ApplicantDetailScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     _application =
-        ModalRoute.of(context)!.settings.arguments as ApplicationModel;
+    ModalRoute.of(context)!.settings.arguments as ApplicationModel;
   }
 
   @override
@@ -213,12 +213,12 @@ class _ApplicantDetailScreenState extends State<ApplicantDetailScreen> {
                     child: Text(
                       _application.fullName.isNotEmpty
                           ? _application.fullName
-                              .trim()
-                              .split(' ')
-                              .take(2)
-                              .map((e) => e[0])
-                              .join()
-                              .toUpperCase()
+                          .trim()
+                          .split(' ')
+                          .take(2)
+                          .map((e) => e[0])
+                          .join()
+                          .toUpperCase()
                           : 'NA',
                       style: AppTextStyles.bodyMedium.copyWith(
                         color: AppColors.background,
