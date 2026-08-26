@@ -6,29 +6,28 @@ class SchoolApiService {
 final Dio _dio = Dio();
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-// Base URL for Hipolabs API
-static const String _baseURL = 'https://universities.hipolabs.com/search';
+// Primary: GitHub mirror of the university dataset. Hosted on
+// GitHub's CDN — far more reliable than Hipolabs. Returns ALL
+// universities in one JSON file; we filter by country in Dart.
+static const String _mirrorURL = 'https://raw.githubusercontent.com/Hipo/university-domains-list/master/world_universities_and_domains.json';
 
-// GitHub mirror of the same university dataset. Used when the
-// hipolabs.com server is down or unreachable (it can be unreachable
-// even when the rest of the internet works).
-static const String _fallbackBaseURL = 'https://raw.githubusercontent.com/Hipo/university-domains-list/master/world_universities_and_domains.json';
+// Fallback: Hipolabs API (same dataset, but the server is flaky).
+static const String _hipolabsURL = 'https://universities.hipolabs.com/search';
 
-// Fetch from Hipolabs API
-// Hipolabs can be slow or flaky, so we retry once with a short
-// backoff before giving up. If Hipolabs is completely unreachable we
-// fall back to the GitHub mirror of the same dataset.
+// Fetch schools — tries GitHub mirror first, then Hipolabs as backup.
 Future<List<SchoolModel>> fetchSchoolsFromApi({
 String country = 'Nigeria',
 }) async {
 try {
-return await _fetchFromHipolabs(country);
+return await _fetchFromMirror(country);
 } catch (_) {
-// Hipolabs is down/unreachable - try the mirror instead.
-return _fetchFromMirror(country);
+// Mirror failed — try Hipolabs as a last resort.
+return _fetchFromHipolabs(country);
 }
 }
 
+// Fallback: fetch from Hipolabs API. Retries once with a short
+// backoff before giving up.
 Future<List<SchoolModel>> _fetchFromHipolabs(String country) async {
 const timeout = Duration(seconds: 15);
 DioException? lastError;
@@ -36,7 +35,7 @@ DioException? lastError;
 for (var attempt = 0; attempt < 2; attempt++) {
 try {
 final response = await _dio.get(
-_baseURL,
+_hipolabsURL,
 queryParameters: {'country': country},
 options: Options(
 connectTimeout: timeout,
@@ -67,7 +66,7 @@ throw lastError ?? Exception('Failed to fetch schools');
 // Fetch from the GitHub mirror and filter for the requested country.
 Future<List<SchoolModel>> _fetchFromMirror(String country) async {
 final response = await _dio.get(
-_fallbackBaseURL,
+_mirrorURL,
 options: Options(
 connectTimeout: const Duration(seconds: 20),
 receiveTimeout: const Duration(seconds: 30),
