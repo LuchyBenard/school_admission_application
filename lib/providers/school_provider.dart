@@ -102,7 +102,7 @@ apiSchools.map((s) => s.toMap()).toList(),
 }
 
 // Seed Firestore with the API results (once) so there is a durable
-// fallback even when Hipolabs is down and the device cache is cleared.
+// fallback even when the external API sources are down and the device cache is cleared.
 try {
 final firestoreSchools = await _schoolApiService
 .fetchSchoolsFromFirestore();

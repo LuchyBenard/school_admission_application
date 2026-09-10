@@ -23,7 +23,7 @@ class SchoolModel {
     this.domains = const [],
   });
 
-  /// From Hipolabs API response
+  /// From external API response (GitHub mirror / Hipolabs)
   factory SchoolModel.fromApi(Map<String, dynamic> json) {
     return SchoolModel(
       name: json['name'] ?? '',

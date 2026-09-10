@@ -12,7 +12,7 @@ documents, make payments, and track admission status all from their phone.
   Document images are stored as compressed base64 in a Firestore
   subcollection (NO Firebase Storage — requires the Blaze plan).
 - **State Management:** Provider
-- **HTTP Client:** Dio (for Hipolabs Schools API)
+- **HTTP Client:** Dio (for GitHub mirror / Hipolabs Schools API)
 - **Local Storage:** GetStorage
 - **Navigation:** Named routes (MaterialApp routes map)
 
@@ -51,7 +51,7 @@ lib/
 
 │ ├── auth_service.dart # Firebase Auth + Firestore user ops
 
-│ └── school_api_service.dart # Hipolabs API + Firestore school ops
+│ └── school_api_service.dart # GitHub mirror + Hipolabs API + Firestore school ops
 
 │
 ├── providers/
@@ -178,22 +178,21 @@ writes to applications/{id} + creates notification for student
 - No user → check GetStorage for onboarding flag → /onboarding or /login
 
 ## Schools API
-- Primary: Hipolabs (https://universities.hipolabs.com/search)
-- Fallback: GitHub mirror of the same dataset
+- Primary: GitHub mirror
   (https://raw.githubusercontent.com/Hipo/university-domains-list/master/world_universities_and_domains.json)
+- Fallback: Hipolabs (https://universities.hipolabs.com/search)
 - No API key required
-- Hipolabs called with `?country=Nigeria` etc; mirror downloads
-  full world list and filters in Dart
+- Mirror downloads full world list and filters in Dart by country;
+  Hipolabs does server-side filtering with `?country=Nigeria` etc.
 - Results merged with Firestore featured schools
 - On first successful load, API results are seeded into the
   Firestore `schools/` collection so future loads work even when
-  both Hipolabs and the mirror are unreachable
+  both the mirror and Hipolabs are unreachable
 - URL must use HTTPS
 
 ## School Batch Upload (Planned)
 Admins can upload a batch list of schools to populate the
-Firestore `schools/` collection without relying on the Hipolabs
-API or the mirror.
+Firestore `schools/` collection without relying on external APIs.
 
 ### CSV Format
 The file must be a UTF-8 CSV with a header row. Required columns:
