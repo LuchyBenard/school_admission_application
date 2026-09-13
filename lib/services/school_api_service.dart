@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/school_model.dart';
 
@@ -6,23 +8,30 @@ class SchoolApiService {
 final Dio _dio = Dio();
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-// Primary: GitHub mirror of the university dataset. Hosted on
-// GitHub's CDN — far more reliable than Hipolabs. Returns ALL
-// universities in one JSON file; we filter by country in Dart.
-static const String _mirrorURL = 'https://raw.githubusercontent.com/Hipo/university-domains-list/master/world_universities_and_domains.json';
+// Primary mirrors of the university dataset. jsDelivr serves the
+// Hipo repo from a global CDN (fast in most regions); GitHub raw is
+// the same file as a second try. Both return ALL universities in one
+// JSON file; we filter by country in Dart.
+static const String _mirrorURL = 'https://cdn.jsdelivr.net/gh/Hipo/university-domains-list@master/world_universities_and_domains.json';
+static const String _mirrorBackupURL = 'https://raw.githubusercontent.com/Hipo/university-domains-list/master/world_universities_and_domains.json';
 
 // Fallback: Hipolabs API (same dataset, but the server is flaky).
 static const String _hipolabsURL = 'https://universities.hipolabs.com/search';
 
-// Fetch schools — tries GitHub mirror first, then Hipolabs as backup.
+// Fetch schools — tries the fast CDN mirror first, then GitHub raw,
+// then Hipolabs as a last resort.
 Future<List<SchoolModel>> fetchSchoolsFromApi({
 String country = 'Nigeria',
 }) async {
 try {
-return await _fetchFromMirror(country);
+return await _fetchFromMirror(country, _mirrorURL);
 } catch (_) {
-// Mirror failed — try Hipolabs as a last resort.
+try {
+return await _fetchFromMirror(country, _mirrorBackupURL);
+} catch (_) {
+// All mirrors failed — try Hipolabs as a last resort.
 return _fetchFromHipolabs(country);
+}
 }
 }
 
@@ -63,13 +72,16 @@ await Future.delayed(const Duration(seconds: 1));
 throw lastError ?? Exception('Failed to fetch schools');
 }
 
-// Fetch from the GitHub mirror and filter for the requested country.
-Future<List<SchoolModel>> _fetchFromMirror(String country) async {
+// Fetch from a mirror and filter for the requested country.
+Future<List<SchoolModel>> _fetchFromMirror(
+  String country,
+  String url,
+) async {
 final response = await _dio.get(
-_mirrorURL,
+url,
 options: Options(
 connectTimeout: const Duration(seconds: 20),
-receiveTimeout: const Duration(seconds: 30),
+receiveTimeout: const Duration(seconds: 45),
 sendTimeout: const Duration(seconds: 20),
 ),
 );
@@ -86,6 +98,25 @@ e is Map &&
 (e['country'] ?? '').toString().toLowerCase() == lowerCountry)
 .map((json) => SchoolModel.fromApi(json))
 .toList();
+}
+
+// Load the bundled Nigerian school list shipped with the app.
+// Used as a guaranteed last resort when every API source and
+// Firestore are unreachable/slow, so the user never sees an
+// empty school list.
+Future<List<SchoolModel>> fetchBundledSchools() async {
+  try {
+    final raw = await rootBundle.loadString(
+      'assets/data/nigerian_schools.json',
+    );
+    final list = (jsonDecode(raw) as List)
+        .whereType<Map<String, dynamic>>()
+        .map(SchoolModel.fromFirestore)
+        .toList();
+    return list;
+  } catch (e) {
+    return [];
+  }
 }
 
 // Fetch Featured schools from Firestore

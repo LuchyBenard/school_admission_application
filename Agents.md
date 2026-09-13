@@ -178,16 +178,23 @@ writes to applications/{id} + creates notification for student
 - No user → check GetStorage for onboarding flag → /onboarding or /login
 
 ## Schools API
-- Primary: GitHub mirror
+- Primary: jsDelivr CDN mirror of the Hipo dataset
+  (https://cdn.jsdelivr.net/gh/Hipo/university-domains-list@master/world_universities_and_domains.json)
+- Backup mirror: GitHub raw
   (https://raw.githubusercontent.com/Hipo/university-domains-list/master/world_universities_and_domains.json)
 - Fallback: Hipolabs (https://universities.hipolabs.com/search)
 - No API key required
-- Mirror downloads full world list and filters in Dart by country;
+- Mirrors download full world list and filter in Dart by country;
   Hipolabs does server-side filtering with `?country=Nigeria` etc.
 - Results merged with Firestore featured schools
 - On first successful load, API results are seeded into the
   Firestore `schools/` collection so future loads work even when
-  both the mirror and Hipolabs are unreachable
+  all external sources are unreachable (seed needs an admin user
+  per Firestore rules)
+- Final fallback: `assets/data/nigerian_schools.json` — a bundled
+  list of 115 real Nigerian universities (from the Hipo dataset)
+  shipped inside the app, so the school list NEVER appears empty
+  even fully offline
 - URL must use HTTPS
 
 ## School Batch Upload (Planned)

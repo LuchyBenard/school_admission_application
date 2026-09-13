@@ -113,21 +113,37 @@ await _schoolApiService.saveSchoolsToFirestore(apiSchools);
 // Seeding failure is non-fatal
 }
 } catch (e) {
-// API failed. If we couldn't show the cache above, fall back to
-// Firestore schools before giving up.
-if (!hasCache) {
-final firestoreSchools = await _schoolApiService
-.fetchSchoolsFromFirestore();
-if (firestoreSchools.isNotEmpty) {
-_schools = firestoreSchools;
-_availableCountries = _countries;
-_applyFilters();
-_status = SchoolStatus.loaded;
-} else {
-_errorMessage = 'Failed to load schools. Check your internet connection and try again.';
-_status = SchoolStatus.error;
-}
-}
+  // API failed. If we couldn't show the cache above, fall back to
+  // Firestore schools, then the bundled asset, before giving up.
+  if (!hasCache) {
+    final firestoreSchools = await _schoolApiService
+        .fetchSchoolsFromFirestore();
+    if (firestoreSchools.isNotEmpty) {
+      _schools = firestoreSchools;
+      _availableCountries = _countries;
+      _applyFilters();
+      _status = SchoolStatus.loaded;
+    } else {
+      // Last resort: the schools bundled inside the app itself.
+      final bundled = await _schoolApiService.fetchBundledSchools();
+      if (bundled.isNotEmpty) {
+        _schools = bundled;
+        _availableCountries = _countries;
+        _applyFilters();
+        _status = SchoolStatus.loaded;
+        // Save them to the device cache so they stay available offline.
+        try {
+          await box.write(
+            cacheKey,
+            bundled.map((s) => s.toMap()).toList(),
+          );
+        } catch (_) {}
+      } else {
+        _errorMessage = 'Failed to load schools. Check your internet connection and try again.';
+        _status = SchoolStatus.error;
+      }
+    }
+  }
 }
 
 notifyListeners();
