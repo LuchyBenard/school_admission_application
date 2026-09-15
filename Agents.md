@@ -197,7 +197,7 @@ writes to applications/{id} + creates notification for student
   even fully offline
 - URL must use HTTPS
 
-## School Batch Upload (Planned)
+## School Batch Upload
 Admins can upload a batch list of schools to populate the
 Firestore `schools/` collection without relying on external APIs.
 

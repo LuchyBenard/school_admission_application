@@ -174,4 +174,100 @@ batch.set(doc, capped[i].toMap());
 await batch.commit();
 }
 }
+
+/// Imports schools from the batch upload screen.
+/// - Skips rows whose name + country already exist in Firestore.
+/// - Skips duplicates within the same import list.
+/// - Writes in batches of 400 to respect Firestore limits.
+/// - Reports progress via `onProgress(processed, total)`.
+Future<BatchImportResult> importSchoolsBatch(
+  List<SchoolModel> schools, {
+  void Function(int processed, int total)? onProgress,
+}) async {
+  final existingKeys = <String>{};
+  try {
+    final snapshot = await _firestore.collection('schools').get();
+    for (final doc in snapshot.docs) {
+      final name = (doc['name'] ?? '').toString();
+      final country = (doc['country'] ?? '').toString();
+      if (name.isNotEmpty && country.isNotEmpty) {
+        existingKeys.add('${name.toLowerCase()}|${country.toLowerCase()}');
+      }
+    }
+  } catch (_) {
+    // If the existing lookup fails, assume nothing exists yet.
+  }
+
+  // Filter out existing + in-file duplicates.
+  final toImport = <SchoolModel>[];
+  var skipped = 0;
+  for (final school in schools) {
+    final key =
+        '${school.name.toLowerCase()}|${school.country.toLowerCase()}';
+    if (existingKeys.contains(key)) {
+      skipped++;
+      continue;
+    }
+    existingKeys.add(key);
+    toImport.add(school);
+  }
+
+  var imported = 0;
+  var failed = 0;
+  final errors = <String>[];
+  final added = <SchoolModel>[];
+  const maxPerBatch = 400;
+
+  for (var start = 0; start < toImport.length; start += maxPerBatch) {
+    final batch = _firestore.batch();
+    final end = (start + maxPerBatch < toImport.length)
+        ? start + maxPerBatch
+        : toImport.length;
+
+    for (var i = start; i < end; i++) {
+      batch.set(
+        _firestore.collection('schools').doc(),
+        toImport[i].toMap(),
+      );
+    }
+
+    try {
+      await batch.commit();
+      imported += (end - start);
+      added.addAll(toImport.sublist(start, end));
+    } catch (e) {
+      failed += (end - start);
+      errors.add('Batch ${(start ~/ maxPerBatch) + 1} failed: $e');
+    }
+
+    onProgress?.call(end, toImport.length);
+  }
+
+  return BatchImportResult(
+    imported: imported,
+    skipped: skipped,
+    failed: failed,
+    errors: errors,
+    added: added,
+  );
+}
+}
+
+/// Result of a batch school import (admin CSV upload).
+class BatchImportResult {
+  final int imported;
+  final int skipped;
+  final int failed;
+  final List<String> errors;
+
+  /// The schools that were successfully written to Firestore.
+  final List<SchoolModel> added;
+
+  BatchImportResult({
+    required this.imported,
+    required this.skipped,
+    required this.failed,
+    this.errors = const [],
+    this.added = const [],
+  });
 }

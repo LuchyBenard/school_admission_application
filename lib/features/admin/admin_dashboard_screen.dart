@@ -192,6 +192,28 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
                       label: const Text('View All Applicants'),
                     ),
                   ),
+                  SizedBox(height: 12.h),
+
+                  // Batch upload schools
+                  SizedBox(
+                    width: double.infinity,
+                    child: OutlinedButton.icon(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/admin-batch-upload');
+                      },
+                      icon: Icon(
+                        Icons.upload_file_outlined,
+                        color: AppColors.primary,
+                      ),
+                      label: Text(
+                        'Upload Schools (CSV)',
+                        style: AppTextStyles.bodyMedium.copyWith(
+                          color: AppColors.primary,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

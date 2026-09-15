@@ -47,6 +47,7 @@ import 'features/admin/admin_login_screen.dart';
 import 'features/admin/admin_dashboard_screen.dart';
 import 'features/admin/applicant_list_screen.dart';
 import 'features/admin/applicant_detail_screen.dart';
+import 'features/admin/batch_upload_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -163,6 +164,7 @@ class MyApp extends StatelessWidget {
                 '/admin-dashboard': (context) => const AdminDashboardScreen(),
                 '/admin-applicants': (context) => const ApplicantListScreen(),
                 '/admin-applicant-detail': (context) => const ApplicantDetailScreen(),
+                '/admin-batch-upload': (context) => const BatchUploadScreen(),
               },
             ),
           ),
