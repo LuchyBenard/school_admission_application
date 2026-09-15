@@ -279,10 +279,8 @@ Import to Firestore `schools/` collection
 ## Known Placeholders
 - Payment: currently simulates success after 2s delay
   Real integration: PayStack or FlutterWave
-- Firebase Cloud Messaging: installed but push notification
-  triggers not yet implemented in Cloud Functions
-- School Batch Upload: documented but screen not yet built
-  (see School Batch Upload section above)
+- Firebase Cloud Messaging: push trigger Cloud Function is built
+  (`functions/index.js`) but not yet deployed via `firebase deploy`
 
 ## Firebase Setup Required
 1. Enable Email/Password in Firebase Auth

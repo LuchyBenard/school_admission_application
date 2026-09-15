@@ -26,6 +26,7 @@ The system is designed to serve two main user roles:
 - **Admin Portal:** Secure login restricted to authorized administrative users.
 - **Applicant Management:** Centralized list of all applications with advanced filtering (by status, name, or course).
 - **Review System:** Detailed view of applicant data and one-click status updates with optional admin messages.
+- **Batch School Upload:** Import schools in bulk from a CSV file (with validation, preview, and duplicate detection).
 
 ---
 
@@ -127,8 +128,8 @@ flutter run
 - [x] Admin portal and applicant review system.
 - [x] Global school search with multi-source fallback + offline bundled list.
 - [x] Push notification triggers via Cloud Functions (built; deploy with `firebase deploy`).
+- [x] Admin batch school upload (CSV).
 - [ ] Real-time PayStack/Flutterwave payment integration.
-- [ ] Admin batch school upload (CSV).
 
 ---
 

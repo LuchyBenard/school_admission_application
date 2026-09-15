@@ -398,8 +398,8 @@ class _BatchUploadScreenState extends State<BatchUploadScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'name,country,state,website,isFeatured\\n'
-                'University of Lagos,Nigeria,Lagos,https://unilag.edu.ng,true\\n'
+                'name,country,state,website,isFeatured\n'
+                'University of Lagos,Nigeria,Lagos,https://unilag.edu.ng,true\n'
                 'Ahmadu Bello University,Nigeria,Zaria,https://abu.edu.ng,false',
                 style: AppTextStyles.caption.copyWith(color: AppColors.textPrimary),
               ),
