@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -107,6 +108,7 @@ class ApplicationProvider extends ChangeNotifier{
       _status = ApplicationStatus.loaded;
       notifyListeners();
     }, onError: (e) {
+      debugPrint('[ApplicationProvider] subscribeToApplications onError: $e');
       _errorMessage = 'Failed to load applications.';
       _status = ApplicationStatus.error;
       notifyListeners();
@@ -191,6 +193,7 @@ Future<void> loadApplications() async {
 
       _status = ApplicationStatus.loaded;
     } catch (e) {
+      debugPrint('[ApplicationProvider] loadApplications error: $e');
       _errorMessage = 'Failed to load applications.';
       _status = ApplicationStatus.error;
     }
@@ -217,6 +220,7 @@ Future<String?> submitApplication(ApplicationModel application) async {
 
       return docRef.id;
     } catch (e) {
+      debugPrint('[ApplicationProvider] submitApplication error: $e');
       _errorMessage = 'Failed to submit applications. Please try again.';
       _status = ApplicationStatus.error;
       notifyListeners();

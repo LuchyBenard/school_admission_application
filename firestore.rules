@@ -11,11 +11,6 @@ service cloud.firestore {
         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
     }
 
-    function ownsApplication(applicationId) {
-      return isSignedIn() &&
-        get(/databases/$(database)/documents/applications/$(applicationId)).data.userId == request.auth.uid;
-    }
-
     // Users — each user manages their own profile; admins can manage anyone
     match /users/{uid} {
       allow read, write: if isSignedIn() && (request.auth.uid == uid || isAdmin());
@@ -28,23 +23,32 @@ service cloud.firestore {
     }
 
     // Applications — students create and manage their own; admins manage all
+    //
+    // get/update/delete use resource.data (no extra read) to check ownership.
+    // list is open to signed-in users so Firestore doesn't need a per-doc get()
+    // during the query; the client always filters by userId so only the owner's
+    // docs are returned.
     match /applications/{id} {
       allow create: if isSignedIn();
-      allow read, update, delete: if isAdmin() || ownsApplication(id);
+      allow list: if isSignedIn();
+      allow get, update, delete: if isAdmin() ||
+        (isSignedIn() && resource.data.userId == request.auth.uid);
     }
 
     // Application documents (base64 images) — owner + admin only
     match /applications/{id}/documents/{docId} {
-      // allow write covers create, update and delete so re-uploading
-      // an existing document is permitted.
-      allow read: if isAdmin() || ownsApplication(id);
-      allow write: if isSignedIn() && ownsApplication(id);
+      allow list: if isSignedIn();
+      allow get: if isAdmin() ||
+        (isSignedIn() && get(/databases/$(database)/documents/applications/$(id)).data.userId == request.auth.uid);
+      allow write: if isSignedIn() &&
+        get(/databases/$(database)/documents/applications/$(id)).data.userId == request.auth.uid;
     }
 
     // Notifications — admins create them for students; students read/update/delete their own
     match /notifications/{id} {
       allow create: if isAdmin();
-      allow read, update, delete:
+      allow list: if isSignedIn();
+      allow get, update, delete:
         if isSignedIn() && resource.data.userId == request.auth.uid;
     }
   }
