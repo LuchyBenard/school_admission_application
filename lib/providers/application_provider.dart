@@ -109,6 +109,9 @@ class ApplicationProvider extends ChangeNotifier{
       notifyListeners();
     }, onError: (e) {
       debugPrint('[ApplicationProvider] subscribeToApplications onError: $e');
+      _appSub?.cancel();
+      _appSub = null;
+      _subscribedUid = null;
       _errorMessage = 'Failed to load applications.';
       _status = ApplicationStatus.error;
       notifyListeners();
