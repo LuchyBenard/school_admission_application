@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -19,11 +22,66 @@ class _ApplicantDetailScreenState extends State<ApplicantDetailScreen> {
   bool _isLoading = false;
   late ApplicationModel _application;
 
+  // Uploaded documents (base64) keyed by the same docKeys used by the
+  // student's DocumentUploadScreen.
+  final Map<String, Map<String, dynamic>> _documentMeta = {
+    'waec_neco': {
+      'title': 'WAEC/NECO Result',
+      'icon': Icons.school_outlined,
+    },
+    'jamb_result': {
+      'title': 'JAMB Result',
+      'icon': Icons.assignment_outlined,
+    },
+    'passport_photo': {
+      'title': 'Passport Photo',
+      'icon': Icons.person_outline,
+    },
+    'birth_certificate': {
+      'title': 'Birth Certificate',
+      'icon': Icons.card_membership_outlined,
+    },
+  };
+  final Map<String, String> _documentImages = {};
+  bool _documentsLoading = true;
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _application =
     ModalRoute.of(context)!.settings.arguments as ApplicationModel;
+    _loadDocuments();
+  }
+
+  Future<void> _loadDocuments() async {
+    final appId = _application.id;
+    if (appId == null) {
+      if (mounted) setState(() => _documentsLoading = false);
+      return;
+    }
+
+    try {
+      final snapshot = await _firestore
+          .collection('applications')
+          .doc(appId)
+          .collection('documents')
+          .get();
+
+      if (!mounted) return;
+      setState(() {
+        for (final doc in snapshot.docs) {
+          final data = doc.data();
+          final key = data['docKey']?.toString() ?? doc.id;
+          final base64 = data['data'];
+          if (base64 != null && base64 is String && base64.isNotEmpty) {
+            _documentImages[key] = base64;
+          }
+        }
+        _documentsLoading = false;
+      });
+    } catch (e) {
+      if (mounted) setState(() => _documentsLoading = false);
+    }
   }
 
   @override
@@ -275,6 +333,10 @@ class _ApplicantDetailScreenState extends State<ApplicantDetailScreen> {
               _buildRow('Session', _application.session),
             ]),
 
+            SizedBox(height: 16.h),
+
+            _buildSection('Uploaded Documents', _buildDocumentRows()),
+
             SizedBox(height: 32.h),
 
             // Action Buttons
@@ -363,6 +425,199 @@ class _ApplicantDetailScreenState extends State<ApplicantDetailScreen> {
               ),
 
             SizedBox(height: 40.h),
+          ],
+        ),
+      ),
+    );
+  }
+
+  List<Widget> _buildDocumentRows() {
+    if (_documentsLoading) {
+      return const [
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 16),
+          child: Center(
+            child: CircularProgressIndicator(
+              color: AppColors.primary,
+            ),
+          ),
+        ),
+      ];
+    }
+
+    if (_documentImages.isEmpty) {
+      return [
+        const Padding(
+          padding: EdgeInsets.symmetric(vertical: 16),
+          child: Text(
+            'No documents uploaded for this application yet.',
+            style: AppTextStyles.bodyMedium,
+          ),
+        ),
+      ];
+    }
+
+    return [
+      Text(
+        '${_documentImages.length} of ${_documentMeta.length} documents uploaded',
+        style: AppTextStyles.bodySmall.copyWith(
+          color: AppColors.textSecondary,
+        ),
+      ),
+      const SizedBox(height: 8),
+      ..._documentMeta.entries.map((entry) {
+        final key = entry.key;
+        final title = entry.value['title'] as String;
+        final icon = entry.value['icon'] as IconData;
+        final base64 = _documentImages[key];
+        final hasImage = base64 != null && base64.isNotEmpty;
+
+        return InkWell(
+          onTap: hasImage ? () => _viewDocument(title, base64) : null,
+          borderRadius: BorderRadius.circular(8.r),
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 10.h),
+            child: Row(
+              children: [
+                Container(
+                  width: 44.w,
+                  height: 44.w,
+                  decoration: BoxDecoration(
+                    color: hasImage
+                        ? AppColors.surfaceAlt
+                        : AppColors.surface,
+                    borderRadius: BorderRadius.circular(10.r),
+                  ),
+                  child: hasImage
+                      ? ClipRRect(
+                          borderRadius: BorderRadius.circular(10.r),
+                          child: Image.memory(
+                            _decodeBase64(base64)!,
+                            fit: BoxFit.cover,
+                            width: 44.w,
+                            height: 44.w,
+                            errorBuilder: (_, _, _) => Icon(
+                              icon,
+                              color: AppColors.textHint,
+                              size: 22.w,
+                            ),
+                          ),
+                        )
+                      : Icon(icon, color: AppColors.textHint, size: 22.w),
+                ),
+                SizedBox(width: 12.w),
+                Expanded(
+                  child: Text(
+                    title,
+                    style: AppTextStyles.bodyMedium.copyWith(
+                      color: AppColors.textPrimary,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                if (hasImage)
+                  Row(
+                    children: [
+                      Text(
+                        'View',
+                        style: AppTextStyles.caption.copyWith(
+                          color: AppColors.primary,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      SizedBox(width: 4.w),
+                      Icon(
+                        Icons.zoom_in,
+                        color: AppColors.primary,
+                        size: 16.w,
+                      ),
+                    ],
+                  )
+                else
+                  Text(
+                    'Not uploaded',
+                    style: AppTextStyles.caption.copyWith(
+                      color: AppColors.textHint,
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        );
+      }),
+    ];
+  }
+
+  Uint8List? _decodeBase64(String base64) {
+    try {
+      return base64Decode(base64);
+    } catch (_) {
+      return null;
+    }
+  }
+
+  void _viewDocument(String title, String base64) {
+    final bytes = _decodeBase64(base64);
+    if (bytes == null) {
+      showToast(
+        'Could not read this document.',
+        backgroundColor: AppColors.error,
+        textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
+      );
+      return;
+    }
+
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        backgroundColor: AppColors.background,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.r),
+        ),
+        clipBehavior: Clip.antiAlias,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      title,
+                      style: AppTextStyles.h2,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () => Navigator.pop(context),
+                    child: Icon(
+                      Icons.close,
+                      color: AppColors.textSecondary,
+                      size: 20.w,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Flexible(
+              child: Container(
+                color: AppColors.surface,
+                constraints: BoxConstraints(
+                  maxHeight: MediaQuery.of(context).size.height * 0.6,
+                ),
+                child: InteractiveViewer(
+                  minScale: 0.8,
+                  maxScale: 4.0,
+                  child: Center(
+                    child: Image.memory(
+                      bytes,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
