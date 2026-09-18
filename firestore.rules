@@ -51,5 +51,13 @@ service cloud.firestore {
       allow get, update, delete:
         if isSignedIn() && resource.data.userId == request.auth.uid;
     }
+
+    // Favorites — students manage their own saved schools
+    match /favorites/{id} {
+      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+      allow list: if isSignedIn();
+      allow get, update, delete:
+        if isSignedIn() && resource.data.userId == request.auth.uid;
+    }
   }
 }

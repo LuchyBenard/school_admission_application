@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:country_flags/country_flags.dart';
 import 'package:oktoast/oktoast.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_text_styles.dart';
 import '../../../models/school_model.dart';
+import '../../../providers/favorites_provider.dart';
 
 class SchoolCard extends StatelessWidget {
   final SchoolModel school;
@@ -221,6 +223,56 @@ class SchoolCard extends StatelessWidget {
                             ),
                           ),
                         ),
+
+                      // Favorite toggle
+                      Consumer<FavoritesProvider>(
+                        builder: (context, favProvider, child) {
+                          final isFavorite = favProvider.isFavorite(school);
+                          return GestureDetector(
+                            onTap: () {
+                              final adding = !isFavorite;
+                              favProvider.toggleFavorite(school);
+                              if (adding) {
+                                showToast(
+                                  '${school.name} saved to favorites',
+                                  backgroundColor: AppColors.success,
+                                  textStyle: AppTextStyles.bodySmall.copyWith(
+                                    color: Colors.white,
+                                  ),
+                                );
+                              } else {
+                                showToast(
+                                  'Removed from favorites',
+                                  backgroundColor: AppColors.info,
+                                  textStyle: AppTextStyles.bodySmall.copyWith(
+                                    color: Colors.white,
+                                  ),
+                                );
+                              }
+                            },
+                            child: Container(
+                              width: 32.w,
+                              height: 32.w,
+                              margin: EdgeInsets.only(left: 8.w),
+                              decoration: BoxDecoration(
+                                color: isFavorite
+                                    ? AppColors.error.withValues(alpha: 0.1)
+                                    : AppColors.surfaceAlt,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(
+                                isFavorite
+                                    ? Icons.favorite
+                                    : Icons.favorite_border,
+                                color: isFavorite
+                                    ? AppColors.error
+                                    : AppColors.textHint,
+                                size: 16.w,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
                     ],
                   ),
                 ],

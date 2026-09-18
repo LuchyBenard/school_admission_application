@@ -6,7 +6,9 @@ import 'package:school_admission_application/providers/application_provider.dart
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_text_styles.dart';
 import '../../providers/auth_provider.dart';
+import '../../providers/favorites_provider.dart';
 import 'widgets/featured_schools_banner.dart';
+import 'widgets/saved_schools_section.dart';
 import 'widgets/application_summary_card.dart';
 import '../../providers/notification_provider.dart';
 import '../../core/widgets/skeleton_loader.dart';
@@ -30,6 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<ApplicationProvider>().subscribeToApplications();
       context.read<NotificationProvider>().subscribeToNotifications();
+      context.read<FavoritesProvider>().subscribeToFavorites();
     });
   }
 
@@ -132,6 +135,13 @@ class _HomeScreenState extends State<HomeScreen> {
               Text('Featured Schools', style: AppTextStyles.h2),
               SizedBox(height: 16.h),
               const FeaturedSchoolsBanner(),
+
+              SizedBox(height: 28.h),
+
+              // Saved Schools
+              Text('Saved Schools', style: AppTextStyles.h2),
+              SizedBox(height: 16.h),
+              const SavedSchoolsSection(),
 
               SizedBox(height: 28.h),
 

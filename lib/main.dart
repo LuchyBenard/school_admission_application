@@ -16,6 +16,7 @@ import 'providers/auth_provider.dart';
 import 'providers/school_provider.dart';
 import 'providers/application_provider.dart';
 import 'providers/notification_provider.dart';
+import 'providers/favorites_provider.dart';
 
 // Services
 import 'services/notification_service.dart';
@@ -79,6 +80,7 @@ class MyApp extends StatelessWidget {
               ChangeNotifierProvider(create: (_) => SchoolProvider()),
               ChangeNotifierProvider(create: (_) => ApplicationProvider()),
               ChangeNotifierProvider(create: (_) => NotificationProvider()),
+              ChangeNotifierProvider(create: (_) => FavoritesProvider()),
             ],
             child: MaterialApp(
               debugShowCheckedModeBanner: false,

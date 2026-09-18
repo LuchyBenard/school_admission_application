@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:oktoast/oktoast.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_text_styles.dart';
 import '../../models/school_model.dart';
+import '../../providers/favorites_provider.dart';
 
 class SchoolDetailScreen extends StatelessWidget {
   const SchoolDetailScreen({super.key});
@@ -29,6 +32,45 @@ class SchoolDetailScreen extends StatelessWidget {
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
+        actions: [
+          // Save to favorites
+          Consumer<FavoritesProvider>(
+            builder: (context, favProvider, child) {
+              final isFavorite = favProvider.isFavorite(school);
+              return GestureDetector(
+                onTap: () {
+                  final adding = !isFavorite;
+                  favProvider.toggleFavorite(school);
+                  if (adding) {
+                    showToast(
+                      '${school.name} saved to favorites',
+                      backgroundColor: AppColors.success,
+                      textStyle: AppTextStyles.bodySmall.copyWith(
+                        color: Colors.white,
+                      ),
+                    );
+                  } else {
+                    showToast(
+                      'Removed from favorites',
+                      backgroundColor: AppColors.info,
+                      textStyle: AppTextStyles.bodySmall.copyWith(
+                        color: Colors.white,
+                      ),
+                    );
+                  }
+                },
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  child: Icon(
+                    isFavorite ? Icons.favorite : Icons.favorite_border,
+                    color: isFavorite ? AppColors.error : AppColors.textPrimary,
+                    size: 22.w,
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
