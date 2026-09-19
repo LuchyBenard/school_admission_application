@@ -360,6 +360,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         return AppColors.error;
       case 'under_review':
         return AppColors.warning;
+      case 'withdrawn':
+        return AppColors.textSecondary;
       case 'deadline':
         return AppColors.error;
       default:
@@ -375,6 +377,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         return Icons.cancel_outlined;
       case 'under_review':
         return Icons.hourglass_empty_outlined;
+      case 'withdrawn':
+        return Icons.do_not_disturb_on_outlined;
       case 'deadline':
         return Icons.alarm_outlined;
       default:

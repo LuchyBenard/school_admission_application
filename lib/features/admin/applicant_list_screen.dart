@@ -28,6 +28,7 @@ class _ApplicantListScreenState extends State<ApplicantListScreen> {
     'Accepted',
     'Rejected',
     'Docs Needed',
+    'Withdrawn',
   ];
 
   @override
@@ -79,6 +80,9 @@ class _ApplicantListScreenState extends State<ApplicantListScreen> {
         break;
       case 'Docs Needed':
         statusFilter = 'more_documents';
+        break;
+      case 'Withdrawn':
+        statusFilter = 'withdrawn';
         break;
     }
 

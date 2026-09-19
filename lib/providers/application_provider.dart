@@ -132,6 +132,33 @@ class ApplicationProvider extends ChangeNotifier{
     _rejected = 0;
   }
 
+  // Withdraw application
+  Future<bool> withdrawApplication(String id) async {
+    if (id.isEmpty) return false;
+
+    try {
+      await _firestore.collection('applications').doc(id).update({
+        'status': 'withdrawn',
+        'updatedAt': FieldValue.serverTimestamp(),
+      });
+
+      // Update local list immediately (stream will also update)
+      _applications = _applications.map((a) {
+        if (a.id == id) return a.copyWith(status: 'withdrawn');
+        return a;
+      }).toList();
+      _updateStatsFrom(_applications);
+      notifyListeners();
+
+      return true;
+    } catch (e) {
+      debugPrint('[ApplicationProvider] withdrawApplication error: $e');
+      _errorMessage = 'Failed to withdraw application. Please try again.';
+      notifyListeners();
+      return false;
+    }
+  }
+
   @override
   void dispose() {
     _appSub?.cancel();

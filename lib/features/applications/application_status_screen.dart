@@ -26,6 +26,7 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
     'Under Review',
     'Accepted',
     'Rejected',
+    'Withdrawn',
   ];
 
   @override
@@ -46,9 +47,17 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
         return 'accepted';
       case 'Rejected':
         return 'rejected';
+      case 'Withdrawn':
+        return 'withdrawn';
       default:
         return 'all';
     }
+  }
+
+  bool _canWithdraw(String status) {
+    return status == 'pending' ||
+        status == 'under_review' ||
+        status == 'more_documents';
   }
 
   Future<void> _confirmDelete(
@@ -103,6 +112,63 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
     showToast(
       success ? 'Application deleted' : 'Failed to delete application',
       backgroundColor: success ? AppColors.success : AppColors.error,
+    );
+  }
+
+  Future<void> _confirmWithdraw(
+    BuildContext context,
+    ApplicationModel application,
+  ) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        backgroundColor: AppColors.background,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.r),
+        ),
+        title: Text('Withdraw Application', style: AppTextStyles.h2),
+        content: Text(
+          'Are you sure you want to withdraw your application to '
+          '${application.schoolName}? You can re-apply later.',
+          style: AppTextStyles.bodyMedium,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: Text(
+              'Cancel',
+              style: AppTextStyles.bodyMedium.copyWith(
+                color: AppColors.textSecondary,
+              ),
+            ),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, true),
+            child: Text(
+              'Withdraw',
+              style: AppTextStyles.bodyMedium.copyWith(
+                color: AppColors.error,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed != true || !context.mounted) return;
+
+    final success = await context
+        .read<ApplicationProvider>()
+        .withdrawApplication(application.id!);
+
+    if (!context.mounted) return;
+
+    showToast(
+      success
+          ? 'Application withdrawn'
+          : 'Failed to withdraw application',
+      backgroundColor: success ? AppColors.warning : AppColors.error,
     );
   }
 
@@ -282,6 +348,10 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
                         },
                         onDelete: application.id != null
                             ? () => _confirmDelete(context, application)
+                            : null,
+                        onWithdraw: application.id != null &&
+                                _canWithdraw(application.status)
+                            ? () => _confirmWithdraw(context, application)
                             : null,
                       );
                     },

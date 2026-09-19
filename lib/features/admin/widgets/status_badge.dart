@@ -21,6 +21,8 @@ class StatusBadge extends StatelessWidget {
         return AppColors.warning;
       case 'more_documents':
         return AppColors.info;
+      case 'withdrawn':
+        return AppColors.textSecondary;
       default:
         return AppColors.textHint;
     }
@@ -36,6 +38,8 @@ class StatusBadge extends StatelessWidget {
         return 'Under Review';
       case 'more_documents':
         return 'Docs Needed';
+      case 'withdrawn':
+        return 'Withdrawn';
       default:
         return 'Pending';
     }

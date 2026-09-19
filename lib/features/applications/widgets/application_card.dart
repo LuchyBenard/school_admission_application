@@ -8,12 +8,14 @@ class ApplicationCard extends StatelessWidget {
   final ApplicationModel application;
   final VoidCallback onTap;
   final VoidCallback? onDelete;
+  final VoidCallback? onWithdraw;
 
   const ApplicationCard({
     super.key,
     required this.application,
     required this.onTap,
     this.onDelete,
+    this.onWithdraw,
   });
 
   Color _getStatusColor(String status) {
@@ -26,6 +28,8 @@ class ApplicationCard extends StatelessWidget {
         return AppColors.warning;
       case 'more_documents':
         return AppColors.warning;
+      case 'withdrawn':
+        return AppColors.textSecondary;
       default:
         return AppColors.info;
     }
@@ -41,6 +45,8 @@ class ApplicationCard extends StatelessWidget {
         return 'Under Review';
       case 'more_documents':
         return 'Docs Needed';
+      case 'withdrawn':
+        return 'Withdrawn';
       default:
         return 'Pending';
     }
@@ -56,6 +62,8 @@ class ApplicationCard extends StatelessWidget {
         return Icons.hourglass_empty_outlined;
       case 'more_documents':
         return Icons.folder_outlined;
+      case 'withdrawn':
+        return Icons.do_not_disturb_on_outlined;
       default:
         return Icons.access_time_outlined;
     }
@@ -171,6 +179,27 @@ class ApplicationCard extends StatelessWidget {
 
                 Row(
                   children: [
+                    // Withdraw button
+                    if (onWithdraw != null) ...[
+                      GestureDetector(
+                        onTap: onWithdraw,
+                        child: Container(
+                          width: 32.w,
+                          height: 32.w,
+                          decoration: BoxDecoration(
+                            color: AppColors.warning.withValues(alpha: 0.1),
+                            borderRadius: BorderRadius.circular(10.r),
+                          ),
+                          child: Icon(
+                            Icons.do_not_disturb_on_outlined,
+                            size: 16.w,
+                            color: AppColors.warning,
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 8.w),
+                    ],
+
                     // Delete button
                     if (onDelete != null) ...[
                       GestureDetector(

@@ -5,6 +5,7 @@ import 'package:oktoast/oktoast.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_text_styles.dart';
 import '../../../models/application_model.dart';
+import '../../../models/school_model.dart';
 import '../../../providers/application_provider.dart';
 
 class ApplicationDetailScreen extends StatelessWidget {
@@ -20,6 +21,8 @@ class ApplicationDetailScreen extends StatelessWidget {
         return AppColors.warning;
       case 'more_documents':
         return AppColors.warning;
+      case 'withdrawn':
+        return AppColors.textSecondary;
       default:
         return AppColors.info;
     }
@@ -35,6 +38,8 @@ class ApplicationDetailScreen extends StatelessWidget {
         return 'Under Review';
       case 'more_documents':
         return 'More Documents Required';
+      case 'withdrawn':
+        return 'Withdrawn';
       default:
         return 'Pending';
     }
@@ -157,6 +162,41 @@ class ApplicationDetailScreen extends StatelessWidget {
             ),
             SizedBox(height: 32.h),
 
+            // Contextual actions based on status
+            if (_canWithdraw(application.status)) ...[
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton.icon(
+                  onPressed: () => _confirmWithdraw(context, application),
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: AppColors.warning,
+                    side: BorderSide(color: AppColors.warning.withValues(alpha: 0.4)),
+                    padding: EdgeInsets.symmetric(vertical: 14.h),
+                  ),
+                  icon: Icon(Icons.do_not_disturb_on_outlined, size: 20.w),
+                  label: const Text('Withdraw Application'),
+                ),
+              ),
+              SizedBox(height: 12.h),
+            ],
+
+            if (application.status == 'withdrawn' ||
+                application.status == 'rejected') ...[
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  onPressed: () => _reapply(context, application),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primary,
+                    padding: EdgeInsets.symmetric(vertical: 14.h),
+                  ),
+                  icon: const Icon(Icons.refresh),
+                  label: const Text('Re-apply'),
+                ),
+              ),
+              SizedBox(height: 12.h),
+            ],
+
             // Delete application
             SizedBox(
               width: double.infinity,
@@ -175,6 +215,85 @@ class ApplicationDetailScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  bool _canWithdraw(String status) {
+    return status == 'pending' ||
+        status == 'under_review' ||
+        status == 'more_documents';
+  }
+
+  void _reapply(BuildContext context, ApplicationModel application) {
+    final school = SchoolModel(
+      name: application.schoolName,
+      country: application.schoolCountry,
+      state: '',
+      website: '',
+    );
+    Navigator.pushNamed(
+      context,
+      '/application-form',
+      arguments: school,
+    );
+  }
+
+  Future<void> _confirmWithdraw(
+    BuildContext context,
+    ApplicationModel application,
+  ) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        backgroundColor: AppColors.background,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.r),
+        ),
+        title: Text('Withdraw Application', style: AppTextStyles.h2),
+        content: Text(
+          'Are you sure you want to withdraw your application to '
+          '${application.schoolName}? You can re-apply later.',
+          style: AppTextStyles.bodyMedium,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: Text(
+              'Cancel',
+              style: AppTextStyles.bodyMedium.copyWith(
+                color: AppColors.textSecondary,
+              ),
+            ),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, true),
+            child: Text(
+              'Withdraw',
+              style: AppTextStyles.bodyMedium.copyWith(
+                color: AppColors.warning,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed != true || !context.mounted) return;
+
+    final appId = application.id;
+    if (appId == null) return;
+
+    final success =
+        await context.read<ApplicationProvider>().withdrawApplication(appId);
+
+    if (!context.mounted) return;
+
+    showToast(
+      success
+          ? 'Application withdrawn'
+          : 'Failed to withdraw application',
+      backgroundColor: success ? AppColors.warning : AppColors.error,
     );
   }
 

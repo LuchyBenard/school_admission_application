@@ -49,6 +49,33 @@ final String nationality;
     this.createdAt,
 });
 
+  // Copy with status change
+  ApplicationModel copyWith({
+    String? status,
+    DateTime? createdAt,
+  }) {
+    return ApplicationModel(
+      id: id,
+      userId: userId,
+      schoolName: schoolName,
+      schoolCountry: schoolCountry,
+      fullName: fullName,
+      dateOfBirth: dateOfBirth,
+      gender: gender,
+      nationality: nationality,
+      qualification: qualification,
+      grade: grade,
+      graduationYear: graduationYear,
+      jambScore: jambScore,
+      jambYear: jambYear,
+      courseOfStudy: courseOfStudy,
+      entryLevel: entryLevel,
+      session: session,
+      status: status ?? this.status,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
   // To Firestore
 Map<String, dynamic> toMap() {
   return {

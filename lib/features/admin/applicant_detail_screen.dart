@@ -340,7 +340,35 @@ class _ApplicantDetailScreenState extends State<ApplicantDetailScreen> {
             SizedBox(height: 32.h),
 
             // Action Buttons
-            if (!_isLoading) ...[
+            if (_application.status == 'withdrawn') ...[
+              Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(16.w),
+                decoration: BoxDecoration(
+                  color: AppColors.textSecondary.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(12.r),
+                  border: Border.all(
+                    color: AppColors.textSecondary.withValues(alpha: 0.3),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.do_not_disturb_on_outlined,
+                      color: AppColors.textSecondary,
+                      size: 22.w,
+                    ),
+                    SizedBox(width: 12.w),
+                    Expanded(
+                      child: Text(
+                        'This applicant has withdrawn their application.',
+                        style: AppTextStyles.bodyMedium,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ] else if (!_isLoading) ...[
               Text('Take Action', style: AppTextStyles.h3),
               SizedBox(height: 16.h),
 
