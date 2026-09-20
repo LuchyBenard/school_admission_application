@@ -23,6 +23,28 @@ class SchoolModel {
     this.domains = const [],
   });
 
+  /// Parsed deadline as a DateTime. Returns null when unset/invalid.
+  /// Date-only values (e.g. "2026-09-30") are treated as the end of that
+  /// day so applications remain open throughout the deadline day.
+  DateTime? get deadlineDate {
+    final raw = deadline;
+    if (raw == null || raw.isEmpty) return null;
+    final parsed = DateTime.tryParse(raw.trim());
+    if (parsed == null) return null;
+    final hasTime = raw.contains(':');
+    if (!hasTime) {
+      return DateTime(parsed.year, parsed.month, parsed.day, 23, 59, 59);
+    }
+    return parsed;
+  }
+
+  /// True when a deadline is set and has already passed (i.e. now is after it).
+  bool get isDeadlinePassed {
+    final dt = deadlineDate;
+    if (dt == null) return false;
+    return DateTime.now().isAfter(dt);
+  }
+
   /// From external API response (GitHub mirror / Hipolabs)
   factory SchoolModel.fromApi(Map<String, dynamic> json) {
     return SchoolModel(

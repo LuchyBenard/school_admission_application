@@ -191,6 +191,13 @@ class _BatchUploadScreenState extends State<BatchUploadScreen> {
         continue;
       }
 
+      final deadlineRaw = cell(row, deadlineCol);
+      if (deadlineRaw.isNotEmpty && DateTime.tryParse(deadlineRaw.trim()) == null) {
+        errors.add(
+            'Row ${r + 1}: deadline must be a valid date (e.g. 2026-09-30)');
+        continue;
+      }
+
       final key = '${name.toLowerCase()}|${country.toLowerCase()}';
       if (!seen.add(key)) {
         duplicatedInFile++;
@@ -211,7 +218,7 @@ class _BatchUploadScreenState extends State<BatchUploadScreen> {
         applicationFee: cell(row, applicationFeeCol).isEmpty
             ? null
             : cell(row, applicationFeeCol),
-        deadline: cell(row, deadlineCol).isEmpty ? null : cell(row, deadlineCol),
+        deadline: deadlineRaw.isEmpty ? null : deadlineRaw,
         isFeatured: _parseBool(cell(row, isFeaturedCol)),
       );
 

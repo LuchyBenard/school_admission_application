@@ -95,6 +95,17 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
   }
 
   void _submitApplication() async {
+    // Block submission if the deadline has passed
+    final school = _school;
+    if (school != null && school.isDeadlinePassed) {
+      showToast(
+        'The application deadline for ${school.name} has passed.',
+        backgroundColor: AppColors.error,
+        textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
+      );
+      return;
+    }
+
     final uid = FirebaseAuth.instance.currentUser?.uid;
     if (uid == null) return;
 

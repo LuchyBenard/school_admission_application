@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_text_styles.dart';
+import '../../../core/widgets/deadline_chip.dart';
 import '../../../models/school_model.dart';
 import '../../../providers/favorites_provider.dart';
 
@@ -139,6 +140,13 @@ class SchoolCard extends StatelessWidget {
                   ),
 
                   SizedBox(height: 8.h),
+
+                  // Deadline countdown chip
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: DeadlineChip(deadline: school.deadlineDate),
+                  ),
+                  if (school.deadlineDate != null) SizedBox(height: 8.h),
 
                   // Bottom Row
                   Row(

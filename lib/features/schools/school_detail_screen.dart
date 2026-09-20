@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_text_styles.dart';
+import '../../core/widgets/deadline_chip.dart';
 import '../../models/school_model.dart';
 import '../../providers/favorites_provider.dart';
 
@@ -117,8 +118,22 @@ class SchoolDetailScreen extends StatelessWidget {
               if (school.applicationFee != null && school.applicationFee!.isNotEmpty)
                 _buildInfoSection('Application Fee', school.applicationFee!),
 
-              if (school.deadline != null && school.deadline!.isNotEmpty)
+              if (school.deadline != null && school.deadline!.isNotEmpty) ...[
                 _buildInfoSection('Deadline', school.deadline!),
+                // Countdown chip
+                if (!school.isDeadlinePassed) ...[
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: DeadlineChip(deadline: school.deadlineDate),
+                  ),
+                  SizedBox(height: 16.h),
+                ] else
+                  _buildInfoSection(
+                    'Status',
+                    'Applications closed',
+                    labelColor: AppColors.error,
+                  ),
+              ],
 
               SizedBox(height: 32.h),
 
@@ -151,19 +166,40 @@ class SchoolDetailScreen extends StatelessWidget {
               SizedBox(height: 12.h),
 
               // Apply Now button
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(
-                      context,
-                      '/application-form',
-                      arguments: school,
-                    );
-                  },
-                  child: const Text('Apply Now'),
+              if (school.isDeadlinePassed) ...[
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      showToast(
+                        'Applications are closed for ${school.name}',
+                        backgroundColor: AppColors.error,
+                        textStyle: AppTextStyles.bodySmall.copyWith(
+                          color: Colors.white,
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.textHint,
+                      disabledForegroundColor: Colors.white,
+                    ),
+                    child: const Text('Applications Closed'),
+                  ),
                 ),
-              ),
+              ] else
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(
+                        context,
+                        '/application-form',
+                        arguments: school,
+                      );
+                    },
+                    child: const Text('Apply Now'),
+                  ),
+                ),
             ],
           ),
         ),
@@ -171,16 +207,18 @@ class SchoolDetailScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildInfoSection(String label, String value) {
+  Widget _buildInfoSection(String label, String value, {Color? labelColor}) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label,
-              style: AppTextStyles.label.copyWith(
-                color: AppColors.textHint,
-              )),
+          Text(
+            label,
+            style: AppTextStyles.label.copyWith(
+              color: labelColor ?? AppColors.textHint,
+            ),
+          ),
           const SizedBox(height: 4),
           Text(value,
               style: AppTextStyles.bodyLarge),
