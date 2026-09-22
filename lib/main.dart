@@ -84,6 +84,7 @@ class MyApp extends StatelessWidget {
               ChangeNotifierProvider(create: (_) => ApplicationProvider()),
               ChangeNotifierProvider(create: (_) => NotificationProvider()),
               ChangeNotifierProvider(create: (_) => FavoritesProvider()),
+              ChangeNotifierProvider(create: (_) => BottomNavigationProvider()),
               ChangeNotifierProvider(
                   create: (_) => AdmissionRequirementProvider()),
             ],
