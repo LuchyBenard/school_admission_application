@@ -165,6 +165,32 @@ class SchoolDetailScreen extends StatelessWidget {
 
               SizedBox(height: 12.h),
 
+              // Admission Requirements button
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton.icon(
+                  onPressed: () {
+                    Navigator.pushNamed(
+                      context,
+                      '/admission-requirements',
+                      arguments: school,
+                    );
+                  },
+                  style: OutlinedButton.styleFrom(
+                    minimumSize: const Size(double.infinity, 52),
+                    side: BorderSide(color: AppColors.border),
+                    foregroundColor: AppColors.primary,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  icon: const Icon(Icons.school_outlined),
+                  label: const Text('Admission Requirements'),
+                ),
+              ),
+
+              SizedBox(height: 12.h),
+
               // Apply Now button
               if (school.isDeadlinePassed) ...[
                 SizedBox(

@@ -17,6 +17,7 @@ import 'providers/school_provider.dart';
 import 'providers/application_provider.dart';
 import 'providers/notification_provider.dart';
 import 'providers/favorites_provider.dart';
+import 'providers/admission_requirement_provider.dart';
 
 // Services
 import 'services/notification_service.dart';
@@ -35,6 +36,7 @@ import 'features/notifications/notification_screen.dart';
 
 // Screens - Schools
 import 'features/schools/school_detail_screen.dart';
+import 'features/schools/admission_requirements_screen.dart';
 
 // Screens - Applications
 import 'features/applications/application_form_screen.dart';
@@ -49,6 +51,7 @@ import 'features/admin/admin_dashboard_screen.dart';
 import 'features/admin/applicant_list_screen.dart';
 import 'features/admin/applicant_detail_screen.dart';
 import 'features/admin/batch_upload_screen.dart';
+import 'features/admin/manage_requirements_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -81,6 +84,8 @@ class MyApp extends StatelessWidget {
               ChangeNotifierProvider(create: (_) => ApplicationProvider()),
               ChangeNotifierProvider(create: (_) => NotificationProvider()),
               ChangeNotifierProvider(create: (_) => FavoritesProvider()),
+              ChangeNotifierProvider(
+                  create: (_) => AdmissionRequirementProvider()),
             ],
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
@@ -154,6 +159,8 @@ class MyApp extends StatelessWidget {
                 '/otp-verification': (context) => const OtpVerificationScreen(),
                 '/dashboard': (context) => const DashboardScreen(),
                 '/school-detail': (context) => const SchoolDetailScreen(),
+                '/admission-requirements': (context) =>
+                    const AdmissionRequirementsScreen(),
                 '/application-form': (context) => const ApplicationFormScreen(),
                 '/application-detail': (context) => const ApplicationDetailScreen(),
                 '/notifications': (context) => const NotificationsScreen(),
@@ -167,6 +174,8 @@ class MyApp extends StatelessWidget {
                 '/admin-applicants': (context) => const ApplicantListScreen(),
                 '/admin-applicant-detail': (context) => const ApplicantDetailScreen(),
                 '/admin-batch-upload': (context) => const BatchUploadScreen(),
+                '/admin-requirements': (context) =>
+                    const ManageRequirementsScreen(),
               },
             ),
           ),

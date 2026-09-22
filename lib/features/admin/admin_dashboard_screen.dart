@@ -214,6 +214,28 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
                       ),
                     ),
                   ),
+                  SizedBox(height: 12.h),
+
+                  // Manage admission requirements
+                  SizedBox(
+                    width: double.infinity,
+                    child: OutlinedButton.icon(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/admin-requirements');
+                      },
+                      icon: Icon(
+                        Icons.school_outlined,
+                        color: AppColors.primary,
+                      ),
+                      label: Text(
+                        'Manage Admission Requirements',
+                        style: AppTextStyles.bodyMedium.copyWith(
+                          color: AppColors.primary,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
