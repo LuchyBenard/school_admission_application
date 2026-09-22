@@ -185,7 +185,7 @@ class _ManageRequirementsScreenState extends State<ManageRequirementsScreen> {
       ),
     );
 
-    if (confirmed != true) return;
+    if (confirmed != true || !mounted) return;
 
     final success =
         await context.read<AdmissionRequirementProvider>().deleteRequirement(id);

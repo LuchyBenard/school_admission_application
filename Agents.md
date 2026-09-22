@@ -40,9 +40,11 @@ lib/
 
 │ ├── user_model.dart
 
-│ ├── school_model.dart # fromApi() and fromFirestore() factories
+│ ├── school_model.dart # fromApi() and fromFirestore() factories + deadline helpers
 
 │ ├── application_model.dart # Includes jambScore and jambYear fields
+
+│ ├── admission_requirement_model.dart # Per-school programmes + cut-off scores
 
 │ └── notification_model.dart
 
@@ -62,7 +64,9 @@ lib/
 
 │ ├── application_provider.dart # Submit, load, track applications
 
-│ └── notification_provider.dart # Load, read, delete notifications
+│ ├── admission_requirement_provider.dart # Per-school programmes + cut-offs
+
+│ ├── notification_provider.dart # Load, read, delete notifications
 
 │
 └── features/
@@ -101,6 +105,8 @@ lib/
 
 /school-detail → SchoolDetailScreen (args: SchoolModel)
 
+/admission-requirements → AdmissionRequirementsScreen (args: SchoolModel)
+
 /application-form → ApplicationFormScreen (args: SchoolModel)
 
 /document-upload → DocumentUploadScreen (args: applicationId String)
@@ -115,9 +121,11 @@ lib/
 
 /admin-dashboard → AdminDashboardScreen
 
-/admin-applicants → ApplicantListScreen
-
 /admin-applicant-detail → ApplicantDetailScreen (args: ApplicationModel)
+
+/admin-batch-upload → BatchUploadScreen
+
+/admin-requirements → ManageRequirementsScreen
 
 
 ## Firebase Collections
@@ -125,6 +133,9 @@ users/ # uid, fullName, email, phone, role (student/admin)
   users/{uid}.photo # base64-encoded profile photo (optional)
 
 schools/ # name, country, state, website, isFeatured, imageUrl
+
+admission_requirements/ # schoolName, schoolCountry, program, degreeLevel,
+  # cutOffScore, requirements[], createdAt — one doc per programme
 
 applications/ # userId, schoolName, status, jambScore, documents[]
   applications/{id}/documents/ # one doc per image: docKey, data (base64), userId
