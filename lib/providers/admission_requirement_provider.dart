@@ -41,10 +41,11 @@ class AdmissionRequirementProvider extends ChangeNotifier {
     _sub = _firestore
         .collection('admission_requirements')
         .where('schoolName', isEqualTo: schoolName)
-        .where('schoolCountry', isEqualTo: schoolCountry)
         .snapshots()
         .listen((snapshot) {
       final list = snapshot.docs
+          .where((doc) =>
+              (doc.data()['schoolCountry'] ?? '') == schoolCountry)
           .map((doc) => AdmissionRequirementModel.fromFirestore(
                 doc.data(),
                 doc.id,
@@ -130,9 +131,10 @@ class AdmissionRequirementProvider extends ChangeNotifier {
       final snapshot = await _firestore
           .collection('admission_requirements')
           .where('schoolName', isEqualTo: schoolName)
-          .where('schoolCountry', isEqualTo: schoolCountry)
           .get();
       return snapshot.docs
+          .where((doc) =>
+              (doc.data()['schoolCountry'] ?? '') == schoolCountry)
           .map((doc) => AdmissionRequirementModel.fromFirestore(
                 doc.data(),
                 doc.id,
