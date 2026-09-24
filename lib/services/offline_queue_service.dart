@@ -157,7 +157,7 @@ class OfflineQueueService {
     if (items.isEmpty) return const SyncSummary(0, 0, 0);
 
     if (!await isOnline()) {
-      return const SyncSummary(0, 0, items.length);
+      return SyncSummary(0, 0, items.length);
     }
 
     int synced = 0;

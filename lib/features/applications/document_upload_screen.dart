@@ -195,6 +195,8 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
       final bytes = await file.readAsBytes();
       final base64Image = base64Encode(bytes);
 
+      if (!mounted) return;
+
       // Write through the offline queue: when offline the image is saved
       // locally (base64) and uploaded automatically once connectivity returns.
       final uploaded = await context
@@ -550,6 +552,8 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
         ),
         ),
       ),
-    );
+      ],
+    ),
+  );
   }
 }

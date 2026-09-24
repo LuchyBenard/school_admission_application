@@ -56,6 +56,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
     // Simulate payment processing — replace with real gateway later
     await Future.delayed(const Duration(seconds: 2));
 
+    if (!mounted) return;
+
     try {
       if (_applicationId != null) {
         // Pay through the offline queue: offline payments are recorded
@@ -309,11 +311,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
             SizedBox(height: 40.h),
           ],
-              ),
-            ),
-          ),
         ),
-    );
+        ),
+      ),
+      ],
+    ),
+  );
   }
 
   Widget _buildPaymentMethod({

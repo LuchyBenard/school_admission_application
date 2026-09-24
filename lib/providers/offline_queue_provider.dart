@@ -43,7 +43,7 @@ class OfflineQueueProvider extends ChangeNotifier {
 
   /// Replay queued operations now (called from the banner retry button).
   Future<SyncSummary> syncNow() async {
-    if (_isSyncing) return const SyncSummary(0, 0, _pendingCount);
+    if (_isSyncing) return SyncSummary(0, 0, _pendingCount);
 
     final uid = FirebaseAuth.instance.currentUser?.uid;
     _isSyncing = true;

@@ -6,7 +6,6 @@ import '../applications/application_status_screen.dart';
 import '../profile/profile_screen.dart';
 import 'widgets/custom_bottom_nav_bar.dart';
 import '../../core/widgets/offline_sync_banner.dart';
-import 'package:flutter/foundation.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
