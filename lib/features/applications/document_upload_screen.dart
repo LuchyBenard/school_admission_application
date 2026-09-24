@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:oktoast/oktoast.dart';
+import 'package:provider/provider.dart';
 import 'dart:convert';
 import 'dart:io';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_text_styles.dart';
+import '../../providers/offline_queue_provider.dart';
 
 class DocumentUploadScreen extends StatefulWidget {
   const DocumentUploadScreen({super.key});
@@ -18,7 +19,6 @@ class DocumentUploadScreen extends StatefulWidget {
 
 class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
   final ImagePicker _picker = ImagePicker();
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   // Track Upload state per document
@@ -194,41 +194,46 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
       final bytes = await file.readAsBytes();
       final base64Image = base64Encode(bytes);
 
-      // One subcollection document per image keeps each document
-      // well under Firestore's 1MiB per-document limit.
-      await _firestore
-          .collection('applications')
-          .doc(_applicationId)
-          .collection('documents')
-          .doc(dockey)
-          .set({
-        'docKey': dockey,
-        'data': base64Image,
-        'userId': uid,
-        'uploadedAt': FieldValue.serverTimestamp(),
-      });
+      // Write through the offline queue: when offline the image is saved
+      // locally (base64) and uploaded automatically once connectivity returns.
+      final uploaded = await context
+          .read<OfflineQueueProvider>()
+          .uploadDocument(
+            applicationId: _applicationId!,
+            docKey: dockey,
+            userId: uid,
+            base64Image: base64Image,
+          );
 
-      setState(() {
-        _uploadedUrls[dockey] = base64Image;
-        _uploading[dockey] = false;
-      });
+      if (!mounted) return;
 
-      showToast(
-        '${_documents[dockey]!['title']} uploaded successfully',
-        backgroundColor: AppColors.success,
-        textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
-      );
+      if (uploaded) {
+        setState(() {
+          _uploadedUrls[dockey] = base64Image;
+          _uploading[dockey] = false;
+        });
+
+        final offline = !context.read<OfflineQueueProvider>().isOnline;
+        showToast(
+          offline
+              ? '${_documents[dockey]!['title']} saved locally — it will sync when you are back online'
+              : '${_documents[dockey]!['title']} uploaded successfully',
+          backgroundColor: offline ? AppColors.warning : AppColors.success,
+          textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
+        );
+      } else {
+        setState(() => _uploading[dockey] = false);
+        showToast(
+          'Upload failed. Please try again.',
+          backgroundColor: AppColors.error,
+          textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
+        );
+      }
     } catch (e) {
       debugPrint('Document upload failed ($dockey): $e');
       setState(() => _uploading[dockey] = false);
-      final errorText = e.toString();
-      final isPermission =
-          errorText.contains('permission-denied') ||
-          errorText.contains('PERMISSION_DENIED');
       showToast(
-        isPermission
-            ? 'Upload blocked. Deploy the firestore.rules file in the Firebase console.'
-            : 'Upload failed. Please try again.',
+        'Upload failed. Please try again.',
         backgroundColor: AppColors.error,
         textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
       );
@@ -264,22 +269,25 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
 
     try {
       // Mark the application as complete. The images themselves live
-      // in the applications/{id}/documents subcollection.
-      await _firestore.collection('applications').doc(_applicationId).update({
-        'documents': _uploadedUrls.keys.toList(),
-        'documentsUploaded': true,
-      });
+      // in the applications/{id}/documents subcollection. When offline
+      // this is queued and applied as soon as connectivity returns.
+      final completed = await context
+          .read<OfflineQueueProvider>()
+          .completeApplication(
+            applicationId: _applicationId!,
+            docKeys: _uploadedUrls.keys.toList(),
+          );
 
       if (!mounted) return;
 
-      // Navigate to payment screen
-      Navigator.pushNamed(
-        context,
-        '/payment',
-        arguments: _applicationId,
-      );
-    } catch (e) {
-      if (mounted) {
+      if (completed) {
+        // Navigate to payment screen
+        Navigator.pushNamed(
+          context,
+          '/payment',
+          arguments: _applicationId,
+        );
+      } else {
         showToast(
           'Something went wrong. Please try again.',
           backgroundColor: AppColors.error,

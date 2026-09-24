@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../models/application_model.dart';
+import '../services/offline_queue_service.dart';
 
 enum ApplicationStatus { initial, loading, loaded, error }
 
@@ -232,29 +233,48 @@ Future<void> loadApplications() async {
 }
 
 // Submit application
+// The document id is generated client-side so a submission made while
+// offline keeps a stable id for the document upload + payment steps.
+// When Firestore can't be reached the control is queued (GetStorage)
+// and replayed by OfflineQueueProvider once connectivity returns.
 Future<String?> submitApplication(ApplicationModel application) async {
     _status = ApplicationStatus.loading;
     notifyListeners();
 
-    try {
-      final docRef = await _firestore.collection('applications').add({
+    final docRef = _firestore.collection('applications').doc();
+    final appId = docRef.id;
+
+    final result = await OfflineQueueService.instance.executeOrQueue(
+      type: 'application_submit',
+      key: 'application_submit:$appId',
+      payload: {
+        'appId': appId,
+        'userId': application.userId,
+        'data': application.toMap(),
+      },
+      write: () => docRef.set({
         ...application.toMap(),
         'createdAt': FieldValue.serverTimestamp(),
-      });
+      }),
+    );
 
-      // Refresh stats
-      await loadApplicationStats();
-
-      _status = ApplicationStatus.loaded;
-      notifyListeners();
-
-      return docRef.id;
-    } catch (e) {
-      debugPrint('[ApplicationProvider] submitApplication error: $e');
-      _errorMessage = 'Failed to submit applications. Please try again.';
+    if (result == OfflineOpResult.failed) {
+      _errorMessage = 'Failed to submit application. Please try again.';
       _status = ApplicationStatus.error;
       notifyListeners();
       return null;
     }
+
+    if (result == OfflineOpResult.queued) {
+      debugPrint('[ApplicationProvider] application $appId queued for sync');
+    }
+
+    // Refresh stats
+    await loadApplicationStats();
+
+    _status = ApplicationStatus.loaded;
+    notifyListeners();
+
+    return appId;
 }
 }
