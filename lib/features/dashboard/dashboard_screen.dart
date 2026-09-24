@@ -5,6 +5,7 @@ import '../schools/school_list_screen.dart';
 import '../applications/application_status_screen.dart';
 import '../profile/profile_screen.dart';
 import 'widgets/custom_bottom_nav_bar.dart';
+import '../../core/widgets/offline_sync_banner.dart';
 import 'package:flutter/foundation.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -44,9 +45,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
       body: Consumer(
         builder: (context,BottomNavigationProvider authProvider, child) {
-          return IndexedStack(
-            index: _currentIndex,
-            children: _getScreens(), // ✅ calling with ()
+          return Column(
+            children: [
+              const OfflineSyncBanner(),
+              Expanded(
+                child: IndexedStack(
+                  index: _currentIndex,
+                  children: _getScreens(), // ✅ calling with ()
+                ),
+              ),
+            ],
           );
         }
         ),

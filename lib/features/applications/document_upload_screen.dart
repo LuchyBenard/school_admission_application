@@ -8,6 +8,7 @@ import 'dart:convert';
 import 'dart:io';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_text_styles.dart';
+import '../../core/widgets/offline_sync_banner.dart';
 import '../../providers/offline_queue_provider.dart';
 
 class DocumentUploadScreen extends StatefulWidget {
@@ -318,9 +319,13 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
           style: AppTextStyles.h2,
         ),
       ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(24.w),
-        child: Column(
+      body: Column(
+        children: [
+          const OfflineSyncBanner(),
+          Expanded(
+            child: SingleChildScrollView(
+              padding: EdgeInsets.all(24.w),
+              child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Info Banner
@@ -542,6 +547,7 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
 
             SizedBox(height: 40.h),
           ],
+        ),
         ),
       ),
     );

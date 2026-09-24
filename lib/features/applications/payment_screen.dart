@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:oktoast/oktoast.dart';
+import 'package:provider/provider.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_text_styles.dart';
+import '../../core/widgets/offline_sync_banner.dart';
+import '../../providers/offline_queue_provider.dart';
 import '../../services/biometric_service.dart';
 
 class PaymentScreen extends StatefulWidget {
@@ -14,7 +16,6 @@ class PaymentScreen extends StatefulWidget {
 }
 
 class _PaymentScreenState extends State<PaymentScreen> {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final BiometricService _biometricService = BiometricService();
   bool _isProcessing = false;
   String? _applicationId;
@@ -57,15 +58,27 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
     try {
       if (_applicationId != null) {
-        await _firestore
-            .collection('applications')
-            .doc(_applicationId)
-            .update({
-          'paymentStatus': 'paid',
-          'paymentMethod': _selectedMethod,
-          'paymentDate': DateTime.now().toIso8601String(),
-          'amountPaid': _applicationFee,
-        });
+        // Pay through the offline queue: offline payments are recorded
+        // locally and synced to Firestore once connectivity returns.
+        final recorded = await context
+            .read<OfflineQueueProvider>()
+            .recordPayment(
+              applicationId: _applicationId!,
+              method: _selectedMethod,
+              amount: _applicationFee,
+            );
+
+        if (!mounted) return;
+
+        if (!recorded) {
+          setState(() => _isProcessing = false);
+          showToast(
+            'Payment failed. Please try again.',
+            backgroundColor: AppColors.error,
+            textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
+          );
+          return;
+        }
       }
 
       if (!mounted) return;
@@ -150,11 +163,15 @@ class _PaymentScreenState extends State<PaymentScreen> {
         ),
         title: Text('Payment', style: AppTextStyles.h2),
       ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(24.w),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+      body: Column(
+        children: [
+          const OfflineSyncBanner(),
+          Expanded(
+            child: SingleChildScrollView(
+              padding: EdgeInsets.all(24.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
             // Order summary
             Container(
               width: double.infinity,
@@ -292,8 +309,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
             SizedBox(height: 40.h),
           ],
+              ),
+            ),
+          ),
         ),
-      ),
     );
   }
 

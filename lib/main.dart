@@ -18,6 +18,7 @@ import 'providers/application_provider.dart';
 import 'providers/notification_provider.dart';
 import 'providers/favorites_provider.dart';
 import 'providers/admission_requirement_provider.dart';
+import 'providers/offline_queue_provider.dart';
 
 // Services
 import 'services/notification_service.dart';
@@ -87,6 +88,7 @@ class MyApp extends StatelessWidget {
               ChangeNotifierProvider(create: (_) => BottomNavigationProvider()),
               ChangeNotifierProvider(
                   create: (_) => AdmissionRequirementProvider()),
+              ChangeNotifierProvider(create: (_) => OfflineQueueProvider()),
             ],
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
