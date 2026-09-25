@@ -70,10 +70,11 @@ class AuthProvider extends ChangeNotifier {
           fullName: fullName, email: email, phone: phone, password: password);
 
       _status = AuthStatus.authenticated;
+      _emailVerified = false;
       notifyListeners();
 
       showToast(
-        'Account created successfully. Welcome',
+        'Account created. Verify your email to continue.',
         backgroundColor: AppColors.success,
       );
       return true;
@@ -102,6 +103,9 @@ class AuthProvider extends ChangeNotifier {
         email: email,
         password: password,
       );
+
+      // Reload so `emailVerified` reflects the latest Firebase Auth state.
+      _emailVerified = await _authService.reloadAndCheckVerified();
 
       _status = AuthStatus.authenticated;
       notifyListeners();
@@ -144,6 +148,56 @@ class AuthProvider extends ChangeNotifier {
     return _authService.verifyPassword(email: email, password: password);
   }
 
+  // Resend the email verification link/code.
+  Future<bool> sendVerificationEmail() async {
+    try {
+      await _authService.sendEmailVerification();
+      return true;
+    } catch (e) {
+      _errorMessage = 'Failed to send verification email. Try again shortly.';
+      notifyListeners();
+      return false;
+    }
+  }
+
+  // Poll-friendly: reload the user and return true once the email is verified.
+  // Updates the Firestore users doc so admins see the verified state too.
+  Future<bool> checkEmailVerified() async {
+    _emailVerified = await _authService.reloadAndCheckVerified();
+    if (_emailVerified && _user != null) {
+      try {
+        await _authService.updateUserProfile(
+          uid: _user!.uid,
+          data: {'emailVerified': true},
+        );
+      } catch (e) {
+        // Non-fatal — Firebase Auth emailVerified is the source of truth.
+      }
+    }
+    notifyListeners();
+    return _emailVerified;
+  }
+
+  // Verify using the code pasted from the verification email link.
+  Future<bool> verifyEmailWithCode(String code) async {
+    final verified = await _authService.verifyEmailWithActionCode(code);
+    if (verified) {
+      _emailVerified = true;
+      if (_user != null) {
+        try {
+          await _authService.updateUserProfile(
+            uid: _user!.uid,
+            data: {'emailVerified': true},
+          );
+        } catch (e) {
+          // Non-fatal.
+        }
+      }
+      notifyListeners();
+    }
+    return verified;
+  }
+
   // LOGOUT
   Future<void> logout(BuildContext context) async {
     _setLoading();
@@ -152,6 +206,7 @@ class AuthProvider extends ChangeNotifier {
       if (!context.mounted) return;
       _user = null;
       _userProfile = null;
+      _emailVerified = false;
       _status = AuthStatus.unauthenticated;
       notifyListeners();
 

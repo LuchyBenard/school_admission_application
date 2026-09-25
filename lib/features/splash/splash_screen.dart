@@ -70,10 +70,28 @@ class _SplashScreenState extends State<SplashScreen>
         if (!mounted) return;
 
         final role = doc.data()?['role'] ?? 'student';
+
+        // Refresh the cached Firebase Auth state so the emailVerified flag is
+        // current (in case the user clicked the verify link while the app
+        // was closed). Falls back to the cached value offline.
+        bool verified = user.emailVerified;
+        if (!verified) {
+          try {
+            await user.reload();
+            verified =
+                FirebaseAuth.instance.currentUser?.emailVerified == true;
+          } catch (e) {
+            verified = user.emailVerified;
+          }
+        }
+
         if (role == 'admin') {
           Navigator.pushReplacementNamed(context, '/admin-dashboard');
-        } else {
+        } else if (verified) {
           Navigator.pushReplacementNamed(context, '/dashboard');
+        } else {
+          // Students must confirm their email before entering the dashboard.
+          Navigator.pushReplacementNamed(context, '/email-verification');
         }
       } catch (e) {
         if (!mounted) return;

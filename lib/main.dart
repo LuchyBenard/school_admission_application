@@ -30,6 +30,7 @@ import 'features/auth/login_screen.dart';
 import 'features/auth/signup_screen.dart';
 import 'features/auth/forgot_password_screen.dart';
 import 'features/auth/otp_verification_screen.dart';
+import 'features/auth/email_verification_screen.dart';
 
 // Screens - Dashboard & Home
 import 'features/dashboard/dashboard_screen.dart';
@@ -160,6 +161,8 @@ class MyApp extends StatelessWidget {
                 '/register': (context) => const SignupScreen(),
                 '/forgot-password': (context) => const ForgotPasswordScreen(),
                 '/otp-verification': (context) => const OtpVerificationScreen(),
+                '/email-verification': (context) =>
+                    const EmailVerificationScreen(),
                 '/dashboard': (context) => const DashboardScreen(),
                 '/school-detail': (context) => const SchoolDetailScreen(),
                 '/admission-requirements': (context) =>

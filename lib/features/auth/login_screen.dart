@@ -79,10 +79,14 @@ class _LoginScreenState extends State<LoginScreen> {
           setState(() => _savedEmail = _emailController.text.trim());
         }
 
-        // Go to the dashboard and Clear all previous screens
+        if (!mounted) return;
+
+        // Unverified accounts are sent to the email-verification gate instead
+        // of the dashboard.
+        final verified = authProvider.isEmailVerified;
         Navigator.pushNamedAndRemoveUntil(
           context,
-          '/dashboard',
+          verified ? '/dashboard' : '/email-verification',
           (route) => false,
         );
       }

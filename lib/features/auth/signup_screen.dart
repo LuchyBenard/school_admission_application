@@ -59,10 +59,10 @@ class _SignupScreenState extends State<SignupScreen> {
       if (!mounted) return;
 
       if (success) {
-        // Go to the dashboard and Clear all previous screens
+        // Account created — verify the email before allowing dashboard access.
         Navigator.pushNamedAndRemoveUntil(
           context,
-          '/dashboard',
+          '/email-verification',
               (route) => false,
         );
       }
