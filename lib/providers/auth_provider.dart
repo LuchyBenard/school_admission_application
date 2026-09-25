@@ -21,6 +21,7 @@ class AuthProvider extends ChangeNotifier {
   User? _user;
   Map<String, dynamic>? _userProfile;
   String? _errorMessage;
+  bool _emailVerified = false;
 
   // Getters
   AuthStatus get status => _status;
@@ -29,6 +30,7 @@ class AuthProvider extends ChangeNotifier {
   String? get errorMessage => _errorMessage;
   bool get isAuthenticated => _status == AuthStatus.authenticated;
   bool get isLoading => _status == AuthStatus.loading;
+  bool get isEmailVerified => _emailVerified;
 
   // Constructors
   AuthProvider() {
@@ -39,6 +41,7 @@ class AuthProvider extends ChangeNotifier {
     _authService.authStateChanges.listen((User? user) async {
       if (user != null) {
         _user = user;
+        _emailVerified = user.emailVerified;
         _status = AuthStatus.authenticated;
         // Fetch full profile from Firestore
         _userProfile = await _authService.getUserProfile(user.uid);

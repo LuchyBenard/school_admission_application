@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 
 class AuthService {
   // Firebase instances
@@ -37,13 +38,60 @@ await _firestore
   'email': email,
   'phone': phone,
   'role': 'student',
+  'emailVerified': false,
   'createdAt': FieldValue.serverTimestamp(),
   });
 
 // Update display name in Firebase Auth
 await credential.user!.updateDisplayName(fullName);
 
+// Send an email verification (link + code) so new accounts can't access
+// the dashboard until the email is confirmed. A failure here must NOT
+// fail the whole registration — the user can resend from the verify screen.
+try {
+  await credential.user!.sendEmailVerification();
+} catch (e) {
+  debugPrint('[AuthService] sendEmailVerification failed: $e');
+}
+
 return credential;
+}
+
+// EMAIL VERIFICATION
+Future<void> sendEmailVerification() async {
+  final user = _auth.currentUser;
+  if (user == null) return;
+  await user.sendEmailVerification();
+}
+
+// Reload the current user so `emailVerified` reflects the latest
+// Firebase Auth state (e.g. after the user clicks the verify link).
+Future<bool> reloadAndCheckVerified() async {
+  final user = _auth.currentUser;
+  if (user == null) return false;
+  try {
+    await user.reload();
+  } catch (e) {
+    debugPrint('[AuthService] reload failed: $e');
+    return _auth.currentUser?.emailVerified == true;
+  }
+  return _auth.currentUser?.emailVerified == true;
+}
+
+// Verify the email using the code from the verification email.
+// Firebase verification emails contain a link whose `oobCode` query
+// parameter is the action code this method consumes.
+Future<bool> verifyEmailWithActionCode(String code) async {
+  final user = _auth.currentUser;
+  if (user == null || code.trim().isEmpty) return false;
+  try {
+    await _auth.applyActionCode(code.trim());
+    await user.reload();
+    return _auth.currentUser?.emailVerified == true;
+  } catch (e) {
+    debugPrint('[AuthService] applyActionCode failed: $e');
+    return false;
+  }
 }
 
 // LOGIN
