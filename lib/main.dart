@@ -22,6 +22,7 @@ import 'providers/offline_queue_provider.dart';
 
 // Services
 import 'services/notification_service.dart';
+import 'services/push_deep_link_service.dart';
 
 // Screens - Auth
 import 'features/splash/splash_screen.dart';
@@ -63,7 +64,12 @@ Future<void> main() async {
   // Register the FCM background handler before runApp so push
   // notifications are handled even when the app is terminated.
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
-  NotificationService().initialize();
+
+  // Tapping a push navigates to the screen it refers to — subscriptions must
+  // exist before the first message arrives, which is why this runs pre-runApp.
+  final notificationService = NotificationService();
+  PushDeepLinkService.init(notificationService);
+  notificationService.initialize();
 
   runApp(const MyApp());
 }
@@ -94,6 +100,9 @@ class MyApp extends StatelessWidget {
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
               title: 'School Admission',
+              // Required so a tapped push can navigate from anywhere,
+              // including before the first frame is built.
+              navigatorKey: PushDeepLinkService.navigatorKey,
               theme: ThemeData(
                 useMaterial3: true,
                 colorScheme: ColorScheme.fromSeed(

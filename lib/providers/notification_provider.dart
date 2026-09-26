@@ -121,17 +121,9 @@ Future<void> markAsRead(String notificationId) async {
     final index = _notifications
     .indexWhere((n) => n.id == notificationId);
     if (index != -1) {
-      _notifications[index] = NotificationModel(
-        id: _notifications[index].id,
-        userId: _notifications[index].userId,
-        title: _notifications[index].title,
-        message: _notifications[index].message,
-        type: _notifications[index].type,
-        isRead: true,
-        createdAt: _notifications[index].createdAt,
-      );
+      _notifications[index] = _notifications[index].copyWith(isRead: true);
       _unreadCount =
-          _notifications.where((n) => !n.isRead).length;
+      _notifications.where((n) => !n.isRead).length;
       notifyListeners();
     }
   } catch (e) {

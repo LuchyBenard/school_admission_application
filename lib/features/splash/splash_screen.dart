@@ -85,6 +85,8 @@ class _SplashScreenState extends State<SplashScreen>
           }
         }
 
+        if (!mounted) return;
+
         if (role == 'admin') {
           Navigator.pushReplacementNamed(context, '/admin-dashboard');
         } else if (verified) {
