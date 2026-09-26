@@ -152,15 +152,7 @@ Future<void> markAllAsRead() async {
 
     // update all locally
     _notifications = _notifications
-    .map((n) => NotificationModel(
-        id: n.id,
-        userId: n.userId,
-        title: n.title,
-        message: n.message,
-        type: n.type,
-        isRead: true,
-        createdAt: n.createdAt,
-    ))
+    .map((n) => n.copyWith(isRead: true))
     .toList();
     _unreadCount = 0;
     notifyListeners();

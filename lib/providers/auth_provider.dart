@@ -46,11 +46,13 @@ class AuthProvider extends ChangeNotifier {
         // Fetch full profile from Firestore
         _userProfile = await _authService.getUserProfile(user.uid);
         // Register this device for push notifications
-        await NotificationService().registerFcmToken(user.uid);
+        await NotificationService.instance.registerFcmToken(user.uid);
       } else {
         _user = null;
         _userProfile = null;
         _status = AuthStatus.unauthenticated;
+        // Stop refreshing the token for the signed-out user.
+        NotificationService.instance.clearFcmTokenUser();
       }
       notifyListeners();
     });

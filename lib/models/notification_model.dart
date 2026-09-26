@@ -6,6 +6,10 @@ class NotificationModel {
   final String title;
   final String message;
   final String type;
+
+  /// Application this notification is about (status updates). Used to deep
+  /// link to the application when the notification is tapped or pushed.
+  final String? applicationId;
   final bool isRead;
   final DateTime createdAt;
 
@@ -21,6 +25,7 @@ class NotificationModel {
     required this.title,
     required this.message,
     required this.type,
+    this.applicationId,
     required this.isRead,
     required this.createdAt,
     this.applicationId,
