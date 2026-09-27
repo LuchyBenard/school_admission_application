@@ -33,6 +33,9 @@ class NotificationService {
   final StreamController<PushPayload> _payloadController =
       StreamController<PushPayload>.broadcast();
 
+  final StreamController<PushPayload> _launchController =
+      StreamController<PushPayload>.broadcast();
+
   PushPayload? _initialPayload;
   String? _tokenUid;
   bool _initialized = false;
@@ -40,6 +43,12 @@ class NotificationService {
   /// Emits the payload of every notification the user taps while the app is
   /// running (background or foreground).
   Stream<PushPayload> get payloads => _payloadController.stream;
+
+  /// Signals that the cold-start payload has resolved and can be collected with
+  /// [takeInitialPayload]. [getInitialMessage] completes long after `main()`,
+  /// so a subscriber created during the first build would otherwise never see
+  /// the notification the app was launched from.
+  Stream<PushPayload> get launchPayloadReady => _launchController.stream;
 
   /// The payload the app was cold-started with (tapped while terminated).
   /// Cleared on read so a pending notification is only opened once.
@@ -93,6 +102,9 @@ class NotificationService {
         } else {
           // Held until a listener is ready — see `takeInitialPayload`.
           _initialPayload = payload;
+          if (!_launchController.isClosed) {
+            _launchController.add(payload);
+          }
         }
       }
     } catch (e) {

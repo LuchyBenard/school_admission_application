@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_text_styles.dart';
 import '../../providers/notification_provider.dart';
+import '../../providers/push_navigation_provider.dart';
 import '../../models/notification_model.dart';
 
 class NotificationsScreen extends StatefulWidget {
@@ -254,9 +255,9 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       },
       child: GestureDetector(
         onTap: () {
-          if (isUnread) {
-            notifProvider.markAsRead(notification.id);
-          }
+          // Marks the notification as read and opens the application it is
+          // about — same behaviour as tapping the push notification.
+          context.read<PushNavigationProvider>().openNotification(notification);
         },
         child: Container(
           padding: EdgeInsets.all(16.w),

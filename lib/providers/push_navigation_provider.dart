@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../core/constants/app_routes.dart';
@@ -33,19 +32,28 @@ class PushNavigationProvider extends ChangeNotifier {
     _payloadSubscription =
         NotificationService.instance.payloads.listen(_onPayload);
 
-    // Push tapped while the app was terminated.
+    // Push tapped while the app was terminated. `takeInitialPayload` covers the
+    // case where it already resolved; the stream covers the common case where
+    // it only resolves after this provider is created. Both paths drain the
+    // same single-shot value, so the payload is never handled twice.
     final initial = NotificationService.instance.takeInitialPayload();
     if (initial != null) _onPayload(initial);
+    _launchSubscription =
+        NotificationService.instance.launchPayloadReady.listen((_) {
+      final payload = NotificationService.instance.takeInitialPayload();
+      if (payload != null) _onPayload(payload);
+    });
 
     // Safety net: the observer only fires on route changes, so retry until the
     // navigator is attached and the app is past the pre-auth screens.
-    _scheduleRetry();
+    _scheduleRetry(force: true);
   }
 
   final GlobalKey<NavigatorState> _navigatorKey;
 
   late final StreamSubscription<User?> _authSubscription;
   late final StreamSubscription<PushPayload> _payloadSubscription;
+  late final StreamSubscription<PushPayload> _launchSubscription;
 
   /// Set from `main.dart` through a `ChangeNotifierProxyProvider` so marking a
   /// notification as read reuses `NotificationProvider` (and its live Firestore
@@ -90,6 +98,11 @@ class PushNavigationProvider extends ChangeNotifier {
   }
 
   Future<void> _flush() async {
+    // `NotificationService.initialize()` resolves the launch message
+    // asynchronously, so on a cold start the payload may not have been
+    // buffered yet when this provider was constructed. Pick it up here.
+    _pending ??= NotificationService.instance.takeInitialPayload();
+
     final payload = _pending;
     if (payload == null || _opening) return;
 
@@ -215,13 +228,16 @@ class PushNavigationProvider extends ChangeNotifier {
     }
   }
 
-  void _scheduleRetry() {
-    if (_pending == null || _retryTimer != null) return;
-    // Bounded: ~6s of polling covers the splash animation.
-    if (_retryAttempts >= 20) {
-      _pending = null;
-      return;
-    }
+  void _scheduleRetry({bool force = false}) {
+    if (_retryTimer != null) return;
+    // A cold start can have no payload yet: the launch message is only
+    // buffered once `NotificationService.initialize()` has resolved, which is
+    // why the first retry is always scheduled.
+    if (!force && _pending == null) return;
+    // Bounded: ~12s of polling covers the splash animation plus the auth and
+    // Firestore lookups. If the app is still not ready by then the payload
+    // stays buffered and is picked up by the next route or auth change.
+    if (_retryAttempts >= 40) return;
     _retryAttempts++;
     _retryTimer = Timer(const Duration(milliseconds: 300), () {
       _retryTimer = null;
@@ -235,6 +251,7 @@ class PushNavigationProvider extends ChangeNotifier {
     appRouteObserver.removeListener(_onRouteChanged);
     _authSubscription.cancel();
     _payloadSubscription.cancel();
+    _launchSubscription.cancel();
     super.dispose();
   }
 }

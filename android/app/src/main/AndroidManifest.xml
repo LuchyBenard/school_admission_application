@@ -4,6 +4,9 @@
     <!-- Required for fingerprint / face unlock (local_auth) -->
     <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
     <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
+    <!-- Required on Android 13+ to show and open push notifications
+         (requested at runtime by NotificationService.initialize) -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <application
         android:label="CampusApply"
         android:name="${applicationName}"

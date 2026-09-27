@@ -6,17 +6,11 @@ class NotificationModel {
   final String title;
   final String message;
   final String type;
-
-  /// Application this notification is about (status updates). Used to deep
-  /// link to the application when the notification is tapped or pushed.
-  final String? applicationId;
   final bool isRead;
   final DateTime createdAt;
 
-  /// Firestore document id of the application this notification is about.
-  /// Written by the admin when a status is updated, and forwarded to the push
-  /// payload by the Cloud Function so a tapped notification can open
-  /// `/application-detail`.
+  /// Application this notification is about (status updates). Used to deep
+  /// link to the application when the notification is tapped or pushed.
   final String? applicationId;
 
   NotificationModel({
@@ -25,7 +19,6 @@ class NotificationModel {
     required this.title,
     required this.message,
     required this.type,
-    this.applicationId,
     required this.isRead,
     required this.createdAt,
     this.applicationId,
