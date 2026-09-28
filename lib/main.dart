@@ -9,22 +9,20 @@ import 'firebase_options.dart';
 
 // Core
 import 'core/constants/app_colors.dart';
-import 'core/constants/app_routes.dart';
 import 'core/constants/app_text_styles.dart';
-import 'core/navigation/app_navigation.dart';
 
 // Providers
 import 'providers/auth_provider.dart';
 import 'providers/school_provider.dart';
 import 'providers/application_provider.dart';
 import 'providers/notification_provider.dart';
-import 'providers/push_navigation_provider.dart';
 import 'providers/favorites_provider.dart';
 import 'providers/admission_requirement_provider.dart';
 import 'providers/offline_queue_provider.dart';
 
 // Services
 import 'services/notification_service.dart';
+import 'services/push_deep_link_service.dart';
 
 // Screens - Auth
 import 'features/splash/splash_screen.dart';
@@ -67,9 +65,11 @@ Future<void> main() async {
   // notifications are handled even when the app is terminated.
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
 
-  // Starts listening for taps. PushNavigationProvider (created below) picks the
-  // payloads up and deep links to the application they refer to.
-  NotificationService.instance.initialize();
+  // Tapping a push navigates to the screen it refers to — subscriptions must
+  // exist before the first message arrives, which is why this runs pre-runApp.
+  final notificationService = NotificationService.instance;
+  PushDeepLinkService.init(notificationService);
+  notificationService.initialize();
 
   runApp(const MyApp());
 }
@@ -91,14 +91,6 @@ class MyApp extends StatelessWidget {
               ChangeNotifierProvider(create: (_) => SchoolProvider()),
               ChangeNotifierProvider(create: (_) => ApplicationProvider()),
               ChangeNotifierProvider(create: (_) => NotificationProvider()),
-              ChangeNotifierProxyProvider<
-                  NotificationProvider, PushNavigationProvider>(
-                create: (_) =>
-                    PushNavigationProvider(navigatorKey: appNavigatorKey),
-                update: (_, notifications, push) =>
-                    (push ?? PushNavigationProvider(navigatorKey: appNavigatorKey))
-                      ..attach(notifications),
-              ),
               ChangeNotifierProvider(create: (_) => FavoritesProvider()),
               ChangeNotifierProvider(create: (_) => BottomNavigationProvider()),
               ChangeNotifierProvider(
@@ -108,10 +100,9 @@ class MyApp extends StatelessWidget {
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
               title: 'School Admission',
-              // Both are required by PushNavigationProvider so a tapped push
-              // can navigate from anywhere, including before the first frame.
-              navigatorKey: appNavigatorKey,
-              navigatorObservers: [appRouteObserver],
+              // Required so a tapped push can navigate from anywhere,
+              // including before the first frame is built.
+              navigatorKey: PushDeepLinkService.navigatorKey,
               theme: ThemeData(
                 useMaterial3: true,
                 colorScheme: ColorScheme.fromSeed(
@@ -171,34 +162,34 @@ class MyApp extends StatelessWidget {
                   thickness: 1,
                 ),
               ),
-              initialRoute: AppRoutes.splash,
+              initialRoute: '/',
               routes: {
-                AppRoutes.splash: (context) => const SplashScreen(),
-                AppRoutes.onboarding: (context) => const OnboardingScreen(),
-                AppRoutes.login: (context) => const LoginScreen(),
-                AppRoutes.register: (context) => const SignupScreen(),
-                AppRoutes.forgotPassword: (context) => const ForgotPasswordScreen(),
-                AppRoutes.otpVerification: (context) => const OtpVerificationScreen(),
-                AppRoutes.emailVerification: (context) =>
+                '/': (context) => const SplashScreen(),
+                '/onboarding': (context) => const OnboardingScreen(),
+                '/login': (context) => const LoginScreen(),
+                '/register': (context) => const SignupScreen(),
+                '/forgot-password': (context) => const ForgotPasswordScreen(),
+                '/otp-verification': (context) => const OtpVerificationScreen(),
+                '/email-verification': (context) =>
                     const EmailVerificationScreen(),
-                AppRoutes.dashboard: (context) => const DashboardScreen(),
-                AppRoutes.schoolDetail: (context) => const SchoolDetailScreen(),
-                AppRoutes.admissionRequirements: (context) =>
+                '/dashboard': (context) => const DashboardScreen(),
+                '/school-detail': (context) => const SchoolDetailScreen(),
+                '/admission-requirements': (context) =>
                     const AdmissionRequirementsScreen(),
-                AppRoutes.applicationForm: (context) => const ApplicationFormScreen(),
-                AppRoutes.applicationDetail: (context) => const ApplicationDetailScreen(),
-                AppRoutes.notifications: (context) => const NotificationsScreen(),
-                AppRoutes.applicationStatus: (context) => const ApplicationStatusScreen(),
-                AppRoutes.documentUpload: (context) => const DocumentUploadScreen(),
-                AppRoutes.payment: (context) => const PaymentScreen(),
-
+                '/application-form': (context) => const ApplicationFormScreen(),
+                '/application-detail': (context) => const ApplicationDetailScreen(),
+                '/notifications': (context) => const NotificationsScreen(),
+                '/application-status': (context) => const ApplicationStatusScreen(),
+                '/document-upload': (context) => const DocumentUploadScreen(),
+                '/payment': (context) => const PaymentScreen(),
+                
                 // Admin Routes
-                AppRoutes.adminLogin: (context) => const AdminLoginScreen(),
-                AppRoutes.adminDashboard: (context) => const AdminDashboardScreen(),
-                AppRoutes.adminApplicants: (context) => const ApplicantListScreen(),
-                AppRoutes.adminApplicantDetail: (context) => const ApplicantDetailScreen(),
-                AppRoutes.adminBatchUpload: (context) => const BatchUploadScreen(),
-                AppRoutes.adminRequirements: (context) =>
+                '/admin-login': (context) => const AdminLoginScreen(),
+                '/admin-dashboard': (context) => const AdminDashboardScreen(),
+                '/admin-applicants': (context) => const ApplicantListScreen(),
+                '/admin-applicant-detail': (context) => const ApplicantDetailScreen(),
+                '/admin-batch-upload': (context) => const BatchUploadScreen(),
+                '/admin-requirements': (context) =>
                     const ManageRequirementsScreen(),
               },
             ),
