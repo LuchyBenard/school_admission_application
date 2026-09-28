@@ -67,7 +67,7 @@ Future<void> main() async {
 
   // Tapping a push navigates to the screen it refers to — subscriptions must
   // exist before the first message arrives, which is why this runs pre-runApp.
-  final notificationService = NotificationService();
+  final notificationService = NotificationService.instance;
   PushDeepLinkService.init(notificationService);
   notificationService.initialize();
 

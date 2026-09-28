@@ -33,6 +33,15 @@ class NotificationService {
   final StreamController<PushPayload> _payloadController =
       StreamController<PushPayload>.broadcast();
 
+  final StreamController<RemoteMessage> _onNotificationTappedController =
+      StreamController<RemoteMessage>.broadcast();
+
+  final StreamController<RemoteMessage> _onForegroundMessageController =
+      StreamController<RemoteMessage>.broadcast();
+
+  final StreamController<RemoteMessage> _onLaunchMessageController =
+      StreamController<RemoteMessage>.broadcast();
+
   PushPayload? _initialPayload;
   String? _tokenUid;
   bool _initialized = false;
@@ -40,6 +49,18 @@ class NotificationService {
   /// Emits the payload of every notification the user taps while the app is
   /// running (background or foreground).
   Stream<PushPayload> get payloads => _payloadController.stream;
+
+  /// Stream of notification tap events while app is backgrounded/running.
+  Stream<RemoteMessage> get onNotificationTapped =>
+      _onNotificationTappedController.stream;
+
+  /// Stream of notification messages received while app is in foreground.
+  Stream<RemoteMessage> get onForegroundMessage =>
+      _onForegroundMessageController.stream;
+
+  /// Stream of messages that launched the app from a terminated state.
+  Stream<RemoteMessage> get onLaunchMessage =>
+      _onLaunchMessageController.stream;
 
   /// The payload the app was cold-started with (tapped while terminated).
   /// Cleared on read so a pending notification is only opened once.
@@ -68,10 +89,14 @@ class NotificationService {
         debugPrint(
           'Foreground notification: ${message.notification?.title}',
         );
+        _onForegroundMessageController.add(message);
       });
 
       // User tapped a notification while the app was in background.
-      FirebaseMessaging.onMessageOpenedApp.listen(_onNotificationOpened);
+      FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+        _onNotificationOpened(message);
+        _onNotificationTappedController.add(message);
+      });
 
       // The FCM token can rotate (reinstall, restore, token refresh) — keep
       // the copy on the user document current so pushes keep arriving.
@@ -94,6 +119,7 @@ class NotificationService {
           // Held until a listener is ready — see `takeInitialPayload`.
           _initialPayload = payload;
         }
+        _onLaunchMessageController.add(initialMessage);
       }
     } catch (e) {
       debugPrint('NotificationService initialize failed: $e');
@@ -138,6 +164,26 @@ class NotificationService {
     _tokenUid = null;
   }
 
+  /// Helper to simulate tapping a notification for testing & deep link testing.
+  void simulateNotificationTap(RemoteMessage message) {
+    _onNotificationOpened(message);
+    _onNotificationTappedController.add(message);
+  }
+
+  /// Helper to simulate receiving a foreground notification for testing.
+  void simulateForegroundMessage(RemoteMessage message) {
+    _onForegroundMessageController.add(message);
+  }
+
+  /// Helper to simulate launching the app from a notification for testing.
+  void simulateLaunchMessage(RemoteMessage message) {
+    final payload = _parse(message);
+    if (payload != null) {
+      _initialPayload = payload;
+    }
+    _onLaunchMessageController.add(message);
+  }
+
   Future<void> _storeToken(String uid, String token) async {
     try {
       await _firestore.collection('users').doc(uid).set(
@@ -147,5 +193,12 @@ class NotificationService {
     } catch (e) {
       debugPrint('Failed to store FCM token: $e');
     }
+  }
+
+  void dispose() {
+    _payloadController.close();
+    _onNotificationTappedController.close();
+    _onForegroundMessageController.close();
+    _onLaunchMessageController.close();
   }
 }

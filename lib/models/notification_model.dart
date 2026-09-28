@@ -17,7 +17,6 @@ class NotificationModel {
   /// Written by the admin when a status is updated, and forwarded to the push
   /// payload by the Cloud Function so a tapped notification can open
   /// `/application-detail`.
-  final String? applicationId;
 
   NotificationModel({
     required this.id,
@@ -28,7 +27,6 @@ class NotificationModel {
     this.applicationId,
     required this.isRead,
     required this.createdAt,
-    this.applicationId,
   });
 
   factory NotificationModel.fromFireStore(

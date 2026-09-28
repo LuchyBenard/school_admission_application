@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../models/application_model.dart';
@@ -97,7 +96,11 @@ class PushDeepLinkService {
       if (applicationId != null) {
         final application = await _loadApplication(applicationId);
         if (application != null) {
-          _push('/application-detail', arguments: application);
+          // Check role to route correctly (admin vs student)
+          final userDoc = await _firestore.collection('users').doc(user.uid).get();
+          final isAdmin = userDoc.data()?['role'] == 'admin';
+          final route = isAdmin ? '/admin-applicant-detail' : '/application-detail';
+          _push(route, arguments: application);
           return;
         }
       }
@@ -111,7 +114,7 @@ class PushDeepLinkService {
   }
 
   /// Loads an application by id and confirms it belongs to the signed-in user
-  /// so a stale or tampered payload cannot open someone else's application.
+  /// or that the signed-in user is an admin.
   static Future<ApplicationModel?> _loadApplication(String id) async {
     try {
       final doc = await _firestore.collection('applications').doc(id).get();
@@ -119,7 +122,13 @@ class PushDeepLinkService {
       if (!doc.exists || data == null) return null;
 
       final application = ApplicationModel.fromFirestore(data, doc.id);
-      if (application.userId != _auth.currentUser?.uid) return null;
+      final uid = _auth.currentUser?.uid;
+      if (uid == null) return null;
+
+      if (application.userId != uid) {
+        final userDoc = await _firestore.collection('users').doc(uid).get();
+        if (userDoc.data()?['role'] != 'admin') return null;
+      }
       return application;
     } catch (e) {
       debugPrint('PushDeepLinkService: failed to load application $id: $e');
@@ -190,9 +199,25 @@ class PushDeepLinkService {
   /// Auth state is restored asynchronously, so a cold-start tap can arrive
   /// before the session is available.
   static Future<User?> _waitForUser() {
-    return _auth.userChanges()
+    return _auth
+        .userChanges()
         .firstWhere((user) => user != null)
         .timeout(const Duration(seconds: 10), onTimeout: () => null);
+  }
+
+  /// Helper method for testing & simulation in development or ADB test links.
+  static Future<void> simulateTapData(
+    Map<String, dynamic> data, {
+    String? title,
+    String? body,
+  }) async {
+    final message = RemoteMessage(
+      data: data,
+      notification: title != null
+          ? RemoteNotification(title: title, body: body)
+          : null,
+    );
+    await handleTap(message);
   }
 
   static void _push(String route, {Object? arguments}) {
