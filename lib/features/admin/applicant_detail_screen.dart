@@ -110,6 +110,9 @@ class _ApplicantDetailScreenState extends State<ApplicantDetailScreen> {
             ? _messageController.text.trim()
             : _getDefaultMessage(status),
         'type': status,
+        // Lets the app deep link to this application when the notification
+        // is tapped (in-app or from the push).
+        'applicationId': _application.id,
         'isRead': false,
         'createdAt': DateTime.now().toIso8601String(),
       });

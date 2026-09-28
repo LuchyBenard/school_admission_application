@@ -36,6 +36,14 @@ lib/
 │ └── app_routes.dart # Route name constants
 
 │
+
+├── core/
+
+│ └── navigation/
+
+│ └── app_navigation.dart # appNavigatorKey + appRouteObserver
+
+│
 ├── models/
 
 │ ├── user_model.dart
@@ -46,12 +54,18 @@ lib/
 
 │ ├── admission_requirement_model.dart # Per-school programmes + cut-off scores
 
-│ └── notification_model.dart
+│ ├── push_payload.dart # FCM data payload contract (notificationId,
+│                        applicationId, type) — no Firebase imports
+
+│ └── notification_model.dart # Includes applicationId for deep linking
 
 │
 ├── services/
 
 │ ├── auth_service.dart # Firebase Auth + Firestore user ops
+
+│ ├── notification_service.dart # FCM setup, token refresh, publishes
+│                                tapped PushPayloads (never navigates)
 
 │ └── school_api_service.dart # GitHub mirror + Hipolabs API + Firestore school ops
 
@@ -67,6 +81,8 @@ lib/
 │ ├── admission_requirement_provider.dart # Per-school programmes + cut-offs
 
 │ ├── notification_provider.dart # Load, read, delete notifications
+
+│ └── push_navigation_provider.dart # Turns a tapped PushPayload into a route
 
 │
 └── features/
@@ -181,6 +197,35 @@ ApplicantDetailScreen → Accept / Reject / Request Docs / Under Review
 
 writes to applications/{id} + creates notification for student
 
+## Push Notification Deep Links
+```
+Admin updates status
+↓
+notifications/{notifId} created (includes applicationId)
+↓  functions/index.js (onDocumentCreated)
+FCM push — data: {notificationId, applicationId, type}
+↓
+NotificationService publishes PushPayload (service never navigates)
+↓
+PushNavigationProvider
+  - buffers the payload until appRouteObserver.isReady
+    (waits out the splash/onboarding/login stack)
+  - ignores it if nobody is signed in
+  - marks notifications/{notifId} as read
+  - loads applications/{applicationId} and checks userId
+  - pushes /application-detail (student) or /admin-applicant-detail (admin)
+  - payload with no applicationId → /notifications
+↓
+The in-app notification list reuses openNotification(), so an
+in-app tap and a push tap behave identically
+```
+Notes:
+- `NotificationService.takeInitialPayload()` covers a cold start where
+  the payload already resolved; `launchPayloadReady` covers the usual
+  case where `getInitialMessage()` resolves after the first build
+- The Cloud Function must be redeployed (`firebase deploy`) before new
+  pushes carry `applicationId`
+
 ## Role Detection
 - On splash screen, after Firebase Auth confirms a logged-in user,
   the app reads `users/{uid}.role` from Firestore
@@ -290,8 +335,12 @@ Import to Firestore `schools/` collection
 ## Known Placeholders
 - Payment: currently simulates success after 2s delay
   Real integration: PayStack or FlutterWave
-- Firebase Cloud Messaging: push trigger Cloud Function is built
-  (`functions/index.js`) but not yet deployed via `firebase deploy`
+- Firebase Cloud Messaging: taps are deep linked (see Push Notification
+  Deep Links), but the trigger Cloud Function is built
+  (`functions/index.js`) and not yet deployed via `firebase deploy`
+- Foreground pushes are only logged — the `notifications` collection is
+  the source of truth for the in-app list, so no local notification is
+  shown while the app is open
 
 ## Firebase Setup Required
 1. Enable Email/Password in Firebase Auth

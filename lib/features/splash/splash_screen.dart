@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_text_styles.dart';
 import '../../providers/offline_queue_provider.dart';
-import '../../services/push_deep_link_service.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -89,34 +88,24 @@ class _SplashScreenState extends State<SplashScreen>
         if (!mounted) return;
 
         if (role == 'admin') {
-          _replaceRoute('/admin-dashboard');
+          Navigator.pushReplacementNamed(context, '/admin-dashboard');
         } else if (verified) {
-          _replaceRoute('/dashboard');
+          Navigator.pushReplacementNamed(context, '/dashboard');
         } else {
           // Students must confirm their email before entering the dashboard.
-          _replaceRoute('/email-verification');
+          Navigator.pushReplacementNamed(context, '/email-verification');
         }
       } catch (e) {
         if (!mounted) return;
-        _replaceRoute('/login');
+        Navigator.pushReplacementNamed(context, '/login');
       }
     } else if (!hasSeenOnboarding) {
       // First time user - show onboarding
-      _replaceRoute('/onboarding');
+      Navigator.pushReplacementNamed(context, '/onboarding');
     } else {
       // Seen onboarding but has not logged in - go to login page
-      _replaceRoute('/login');
+      Navigator.pushReplacementNamed(context, '/login');
     }
-  }
-
-  /// Replaces the splash screen and, once the first frame of the new route is
-  /// on screen, tells the push deep-link handler it can follow a notification
-  /// the app was launched from.
-  void _replaceRoute(String route) {
-    Navigator.pushReplacementNamed(context, route);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      PushDeepLinkService.setAppReady();
-    });
   }
 
   @override

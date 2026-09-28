@@ -47,6 +47,12 @@ exports.sendApplicationNotificationPush = onDocumentCreated(
       data: {
         notificationId: snapshot.id,
         type,
+        // The client opens the application this notification is about
+        // (see PushNavigationProvider). Empty string, not undefined, because
+        // every FCM data value must be a string.
+        applicationId: notification.applicationId
+          ? String(notification.applicationId)
+          : '',
       },
       token,
     };
