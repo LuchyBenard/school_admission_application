@@ -10,19 +10,20 @@ import 'firebase_options.dart';
 // Core
 import 'core/constants/app_colors.dart';
 import 'core/constants/app_text_styles.dart';
+import 'core/navigation/app_navigation.dart';
 
 // Providers
 import 'providers/auth_provider.dart';
 import 'providers/school_provider.dart';
 import 'providers/application_provider.dart';
 import 'providers/notification_provider.dart';
+import 'providers/push_navigation_provider.dart';
 import 'providers/favorites_provider.dart';
 import 'providers/admission_requirement_provider.dart';
 import 'providers/offline_queue_provider.dart';
 
 // Services
 import 'services/notification_service.dart';
-import 'services/push_deep_link_service.dart';
 
 // Screens - Auth
 import 'features/splash/splash_screen.dart';
@@ -65,11 +66,9 @@ Future<void> main() async {
   // notifications are handled even when the app is terminated.
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
 
-  // Tapping a push navigates to the screen it refers to — subscriptions must
-  // exist before the first message arrives, which is why this runs pre-runApp.
-  final notificationService = NotificationService.instance;
-  PushDeepLinkService.init(notificationService);
-  notificationService.initialize();
+  // Starts listening for taps. PushNavigationProvider (created below) picks the
+  // payloads up and deep links to the application they refer to.
+  NotificationService.instance.initialize();
 
   runApp(const MyApp());
 }
@@ -91,6 +90,14 @@ class MyApp extends StatelessWidget {
               ChangeNotifierProvider(create: (_) => SchoolProvider()),
               ChangeNotifierProvider(create: (_) => ApplicationProvider()),
               ChangeNotifierProvider(create: (_) => NotificationProvider()),
+              ChangeNotifierProxyProvider<
+                  NotificationProvider, PushNavigationProvider>(
+                create: (_) =>
+                    PushNavigationProvider(navigatorKey: appNavigatorKey),
+                update: (_, notifications, push) =>
+                    (push ?? PushNavigationProvider(navigatorKey: appNavigatorKey))
+                      ..attach(notifications),
+              ),
               ChangeNotifierProvider(create: (_) => FavoritesProvider()),
               ChangeNotifierProvider(create: (_) => BottomNavigationProvider()),
               ChangeNotifierProvider(
@@ -100,9 +107,10 @@ class MyApp extends StatelessWidget {
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
               title: 'School Admission',
-              // Required so a tapped push can navigate from anywhere,
-              // including before the first frame is built.
-              navigatorKey: PushDeepLinkService.navigatorKey,
+              // Both are required by PushNavigationProvider so a tapped push
+              // can navigate from anywhere, including before the first frame.
+              navigatorKey: appNavigatorKey,
+              navigatorObservers: [appRouteObserver],
               theme: ThemeData(
                 useMaterial3: true,
                 colorScheme: ColorScheme.fromSeed(

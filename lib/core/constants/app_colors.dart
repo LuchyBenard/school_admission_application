@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'app_palette.dart';
+import '../theme/app_palette.dart';
 
 /// The two colour palettes used by the app.
 ///

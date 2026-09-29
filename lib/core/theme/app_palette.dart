@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../constants/app_colors.dart';
+
 /// Semantic colour set for a brightness, exposed as a [ThemeExtension] so
 /// widgets resolve colours from the active theme instead of hardcoding them.
 ///
