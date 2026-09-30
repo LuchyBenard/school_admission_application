@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -11,6 +12,8 @@ import 'firebase_options.dart';
 import 'core/constants/app_colors.dart';
 import 'core/constants/app_text_styles.dart';
 import 'core/navigation/app_navigation.dart';
+import 'core/theme/app_theme.dart';
+import 'l10n/generated/app_localizations.dart';
 
 // Providers
 import 'providers/auth_provider.dart';
@@ -21,6 +24,7 @@ import 'providers/push_navigation_provider.dart';
 import 'providers/favorites_provider.dart';
 import 'providers/admission_requirement_provider.dart';
 import 'providers/offline_queue_provider.dart';
+import 'providers/settings_provider.dart';
 
 // Services
 import 'services/notification_service.dart';
@@ -86,6 +90,9 @@ class MyApp extends StatelessWidget {
         return OKToast(
           child: MultiProvider(
             providers: [
+              // Loaded first so the splash screen already renders in the
+              // saved theme and language.
+              ChangeNotifierProvider(create: (_) => SettingsProvider()),
               ChangeNotifierProvider(create: (_) => AuthProvider()),
               ChangeNotifierProvider(create: (_) => SchoolProvider()),
               ChangeNotifierProvider(create: (_) => ApplicationProvider()),
