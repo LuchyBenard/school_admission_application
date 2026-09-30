@@ -1031,5 +1031,61 @@ class AppLocalizationsIg extends AppLocalizations {
   String get settingsSaveChanges => 'Chekwa mgbanwe gị';
 
   @override
+  String get profileTitle => 'Akaụntụ';
+
+  @override
+  String get profileFullName => 'Aha zuru ezu';
+
+  @override
+  String get profileEmailAddress => 'Ozi-e';
+
+  @override
+  String get profilePhoneNumber => 'Nọmba ekile';
+
+  @override
+  String get profileStateOfOrigin => 'Obodo nwụmmarị gị';
+
+  @override
+  String get profileFingerprint => 'Banye site na mgbuanyị';
+
+  @override
+  String get profileFingerprintOn => 'E ọrụ - banye na enweghị okwuntughe';
+
+  @override
+  String get profileFingerprintOff => 'Jiri mgbuanyị banye ngwa ngwa';
+
+  @override
+  String get profileFingerprintUnavailable =>
+      'A naghị enweta biometrik na ekile a';
+
+  @override
+  String get profileFingerprintEmailMissing =>
+      'Anyị enweghị ike ịchọpụta ozi-e akaụntụ gị';
+
+  @override
+  String get profileFingerprintWrongPassword =>
+      'Okwuntughe ezighi ezi. Biko laghachi azụ.';
+
+  @override
+  String get profileFingerprintEnabledToast => 'Emela banye site na mgbuanyị';
+
+  @override
+  String get profileFingerprintDisabledToast =>
+      'Akwagbụla banye site na mgbuanyị';
+
+  @override
+  String get profileEnterPassword => 'Pụta okwuntughe gị';
+
+  @override
+  String get profileEnable => 'Kwado';
+
+  @override
+  String get profilePhotoUpdateFailed =>
+      'Emeghie ịmeghe foto. Biko laghachi azụ.';
+
+  @override
+  String get profilePhotoPickFailed => 'Emeghie ịhọọ foto. Biko laghachi azụ.';
+
+  @override
   String get errorGeneric => 'E zigara ihe ọ dị ọma. Biko laghachi azụ.';
 }

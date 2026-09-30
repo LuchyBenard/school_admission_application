@@ -343,5 +343,23 @@
   "settingsProfileSection": "Información personal",
   "settingsSaveChanges": "Guardar cambios",
 
+  "profileTitle": "Perfil",
+  "profileFullName": "Nombre completo",
+  "profileEmailAddress": "Correo electrónico",
+  "profilePhoneNumber": "Número de teléfono",
+  "profileStateOfOrigin": "Estado de origen",
+  "profileFingerprint": "Inicio de sesión con huella",
+  "profileFingerprintOn": "Activado — inicia sesión sin tu contraseña",
+  "profileFingerprintOff": "Usa tu huella para iniciar sesión más rápido",
+  "profileFingerprintUnavailable": "La biometría no está disponible en este dispositivo",
+  "profileFingerprintEmailMissing": "No se pudo determinar el correo de tu cuenta",
+  "profileFingerprintWrongPassword": "Contraseña incorrecta. Inténtalo de nuevo.",
+  "profileFingerprintEnabledToast": "Inicio de sesión con huella activado",
+  "profileFingerprintDisabledToast": "Inicio de sesión con huella desactivado",
+  "profileEnterPassword": "Introduce tu contraseña",
+  "profileEnable": "Activar",
+  "profilePhotoUpdateFailed": "No se pudo actualizar la foto. Inténtalo de nuevo.",
+  "profilePhotoPickFailed": "No se pudo elegir la foto. Inténtalo de nuevo.",
+
   "errorGeneric": "Algo salió mal. Inténtalo de nuevo."
 }

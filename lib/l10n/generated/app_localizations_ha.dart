@@ -1026,5 +1026,60 @@ class AppLocalizationsHa extends AppLocalizations {
   String get settingsSaveChanges => 'Ajiye sauyewa';
 
   @override
+  String get profileTitle => 'Bayanai';
+
+  @override
+  String get profileFullName => 'Suna cikinsa';
+
+  @override
+  String get profileEmailAddress => 'Adireshin imel';
+
+  @override
+  String get profilePhoneNumber => 'Lamarin waya';
+
+  @override
+  String get profileStateOfOrigin => 'Jihacin asalin';
+
+  @override
+  String get profileFingerprint => 'Shiga da yatsuwa';
+
+  @override
+  String get profileFingerprintOn =>
+      'An kunna — shiga ba tare da kalmar shigirge ba';
+
+  @override
+  String get profileFingerprintOff => 'Yi amfani da yatsuwa don shiga da sauri';
+
+  @override
+  String get profileFingerprintUnavailable =>
+      'Biometrics ba a samu shi a wayar wannan';
+
+  @override
+  String get profileFingerprintEmailMissing =>
+      'Ba a iya san imel ɗin asusunka ba';
+
+  @override
+  String get profileFingerprintWrongPassword =>
+      'Kalmar shigirge ba daidai. Sake gwada.';
+
+  @override
+  String get profileFingerprintEnabledToast => 'An kunna shiga da yatsuwa';
+
+  @override
+  String get profileFingerprintDisabledToast => 'An kuma shiga da yatsuwa';
+
+  @override
+  String get profileEnterPassword => 'Shigar da kalmar shigirgenka';
+
+  @override
+  String get profileEnable => 'Kunna';
+
+  @override
+  String get profilePhotoUpdateFailed => 'Ba a iya sabuntar hoto. Sake gwada.';
+
+  @override
+  String get profilePhotoPickFailed => 'Ba a iya zaɓi hoto. Sake gwada.';
+
+  @override
   String get errorGeneric => 'Wani abu ya yi kuskure. Ka sake gwada.';
 }

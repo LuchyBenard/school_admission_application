@@ -1066,5 +1066,65 @@ class AppLocalizationsFr extends AppLocalizations {
   String get settingsSaveChanges => 'Enregistrer les modifications';
 
   @override
+  String get profileTitle => 'Profil';
+
+  @override
+  String get profileFullName => 'Nom complet';
+
+  @override
+  String get profileEmailAddress => 'Adresse e-mail';
+
+  @override
+  String get profilePhoneNumber => 'Numéro de téléphone';
+
+  @override
+  String get profileStateOfOrigin => 'État d\'origine';
+
+  @override
+  String get profileFingerprint => 'Connexion par empreinte';
+
+  @override
+  String get profileFingerprintOn =>
+      'Activé — connectez-vous sans votre mot de passe';
+
+  @override
+  String get profileFingerprintOff =>
+      'Utilisez votre empreinte pour vous connecter plus vite';
+
+  @override
+  String get profileFingerprintUnavailable =>
+      'La biométrie n\'est pas disponible sur cet appareil';
+
+  @override
+  String get profileFingerprintEmailMissing =>
+      'Impossible de déterminer l\'e-mail de votre compte';
+
+  @override
+  String get profileFingerprintWrongPassword =>
+      'Mot de passe incorrect. Veuillez réessayer.';
+
+  @override
+  String get profileFingerprintEnabledToast =>
+      'Connexion par empreinte activée';
+
+  @override
+  String get profileFingerprintDisabledToast =>
+      'Connexion par empreinte désactivée';
+
+  @override
+  String get profileEnterPassword => 'Saisissez votre mot de passe';
+
+  @override
+  String get profileEnable => 'Activer';
+
+  @override
+  String get profilePhotoUpdateFailed =>
+      'Échec de la mise à jour de la photo. Veuillez réessayer.';
+
+  @override
+  String get profilePhotoPickFailed =>
+      'Échec de la sélection de la photo. Veuillez réessayer.';
+
+  @override
   String get errorGeneric => 'Une erreur est survenue. Veuillez réessayer.';
 }

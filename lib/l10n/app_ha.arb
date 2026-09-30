@@ -343,5 +343,23 @@
   "settingsProfileSection": "Bayanai na kanka",
   "settingsSaveChanges": "Ajiye sauyewa",
 
+  "profileTitle": "Bayanai",
+  "profileFullName": "Suna cikinsa",
+  "profileEmailAddress": "Adireshin imel",
+  "profilePhoneNumber": "Lamarin waya",
+  "profileStateOfOrigin": "Jihacin asalin",
+  "profileFingerprint": "Shiga da yatsuwa",
+  "profileFingerprintOn": "An kunna — shiga ba tare da kalmar shigirge ba",
+  "profileFingerprintOff": "Yi amfani da yatsuwa don shiga da sauri",
+  "profileFingerprintUnavailable": "Biometrics ba a samu shi a wayar wannan",
+  "profileFingerprintEmailMissing": "Ba a iya san imel ɗin asusunka ba",
+  "profileFingerprintWrongPassword": "Kalmar shigirge ba daidai. Sake gwada.",
+  "profileFingerprintEnabledToast": "An kunna shiga da yatsuwa",
+  "profileFingerprintDisabledToast": "An kuma shiga da yatsuwa",
+  "profileEnterPassword": "Shigar da kalmar shigirgenka",
+  "profileEnable": "Kunna",
+  "profilePhotoUpdateFailed": "Ba a iya sabuntar hoto. Sake gwada.",
+  "profilePhotoPickFailed": "Ba a iya zaɓi hoto. Sake gwada.",
+
   "errorGeneric": "Wani abu ya yi kuskure. Ka sake gwada."
 }

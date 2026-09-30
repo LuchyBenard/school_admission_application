@@ -2032,6 +2032,108 @@ abstract class AppLocalizations {
   /// **'Save Changes'**
   String get settingsSaveChanges;
 
+  /// No description provided for @profileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get profileTitle;
+
+  /// No description provided for @profileFullName.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Name'**
+  String get profileFullName;
+
+  /// No description provided for @profileEmailAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Email Address'**
+  String get profileEmailAddress;
+
+  /// No description provided for @profilePhoneNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Number'**
+  String get profilePhoneNumber;
+
+  /// No description provided for @profileStateOfOrigin.
+  ///
+  /// In en, this message translates to:
+  /// **'State of Origin'**
+  String get profileStateOfOrigin;
+
+  /// No description provided for @profileFingerprint.
+  ///
+  /// In en, this message translates to:
+  /// **'Fingerprint sign-in'**
+  String get profileFingerprint;
+
+  /// No description provided for @profileFingerprintOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Enabled — sign in without your password'**
+  String get profileFingerprintOn;
+
+  /// No description provided for @profileFingerprintOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Use your fingerprint to sign in faster'**
+  String get profileFingerprintOff;
+
+  /// No description provided for @profileFingerprintUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometrics are not available on this device'**
+  String get profileFingerprintUnavailable;
+
+  /// No description provided for @profileFingerprintEmailMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not determine your account email'**
+  String get profileFingerprintEmailMissing;
+
+  /// No description provided for @profileFingerprintWrongPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Incorrect password. Please try again.'**
+  String get profileFingerprintWrongPassword;
+
+  /// No description provided for @profileFingerprintEnabledToast.
+  ///
+  /// In en, this message translates to:
+  /// **'Fingerprint sign-in enabled'**
+  String get profileFingerprintEnabledToast;
+
+  /// No description provided for @profileFingerprintDisabledToast.
+  ///
+  /// In en, this message translates to:
+  /// **'Fingerprint sign-in disabled'**
+  String get profileFingerprintDisabledToast;
+
+  /// No description provided for @profileEnterPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your password'**
+  String get profileEnterPassword;
+
+  /// No description provided for @profileEnable.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable'**
+  String get profileEnable;
+
+  /// No description provided for @profilePhotoUpdateFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to update photo. Please try again.'**
+  String get profilePhotoUpdateFailed;
+
+  /// No description provided for @profilePhotoPickFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to pick photo. Please try again.'**
+  String get profilePhotoPickFailed;
+
   /// No description provided for @errorGeneric.
   ///
   /// In en, this message translates to:

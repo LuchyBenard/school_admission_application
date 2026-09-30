@@ -343,5 +343,23 @@
   "settingsProfileSection": "Nzere onwe gị",
   "settingsSaveChanges": "Chekwa mgbanwe gị",
 
+  "profileTitle": "Akaụntụ",
+  "profileFullName": "Aha zuru ezu",
+  "profileEmailAddress": "Ozi-e",
+  "profilePhoneNumber": "Nọmba ekile",
+  "profileStateOfOrigin": "Obodo nwụmmarị gị",
+  "profileFingerprint": "Banye site na mgbuanyị",
+  "profileFingerprintOn": "E ọrụ - banye na enweghị okwuntughe",
+  "profileFingerprintOff": "Jiri mgbuanyị banye ngwa ngwa",
+  "profileFingerprintUnavailable": "A naghị enweta biometrik na ekile a",
+  "profileFingerprintEmailMissing": "Anyị enweghị ike ịchọpụta ozi-e akaụntụ gị",
+  "profileFingerprintWrongPassword": "Okwuntughe ezighi ezi. Biko laghachi azụ.",
+  "profileFingerprintEnabledToast": "Emela banye site na mgbuanyị",
+  "profileFingerprintDisabledToast": "Akwagbụla banye site na mgbuanyị",
+  "profileEnterPassword": "Pụta okwuntughe gị",
+  "profileEnable": "Kwado",
+  "profilePhotoUpdateFailed": "Emeghie ịmeghe foto. Biko laghachi azụ.",
+  "profilePhotoPickFailed": "Emeghie ịhọọ foto. Biko laghachi azụ.",
+
   "errorGeneric": "E zigara ihe ọ dị ọma. Biko laghachi azụ."
 }

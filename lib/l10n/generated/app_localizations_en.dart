@@ -1037,5 +1037,61 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsSaveChanges => 'Save Changes';
 
   @override
+  String get profileTitle => 'Profile';
+
+  @override
+  String get profileFullName => 'Full Name';
+
+  @override
+  String get profileEmailAddress => 'Email Address';
+
+  @override
+  String get profilePhoneNumber => 'Phone Number';
+
+  @override
+  String get profileStateOfOrigin => 'State of Origin';
+
+  @override
+  String get profileFingerprint => 'Fingerprint sign-in';
+
+  @override
+  String get profileFingerprintOn => 'Enabled — sign in without your password';
+
+  @override
+  String get profileFingerprintOff => 'Use your fingerprint to sign in faster';
+
+  @override
+  String get profileFingerprintUnavailable =>
+      'Biometrics are not available on this device';
+
+  @override
+  String get profileFingerprintEmailMissing =>
+      'Could not determine your account email';
+
+  @override
+  String get profileFingerprintWrongPassword =>
+      'Incorrect password. Please try again.';
+
+  @override
+  String get profileFingerprintEnabledToast => 'Fingerprint sign-in enabled';
+
+  @override
+  String get profileFingerprintDisabledToast => 'Fingerprint sign-in disabled';
+
+  @override
+  String get profileEnterPassword => 'Enter your password';
+
+  @override
+  String get profileEnable => 'Enable';
+
+  @override
+  String get profilePhotoUpdateFailed =>
+      'Failed to update photo. Please try again.';
+
+  @override
+  String get profilePhotoPickFailed =>
+      'Failed to pick photo. Please try again.';
+
+  @override
   String get errorGeneric => 'Something went wrong. Please try again.';
 }

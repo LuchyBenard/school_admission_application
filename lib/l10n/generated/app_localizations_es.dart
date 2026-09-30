@@ -1046,5 +1046,65 @@ class AppLocalizationsEs extends AppLocalizations {
   String get settingsSaveChanges => 'Guardar cambios';
 
   @override
+  String get profileTitle => 'Perfil';
+
+  @override
+  String get profileFullName => 'Nombre completo';
+
+  @override
+  String get profileEmailAddress => 'Correo electrónico';
+
+  @override
+  String get profilePhoneNumber => 'Número de teléfono';
+
+  @override
+  String get profileStateOfOrigin => 'Estado de origen';
+
+  @override
+  String get profileFingerprint => 'Inicio de sesión con huella';
+
+  @override
+  String get profileFingerprintOn =>
+      'Activado — inicia sesión sin tu contraseña';
+
+  @override
+  String get profileFingerprintOff =>
+      'Usa tu huella para iniciar sesión más rápido';
+
+  @override
+  String get profileFingerprintUnavailable =>
+      'La biometría no está disponible en este dispositivo';
+
+  @override
+  String get profileFingerprintEmailMissing =>
+      'No se pudo determinar el correo de tu cuenta';
+
+  @override
+  String get profileFingerprintWrongPassword =>
+      'Contraseña incorrecta. Inténtalo de nuevo.';
+
+  @override
+  String get profileFingerprintEnabledToast =>
+      'Inicio de sesión con huella activado';
+
+  @override
+  String get profileFingerprintDisabledToast =>
+      'Inicio de sesión con huella desactivado';
+
+  @override
+  String get profileEnterPassword => 'Introduce tu contraseña';
+
+  @override
+  String get profileEnable => 'Activar';
+
+  @override
+  String get profilePhotoUpdateFailed =>
+      'No se pudo actualizar la foto. Inténtalo de nuevo.';
+
+  @override
+  String get profilePhotoPickFailed =>
+      'No se pudo elegir la foto. Inténtalo de nuevo.';
+
+  @override
   String get errorGeneric => 'Algo salió mal. Inténtalo de nuevo.';
 }

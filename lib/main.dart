@@ -9,8 +9,6 @@ import 'package:get_storage/get_storage.dart';
 import 'firebase_options.dart';
 
 // Core
-import 'core/constants/app_colors.dart';
-import 'core/constants/app_text_styles.dart';
 import 'core/navigation/app_navigation.dart';
 import 'core/theme/app_theme.dart';
 import 'l10n/generated/app_localizations.dart';
@@ -111,105 +109,68 @@ class MyApp extends StatelessWidget {
                   create: (_) => AdmissionRequirementProvider()),
               ChangeNotifierProvider(create: (_) => OfflineQueueProvider()),
             ],
-            child: MaterialApp(
-              debugShowCheckedModeBanner: false,
-              title: 'School Admission',
-              // Both are required by PushNavigationProvider so a tapped push
-              // can navigate from anywhere, including before the first frame.
-              navigatorKey: appNavigatorKey,
-              navigatorObservers: [appRouteObserver],
-              theme: ThemeData(
-                useMaterial3: true,
-                colorScheme: ColorScheme.fromSeed(
-                  seedColor: AppColors.primary,
-                  primary: AppColors.primary,
-                  surface: AppColors.surface,
-                  error: AppColors.error,
-                ),
-                fontFamily: 'Inter',
-                appBarTheme: AppBarTheme(
-                  backgroundColor: AppColors.background,
-                  foregroundColor: AppColors.textPrimary,
-                  elevation: 0,
-                  centerTitle: true,
-                  titleTextStyle: AppTextStyles.h2,
-                ),
-                elevatedButtonTheme: ElevatedButtonThemeData(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primary,
-                    foregroundColor: AppColors.background,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                ),
-                inputDecorationTheme: InputDecorationTheme(
-                  filled: true,
-                  fillColor: AppColors.surface,
-                  hintStyle: AppTextStyles.hint,
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 14,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(color: AppColors.border),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(color: AppColors.border),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(
-                      color: AppColors.primary,
-                      width: 1.5,
-                    ),
-                  ),
-                  errorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(color: AppColors.error),
-                  ),
-                ),
-                scaffoldBackgroundColor: AppColors.background,
-                dividerTheme: DividerThemeData(
-                  color: AppColors.divider,
-                  thickness: 1,
-                ),
-              ),
-              initialRoute: '/',
-              routes: {
-                '/': (context) => const SplashScreen(),
-                '/onboarding': (context) => const OnboardingScreen(),
-                '/login': (context) => const LoginScreen(),
-                '/register': (context) => const SignupScreen(),
-                '/forgot-password': (context) => const ForgotPasswordScreen(),
-                '/otp-verification': (context) => const OtpVerificationScreen(),
-                '/email-verification': (context) =>
-                    const EmailVerificationScreen(),
-                '/dashboard': (context) => const DashboardScreen(),
-                '/school-detail': (context) => const SchoolDetailScreen(),
-                '/admission-requirements': (context) =>
-                    const AdmissionRequirementsScreen(),
-                '/application-form': (context) => const ApplicationFormScreen(),
-                '/application-detail': (context) => const ApplicationDetailScreen(),
-                '/notifications': (context) => const NotificationsScreen(),
-                '/application-status': (context) => const ApplicationStatusScreen(),
-                '/document-upload': (context) => const DocumentUploadScreen(),
-                '/payment': (context) => const PaymentScreen(),
-                
-                // Admin Routes
-                '/admin-login': (context) => const AdminLoginScreen(),
-                '/admin-dashboard': (context) => const AdminDashboardScreen(),
-                '/admin-applicants': (context) => const ApplicantListScreen(),
-                '/admin-applicant-detail': (context) => const ApplicantDetailScreen(),
-                '/admin-batch-upload': (context) => const BatchUploadScreen(),
-                '/admin-requirements': (context) =>
-                    const ManageRequirementsScreen(),
-              },
-            ),
+            child: const _AppShell(),
           ),
         );
+      },
+    );
+  }
+}
+
+/// Reads the persisted theme and language preferences and rebuilds the
+/// [MaterialApp] whenever either changes.
+class _AppShell extends StatelessWidget {
+  const _AppShell();
+
+  @override
+  Widget build(BuildContext context) {
+    final settings = context.watch<SettingsProvider>();
+
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      onGenerateTitle: (context) => AppLocalizations.of(context).appName,
+      // Both are required by PushNavigationProvider so a tapped push
+      // can navigate from anywhere, including before the first frame.
+      navigatorKey: appNavigatorKey,
+      navigatorObservers: [appRouteObserver],
+      theme: AppTheme.light,
+      darkTheme: AppTheme.dark,
+      themeMode: settings.themeMode,
+      locale: settings.locale,
+      supportedLocales: AppLocalizations.supportedLocales,
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const SplashScreen(),
+        '/onboarding': (context) => const OnboardingScreen(),
+        '/login': (context) => const LoginScreen(),
+        '/register': (context) => const SignupScreen(),
+        '/forgot-password': (context) => const ForgotPasswordScreen(),
+        '/otp-verification': (context) => const OtpVerificationScreen(),
+        '/email-verification': (context) => const EmailVerificationScreen(),
+        '/dashboard': (context) => const DashboardScreen(),
+        '/school-detail': (context) => const SchoolDetailScreen(),
+        '/admission-requirements': (context) =>
+            const AdmissionRequirementsScreen(),
+        '/application-form': (context) => const ApplicationFormScreen(),
+        '/application-detail': (context) => const ApplicationDetailScreen(),
+        '/notifications': (context) => const NotificationsScreen(),
+        '/application-status': (context) => const ApplicationStatusScreen(),
+        '/document-upload': (context) => const DocumentUploadScreen(),
+        '/payment': (context) => const PaymentScreen(),
+
+        // Admin Routes
+        '/admin-login': (context) => const AdminLoginScreen(),
+        '/admin-dashboard': (context) => const AdminDashboardScreen(),
+        '/admin-applicants': (context) => const ApplicantListScreen(),
+        '/admin-applicant-detail': (context) => const ApplicantDetailScreen(),
+        '/admin-batch-upload': (context) => const BatchUploadScreen(),
+        '/admin-requirements': (context) => const ManageRequirementsScreen(),
       },
     );
   }

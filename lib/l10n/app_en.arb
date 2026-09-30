@@ -351,5 +351,23 @@
   "settingsProfileSection": "Personal Information",
   "settingsSaveChanges": "Save Changes",
 
+  "profileTitle": "Profile",
+  "profileFullName": "Full Name",
+  "profileEmailAddress": "Email Address",
+  "profilePhoneNumber": "Phone Number",
+  "profileStateOfOrigin": "State of Origin",
+  "profileFingerprint": "Fingerprint sign-in",
+  "profileFingerprintOn": "Enabled — sign in without your password",
+  "profileFingerprintOff": "Use your fingerprint to sign in faster",
+  "profileFingerprintUnavailable": "Biometrics are not available on this device",
+  "profileFingerprintEmailMissing": "Could not determine your account email",
+  "profileFingerprintWrongPassword": "Incorrect password. Please try again.",
+  "profileFingerprintEnabledToast": "Fingerprint sign-in enabled",
+  "profileFingerprintDisabledToast": "Fingerprint sign-in disabled",
+  "profileEnterPassword": "Enter your password",
+  "profileEnable": "Enable",
+  "profilePhotoUpdateFailed": "Failed to update photo. Please try again.",
+  "profilePhotoPickFailed": "Failed to pick photo. Please try again.",
+
   "errorGeneric": "Something went wrong. Please try again."
 }

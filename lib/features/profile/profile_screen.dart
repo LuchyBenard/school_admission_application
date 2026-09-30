@@ -2,12 +2,14 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import '../../core/constants/app_text_styles.dart';
-import '../../core/constants/app_colors.dart';
+import '../../core/theme/app_palette.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../l10n/generated/app_localizations.dart';
 import '../../providers/auth_provider.dart';
+import '../../providers/settings_provider.dart';
 import '../../services/biometric_service.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -102,22 +104,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Future<void> _selectDate() async {
     final DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: DateTime(2000),
-        firstDate: DateTime(1950),
-        lastDate: DateTime.now(),
-        builder: (context, child) {
-          return Theme(
-            data: Theme.of(context).copyWith(
-              colorScheme: const ColorScheme.light(
-                primary: AppColors.primary,
-                onPrimary: AppColors.background,
-                surface: AppColors.background,
-              ),
-            ),
-            child: child!,
-          );
-        });
+      context: context,
+      initialDate: DateTime(2000),
+      firstDate: DateTime(1950),
+      lastDate: DateTime.now(),
+    );
 
     if (picked != null) {
       setState(() {
@@ -136,9 +127,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   void _showPhotoSource() {
+    final l10n = AppLocalizations.of(context);
     showModalBottomSheet(
       context: context,
-      backgroundColor: AppColors.background,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
       ),
@@ -149,19 +140,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Padding(
               padding: EdgeInsets.all(16.w),
               child: Text(
-                'Choose Photo Source',
+                l10n.documentUploadChooseSource,
                 style: AppTextStyles.h2,
               ),
             ),
             ListTile(
               leading: Icon(
                 Icons.photo_library_outlined,
-                color: AppColors.primary,
+                color: context.colors.primary,
               ),
               title: Text(
-                'Choose from Gallery',
+                l10n.documentUploadChooseFromGallery,
                 style: AppTextStyles.bodyMedium.copyWith(
-                  color: AppColors.textPrimary,
+                  color: context.colors.textPrimary,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -173,12 +164,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ListTile(
               leading: Icon(
                 Icons.camera_alt_outlined,
-                color: AppColors.primary,
+                color: context.colors.primary,
               ),
               title: Text(
-                'Take a Photo',
+                l10n.documentUploadTakePhoto,
                 style: AppTextStyles.bodyMedium.copyWith(
-                  color: AppColors.textPrimary,
+                  color: context.colors.textPrimary,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -196,6 +187,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Future<void> _pickPhoto(ImageSource source) async {
     final authProvider = context.read<AuthProvider>();
+    final l10n = AppLocalizations.of(context);
     try {
       final XFile? file = await _picker.pickImage(
         source: source,
@@ -215,8 +207,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
       if (!success) {
         showToast(
-          'Failed to update photo. Please try again.',
-          backgroundColor: AppColors.error,
+          l10n.profilePhotoUpdateFailed,
+          backgroundColor: context.colors.error,
           textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
         );
       }
@@ -224,8 +216,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
       if (!mounted) return;
       setState(() => _isUploadingPhoto = false);
       showToast(
-        'Failed to pick photo. Please try again.',
-        backgroundColor: AppColors.error,
+        l10n.profilePhotoPickFailed,
+        backgroundColor: context.colors.error,
         textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
       );
     }
@@ -234,6 +226,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final authProvider = context.watch<AuthProvider>();
+    final l10n = AppLocalizations.of(context);
+    final colors = context.colors;
     final profile = authProvider.userProfile;
     final String fullName = profile?['fullName'] ?? 'Student';
     final String email = profile?['email'] ?? authProvider.user?.email ?? '';
@@ -242,14 +236,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
         : 'S';
 
     return Scaffold(
-      backgroundColor: AppColors.background,
       appBar: AppBar(
-        backgroundColor: AppColors.background,
-        elevation: 0,
-        title: Text(
-          'Profile',
-          style: AppTextStyles.h2,
-        ),
+        title: Text(l10n.profileTitle),
         actions: [
           GestureDetector(
             onTap: _toggleEdit,
@@ -257,9 +245,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               padding: EdgeInsets.only(right: 24.w),
               child: Center(
                 child: Text(
-                  _isEditing ? 'Cancel' : 'Edit',
+                  _isEditing ? l10n.commonCancel : l10n.commonDone,
                   style: AppTextStyles.bodyMedium.copyWith(
-                    color: AppColors.primary,
+                    color: colors.primary,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -287,7 +275,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           width: 90.w,
                           height: 90.w,
                           decoration: BoxDecoration(
-                            color: AppColors.primary,
+                            color: colors.primary,
                             shape: BoxShape.circle,
                             image: _photoBytes(profile?['photo']) != null
                                 ? DecorationImage(
@@ -304,7 +292,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   child: Text(
                                     initials.toUpperCase(),
                                     style: AppTextStyles.displayMedium.copyWith(
-                                      color: AppColors.background,
+                                      color: colors.onPrimary,
                                       fontSize: 32,
                                     ),
                                   ),
@@ -319,21 +307,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             child: Container(
                               width: 28.w,
                               height: 28.w,
-                              decoration: const BoxDecoration(
-                                color: AppColors.primary,
+                              decoration: BoxDecoration(
+                                color: colors.primary,
                                 shape: BoxShape.circle,
                               ),
                               child: _isUploadingPhoto
                                   ? Padding(
                                       padding: EdgeInsets.all(6.w),
-                                      child: const CircularProgressIndicator(
-                                        color: AppColors.background,
+                                      child: CircularProgressIndicator(
+                                        color: colors.onPrimary,
                                         strokeWidth: 2,
                                       ),
                                     )
-                                  : const Icon(
+                                  : Icon(
                                       Icons.camera_alt,
-                                      color: AppColors.background,
+                                      color: colors.onPrimary,
                                       size: 15,
                                     ),
                             ),
@@ -359,13 +347,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         vertical: 4.h,
                       ),
                       decoration: BoxDecoration(
-                        color: AppColors.surfaceAlt,
+                        color: colors.surfaceAlt,
                         borderRadius: BorderRadius.circular(20.r),
                       ),
                       child: Text(
-                        'Student',
+                        l10n.homeRoleStudent,
                         style: AppTextStyles.caption.copyWith(
-                          color: AppColors.primary,
+                          color: colors.primary,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -380,18 +368,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
               SizedBox(height: 24.h),
 
               // Profile Fields
-              Text('Personal Information', style: AppTextStyles.h3),
+              Text(l10n.settingsProfileSection, style: AppTextStyles.h3),
               SizedBox(height: 20.h),
 
               // Full Name
               _buildField(
-                  label: 'Full Name',
+                  label: l10n.profileFullName,
                   controller: _fullNameController,
                   icon: Icons.person_outline,
                   enabled: _isEditing,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter your full name';
+                      return l10n.applicationFormErrorNameRequired;
                     }
                     return null;
                   }),
@@ -399,7 +387,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
               // Email - always disabled
               _buildField(
-                label: 'Email Address',
+                label: l10n.profileEmailAddress,
                 controller: TextEditingController(text: email),
                 icon: Icons.email_outlined,
                 enabled: false,
@@ -409,14 +397,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
               // Phone Number
               _buildField(
-                  label: 'Phone Number',
+                  label: l10n.profilePhoneNumber,
                   controller: _phoneController,
                   icon: Icons.phone_outlined,
                   enabled: _isEditing,
                   keyboardType: TextInputType.phone,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter your phone number';
+                      return l10n.signupErrorPhoneRequired;
                     }
                     return null;
                   }),
@@ -427,7 +415,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 onTap: _isEditing ? _selectDate : null,
                 child: AbsorbPointer(
                   child: _buildField(
-                    label: 'Date of Birth',
+                    label: l10n.applicationFormDateOfBirth,
                     controller: _dateOfBirthController,
                     icon: Icons.calendar_today_outlined,
                     enabled: _isEditing,
@@ -439,7 +427,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
               // State of Origin
               _buildField(
-                label: 'State of Origin',
+                label: l10n.profileStateOfOrigin,
                 controller: _stateOfOriginController,
                 icon: Icons.location_on_outlined,
                 enabled: _isEditing,
@@ -458,12 +446,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ? SizedBox(
                               width: 20.w,
                               height: 20.w,
-                              child: const CircularProgressIndicator(
-                                color: AppColors.background,
+                              child: CircularProgressIndicator(
+                                color: colors.onPrimary,
                                 strokeWidth: 2,
                               ),
                             )
-                          : const Text('Save Changes'),
+                          : Text(l10n.settingsSaveChanges),
                     ),
                   );
                 }),
@@ -475,8 +463,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 const Divider(),
                 SizedBox(height: 16.h),
 
+                // Appearance & language
+                Text(l10n.settingsTitle, style: AppTextStyles.h3),
+                SizedBox(height: 16.h),
+
+                _buildThemeSelector(),
+                SizedBox(height: 12.h),
+                _buildLanguageSelector(),
+
+                SizedBox(height: 24.h),
+
                 // Account selection
-                Text('Account', style: AppTextStyles.h3),
+                Text(l10n.settingsAccount, style: AppTextStyles.h3),
                 SizedBox(height: 16.h),
 
                 // Fingerprint sign-in toggle
@@ -486,7 +484,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 // Change Password
                 _buildAccountTile(
                   icon: Icons.lock_outline,
-                  label: 'Change Password',
+                  label: l10n.settingsChangePassword,
                   onTap: () {
                     Navigator.pushNamed(context, '/forgot-password');
                   },
@@ -497,8 +495,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 // Logout
                 _buildAccountTile(
                   icon: Icons.logout,
-                  label: 'Logout',
-                  color: AppColors.error,
+                  label: l10n.settingsLogout,
+                  color: colors.error,
                   onTap: () {
                     _showLogoutDialog(context);
                   },
@@ -513,6 +511,154 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
+  /// Segmented control for light / dark / system appearance.
+  Widget _buildThemeSelector() {
+    final l10n = AppLocalizations.of(context);
+    final settings = context.watch<SettingsProvider>();
+
+    return _buildSettingsGroup(
+      icon: Icons.palette_outlined,
+      title: l10n.settingsAppearance,
+      child: Column(
+        children: [
+          _buildSegmentedRow<AppThemePreference>(
+            value: settings.themePreference,
+            options: <AppThemePreference, String>{
+              AppThemePreference.system: l10n.settingsThemeSystem,
+              AppThemePreference.light: l10n.settingsThemeLight,
+              AppThemePreference.dark: l10n.settingsThemeDark,
+            },
+            onChanged: settings.setThemePreference,
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// Language list. Endonyms are shown so each option is readable to the
+  /// person who speaks it.
+  Widget _buildLanguageSelector() {
+    final l10n = AppLocalizations.of(context);
+    final settings = context.watch<SettingsProvider>();
+
+    return _buildSettingsGroup(
+      icon: Icons.language,
+      title: l10n.settingsLanguage,
+      child: Column(
+        children: [
+          for (final locale in SettingsProvider.supportedLocales)
+            _buildOptionTile(
+              label: SettingsProvider.languageNames[locale.languageCode]!,
+              selected: settings.locale?.languageCode == locale.languageCode,
+              onTap: () => settings.setLocale(locale),
+            ),
+          _buildOptionTile(
+            label: l10n.settingsLanguageSystem,
+            selected: settings.locale == null,
+            onTap: () => settings.setLocale(null),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSettingsGroup({
+    required IconData icon,
+    required String title,
+    required Widget child,
+  }) {
+    return Container(
+      padding: EdgeInsets.all(16.w),
+      decoration: BoxDecoration(
+        color: context.colors.surface,
+        borderRadius: BorderRadius.circular(12.r),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(icon, color: context.colors.primary, size: 20.w),
+              SizedBox(width: 12.w),
+              Text(
+                title,
+                style: AppTextStyles.bodyMedium.copyWith(
+                  color: context.colors.textPrimary,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 12.h),
+          child,
+        ],
+      ),
+    );
+  }
+
+  Widget _buildOptionTile({
+    required String label,
+    required bool selected,
+    required VoidCallback onTap,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(8.r),
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 10.h),
+        child: Row(
+          children: [
+            Text(label, style: AppTextStyles.bodyMedium),
+            const Spacer(),
+            if (selected)
+              Icon(Icons.check, color: context.colors.primary, size: 20.w),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSegmentedRow<T>({
+    required T value,
+    required Map<T, String> options,
+    required Future<void> Function(T) onChanged,
+  }) {
+    final colors = context.colors;
+    return Container(
+      padding: EdgeInsets.all(4.w),
+      decoration: BoxDecoration(
+        color: colors.surfaceAlt,
+        borderRadius: BorderRadius.circular(10.r),
+      ),
+      child: Row(
+        children: [
+          for (final entry in options.entries)
+            Expanded(
+              child: GestureDetector(
+                onTap: () => onChanged(entry.key),
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 10.h),
+                  decoration: BoxDecoration(
+                    color: value == entry.key ? colors.primary : null,
+                    borderRadius: BorderRadius.circular(8.r),
+                  ),
+                  child: Text(
+                    entry.value,
+                    textAlign: TextAlign.center,
+                    style: AppTextStyles.bodySmall.copyWith(
+                      color:
+                          value == entry.key ? colors.onPrimary : colors.textSecondary,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildField({
     required String label,
     required TextEditingController controller,
@@ -521,6 +667,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     TextInputType keyboardType = TextInputType.text,
     String? Function(String?)? validator,
   }) {
+    final colors = context.colors;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -533,8 +680,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
           style: AppTextStyles.bodyLarge,
           validator: validator,
           decoration: InputDecoration(
-            prefixIcon: Icon(icon, color: AppColors.textHint),
-            fillColor: enabled ? AppColors.surface : AppColors.surface.withValues(alpha: 0.5),
+            prefixIcon: Icon(icon, color: colors.textHint),
+            fillColor:
+                enabled ? colors.surface : colors.surface.withValues(alpha: 0.5),
           ),
         ),
       ],
@@ -542,10 +690,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget _buildFingerprintTile() {
+    final l10n = AppLocalizations.of(context);
+    final colors = context.colors;
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
-        color: AppColors.surface,
+        color: colors.surface,
         borderRadius: BorderRadius.circular(12.r),
       ),
       child: Row(
@@ -554,14 +704,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
             width: 40.w,
             height: 40.w,
             decoration: BoxDecoration(
-              color: AppColors.surfaceAlt,
+              color: colors.surfaceAlt,
               borderRadius: BorderRadius.circular(10.r),
             ),
             child: Icon(
               Icons.fingerprint,
-              color: _fingerprintEnabled
-                  ? AppColors.primary
-                  : AppColors.textHint,
+              color: _fingerprintEnabled ? colors.primary : colors.textHint,
               size: 22.w,
             ),
           ),
@@ -571,16 +719,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Fingerprint sign-in',
+                  l10n.profileFingerprint,
                   style: AppTextStyles.bodyMedium.copyWith(
-                    color: AppColors.textPrimary,
+                    color: colors.textPrimary,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
                 Text(
                   _fingerprintEnabled
-                      ? 'Enabled — sign in without your password'
-                      : 'Use your fingerprint to sign in faster',
+                      ? l10n.profileFingerprintOn
+                      : l10n.profileFingerprintOff,
                   style: AppTextStyles.bodySmall,
                 ),
               ],
@@ -589,7 +737,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Switch(
             value: _fingerprintEnabled,
             onChanged: _onFingerprintChanged,
-            activeThumbColor: AppColors.primary,
+            activeThumbColor: colors.primary,
           ),
         ],
       ),
@@ -604,20 +752,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
       if (!mounted) return;
       setState(() => _fingerprintEnabled = false);
       showToast(
-        'Fingerprint sign-in disabled',
-        backgroundColor: AppColors.info,
+        AppLocalizations.of(context).profileFingerprintDisabledToast,
+        backgroundColor: context.colors.info,
       );
     }
   }
 
   Future<void> _enableFingerprint() async {
+    final l10n = AppLocalizations.of(context);
     final supported = await _biometricService.isSupported;
     if (!supported) {
       if (!mounted) return;
       setState(() => _fingerprintEnabled = false);
       showToast(
-        'Biometrics are not available on this device',
-        backgroundColor: AppColors.warning,
+        l10n.profileFingerprintUnavailable,
+        backgroundColor: context.colors.warning,
         textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
       );
       return;
@@ -630,8 +779,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     if (email == null) {
       if (!mounted) return;
       showToast(
-        'Could not determine your account email',
-        backgroundColor: AppColors.error,
+        l10n.profileFingerprintEmailMissing,
+        backgroundColor: context.colors.error,
         textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
       );
       return;
@@ -648,8 +797,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     if (!verified) {
       showToast(
-        'Incorrect password. Please try again.',
-        backgroundColor: AppColors.error,
+        l10n.profileFingerprintWrongPassword,
+        backgroundColor: context.colors.error,
         textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
       );
       return;
@@ -659,23 +808,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
     if (!mounted) return;
     setState(() => _fingerprintEnabled = true);
     showToast(
-      'Fingerprint sign-in enabled',
-      backgroundColor: AppColors.success,
+      l10n.profileFingerprintEnabledToast,
+      backgroundColor: context.colors.success,
     );
   }
 
   Future<String?> _showPasswordDialog() async {
     final controller = TextEditingController();
     final formKey = GlobalKey<FormState>();
+    final l10n = AppLocalizations.of(context);
+    final colors = context.colors;
 
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: AppColors.background,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.r),
         ),
-        title: Text('Confirm password', style: AppTextStyles.h2),
+        title: Text(l10n.settingsConfirmPasswordTitle, style: AppTextStyles.h2),
         content: Form(
           key: formKey,
           child: TextFormField(
@@ -684,16 +834,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
             autofocus: true,
             style: AppTextStyles.bodyLarge,
             textInputAction: TextInputAction.done,
-            decoration: const InputDecoration(
-              hintText: 'Enter your password',
-              prefixIcon: Icon(
-                Icons.lock_outline,
-                color: AppColors.textHint,
-              ),
+            decoration: InputDecoration(
+              hintText: l10n.profileEnterPassword,
+              prefixIcon: Icon(Icons.lock_outline, color: colors.textHint),
             ),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Please enter your password';
+                return l10n.signupErrorPasswordRequired;
               }
               return null;
             },
@@ -708,9 +855,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
           TextButton(
             onPressed: () => Navigator.pop(context, false),
             child: Text(
-              'Cancel',
+              l10n.commonCancel,
               style: AppTextStyles.bodyMedium.copyWith(
-                color: AppColors.textSecondary,
+                color: colors.textSecondary,
               ),
             ),
           ),
@@ -721,9 +868,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               }
             },
             child: Text(
-              'Enable',
+              l10n.profileEnable,
               style: AppTextStyles.bodyMedium.copyWith(
-                color: AppColors.primary,
+                color: colors.primary,
                 fontWeight: FontWeight.w700,
               ),
             ),
@@ -742,28 +889,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
     required IconData icon,
     required String label,
     required VoidCallback onTap,
-    Color color = AppColors.textPrimary,
+    Color? color,
   }) {
+    final colors = context.colors;
+    final resolved = color ?? colors.textPrimary;
     return GestureDetector(
       onTap: onTap,
       child: Container(
         padding: EdgeInsets.all(16.w),
         decoration: BoxDecoration(
-          color: AppColors.surface,
+          color: colors.surface,
           borderRadius: BorderRadius.circular(12.r),
         ),
         child: Row(
           children: [
-            Icon(icon, color: color, size: 20.w),
+            Icon(icon, color: resolved, size: 20.w),
             SizedBox(width: 12.w),
             Text(
               label,
-              style: AppTextStyles.bodyMedium.copyWith(color: color),
+              style: AppTextStyles.bodyMedium.copyWith(color: resolved),
             ),
             const Spacer(),
             Icon(
               Icons.arrow_forward_ios,
-              color: AppColors.textHint,
+              color: colors.textHint,
               size: 14.w,
             ),
           ],
@@ -773,25 +922,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   void _showLogoutDialog(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final colors = context.colors;
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: AppColors.background,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.r),
         ),
-        title: Text('Logout', style: AppTextStyles.h2),
+        title: Text(l10n.settingsLogoutTitle, style: AppTextStyles.h2),
         content: Text(
-          'Are you sure you want to logout?',
+          l10n.settingsLogoutBody,
           style: AppTextStyles.bodyMedium,
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
             child: Text(
-              'Cancel',
+              l10n.commonCancel,
               style: AppTextStyles.bodyMedium.copyWith(
-                color: AppColors.textSecondary,
+                color: colors.textSecondary,
               ),
             ),
           ),
@@ -801,9 +951,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               context.read<AuthProvider>().logout(context);
             },
             child: Text(
-              'Logout',
+              l10n.settingsLogout,
               style: AppTextStyles.bodyMedium.copyWith(
-                color: AppColors.error,
+                color: colors.error,
                 fontWeight: FontWeight.w700,
               ),
             ),

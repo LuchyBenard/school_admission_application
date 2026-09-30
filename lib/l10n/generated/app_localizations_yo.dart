@@ -1033,5 +1033,59 @@ class AppLocalizationsYo extends AppLocalizations {
   String get settingsSaveChanges => 'Fi àwọn àyípadà pamọ́';
 
   @override
+  String get profileTitle => 'Àkọọ́lẹ̀';
+
+  @override
+  String get profileFullName => 'Orúkọ láàárínṣe';
+
+  @override
+  String get profileEmailAddress => 'Àdírẹ́sì ímeèlì';
+
+  @override
+  String get profilePhoneNumber => 'Nọ́mbà ìtánẹ̀lẹ̀';
+
+  @override
+  String get profileStateOfOrigin => 'Ìwú ilẹ̀ ní ìbẹ̀rẹ̀';
+
+  @override
+  String get profileFingerprint => 'Wọlé pẹ̀lú ìtàn ọ́wọ́';
+
+  @override
+  String get profileFingerprintOn => 'A ṣiṣẹ́ — wọlé láìsí ọ̀rọ̀ ìpamọ́ rẹ';
+
+  @override
+  String get profileFingerprintOff => 'Lo ìtàn ọ́wọ́ rẹ láti wọlé kíákíá';
+
+  @override
+  String get profileFingerprintUnavailable =>
+      'A kò ní àgbẹ̀ẹ́ biométrik lórí ẹ̀rọ yìí';
+
+  @override
+  String get profileFingerprintEmailMissing => 'A kò lè mọ ímeèlì àkọọ́lẹ̀ rẹ';
+
+  @override
+  String get profileFingerprintWrongPassword =>
+      'Ọ̀rọ̀ ìpamọ́ kò tọ́. Jọ́wọ́ tún gbìyànjú.';
+
+  @override
+  String get profileFingerprintEnabledToast => 'A ṣiṣẹ́ wọlé pẹ̀lú ìtàn ọ́wọ́';
+
+  @override
+  String get profileFingerprintDisabledToast => 'A kuma wọlé pẹ̀lú ìtàn ọ́wọ́';
+
+  @override
+  String get profileEnterPassword => 'Tẹ ọ̀rọ̀ ìpamọ́ rẹ';
+
+  @override
+  String get profileEnable => 'Ṣiṣẹ́';
+
+  @override
+  String get profilePhotoUpdateFailed =>
+      'A kò lè ṣe àfikún fótò. Jọ́wọ́ tún gbìyànjú.';
+
+  @override
+  String get profilePhotoPickFailed => 'A kò lè yàn fótò. Jọ́wọ́ tún gbìyànjú.';
+
+  @override
   String get errorGeneric => 'Kòí àwọn ohun kan ṣe. Jọ́wọ́ tún gbìyànjú.';
 }

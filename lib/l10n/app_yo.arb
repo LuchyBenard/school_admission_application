@@ -343,5 +343,23 @@
   "settingsProfileSection": "Àkójọ ẹ̀yà ara ẹni",
   "settingsSaveChanges": "Fi àwọn àyípadà pamọ́",
 
+  "profileTitle": "Àkọọ́lẹ̀",
+  "profileFullName": "Orúkọ láàárínṣe",
+  "profileEmailAddress": "Àdírẹ́sì ímeèlì",
+  "profilePhoneNumber": "Nọ́mbà ìtánẹ̀lẹ̀",
+  "profileStateOfOrigin": "Ìwú ilẹ̀ ní ìbẹ̀rẹ̀",
+  "profileFingerprint": "Wọlé pẹ̀lú ìtàn ọ́wọ́",
+  "profileFingerprintOn": "A ṣiṣẹ́ — wọlé láìsí ọ̀rọ̀ ìpamọ́ rẹ",
+  "profileFingerprintOff": "Lo ìtàn ọ́wọ́ rẹ láti wọlé kíákíá",
+  "profileFingerprintUnavailable": "A kò ní àgbẹ̀ẹ́ biométrik lórí ẹ̀rọ yìí",
+  "profileFingerprintEmailMissing": "A kò lè mọ ímeèlì àkọọ́lẹ̀ rẹ",
+  "profileFingerprintWrongPassword": "Ọ̀rọ̀ ìpamọ́ kò tọ́. Jọ́wọ́ tún gbìyànjú.",
+  "profileFingerprintEnabledToast": "A ṣiṣẹ́ wọlé pẹ̀lú ìtàn ọ́wọ́",
+  "profileFingerprintDisabledToast": "A kuma wọlé pẹ̀lú ìtàn ọ́wọ́",
+  "profileEnterPassword": "Tẹ ọ̀rọ̀ ìpamọ́ rẹ",
+  "profileEnable": "Ṣiṣẹ́",
+  "profilePhotoUpdateFailed": "A kò lè ṣe àfikún fótò. Jọ́wọ́ tún gbìyànjú.",
+  "profilePhotoPickFailed": "A kò lè yàn fótò. Jọ́wọ́ tún gbìyànjú.",
+
   "errorGeneric": "Kòí àwọn ohun kan ṣe. Jọ́wọ́ tún gbìyànjú."
 }

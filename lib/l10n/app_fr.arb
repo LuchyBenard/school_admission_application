@@ -343,5 +343,23 @@
   "settingsProfileSection": "Informations personnelles",
   "settingsSaveChanges": "Enregistrer les modifications",
 
+  "profileTitle": "Profil",
+  "profileFullName": "Nom complet",
+  "profileEmailAddress": "Adresse e-mail",
+  "profilePhoneNumber": "Numéro de téléphone",
+  "profileStateOfOrigin": "État d'origine",
+  "profileFingerprint": "Connexion par empreinte",
+  "profileFingerprintOn": "Activé — connectez-vous sans votre mot de passe",
+  "profileFingerprintOff": "Utilisez votre empreinte pour vous connecter plus vite",
+  "profileFingerprintUnavailable": "La biométrie n'est pas disponible sur cet appareil",
+  "profileFingerprintEmailMissing": "Impossible de déterminer l'e-mail de votre compte",
+  "profileFingerprintWrongPassword": "Mot de passe incorrect. Veuillez réessayer.",
+  "profileFingerprintEnabledToast": "Connexion par empreinte activée",
+  "profileFingerprintDisabledToast": "Connexion par empreinte désactivée",
+  "profileEnterPassword": "Saisissez votre mot de passe",
+  "profileEnable": "Activer",
+  "profilePhotoUpdateFailed": "Échec de la mise à jour de la photo. Veuillez réessayer.",
+  "profilePhotoPickFailed": "Échec de la sélection de la photo. Veuillez réessayer.",
+
   "errorGeneric": "Une erreur est survenue. Veuillez réessayer."
 }
