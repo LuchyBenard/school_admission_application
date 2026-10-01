@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/theme/app_palette.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:oktoast/oktoast.dart';
@@ -46,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
         'Student';
 
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: context.colors.background,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 24.w),
@@ -87,13 +88,13 @@ class _HomeScreenState extends State<HomeScreen> {
                               width: 44.w,
                               height: 44.w,
                               decoration: BoxDecoration(
-                                color: AppColors.surface,
+                                color: context.colors.surface,
                                 borderRadius: BorderRadius.circular(12.r),
-                                border: Border.all(color: AppColors.border),
+                                border: Border.all(color: context.colors.border),
                               ),
                               child: Icon(
                                 Icons.notifications_outlined,
-                                color: AppColors.textPrimary,
+                                color: context.colors.textPrimary,
                                 size: 22.w,
                               ),
                             ),
@@ -113,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ? '9+'
                                           : notifProvider.unreadCount.toString(),
                                       style: AppTextStyles.caption.copyWith(
-                                        color: AppColors.background,
+                                        color: context.colors.background,
                                         fontSize: 10,
                                         fontWeight: FontWeight.w700,
                                       ),
@@ -166,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ApplicationSummaryCard(
                         count: appProvider.totalApplied.toString(),
                         label: 'Total Applied',
-                        color: AppColors.primary,
+                        color: context.colors.primary,
                         icon: Icons.assignment_outlined,
                       ),
                       ApplicationSummaryCard(
@@ -260,22 +261,22 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Container(
         padding: EdgeInsets.all(16.w),
         decoration: BoxDecoration(
-          color: AppColors.surfaceAlt,
+          color: context.colors.surfaceAlt,
           borderRadius: BorderRadius.circular(16.r),
-          border: Border.all(color: AppColors.border),
+          border: Border.all(color: context.colors.border),
         ),
         child: Row(
           children: [
             Icon(
               icon,
-              color: AppColors.primary,
+              color: context.colors.primary,
               size: 22.w,
             ),
             SizedBox(width: 10.w),
             Text(
               label,
               style: AppTextStyles.bodyMedium.copyWith(
-                color: AppColors.textPrimary,
+                color: context.colors.textPrimary,
                 fontWeight: FontWeight.w600,
               ),
             ),

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../../core/theme/app_palette.dart';
 import 'dart:io';
 import 'package:csv/csv.dart';
 import 'package:file_picker/file_picker.dart';
@@ -309,13 +310,13 @@ class _BatchUploadScreenState extends State<BatchUploadScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: context.colors.background,
       appBar: AppBar(
-        backgroundColor: AppColors.background,
+        backgroundColor: context.colors.background,
         elevation: 0,
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
-          child: const Icon(Icons.arrow_back_ios, color: AppColors.textPrimary),
+          child: Icon(Icons.arrow_back_ios, color: context.colors.textPrimary),
         ),
         title: Text('Upload Schools', style: AppTextStyles.h2),
       ),
@@ -348,7 +349,7 @@ class _BatchUploadScreenState extends State<BatchUploadScreen> {
           padding: EdgeInsets.all(20.w),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [AppColors.primary, AppColors.primaryDark],
+              colors: [context.colors.primary, context.colors.primaryDark],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -358,17 +359,17 @@ class _BatchUploadScreenState extends State<BatchUploadScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Icon(Icons.upload_file_outlined,
-                  color: AppColors.background, size: 32.w),
+                  color: context.colors.background, size: 32.w),
               SizedBox(height: 12.h),
               Text(
                 'Batch Upload Schools',
-                style: AppTextStyles.h2.copyWith(color: AppColors.background),
+                style: AppTextStyles.h2.copyWith(color: context.colors.background),
               ),
               SizedBox(height: 4.h),
               Text(
                 'Import up to 5,000 schools from a CSV file into the schools collection.',
                 style: AppTextStyles.bodySmall.copyWith(
-                  color: AppColors.background.withValues(alpha: 0.8),
+                  color: context.colors.background.withValues(alpha: 0.8),
                 ),
               ),
             ],
@@ -397,9 +398,9 @@ class _BatchUploadScreenState extends State<BatchUploadScreen> {
           width: double.infinity,
           padding: EdgeInsets.all(16.w),
           decoration: BoxDecoration(
-            color: AppColors.surface,
+            color: context.colors.surface,
             borderRadius: BorderRadius.circular(12.r),
-            border: Border.all(color: AppColors.border),
+            border: Border.all(color: context.colors.border),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -408,7 +409,7 @@ class _BatchUploadScreenState extends State<BatchUploadScreen> {
                 'name,country,state,website,isFeatured\n'
                 'University of Lagos,Nigeria,Lagos,https://unilag.edu.ng,true\n'
                 'Ahmadu Bello University,Nigeria,Zaria,https://abu.edu.ng,false',
-                style: AppTextStyles.caption.copyWith(color: AppColors.textPrimary),
+                style: AppTextStyles.caption.copyWith(color: context.colors.textPrimary),
               ),
             ],
           ),
@@ -424,7 +425,7 @@ class _BatchUploadScreenState extends State<BatchUploadScreen> {
                     width: 20.w,
                     height: 20.w,
                     child: const CircularProgressIndicator(
-                      color: AppColors.background,
+                      color: context.colors.background,
                       strokeWidth: 2,
                     ),
                   )
@@ -446,7 +447,7 @@ class _BatchUploadScreenState extends State<BatchUploadScreen> {
                 children: [
                   Icon(
                     item.$2 ? Icons.star : Icons.circle_outlined,
-                    color: item.$2 ? AppColors.warning : AppColors.textHint,
+                    color: item.$2 ? AppColors.warning : context.colors.textHint,
                     size: 16.w,
                   ),
                   SizedBox(width: 8.w),
@@ -469,7 +470,7 @@ class _BatchUploadScreenState extends State<BatchUploadScreen> {
         Row(
           children: [
             Icon(Icons.description_outlined,
-                color: AppColors.primary, size: 24.w),
+                color: context.colors.primary, size: 24.w),
             SizedBox(width: 8.w),
             Expanded(
               child: Text(
@@ -500,9 +501,9 @@ class _BatchUploadScreenState extends State<BatchUploadScreen> {
         Container(
           width: double.infinity,
           decoration: BoxDecoration(
-            color: AppColors.surface,
+            color: context.colors.surface,
             borderRadius: BorderRadius.circular(12.r),
-            border: Border.all(color: AppColors.border),
+            border: Border.all(color: context.colors.border),
           ),
           child: Column(
             children: parse.preview.isEmpty
@@ -569,7 +570,7 @@ class _BatchUploadScreenState extends State<BatchUploadScreen> {
           onPressed: _pickFile,
           child: Text(
             'Choose a different file',
-            style: AppTextStyles.bodyMedium.copyWith(color: AppColors.primary),
+            style: AppTextStyles.bodyMedium.copyWith(color: context.colors.primary),
           ),
         ),
       ],
@@ -579,7 +580,7 @@ class _BatchUploadScreenState extends State<BatchUploadScreen> {
   Widget _buildPreviewHeader() {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
-      color: AppColors.surfaceAlt,
+      color: context.colors.surfaceAlt,
       child: Row(
         children: [
           Expanded(flex: 3, child: Text('Name', style: AppTextStyles.label)),
@@ -595,7 +596,7 @@ class _BatchUploadScreenState extends State<BatchUploadScreen> {
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
       decoration: BoxDecoration(
         border: Border(
-          bottom: BorderSide(color: AppColors.divider),
+          bottom: BorderSide(color: context.colors.divider),
         ),
       ),
       child: Row(
@@ -605,7 +606,7 @@ class _BatchUploadScreenState extends State<BatchUploadScreen> {
             child: Text(
               school.name,
               style: AppTextStyles.bodySmall.copyWith(
-                color: AppColors.textPrimary,
+                color: context.colors.textPrimary,
                 fontWeight: FontWeight.w600,
               ),
               overflow: TextOverflow.ellipsis,
@@ -651,7 +652,7 @@ class _BatchUploadScreenState extends State<BatchUploadScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Icon(Icons.cloud_upload_outlined,
-            color: AppColors.primary, size: 32.w),
+            color: context.colors.primary, size: 32.w),
         SizedBox(height: 16.h),
         Text('Importing schools...', style: AppTextStyles.h2),
         SizedBox(height: 8.h),
@@ -665,8 +666,8 @@ class _BatchUploadScreenState extends State<BatchUploadScreen> {
           child: LinearProgressIndicator(
             value: _progress,
             minHeight: 10.h,
-            backgroundColor: AppColors.surface,
-            valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
+            backgroundColor: context.colors.surface,
+            valueColor: AlwaysStoppedAnimation<Color>(context.colors.primary),
           ),
         ),
         SizedBox(height: 16.h),
@@ -764,7 +765,7 @@ class _BatchUploadScreenState extends State<BatchUploadScreen> {
           },
           child: Text(
             'Upload another file',
-            style: AppTextStyles.bodyMedium.copyWith(color: AppColors.primary),
+            style: AppTextStyles.bodyMedium.copyWith(color: context.colors.primary),
           ),
         ),
       ],

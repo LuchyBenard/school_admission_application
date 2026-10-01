@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/theme/app_palette.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:oktoast/oktoast.dart';
@@ -163,8 +164,8 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
         return Theme(
           data: Theme.of(context).copyWith(
             colorScheme: const ColorScheme.light(
-              primary: AppColors.primary,
-              onPrimary: AppColors.background,
+              primary: context.colors.primary,
+              onPrimary: context.colors.background,
             ),
           ),
           child: child!,
@@ -182,15 +183,15 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: context.colors.background,
       appBar: AppBar(
-        backgroundColor: AppColors.background,
+        backgroundColor: context.colors.background,
         elevation: 0,
         leading: GestureDetector(
           onTap: _currentStep > 0 ? _previousStep : () => Navigator.pop(context),
           child: const Icon(
             Icons.arrow_back_ios,
-            color: AppColors.textPrimary,
+            color: context.colors.textPrimary,
           ),
         ),
         title: Text(
@@ -236,7 +237,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
               Text(
                 _stepTitle(),
                 style: AppTextStyles.label.copyWith(
-                  color: AppColors.primary,
+                  color: context.colors.primary,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -247,9 +248,9 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
             borderRadius: BorderRadius.circular(4.r),
             child: LinearProgressIndicator(
               value: (_currentStep + 1) / _totalSteps,
-              backgroundColor: AppColors.border,
+              backgroundColor: context.colors.border,
               valueColor: const AlwaysStoppedAnimation<Color>(
-                AppColors.primary,
+                context.colors.primary,
               ),
               minHeight: 6,
             ),
@@ -293,7 +294,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
               textCapitalization: TextCapitalization.words,
               decoration: const InputDecoration(
                 hintText: 'Enter your full name',
-                prefixIcon: Icon(Icons.person_outline, color: AppColors.textHint),
+                prefixIcon: Icon(Icons.person_outline, color: context.colors.textHint),
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) return 'Please enter your full name';
@@ -312,7 +313,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                   decoration: const InputDecoration(
                     hintText: 'Select your date of birth',
                     prefixIcon:
-                    Icon(Icons.calendar_today_outlined, color: AppColors.textHint),
+                    Icon(Icons.calendar_today_outlined, color: context.colors.textHint),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) return 'Please select your date of birth';
@@ -328,7 +329,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
               initialValue: _selectedGender,
               style: AppTextStyles.bodyLarge,
               decoration: const InputDecoration(
-                prefixIcon: Icon(Icons.wc_outlined, color: AppColors.textHint),
+                prefixIcon: Icon(Icons.wc_outlined, color: context.colors.textHint),
               ),
               hint: const Text('Select gender', style: AppTextStyles.hint),
               items: ['Male', 'Female', 'Prefer not to say']
@@ -349,7 +350,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
               textCapitalization: TextCapitalization.words,
               decoration: const InputDecoration(
                 hintText: 'e.g Nigerian',
-                prefixIcon: Icon(Icons.flag_outlined, color: AppColors.textHint),
+                prefixIcon: Icon(Icons.flag_outlined, color: context.colors.textHint),
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) return 'Please enter your nationality';
@@ -383,7 +384,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
               initialValue: _selectedQualification,
               style: AppTextStyles.bodyLarge,
               decoration: const InputDecoration(
-                prefixIcon: Icon(Icons.school_outlined, color: AppColors.textHint),
+                prefixIcon: Icon(Icons.school_outlined, color: context.colors.textHint),
               ),
               hint: const Text('Select qualification', style: AppTextStyles.hint),
               items: [
@@ -411,7 +412,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
               style: AppTextStyles.bodyLarge,
               decoration: const InputDecoration(
                 hintText: 'e.g 5 A\'s and 2 B\'s',
-                prefixIcon: Icon(Icons.grade_outlined, color: AppColors.textHint),
+                prefixIcon: Icon(Icons.grade_outlined, color: context.colors.textHint),
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) return 'Please enter your grade or result';
@@ -427,7 +428,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
               keyboardType: TextInputType.number,
               decoration: const InputDecoration(
                 hintText: 'e.g 2023',
-                prefixIcon: Icon(Icons.date_range_outlined, color: AppColors.textHint),
+                prefixIcon: Icon(Icons.date_range_outlined, color: context.colors.textHint),
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) return 'Please enter your graduation year';
@@ -446,7 +447,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
               keyboardType: TextInputType.number,
               decoration: const InputDecoration(
                 hintText: 'e.g 200',
-                prefixIcon: Icon(Icons.score_outlined, color: AppColors.textHint),
+                prefixIcon: Icon(Icons.score_outlined, color: context.colors.textHint),
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -472,7 +473,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                 hintText: 'e.g 2023',
                 prefixIcon: Icon(
                   Icons.calendar_month_outlined,
-                  color: AppColors.textHint,
+                  color: context.colors.textHint,
                 ),
               ),
               validator: (value) {
@@ -514,7 +515,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
               textCapitalization: TextCapitalization.words,
               decoration: const InputDecoration(
                 hintText: 'e.g Computer Science',
-                prefixIcon: Icon(Icons.book_outlined, color: AppColors.textHint),
+                prefixIcon: Icon(Icons.book_outlined, color: context.colors.textHint),
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) return 'Please enter your course of study';
@@ -528,7 +529,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
               initialValue: _selectedEntryLevel,
               style: AppTextStyles.bodyLarge,
               decoration: const InputDecoration(
-                prefixIcon: Icon(Icons.layers_outlined, color: AppColors.textHint),
+                prefixIcon: Icon(Icons.layers_outlined, color: context.colors.textHint),
               ),
               hint: const Text('Select entry level', style: AppTextStyles.hint),
               items: [
@@ -552,7 +553,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
               style: AppTextStyles.bodyLarge,
               decoration: const InputDecoration(
                 hintText: 'e.g 2023/2024',
-                prefixIcon: Icon(Icons.event_outlined, color: AppColors.textHint),
+                prefixIcon: Icon(Icons.event_outlined, color: context.colors.textHint),
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) return 'Please enter your session';
@@ -580,7 +581,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                 width: 20.w,
                 height: 20.w,
                 child: const CircularProgressIndicator(
-                  color: AppColors.background,
+                  color: context.colors.background,
                   strokeWidth: 2,
                 ),
               )

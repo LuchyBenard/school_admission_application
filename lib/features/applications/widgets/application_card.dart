@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/theme/app_palette.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_text_styles.dart';
@@ -29,7 +30,7 @@ class ApplicationCard extends StatelessWidget {
       case 'more_documents':
         return AppColors.warning;
       case 'withdrawn':
-        return AppColors.textSecondary;
+        return context.colors.textSecondary;
       default:
         return AppColors.info;
     }
@@ -81,9 +82,9 @@ class ApplicationCard extends StatelessWidget {
         margin: EdgeInsets.only(bottom: 12.h),
         padding: EdgeInsets.all(16.w),
         decoration: BoxDecoration(
-          color: AppColors.surface,
+          color: context.colors.surface,
           borderRadius: BorderRadius.circular(16.r),
-          border: Border.all(color: AppColors.border),
+          border: Border.all(color: context.colors.border),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withValues(alpha: 0.04),
@@ -150,13 +151,13 @@ class ApplicationCard extends StatelessWidget {
                 Icon(
                   Icons.location_on_outlined,
                   size: 14.w,
-                  color: AppColors.textHint,
+                  color: context.colors.textHint,
                 ),
                 SizedBox(width: 6.w),
                 Text(
                   application.schoolCountry,
                   style: AppTextStyles.bodySmall.copyWith(
-                    color: AppColors.textSecondary,
+                    color: context.colors.textSecondary,
                   ),
                 ),
               ],
@@ -173,7 +174,7 @@ class ApplicationCard extends StatelessWidget {
                       ? 'Submitted ${_formatDate(application.createdAt!)}'
                       : 'Submitted recently',
                   style: AppTextStyles.caption.copyWith(
-                    color: AppColors.textHint,
+                    color: context.colors.textHint,
                   ),
                 ),
 
@@ -225,7 +226,7 @@ class ApplicationCard extends StatelessWidget {
                     Icon(
                       Icons.arrow_forward_ios,
                       size: 12.w,
-                      color: AppColors.textHint,
+                      color: context.colors.textHint,
                     ),
                   ],
                 ),

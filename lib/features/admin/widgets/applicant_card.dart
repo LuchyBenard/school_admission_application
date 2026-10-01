@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/theme/app_palette.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_text_styles.dart';
@@ -25,9 +26,9 @@ class ApplicantCard extends StatelessWidget {
       case 'more_documents':
         return AppColors.info;
       case 'withdrawn':
-        return AppColors.textSecondary;
+        return context.colors.textSecondary;
       default:
-        return AppColors.textHint;
+        return context.colors.textHint;
     }
   }
 
@@ -59,9 +60,9 @@ class ApplicantCard extends StatelessWidget {
         margin: EdgeInsets.only(bottom: 12.h),
         padding: EdgeInsets.all(16.w),
         decoration: BoxDecoration(
-          color: AppColors.surface,
+          color: context.colors.surface,
           borderRadius: BorderRadius.circular(16.r),
-          border: Border.all(color: AppColors.border),
+          border: Border.all(color: context.colors.border),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withValues(alpha: 0.04),
@@ -77,7 +78,7 @@ class ApplicantCard extends StatelessWidget {
               width: 48.w,
               height: 48.w,
               decoration: BoxDecoration(
-                color: AppColors.primary.withValues(alpha: 0.1),
+                color: context.colors.primary.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
               child: Center(
@@ -92,7 +93,7 @@ class ApplicantCard extends StatelessWidget {
                           .toUpperCase()
                       : 'NA',
                   style: AppTextStyles.bodyMedium.copyWith(
-                    color: AppColors.primary,
+                    color: context.colors.primary,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -122,7 +123,7 @@ class ApplicantCard extends StatelessWidget {
                   Text(
                     application.schoolName,
                     style: AppTextStyles.caption.copyWith(
-                      color: AppColors.textSecondary,
+                      color: context.colors.textSecondary,
                     ),
                   ),
                 ],
@@ -153,7 +154,7 @@ class ApplicantCard extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 8.h),
-                Icon(Icons.arrow_forward_ios, size: 12.w, color: AppColors.textHint),
+                Icon(Icons.arrow_forward_ios, size: 12.w, color: context.colors.textHint),
               ],
             ),
           ],

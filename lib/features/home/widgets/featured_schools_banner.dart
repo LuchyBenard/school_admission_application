@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import '../../../../core/theme/app_palette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_text_styles.dart';
 
 class FeaturedSchoolsBanner extends StatefulWidget {
@@ -76,8 +76,8 @@ class _FeaturedSchoolsBannerState extends State<FeaturedSchoolsBanner> {
                 height: 6.h,
                 decoration: BoxDecoration(
                   color: _currentIndex == index
-                      ? AppColors.primary
-                      : AppColors.border,
+                      ? context.colors.primary
+                      : context.colors.border,
                   borderRadius: BorderRadius.circular(3.r),
                 ),
               ),
@@ -96,14 +96,14 @@ class _FeaturedSchoolsBannerState extends State<FeaturedSchoolsBanner> {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            AppColors.primary,
-            AppColors.primaryDark,
+            context.colors.primary,
+            context.colors.primaryDark,
           ],
         ),
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primary.withValues(alpha: 0.3),
+            color: context.colors.primary.withValues(alpha: 0.3),
             blurRadius: 12,
             offset: Offset(0, 4),
           ),
@@ -119,13 +119,13 @@ class _FeaturedSchoolsBannerState extends State<FeaturedSchoolsBanner> {
             Container(
               padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
               decoration: BoxDecoration(
-                color: AppColors.background.withValues(alpha: 0.2),
+                color: context.colors.background.withValues(alpha: 0.2),
                 borderRadius: BorderRadius.circular(20.r),
               ),
               child: Text(
                 school['tag']!,
                 style: AppTextStyles.caption.copyWith(
-                  color: AppColors.background,
+                  color: context.colors.background,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -138,7 +138,7 @@ class _FeaturedSchoolsBannerState extends State<FeaturedSchoolsBanner> {
                 Text(
                   school['name']!,
                   style: AppTextStyles.h2.copyWith(
-                    color: AppColors.background,
+                    color: context.colors.background,
                   ),
                 ),
                 SizedBox(height: 4.h),
@@ -146,14 +146,14 @@ class _FeaturedSchoolsBannerState extends State<FeaturedSchoolsBanner> {
                   children: [
                     Icon(
                       Icons.location_on_outlined,
-                      color: AppColors.background.withValues(alpha: 0.8),
+                      color: context.colors.background.withValues(alpha: 0.8),
                       size: 14.w,
                     ),
                     SizedBox(width: 4.w),
                     Text(
                       school['location']!,
                           style: AppTextStyles.bodySmall.copyWith(
-                        color: AppColors.background.withValues(alpha: 0.8),
+                        color: context.colors.background.withValues(alpha: 0.8),
                     ),
                     ),
                   ],

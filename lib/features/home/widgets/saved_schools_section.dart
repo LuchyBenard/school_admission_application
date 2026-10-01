@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/theme/app_palette.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:country_flags/country_flags.dart';
 import 'package:oktoast/oktoast.dart';
@@ -44,7 +45,7 @@ class SavedSchoolsSection extends StatelessWidget {
             height: 92.h,
             child: Center(
               child: CircularProgressIndicator(
-                color: AppColors.primary,
+                color: context.colors.primary,
                 strokeWidth: 2.w,
               ),
             ),
@@ -55,15 +56,15 @@ class SavedSchoolsSection extends StatelessWidget {
           return Container(
             padding: EdgeInsets.all(16.w),
             decoration: BoxDecoration(
-              color: AppColors.surface,
+              color: context.colors.surface,
               borderRadius: BorderRadius.circular(12.r),
-              border: Border.all(color: AppColors.border),
+              border: Border.all(color: context.colors.border),
             ),
             child: Row(
               children: [
                 Icon(
                   Icons.favorite_border,
-                  color: AppColors.textHint,
+                  color: context.colors.textHint,
                   size: 20.w,
                 ),
                 SizedBox(width: 12.w),
@@ -71,7 +72,7 @@ class SavedSchoolsSection extends StatelessWidget {
                   child: Text(
                     'No saved schools yet. Tap the heart on any school to save it here.',
                     style: AppTextStyles.bodySmall.copyWith(
-                      color: AppColors.textSecondary,
+                      color: context.colors.textSecondary,
                     ),
                   ),
                 ),
@@ -117,9 +118,9 @@ class _SavedSchoolCard extends StatelessWidget {
         width: 150.w,
         padding: EdgeInsets.all(14.w),
         decoration: BoxDecoration(
-          color: AppColors.surface,
+          color: context.colors.surface,
           borderRadius: BorderRadius.circular(16.r),
-          border: Border.all(color: AppColors.border),
+          border: Border.all(color: context.colors.border),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -131,7 +132,7 @@ class _SavedSchoolCard extends StatelessWidget {
                   child: Text(
                     school.name,
                     style: AppTextStyles.bodyMedium.copyWith(
-                      color: AppColors.textPrimary,
+                      color: context.colors.textPrimary,
                       fontWeight: FontWeight.w600,
                     ),
                     maxLines: 2,
@@ -174,7 +175,7 @@ class _SavedSchoolCard extends StatelessWidget {
                   child: Text(
                     school.country,
                     style: AppTextStyles.caption.copyWith(
-                      color: AppColors.textSecondary,
+                      color: context.colors.textSecondary,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,

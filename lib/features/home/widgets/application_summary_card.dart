@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../../../core/theme/app_palette.dart';
 import '../../../core/constants/app_text_styles.dart';
-import '../../../core/constants/app_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ApplicationSummaryCard extends StatelessWidget {
@@ -61,7 +61,7 @@ class ApplicationSummaryCard extends StatelessWidget {
           Text(
             label,
             style: AppTextStyles.bodySmall.copyWith(
-              color: AppColors.textSecondary,
+              color: context.colors.textSecondary,
             ),
           ),
         ],

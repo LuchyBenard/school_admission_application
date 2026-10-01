@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/theme/app_palette.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:oktoast/oktoast.dart';
@@ -22,7 +23,7 @@ class ApplicationDetailScreen extends StatelessWidget {
       case 'more_documents':
         return AppColors.warning;
       case 'withdrawn':
-        return AppColors.textSecondary;
+        return context.colors.textSecondary;
       default:
         return AppColors.info;
     }
@@ -50,15 +51,15 @@ class ApplicationDetailScreen extends StatelessWidget {
     final application =
         ModalRoute.of(context)!.settings.arguments as ApplicationModel;
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: context.colors.background,
       appBar: AppBar(
-        backgroundColor: AppColors.background,
+        backgroundColor: context.colors.background,
         elevation: 0,
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
           child: const Icon(
             Icons.arrow_back_ios,
-            color: AppColors.textPrimary,
+            color: context.colors.textPrimary,
           ),
         ),
         title: Text('Application Details', style: AppTextStyles.h2),
@@ -187,7 +188,7 @@ class ApplicationDetailScreen extends StatelessWidget {
                 child: ElevatedButton.icon(
                   onPressed: () => _reapply(context, application),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primary,
+                    backgroundColor: context.colors.primary,
                     padding: EdgeInsets.symmetric(vertical: 14.h),
                   ),
                   icon: const Icon(Icons.refresh),
@@ -245,7 +246,7 @@ class ApplicationDetailScreen extends StatelessWidget {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        backgroundColor: AppColors.background,
+        backgroundColor: context.colors.background,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.r),
         ),
@@ -261,7 +262,7 @@ class ApplicationDetailScreen extends StatelessWidget {
             child: Text(
               'Cancel',
               style: AppTextStyles.bodyMedium.copyWith(
-                color: AppColors.textSecondary,
+                color: context.colors.textSecondary,
               ),
             ),
           ),
@@ -304,7 +305,7 @@ class ApplicationDetailScreen extends StatelessWidget {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        backgroundColor: AppColors.background,
+        backgroundColor: context.colors.background,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.r),
         ),
@@ -320,7 +321,7 @@ class ApplicationDetailScreen extends StatelessWidget {
             child: Text(
               'Cancel',
               style: AppTextStyles.bodyMedium.copyWith(
-                color: AppColors.textSecondary,
+                color: context.colors.textSecondary,
               ),
             ),
           ),
@@ -373,9 +374,9 @@ class ApplicationDetailScreen extends StatelessWidget {
           width: double.infinity,
           padding: EdgeInsets.all(16.w),
           decoration: BoxDecoration(
-            color: AppColors.surface,
+            color: context.colors.surface,
             borderRadius: BorderRadius.circular(12.r),
-            border: Border.all(color: AppColors.border),
+            border: Border.all(color: context.colors.border),
           ),
           child: Column(
             children: children,
@@ -396,7 +397,7 @@ class ApplicationDetailScreen extends StatelessWidget {
             child: Text(
               label,
               style: AppTextStyles.bodySmall.copyWith(
-                color: AppColors.textSecondary,
+                color: context.colors.textSecondary,
               ),
             ),
           ),
@@ -404,7 +405,7 @@ class ApplicationDetailScreen extends StatelessWidget {
             child: Text(
               value,
               style: AppTextStyles.bodyMedium.copyWith(
-                color: AppColors.textPrimary,
+                color: context.colors.textPrimary,
                 fontWeight: FontWeight.w500,
               ),
             ),

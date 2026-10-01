@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/theme/app_palette.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinput/pinput.dart';
 import 'package:oktoast/oktoast.dart';
@@ -88,35 +89,35 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
     final defaultPinTheme = PinTheme(
       width: 52.w,
       height: 56.h,
-      textStyle: AppTextStyles.h2.copyWith(color: AppColors.textPrimary),
+      textStyle: AppTextStyles.h2.copyWith(color: context.colors.textPrimary),
       decoration: BoxDecoration(
-        color: AppColors.surface,
+        color: context.colors.surface,
         borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(color: AppColors.border),
+        border: Border.all(color: context.colors.border),
       ),
     );
     final focusedPinTheme = defaultPinTheme.copyWith(
       decoration: defaultPinTheme.decoration!.copyWith(
-        border: Border.all(color: AppColors.primary, width: 1.5),
+        border: Border.all(color: context.colors.primary, width: 1.5),
       ),
     );
 
     final submittedPinTheme = defaultPinTheme.copyWith(
       decoration: defaultPinTheme.decoration!.copyWith(
-        color: AppColors.surfaceAlt,
-        border: Border.all(color: AppColors.primary),
+        color: context.colors.surfaceAlt,
+        border: Border.all(color: context.colors.primary),
       ),
     );
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: context.colors.background,
       appBar: AppBar(
-        backgroundColor: AppColors.background,
+        backgroundColor: context.colors.background,
         elevation: 0,
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
             child: Icon(
               Icons.arrow_back_ios,
-              color: AppColors.textPrimary,
+              color: context.colors.textPrimary,
             ),
         ),
       ),
@@ -135,12 +136,12 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                   width: 64.w,
                     height: 64.w,
                   decoration: BoxDecoration(
-                    color: AppColors.surfaceAlt,
+                    color: context.colors.surfaceAlt,
                     borderRadius: BorderRadius.circular(16.r),
                   ),
                   child: Icon(
                     Icons.mark_email_read_outlined,
-                    color: AppColors.primary,
+                    color: context.colors.primary,
                     size: 32.w,
                   ),
                 ),
@@ -163,7 +164,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                       TextSpan(
                         text: _email,
                         style: AppTextStyles.bodyMedium.copyWith(
-                          color: AppColors.primary,
+                          color: context.colors.primary,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -199,7 +200,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                     child: Text(
                       'Resend OTP',
                       style: AppTextStyles.bodyMedium.copyWith(
-                        color: AppColors.primary,
+                        color: context.colors.primary,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -220,7 +221,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                     hintText: 'Enter new password',
                     prefixIcon: Icon(
                       Icons.lock_outline,
-                      color: AppColors.textHint,
+                      color: context.colors.textHint,
                     ),
                     suffixIcon: GestureDetector(
                       onTap: () => setState(
@@ -229,7 +230,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                         _obscurePassword
                             ? Icons.visibility_outlined
                             : Icons.visibility_off_outlined,
-                        color: AppColors.textHint,
+                        color: context.colors.textHint,
                       ),
                     ),
                   ),
@@ -258,7 +259,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                     hintText: 'Confirm new password',
                     prefixIcon: const Icon(
                       Icons.lock_outline,
-                      color: AppColors.textHint,
+                      color: context.colors.textHint,
                     ),
                     suffixIcon: GestureDetector(
                       onTap: () =>
@@ -267,7 +268,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                         _obscureConfirm
                             ? Icons.visibility_outlined
                             : Icons.visibility_off_outlined,
-                        color: AppColors.textHint,
+                        color: context.colors.textHint,
                       ),
                     ),
                   ),
@@ -294,7 +295,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                         width: 20.w,
                         height: 20.w,
                         child: CircularProgressIndicator(
-                          color: AppColors.background,
+                          color: context.colors.background,
                           strokeWidth: 2,
                         ),
                       )

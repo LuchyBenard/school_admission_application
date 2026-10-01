@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/theme/app_palette.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
@@ -90,7 +91,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
         context: context,
         barrierDismissible: false,
         builder: (context) => AlertDialog(
-          backgroundColor: AppColors.background,
+          backgroundColor: context.colors.background,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16.r),
           ),
@@ -152,15 +153,15 @@ class _PaymentScreenState extends State<PaymentScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: context.colors.background,
       appBar: AppBar(
-        backgroundColor: AppColors.background,
+        backgroundColor: context.colors.background,
         elevation: 0,
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
           child: const Icon(
             Icons.arrow_back_ios,
-            color: AppColors.textPrimary,
+            color: context.colors.textPrimary,
           ),
         ),
         title: Text('Payment', style: AppTextStyles.h2),
@@ -179,10 +180,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
               width: double.infinity,
               padding: EdgeInsets.all(20.w),
               decoration: BoxDecoration(
-                color: AppColors.surfaceAlt,
+                color: context.colors.surfaceAlt,
                 borderRadius: BorderRadius.circular(16.r),
                 border: Border.all(
-                  color: AppColors.primaryLight
+                  color: context.colors.primaryLight
                       .withValues(alpha: 0.3),
                 ),
               ),
@@ -224,7 +225,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       Text(
                         '₦${_applicationFee.toStringAsFixed(0)}',
                         style: AppTextStyles.h2.copyWith(
-                          color: AppColors.primary,
+                          color: context.colors.primary,
                         ),
                       ),
                     ],
@@ -299,7 +300,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   width: 20.w,
                   height: 20.w,
                   child: CircularProgressIndicator(
-                    color: AppColors.background,
+                    color: context.colors.background,
                     strokeWidth: 2,
                   ),
                 )
@@ -334,11 +335,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
         padding: EdgeInsets.all(16.w),
         decoration: BoxDecoration(
           color: isSelected
-              ? AppColors.primary.withValues(alpha: 0.05)
-              : AppColors.background,
+              ? context.colors.primary.withValues(alpha: 0.05)
+              : context.colors.background,
           borderRadius: BorderRadius.circular(12.r),
           border: Border.all(
-            color: isSelected ? AppColors.primary : AppColors.border,
+            color: isSelected ? context.colors.primary : context.colors.border,
             width: isSelected ? 1.5 : 1,
           ),
         ),
@@ -349,15 +350,15 @@ class _PaymentScreenState extends State<PaymentScreen> {
               height: 44.w,
               decoration: BoxDecoration(
                 color: isSelected
-                    ? AppColors.primary.withValues(alpha: 0.1)
-                    : AppColors.surfaceAlt,
+                    ? context.colors.primary.withValues(alpha: 0.1)
+                    : context.colors.surfaceAlt,
                 borderRadius: BorderRadius.circular(10.r),
               ),
               child: Icon(
                 icon,
                 color: isSelected
-                    ? AppColors.primary
-                    : AppColors.textHint,
+                    ? context.colors.primary
+                    : context.colors.textHint,
                 size: 22.w,
               ),
             ),
@@ -370,7 +371,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     title,
                     style: AppTextStyles.bodyMedium.copyWith(
                       fontWeight: FontWeight.w600,
-                      color: AppColors.textPrimary,
+                      color: context.colors.textPrimary,
                     ),
                   ),
                   Text(
@@ -388,8 +389,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 shape: BoxShape.circle,
                 border: Border.all(
                   color: isSelected
-                      ? AppColors.primary
-                      : AppColors.border,
+                      ? context.colors.primary
+                      : context.colors.border,
                   width: 2,
                 ),
               ),
@@ -399,7 +400,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   width: 10.w,
                   height: 10.w,
                   decoration: const BoxDecoration(
-                    color: AppColors.primary,
+                    color: context.colors.primary,
                     shape: BoxShape.circle,
                   ),
                 ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/theme/app_palette.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../core/constants/app_colors.dart';
@@ -62,9 +63,9 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: context.colors.background,
       appBar: AppBar(
-        backgroundColor: AppColors.background,
+        backgroundColor: context.colors.background,
         elevation: 0,
         automaticallyImplyLeading: false,
         title: Text('Admin Dashboard', style: AppTextStyles.h2),
@@ -85,7 +86,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
       body: _isLoading
           ? const Center(
               child: CircularProgressIndicator(
-                color: AppColors.primary,
+                color: context.colors.primary,
               ),
             )
           : SingleChildScrollView(
@@ -100,8 +101,8 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [
-                          AppColors.primary,
-                          AppColors.primaryDark,
+                          context.colors.primary,
+                          context.colors.primaryDark,
                         ],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
@@ -114,14 +115,14 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
                         Text(
                           'Welcome, Admin 👋',
                           style: AppTextStyles.h2.copyWith(
-                            color: AppColors.background,
+                            color: context.colors.background,
                           ),
                         ),
                         SizedBox(height: 4.h),
                         Text(
                           'You have $_pending pending applications to review',
                           style: AppTextStyles.bodyMedium.copyWith(
-                            color: AppColors.background.withValues(alpha: 0.8),
+                            color: context.colors.background.withValues(alpha: 0.8),
                           ),
                         ),
                       ],
@@ -144,7 +145,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
                       _buildStatCard(
                         'Total',
                         _total,
-                        AppColors.primary,
+                        context.colors.primary,
                         Icons.assignment_outlined,
                       ),
                       _buildStatCard(
@@ -174,7 +175,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
                       _buildStatCard(
                         'Docs Needed',
                         _moreDocs,
-                        AppColors.primaryLight,
+                        context.colors.primaryLight,
                         Icons.folder_outlined,
                       ),
                     ],
@@ -203,12 +204,12 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
                       },
                       icon: Icon(
                         Icons.upload_file_outlined,
-                        color: AppColors.primary,
+                        color: context.colors.primary,
                       ),
                       label: Text(
                         'Upload Schools (CSV)',
                         style: AppTextStyles.bodyMedium.copyWith(
-                          color: AppColors.primary,
+                          color: context.colors.primary,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -225,12 +226,12 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
                       },
                       icon: Icon(
                         Icons.school_outlined,
-                        color: AppColors.primary,
+                        color: context.colors.primary,
                       ),
                       label: Text(
                         'Manage Admission Requirements',
                         style: AppTextStyles.bodyMedium.copyWith(
-                          color: AppColors.primary,
+                          color: context.colors.primary,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -268,7 +269,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
               Text(
                 label,
                 style: AppTextStyles.bodySmall.copyWith(
-                  color: AppColors.textSecondary,
+                  color: context.colors.textSecondary,
                 ),
               ),
             ],

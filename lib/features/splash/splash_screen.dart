@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../../core/theme/app_palette.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_text_styles.dart';
 import '../../providers/offline_queue_provider.dart';
 
@@ -117,7 +117,7 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.primary,
+      backgroundColor: context.colors.primary,
       body: Center(
         child: FadeTransition(
           opacity: _fadeAnimation,
@@ -131,7 +131,7 @@ class _SplashScreenState extends State<SplashScreen>
                   width: 120.w,
                   height: 120.w,
                   decoration: BoxDecoration(
-                    color: AppColors.background,
+                    color: context.colors.background,
                     borderRadius: BorderRadius.circular(28.r),
                     boxShadow: [
                       BoxShadow(
@@ -149,7 +149,7 @@ class _SplashScreenState extends State<SplashScreen>
                         'assets/images/universityLogo.png',
                         fit: BoxFit.contain,
                         errorBuilder: (context, error, stackTrace) =>
-                            const Icon(Icons.school, size: 60, color: AppColors.primary),
+                            Icon(Icons.school, size: 60, color: context.colors.primary),
                       ),
                     ),
                   ),
@@ -160,7 +160,7 @@ class _SplashScreenState extends State<SplashScreen>
                 Text(
                   'CampusApply',
                   style: AppTextStyles.displayMedium.copyWith(
-                    color: AppColors.background,
+                    color: context.colors.background,
                     letterSpacing: 0.5,
                   ),
                 ),
@@ -170,7 +170,7 @@ class _SplashScreenState extends State<SplashScreen>
                 Text(
                   'Your Admission, Simplified',
                   style: AppTextStyles.bodyMedium.copyWith(
-                    color: AppColors.background.withValues(alpha: 0.75),
+                    color: context.colors.background.withValues(alpha: 0.75),
                   ),
                 ),
 
@@ -181,7 +181,7 @@ class _SplashScreenState extends State<SplashScreen>
                   width: 24.w,
                   height: 24.w,
                   child: CircularProgressIndicator(
-                    color: AppColors.background.withValues(alpha: 0.6),
+                    color: context.colors.background.withValues(alpha: 0.6),
                     strokeWidth: 2.5,
                   ),
                 ),

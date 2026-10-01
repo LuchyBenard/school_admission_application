@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/theme/app_palette.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import '../../core/constants/app_colors.dart';
@@ -33,15 +34,15 @@ class _AdmissionRequirementsScreenState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: context.colors.background,
       appBar: AppBar(
-        backgroundColor: AppColors.background,
+        backgroundColor: context.colors.background,
         elevation: 0,
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
           child: const Icon(
             Icons.arrow_back_ios,
-            color: AppColors.textPrimary,
+            color: context.colors.textPrimary,
           ),
         ),
         title: Text('Admission Requirements', style: AppTextStyles.h2),
@@ -73,7 +74,7 @@ class _AdmissionRequirementsScreenState
                 if (reqProvider.isLoading) {
                   return const Center(
                     child: CircularProgressIndicator(
-                      color: AppColors.primary,
+                      color: context.colors.primary,
                     ),
                   );
                 }
@@ -87,7 +88,7 @@ class _AdmissionRequirementsScreenState
                         Icon(
                           Icons.error_outline,
                           size: 48.w,
-                          color: AppColors.textHint,
+                          color: context.colors.textHint,
                         ),
                         SizedBox(height: 16.h),
                         Text(
@@ -122,7 +123,7 @@ class _AdmissionRequirementsScreenState
                           Icon(
                             Icons.school_outlined,
                             size: 64.w,
-                            color: AppColors.textHint,
+                            color: context.colors.textHint,
                           ),
                           SizedBox(height: 16.h),
                           Text(
@@ -171,9 +172,9 @@ class _RequirementCard extends StatelessWidget {
       margin: EdgeInsets.only(bottom: 12.h),
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
-        color: AppColors.surface,
+        color: context.colors.surface,
         borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: AppColors.border),
+        border: Border.all(color: context.colors.border),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.04),
@@ -203,13 +204,13 @@ class _RequirementCard extends StatelessWidget {
                     vertical: 3.h,
                   ),
                   decoration: BoxDecoration(
-                    color: AppColors.primary.withValues(alpha: 0.1),
+                    color: context.colors.primary.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(6.r),
                   ),
                   child: Text(
                     requirement.degreeLevel,
                     style: AppTextStyles.caption.copyWith(
-                      color: AppColors.primary,
+                      color: context.colors.primary,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -269,7 +270,7 @@ class _RequirementCard extends StatelessWidget {
                     Icon(
                       Icons.check_circle_outline,
                       size: 14.w,
-                      color: AppColors.primary,
+                      color: context.colors.primary,
                     ),
                     SizedBox(width: 8.w),
                     Expanded(

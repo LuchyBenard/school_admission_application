@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/theme/app_palette.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import '../../core/constants/app_colors.dart';
@@ -28,7 +29,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: AppColors.background,
+        backgroundColor: context.colors.background,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.r),
         ),
@@ -43,7 +44,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             child: Text(
               'Cancel',
               style: AppTextStyles.bodyMedium.copyWith(
-                color: AppColors.textSecondary,
+                color: context.colors.textSecondary,
               ),
             ),
           ),
@@ -70,15 +71,15 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: context.colors.background,
       appBar: AppBar(
-        backgroundColor: AppColors.background,
+        backgroundColor: context.colors.background,
         elevation: 0,
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
           child: const Icon(
             Icons.arrow_back_ios,
-            color: AppColors.textPrimary,
+            color: context.colors.textPrimary,
           ),
         ),
         title: Text('Notifications', style: AppTextStyles.h2),
@@ -101,7 +102,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                         child: Text(
                           'Mark all read',
                           style: AppTextStyles.bodySmall.copyWith(
-                            color: AppColors.primary,
+                            color: context.colors.primary,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -139,7 +140,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                 margin: EdgeInsets.only(bottom: 8.h),
                 padding: EdgeInsets.all(16.w),
                 decoration: BoxDecoration(
-                  color: AppColors.surface,
+                  color: context.colors.surface,
                   borderRadius: BorderRadius.circular(12.r),
                 ),
                 child: Row(
@@ -149,7 +150,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                       width: 40.w,
                       height: 40.w,
                       decoration: const BoxDecoration(
-                        color: AppColors.border,
+                        color: context.colors.border,
                         shape: BoxShape.circle,
                       ),
                     ),
@@ -162,7 +163,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                             width: 120.w,
                             height: 12,
                             decoration: BoxDecoration(
-                              color: AppColors.border,
+                              color: context.colors.border,
                               borderRadius: BorderRadius.circular(4.r),
                             ),
                           ),
@@ -171,7 +172,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                             width: double.infinity,
                             height: 10,
                             decoration: BoxDecoration(
-                              color: AppColors.border,
+                              color: context.colors.border,
                               borderRadius: BorderRadius.circular(4.r),
                             ),
                           ),
@@ -193,7 +194,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                   Icon(
                     Icons.notifications_none_outlined,
                     size: 64.w,
-                    color: AppColors.textHint,
+                    color: context.colors.textHint,
                   ),
                   SizedBox(height: 16.h),
                   Text(
@@ -246,7 +247,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         ),
         child: Icon(
           Icons.delete_outline,
-          color: AppColors.background,
+          color: context.colors.background,
           size: 24.w,
         ),
       ),
@@ -264,13 +265,13 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           decoration: BoxDecoration(
             // Unread = slightly highlighted background
             color: isUnread
-                ? AppColors.surfaceAlt
-                : AppColors.background,
+                ? context.colors.surfaceAlt
+                : context.colors.background,
             borderRadius: BorderRadius.circular(12.r),
             border: Border.all(
               color: isUnread
-                  ? AppColors.primaryLight.withValues(alpha: 0.4)
-                  : AppColors.border,
+                  ? context.colors.primaryLight.withValues(alpha: 0.4)
+                  : context.colors.border,
             ),
           ),
           child: Row(
@@ -308,7 +309,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                               fontWeight: isUnread
                                   ? FontWeight.w700
                                   : FontWeight.w400,
-                              color: AppColors.textPrimary,
+                              color: context.colors.textPrimary,
                             ),
                           ),
                         ),
@@ -319,7 +320,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                             width: 8.w,
                             height: 8.w,
                             decoration: const BoxDecoration(
-                              color: AppColors.primary,
+                              color: context.colors.primary,
                               shape: BoxShape.circle,
                             ),
                           ),
@@ -340,7 +341,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                     Text(
                       _formatTime(notification.createdAt),
                       style: AppTextStyles.caption.copyWith(
-                        color: AppColors.textHint,
+                        color: context.colors.textHint,
                       ),
                     ),
                   ],
@@ -362,11 +363,11 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       case 'under_review':
         return AppColors.warning;
       case 'withdrawn':
-        return AppColors.textSecondary;
+        return context.colors.textSecondary;
       case 'deadline':
         return AppColors.error;
       default:
-        return AppColors.primary;
+        return context.colors.primary;
     }
   }
 

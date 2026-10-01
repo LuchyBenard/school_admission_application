@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/theme/app_palette.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import '../constants/app_colors.dart';
@@ -91,7 +92,7 @@ class OfflineSyncBanner extends StatelessWidget {
                     Text(
                       subtitle,
                       style: AppTextStyles.caption.copyWith(
-                        color: AppColors.textSecondary,
+                        color: context.colors.textSecondary,
                       ),
                     ),
                   ],
@@ -103,13 +104,13 @@ class OfflineSyncBanner extends StatelessWidget {
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
                     decoration: BoxDecoration(
-                      color: AppColors.primary,
+                      color: context.colors.primary,
                       borderRadius: BorderRadius.circular(8.r),
                     ),
                     child: Text(
                       'Sync',
                       style: AppTextStyles.caption.copyWith(
-                        color: AppColors.background,
+                        color: context.colors.background,
                         fontWeight: FontWeight.w700,
                       ),
                     ),

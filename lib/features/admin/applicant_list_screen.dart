@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import '../../../core/theme/app_palette.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'widgets/applicant_card.dart';
-import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_text_styles.dart';
 import '../../models/application_model.dart';
 
@@ -105,15 +105,15 @@ class _ApplicantListScreenState extends State<ApplicantListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: context.colors.background,
       appBar: AppBar(
-        backgroundColor: AppColors.background,
+        backgroundColor: context.colors.background,
         elevation: 0,
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
           child: const Icon(
             Icons.arrow_back_ios,
-            color: AppColors.textPrimary,
+            color: context.colors.textPrimary,
           ),
         ),
         title: Text('All Applications', style: AppTextStyles.h2),
@@ -134,7 +134,7 @@ class _ApplicantListScreenState extends State<ApplicantListScreen> {
                 hintText: 'Search by name or course...',
                 prefixIcon: const Icon(
                   Icons.search,
-                  color: AppColors.textHint,
+                  color: context.colors.textHint,
                 ),
                 suffixIcon: _searchController.text.isNotEmpty
                     ? GestureDetector(
@@ -144,7 +144,7 @@ class _ApplicantListScreenState extends State<ApplicantListScreen> {
                         },
                         child: const Icon(
                           Icons.close,
-                          color: AppColors.textHint,
+                          color: context.colors.textHint,
                         ),
                       )
                     : null,
@@ -173,10 +173,10 @@ class _ApplicantListScreenState extends State<ApplicantListScreen> {
                     duration: const Duration(milliseconds: 200),
                     padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
                     decoration: BoxDecoration(
-                      color: isSelected ? AppColors.primary : AppColors.surface,
+                      color: isSelected ? context.colors.primary : context.colors.surface,
                       borderRadius: BorderRadius.circular(18.r),
                       border: Border.all(
-                        color: isSelected ? AppColors.primary : AppColors.border,
+                        color: isSelected ? context.colors.primary : context.colors.border,
                       ),
                     ),
                     child: Center(
@@ -184,8 +184,8 @@ class _ApplicantListScreenState extends State<ApplicantListScreen> {
                         filter,
                         style: AppTextStyles.label.copyWith(
                           color: isSelected
-                              ? AppColors.background
-                              : AppColors.textSecondary,
+                              ? context.colors.background
+                              : context.colors.textSecondary,
                           fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
                         ),
                       ),
@@ -203,7 +203,7 @@ class _ApplicantListScreenState extends State<ApplicantListScreen> {
             child: _isLoading
                 ? const Center(
                     child: CircularProgressIndicator(
-                      color: AppColors.primary,
+                      color: context.colors.primary,
                     ),
                   )
                 : _filtered.isEmpty
@@ -214,7 +214,7 @@ class _ApplicantListScreenState extends State<ApplicantListScreen> {
                             Icon(
                               Icons.assignment_outlined,
                               size: 48.w,
-                              color: AppColors.textHint,
+                              color: context.colors.textHint,
                             ),
                             SizedBox(height: 16.h),
                             Text(

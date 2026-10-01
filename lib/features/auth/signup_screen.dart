@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/theme/app_palette.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:school_admission_application/core/constants/app_text_styles.dart';
 import 'package:school_admission_application/core/constants/app_colors.dart';
@@ -72,15 +73,15 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: context.colors.background,
       appBar: AppBar(
-        backgroundColor: AppColors.background,
+        backgroundColor: context.colors.background,
         elevation: 0,
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
           child: Icon(
             Icons.arrow_back_ios,
-            color: AppColors.textPrimary,
+            color: context.colors.textPrimary,
           ),
         ),
       ),
@@ -122,7 +123,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     hintText: 'Enter your full name',
                     prefixIcon: Icon(
                       Icons.person_outline,
-                      color: AppColors.textHint,
+                      color: context.colors.textHint,
                     ),
                   ),
                   validator: (value) {
@@ -155,7 +156,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       hintText: 'Enter your email',
                       prefixIcon: Icon(
                         Icons.email_outlined,
-                        color: AppColors.textHint,
+                        color: context.colors.textHint,
                       ),
                     ),
                     validator: (value) {
@@ -185,7 +186,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       hintText: 'Enter your digits. e.g 08012345678',
                       prefixIcon: Icon(
                         Icons.phone_outlined,
-                        color: AppColors.textHint,
+                        color: context.colors.textHint,
                       ),
                     ),
                     validator: (value) {
@@ -215,7 +216,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       hintText: 'Create a password',
                       prefixIcon: Icon(
                         Icons.lock_outlined,
-                        color: AppColors.textHint,
+                        color: context.colors.textHint,
                       ),
                       suffixIcon: GestureDetector(
                         onTap: () {
@@ -227,7 +228,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           _obscurePassword
                               ? Icons.visibility_outlined
                               : Icons.visibility_off_outlined,
-                          color: AppColors.textHint,
+                          color: context.colors.textHint,
                         ),
                       ),
                     ),
@@ -258,7 +259,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       hintText: 'Confirm your password',
                       prefixIcon: Icon(
                         Icons.lock_outlined,
-                        color: AppColors.textHint,
+                        color: context.colors.textHint,
                       ),
                       suffixIcon: GestureDetector(
                         onTap: () =>
@@ -267,7 +268,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           _obscureConfirm
                               ? Icons.visibility_outlined
                               : Icons.visibility_off_outlined,
-                          color: AppColors.textHint,
+                          color: context.colors.textHint,
                         ),
                       ),
                     ),
@@ -295,20 +296,20 @@ class _SignupScreenState extends State<SignupScreen> {
                         height: 22.w,
                         decoration: BoxDecoration(
                           color: _acceptedTerms
-                              ? AppColors.primary
-                              : AppColors.background,
+                              ? context.colors.primary
+                              : context.colors.background,
                           borderRadius: BorderRadius.circular(6.r),
                           border: Border.all(
                             color: _acceptedTerms
-                                ? AppColors.primary
-                                : AppColors.border,
+                                ? context.colors.primary
+                                : context.colors.border,
                             width: 1.5,
                           ),
                         ),
                         child: _acceptedTerms
                         ? Icon(
                           Icons.check,
-                          color: AppColors.background,
+                          color: context.colors.background,
                           size: 14.w,
                         )
                             : null,
@@ -324,7 +325,7 @@ class _SignupScreenState extends State<SignupScreen> {
               TextSpan(
                   text: 'Terms of Service ',
                 style: AppTextStyles.bodyMedium.copyWith(
-                  color: AppColors.primary,
+                  color: context.colors.primary,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -332,7 +333,7 @@ class _SignupScreenState extends State<SignupScreen> {
           TextSpan(
               text: 'Private Policy',
               style: AppTextStyles.bodyMedium.copyWith(
-                color: AppColors.primary,
+                color: context.colors.primary,
                 fontWeight: FontWeight.w600,
               ),
           ),
@@ -353,7 +354,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         width: 20.w,
                         height: 20.w,
                         child: CircularProgressIndicator(
-                          color: AppColors.background,
+                          color: context.colors.background,
                           strokeWidth: 2,
                         ),
                       )
@@ -377,7 +378,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   child: Text(
                     'Sign In',
                     style: AppTextStyles.bodyMedium.copyWith(
-                      color: AppColors.primary,
+                      color: context.colors.primary,
                       fontWeight: FontWeight.w700,
                     ),
                   ),

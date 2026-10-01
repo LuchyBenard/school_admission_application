@@ -1,4 +1,5 @@
 import 'dart:async';
+import '../../../core/theme/app_palette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide AuthProvider;
@@ -113,13 +114,13 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: context.colors.background,
       appBar: AppBar(
-        backgroundColor: AppColors.background,
+        backgroundColor: context.colors.background,
         elevation: 0,
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
-          child: const Icon(Icons.arrow_back_ios, color: AppColors.textPrimary),
+          child: Icon(Icons.arrow_back_ios, color: context.colors.textPrimary),
         ),
       ),
       body: SafeArea(
@@ -137,12 +138,12 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                   width: 64.w,
                   height: 64.w,
                   decoration: BoxDecoration(
-                    color: AppColors.surfaceAlt,
+                    color: context.colors.surfaceAlt,
                     borderRadius: BorderRadius.circular(16.r),
                   ),
                   child: Icon(
                     Icons.mark_email_unread_outlined,
-                    color: AppColors.primary,
+                    color: context.colors.primary,
                     size: 32.w,
                   ),
                 ),
@@ -164,7 +165,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                       TextSpan(
                         text: _email.isEmpty ? 'your inbox' : _email,
                         style: AppTextStyles.bodyMedium.copyWith(
-                          color: AppColors.primary,
+                          color: context.colors.primary,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -182,17 +183,17 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                 Container(
                   padding: EdgeInsets.all(14.w),
                   decoration: BoxDecoration(
-                    color: AppColors.surfaceAlt,
+                    color: context.colors.surfaceAlt,
                     borderRadius: BorderRadius.circular(12.r),
                     border: Border.all(
-                      color: AppColors.primaryLight.withValues(alpha: 0.3),
+                      color: context.colors.primaryLight.withValues(alpha: 0.3),
                     ),
                   ),
                   child: Row(
                     children: [
                       Icon(
                         Icons.auto_mode_outlined,
-                        color: AppColors.primary,
+                        color: context.colors.primary,
                         size: 20.w,
                       ),
                       SizedBox(width: 12.w),
@@ -200,7 +201,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                         child: Text(
                           'Once verified, you will be taken to your dashboard automatically.',
                           style: AppTextStyles.bodySmall.copyWith(
-                            color: AppColors.textPrimary,
+                            color: context.colors.textPrimary,
                           ),
                         ),
                       ),
@@ -216,7 +217,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                 Text(
                   'In the email, copy the code from the verification link and paste it below.',
                   style: AppTextStyles.bodySmall.copyWith(
-                    color: AppColors.textSecondary,
+                    color: context.colors.textSecondary,
                   ),
                 ),
                 SizedBox(height: 12.h),
@@ -228,7 +229,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                     hintText: 'Paste verification code',
                     prefixIcon: Icon(
                       Icons.pin_outlined,
-                      color: AppColors.textHint,
+                      color: context.colors.textHint,
                     ),
                   ),
                   validator: (value) {
@@ -270,7 +271,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                         child: const Text(
                           "I've verified — Continue",
                           style: TextStyle(
-                            color: AppColors.primary,
+                            color: context.colors.primary,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -288,7 +289,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                     child: Text(
                       'Sign out',
                       style: AppTextStyles.bodySmall.copyWith(
-                        color: AppColors.textHint,
+                        color: context.colors.textHint,
                         decoration: TextDecoration.underline,
                       ),
                     ),

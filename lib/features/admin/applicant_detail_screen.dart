@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../../core/theme/app_palette.dart';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -10,7 +11,7 @@ import '../../core/constants/app_text_styles.dart';
 import '../../models/application_model.dart';
 
 class ApplicantDetailScreen extends StatefulWidget {
-  const ApplicantDetailScreen({super.key});
+  ApplicantDetailScreen({super.key});
 
   @override
   State<ApplicantDetailScreen> createState() => _ApplicantDetailScreenState();
@@ -187,7 +188,7 @@ class _ApplicantDetailScreenState extends State<ApplicantDetailScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: AppColors.background,
+        backgroundColor: context.colors.background,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.r),
         ),
@@ -217,7 +218,7 @@ class _ApplicantDetailScreenState extends State<ApplicantDetailScreen> {
             child: Text(
               'Cancel',
               style: AppTextStyles.bodyMedium.copyWith(
-                color: AppColors.textSecondary,
+                color: context.colors.textSecondary,
               ),
             ),
           ),
@@ -242,15 +243,15 @@ class _ApplicantDetailScreenState extends State<ApplicantDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: context.colors.background,
       appBar: AppBar(
-        backgroundColor: AppColors.background,
+        backgroundColor: context.colors.background,
         elevation: 0,
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
           child: const Icon(
             Icons.arrow_back_ios,
-            color: AppColors.textPrimary,
+            color: context.colors.textPrimary,
           ),
         ),
         title: Text('Applicant Details', style: AppTextStyles.h2),
@@ -267,7 +268,7 @@ class _ApplicantDetailScreenState extends State<ApplicantDetailScreen> {
                   width: 56.w,
                   height: 56.w,
                   decoration: const BoxDecoration(
-                    color: AppColors.primary,
+                    color: context.colors.primary,
                     shape: BoxShape.circle,
                   ),
                   child: Center(
@@ -282,7 +283,7 @@ class _ApplicantDetailScreenState extends State<ApplicantDetailScreen> {
                           .toUpperCase()
                           : 'NA',
                       style: AppTextStyles.bodyMedium.copyWith(
-                        color: AppColors.background,
+                        color: context.colors.background,
                       ),
                     ),
                   ),
@@ -348,17 +349,17 @@ class _ApplicantDetailScreenState extends State<ApplicantDetailScreen> {
                 width: double.infinity,
                 padding: EdgeInsets.all(16.w),
                 decoration: BoxDecoration(
-                  color: AppColors.textSecondary.withValues(alpha: 0.1),
+                  color: context.colors.textSecondary.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(12.r),
                   border: Border.all(
-                    color: AppColors.textSecondary.withValues(alpha: 0.3),
+                    color: context.colors.textSecondary.withValues(alpha: 0.3),
                   ),
                 ),
                 child: Row(
                   children: [
                     Icon(
                       Icons.do_not_disturb_on_outlined,
-                      color: AppColors.textSecondary,
+                      color: context.colors.textSecondary,
                       size: 22.w,
                     ),
                     SizedBox(width: 12.w),
@@ -451,7 +452,7 @@ class _ApplicantDetailScreenState extends State<ApplicantDetailScreen> {
             ] else
               const Center(
                 child: CircularProgressIndicator(
-                  color: AppColors.primary,
+                  color: context.colors.primary,
                 ),
               ),
 
@@ -469,7 +470,7 @@ class _ApplicantDetailScreenState extends State<ApplicantDetailScreen> {
           padding: EdgeInsets.symmetric(vertical: 16),
           child: Center(
             child: CircularProgressIndicator(
-              color: AppColors.primary,
+              color: context.colors.primary,
             ),
           ),
         ),
@@ -492,7 +493,7 @@ class _ApplicantDetailScreenState extends State<ApplicantDetailScreen> {
       Text(
         '${_documentImages.length} of ${_documentMeta.length} documents uploaded',
         style: AppTextStyles.bodySmall.copyWith(
-          color: AppColors.textSecondary,
+          color: context.colors.textSecondary,
         ),
       ),
       const SizedBox(height: 8),
@@ -515,8 +516,8 @@ class _ApplicantDetailScreenState extends State<ApplicantDetailScreen> {
                   height: 44.w,
                   decoration: BoxDecoration(
                     color: hasImage
-                        ? AppColors.surfaceAlt
-                        : AppColors.surface,
+                        ? context.colors.surfaceAlt
+                        : context.colors.surface,
                     borderRadius: BorderRadius.circular(10.r),
                   ),
                   child: hasImage
@@ -529,19 +530,19 @@ class _ApplicantDetailScreenState extends State<ApplicantDetailScreen> {
                             height: 44.w,
                             errorBuilder: (_, _, _) => Icon(
                               icon,
-                              color: AppColors.textHint,
+                              color: context.colors.textHint,
                               size: 22.w,
                             ),
                           ),
                         )
-                      : Icon(icon, color: AppColors.textHint, size: 22.w),
+                      : Icon(icon, color: context.colors.textHint, size: 22.w),
                 ),
                 SizedBox(width: 12.w),
                 Expanded(
                   child: Text(
                     title,
                     style: AppTextStyles.bodyMedium.copyWith(
-                      color: AppColors.textPrimary,
+                      color: context.colors.textPrimary,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -552,14 +553,14 @@ class _ApplicantDetailScreenState extends State<ApplicantDetailScreen> {
                       Text(
                         'View',
                         style: AppTextStyles.caption.copyWith(
-                          color: AppColors.primary,
+                          color: context.colors.primary,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                       SizedBox(width: 4.w),
                       Icon(
                         Icons.zoom_in,
-                        color: AppColors.primary,
+                        color: context.colors.primary,
                         size: 16.w,
                       ),
                     ],
@@ -568,7 +569,7 @@ class _ApplicantDetailScreenState extends State<ApplicantDetailScreen> {
                   Text(
                     'Not uploaded',
                     style: AppTextStyles.caption.copyWith(
-                      color: AppColors.textHint,
+                      color: context.colors.textHint,
                     ),
                   ),
               ],
@@ -601,7 +602,7 @@ class _ApplicantDetailScreenState extends State<ApplicantDetailScreen> {
     showDialog(
       context: context,
       builder: (context) => Dialog(
-        backgroundColor: AppColors.background,
+        backgroundColor: context.colors.background,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.r),
         ),
@@ -624,7 +625,7 @@ class _ApplicantDetailScreenState extends State<ApplicantDetailScreen> {
                     onTap: () => Navigator.pop(context),
                     child: Icon(
                       Icons.close,
-                      color: AppColors.textSecondary,
+                      color: context.colors.textSecondary,
                       size: 20.w,
                     ),
                   ),
@@ -633,7 +634,7 @@ class _ApplicantDetailScreenState extends State<ApplicantDetailScreen> {
             ),
             Flexible(
               child: Container(
-                color: AppColors.surface,
+                color: context.colors.surface,
                 constraints: BoxConstraints(
                   maxHeight: MediaQuery.of(context).size.height * 0.6,
                 ),
@@ -664,9 +665,9 @@ class _ApplicantDetailScreenState extends State<ApplicantDetailScreen> {
         Container(
           padding: EdgeInsets.all(16.w),
           decoration: BoxDecoration(
-            color: AppColors.surface,
+            color: context.colors.surface,
             borderRadius: BorderRadius.circular(12.r),
-            border: Border.all(color: AppColors.border),
+            border: Border.all(color: context.colors.border),
           ),
           child: Column(
             children: rows,
@@ -687,7 +688,7 @@ class _ApplicantDetailScreenState extends State<ApplicantDetailScreen> {
             child: Text(
               label,
               style: AppTextStyles.bodySmall.copyWith(
-                color: AppColors.textHint,
+                color: context.colors.textHint,
               ),
             ),
           ),

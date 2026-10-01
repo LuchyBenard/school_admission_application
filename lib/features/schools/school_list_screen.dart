@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../../core/theme/app_palette.dart';
 import '../../core/constants/app_text_styles.dart';
-import '../../core/constants/app_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import '../../providers/school_provider.dart';
@@ -34,7 +34,7 @@ class _SchoolListScreenState extends State<SchoolListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: context.colors.background,
         body: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,7 +71,7 @@ class _SchoolListScreenState extends State<SchoolListScreen> {
                     hintText: 'Search Schools...',
                     prefixIcon: Icon(
                       Icons.search,
-                      color: AppColors.textHint,
+                      color: context.colors.textHint,
                     ),
                     suffixIcon: _searchController.text.isNotEmpty
                       ? GestureDetector(
@@ -81,7 +81,7 @@ class _SchoolListScreenState extends State<SchoolListScreen> {
                       },
                       child: Icon(
                         Icons.close,
-                        color: AppColors.textHint,
+                        color: context.colors.textHint,
                       ),
                     )
                         : null,
@@ -118,21 +118,21 @@ class _SchoolListScreenState extends State<SchoolListScreen> {
                             ),
                             decoration: BoxDecoration(
                               color: isSelected
-                                  ? AppColors.primary
-                                  : AppColors.surface,
+                                  ? context.colors.primary
+                                  : context.colors.surface,
                               borderRadius: BorderRadius.circular(20.r),
                               border: Border.all(
                                 color: isSelected
-                                    ? AppColors.primary
-                                    : AppColors.border,
+                                    ? context.colors.primary
+                                    : context.colors.border,
                               ),
                             ),
                             child: Text(
                               country,
                               style: AppTextStyles.label.copyWith(
                                 color: isSelected
-                                    ? AppColors.background
-                                    : AppColors.textSecondary,
+                                    ? context.colors.background
+                                    : context.colors.textSecondary,
                                 fontWeight: isSelected
                                   ? FontWeight.w600
                                     : FontWeight.w400,
@@ -169,7 +169,7 @@ class _SchoolListScreenState extends State<SchoolListScreen> {
                             Icon (
                               Icons.wifi_off_outlined,
                               size: 48.w,
-                              color: AppColors.textHint,
+                              color: context.colors.textHint,
                             ),
                             SizedBox(height: 16.h),
                             Text(
@@ -204,7 +204,7 @@ class _SchoolListScreenState extends State<SchoolListScreen> {
                             Icon(
                               Icons.school_outlined,
                               size: 48.w,
-                          color: AppColors.textHint,
+                          color: context.colors.textHint,
                         ),
                         SizedBox(height: 16.h),
                         Text(

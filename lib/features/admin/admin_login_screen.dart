@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/theme/app_palette.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
 import '../../core/constants/app_colors.dart';
@@ -118,7 +119,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: context.colors.background,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 24.w),
@@ -134,12 +135,12 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                   width: 64.w,
                   height: 64.w,
                   decoration: BoxDecoration(
-                    color: AppColors.primary,
+                    color: context.colors.primary,
                     borderRadius: BorderRadius.circular(16.r),
                   ),
                   child: Icon(
                     Icons.admin_panel_settings_outlined,
-                    color: AppColors.background,
+                    color: context.colors.background,
                     size: 32.w,
                   ),
                 ),
@@ -166,7 +167,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                     hintText: 'Enter admin email',
                     prefixIcon: Icon(
                       Icons.email_outlined,
-                      color: AppColors.textHint,
+                      color: context.colors.textHint,
                     ),
                   ),
                   validator: (value) {
@@ -196,7 +197,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                     hintText: 'Enter Password',
                     prefixIcon: const Icon(
                       Icons.lock_outline,
-                      color: AppColors.textHint,
+                      color: context.colors.textHint,
                     ),
                     suffixIcon: GestureDetector(
                       onTap: () => setState(() => _obscureText = !_obscureText),
@@ -204,7 +205,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                         _obscureText
                             ? Icons.visibility_outlined
                             : Icons.visibility_off_outlined,
-                        color: AppColors.textHint,
+                        color: context.colors.textHint,
                       ),
                     ),
                   ),
@@ -228,13 +229,13 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                           height: 20.w,
                           decoration: BoxDecoration(
                             color: _rememberMe
-                                ? AppColors.primary
-                                : AppColors.surface,
+                                ? context.colors.primary
+                                : context.colors.surface,
                             borderRadius: BorderRadius.circular(5.r),
                             border: Border.all(
                               color: _rememberMe
-                                  ? AppColors.primary
-                                  : AppColors.border,
+                                  ? context.colors.primary
+                                  : context.colors.border,
                               width: 1.5,
                             ),
                           ),
@@ -242,7 +243,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                               ? const Icon(
                             Icons.check,
                             size: 14,
-                            color: AppColors.background,
+                            color: context.colors.background,
                           )
                               : null,
                         ),
@@ -250,7 +251,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                         Text(
                           'Enable fingerprint sign-in',
                           style: AppTextStyles.bodySmall.copyWith(
-                            color: AppColors.textSecondary,
+                            color: context.colors.textSecondary,
                           ),
                         ),
                       ],
@@ -269,7 +270,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                       width: 20.w,
                       height: 20.w,
                       child: const CircularProgressIndicator(
-                        color: AppColors.background,
+                        color: context.colors.background,
                         strokeWidth: 2,
                       ),
                     )
@@ -290,7 +291,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                         width: 18.w,
                         height: 18.w,
                         child: const CircularProgressIndicator(
-                          color: AppColors.primary,
+                          color: context.colors.primary,
                           strokeWidth: 2,
                         ),
                       )
@@ -302,8 +303,8 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                       ),
                       style: OutlinedButton.styleFrom(
                         minimumSize: const Size(double.infinity, 48),
-                        side: const BorderSide(color: AppColors.border),
-                        foregroundColor: AppColors.primary,
+                        side: BorderSide(color: context.colors.border),
+                        foregroundColor: context.colors.primary,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
@@ -329,7 +330,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                         child: Text(
                           'Student Login',
                           style: AppTextStyles.bodyMedium.copyWith(
-                            color: AppColors.primary,
+                            color: context.colors.primary,
                             fontWeight: FontWeight.w700,
                           ),
                         ),

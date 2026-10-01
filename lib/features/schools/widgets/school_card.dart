@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/theme/app_palette.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:country_flags/country_flags.dart';
 import 'package:oktoast/oktoast.dart';
@@ -67,9 +68,9 @@ class SchoolCard extends StatelessWidget {
         margin: EdgeInsets.only(bottom: 12.h),
         padding: EdgeInsets.all(16.w),
         decoration: BoxDecoration(
-          color: AppColors.surface,
+          color: context.colors.surface,
           borderRadius: BorderRadius.circular(16.r),
-          border: Border.all(color: AppColors.border),
+          border: Border.all(color: context.colors.border),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withValues(alpha: 0.04),
@@ -85,7 +86,7 @@ class SchoolCard extends StatelessWidget {
               width: 56.w,
               height: 56.w,
               decoration: BoxDecoration(
-                color: AppColors.surfaceAlt,
+                color: context.colors.surfaceAlt,
                 borderRadius: BorderRadius.circular(12.r),
               ),
               child: ClipRRect(
@@ -122,7 +123,7 @@ class SchoolCard extends StatelessWidget {
                     children: [
                       Icon(
                         Icons.location_on_outlined,
-                        color: AppColors.textHint,
+                        color: context.colors.textHint,
                         size: 14.w,
                       ),
                       SizedBox(width: 2.w),
@@ -187,7 +188,7 @@ class SchoolCard extends StatelessWidget {
                               vertical: 3.h,
                             ),
                             decoration: BoxDecoration(
-                              color: AppColors.surfaceAlt,
+                              color: context.colors.surfaceAlt,
                               borderRadius: BorderRadius.circular(6.r),
                             ),
                             child: Row(
@@ -195,14 +196,14 @@ class SchoolCard extends StatelessWidget {
                               children: [
                                 Icon(
                                   Icons.language_outlined,
-                                  color: AppColors.primary,
+                                  color: context.colors.primary,
                                   size: 14.w,
                                 ),
                                 SizedBox(width: 4.w),
                                 Text(
                                   'Website',
                                   style: AppTextStyles.caption.copyWith(
-                                    color: AppColors.primary,
+                                    color: context.colors.primary,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
@@ -220,13 +221,13 @@ class SchoolCard extends StatelessWidget {
                             vertical: 3.h,
                           ),
                           decoration: BoxDecoration(
-                            color: AppColors.primary.withValues(alpha: 0.1),
+                            color: context.colors.primary.withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(6.r),
                           ),
                           child: Text(
                             'Featured',
                             style: AppTextStyles.caption.copyWith(
-                              color: AppColors.primary,
+                              color: context.colors.primary,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
@@ -265,7 +266,7 @@ class SchoolCard extends StatelessWidget {
                               decoration: BoxDecoration(
                                 color: isFavorite
                                     ? AppColors.error.withValues(alpha: 0.1)
-                                    : AppColors.surfaceAlt,
+                                    : context.colors.surfaceAlt,
                                 shape: BoxShape.circle,
                               ),
                               child: Icon(
@@ -274,7 +275,7 @@ class SchoolCard extends StatelessWidget {
                                     : Icons.favorite_border,
                                 color: isFavorite
                                     ? AppColors.error
-                                    : AppColors.textHint,
+                                    : context.colors.textHint,
                                 size: 16.w,
                               ),
                             ),
@@ -290,7 +291,7 @@ class SchoolCard extends StatelessWidget {
             // Arrow
             Icon(
               Icons.arrow_forward_ios,
-              color: AppColors.textHint,
+              color: context.colors.textHint,
               size: 14.w,
             ),
           ],

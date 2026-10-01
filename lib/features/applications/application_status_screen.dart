@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/theme/app_palette.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:oktoast/oktoast.dart';
@@ -67,7 +68,7 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        backgroundColor: AppColors.background,
+        backgroundColor: context.colors.background,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.r),
         ),
@@ -83,7 +84,7 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
             child: Text(
               'Cancel',
               style: AppTextStyles.bodyMedium.copyWith(
-                color: AppColors.textSecondary,
+                color: context.colors.textSecondary,
               ),
             ),
           ),
@@ -122,7 +123,7 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        backgroundColor: AppColors.background,
+        backgroundColor: context.colors.background,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.r),
         ),
@@ -138,7 +139,7 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
             child: Text(
               'Cancel',
               style: AppTextStyles.bodyMedium.copyWith(
-                color: AppColors.textSecondary,
+                color: context.colors.textSecondary,
               ),
             ),
           ),
@@ -175,7 +176,7 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: context.colors.background,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -225,10 +226,10 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
                         vertical: 8.h,
                       ),
                       decoration: BoxDecoration(
-                        color: isSelected ? AppColors.primary : AppColors.surface,
+                        color: isSelected ? context.colors.primary : context.colors.surface,
                         borderRadius: BorderRadius.circular(18.r),
                         border: Border.all(
-                          color: isSelected ? AppColors.primary : AppColors.border,
+                          color: isSelected ? context.colors.primary : context.colors.border,
                         ),
                       ),
                       child: Center(
@@ -236,8 +237,8 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
                           filter,
                           style: AppTextStyles.label.copyWith(
                             color: isSelected
-                                ? AppColors.background
-                                : AppColors.textSecondary,
+                                ? context.colors.background
+                                : context.colors.textSecondary,
                             fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
                           ),
                         ),
@@ -272,7 +273,7 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
                           Icon(
                             Icons.error_outline,
                             size: 48.w,
-                            color: AppColors.textHint,
+                            color: context.colors.textHint,
                           ),
                           SizedBox(height: 16.h),
                           Text(
@@ -307,7 +308,7 @@ class _ApplicationStatusScreenState extends State<ApplicationStatusScreen> {
                           Icon(
                             Icons.assignment_outlined,
                             size: 64.w,
-                            color: AppColors.textHint,
+                            color: context.colors.textHint,
                           ),
                           SizedBox(height: 16.h),
                           Text(

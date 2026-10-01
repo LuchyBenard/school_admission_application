@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/theme/app_palette.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
 import '../../core/constants/app_colors.dart';
@@ -152,7 +153,7 @@ class _ManageRequirementsScreenState extends State<ManageRequirementsScreen> {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        backgroundColor: AppColors.background,
+        backgroundColor: context.colors.background,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.r),
         ),
@@ -167,7 +168,7 @@ class _ManageRequirementsScreenState extends State<ManageRequirementsScreen> {
             child: Text(
               'Cancel',
               style: AppTextStyles.bodyMedium.copyWith(
-                color: AppColors.textSecondary,
+                color: context.colors.textSecondary,
               ),
             ),
           ),
@@ -202,13 +203,13 @@ class _ManageRequirementsScreenState extends State<ManageRequirementsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: context.colors.background,
       appBar: AppBar(
-        backgroundColor: AppColors.background,
+        backgroundColor: context.colors.background,
         elevation: 0,
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
-          child: const Icon(Icons.arrow_back_ios, color: AppColors.textPrimary),
+          child: Icon(Icons.arrow_back_ios, color: context.colors.textPrimary),
         ),
         title: Text('Manage Requirements', style: AppTextStyles.h2),
       ),
@@ -230,7 +231,7 @@ class _ManageRequirementsScreenState extends State<ManageRequirementsScreen> {
               style: AppTextStyles.bodyLarge,
               decoration: const InputDecoration(
                 hintText: 'e.g University of Lagos',
-                prefixIcon: Icon(Icons.school_outlined, color: AppColors.textHint),
+                prefixIcon: Icon(Icons.school_outlined, color: context.colors.textHint),
               ),
             ),
             SizedBox(height: 12.h),
@@ -239,7 +240,7 @@ class _ManageRequirementsScreenState extends State<ManageRequirementsScreen> {
               style: AppTextStyles.bodyLarge,
               decoration: const InputDecoration(
                 hintText: 'Country',
-                prefixIcon: Icon(Icons.public_outlined, color: AppColors.textHint),
+                prefixIcon: Icon(Icons.public_outlined, color: context.colors.textHint),
               ),
             ),
             SizedBox(height: 12.h),
@@ -248,7 +249,7 @@ class _ManageRequirementsScreenState extends State<ManageRequirementsScreen> {
               width: double.infinity,
               child: OutlinedButton.icon(
                 onPressed: _loadingExisting ? null : _loadExisting,
-                icon: Icon(Icons.search, color: AppColors.primary),
+                icon: Icon(Icons.search, color: context.colors.primary),
                 label: Text(_loadingExisting ? 'Loading...' : 'Load Existing'),
               ),
             ),
@@ -282,7 +283,7 @@ class _ManageRequirementsScreenState extends State<ManageRequirementsScreen> {
               textCapitalization: TextCapitalization.words,
               decoration: const InputDecoration(
                 hintText: 'e.g Computer Science',
-                prefixIcon: Icon(Icons.book_outlined, color: AppColors.textHint),
+                prefixIcon: Icon(Icons.book_outlined, color: context.colors.textHint),
               ),
             ),
             SizedBox(height: 12.h),
@@ -294,7 +295,7 @@ class _ManageRequirementsScreenState extends State<ManageRequirementsScreen> {
               initialValue: _degreeLevel,
               style: AppTextStyles.bodyLarge,
               decoration: const InputDecoration(
-                prefixIcon: Icon(Icons.layers_outlined, color: AppColors.textHint),
+                prefixIcon: Icon(Icons.layers_outlined, color: context.colors.textHint),
               ),
               items: _degreeLevels
                   .map((l) => DropdownMenuItem(value: l, child: Text(l)))
@@ -311,7 +312,7 @@ class _ManageRequirementsScreenState extends State<ManageRequirementsScreen> {
               style: AppTextStyles.bodyLarge,
               decoration: const InputDecoration(
                 hintText: 'e.g 200 or 70%',
-                prefixIcon: Icon(Icons.speed_outlined, color: AppColors.textHint),
+                prefixIcon: Icon(Icons.speed_outlined, color: context.colors.textHint),
               ),
             ),
             SizedBox(height: 12.h),
@@ -339,7 +340,7 @@ class _ManageRequirementsScreenState extends State<ManageRequirementsScreen> {
                         width: 18.w,
                         height: 18.w,
                         child: const CircularProgressIndicator(
-                          color: AppColors.background,
+                          color: context.colors.background,
                           strokeWidth: 2,
                         ),
                       )
@@ -363,9 +364,9 @@ class _ManageRequirementsScreenState extends State<ManageRequirementsScreen> {
       margin: EdgeInsets.only(bottom: 10.h),
       padding: EdgeInsets.all(14.w),
       decoration: BoxDecoration(
-        color: AppColors.surface,
+        color: context.colors.surface,
         borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(color: AppColors.border),
+        border: Border.all(color: context.colors.border),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -380,7 +381,7 @@ class _ManageRequirementsScreenState extends State<ManageRequirementsScreen> {
                 child: Icon(
                   Icons.edit_outlined,
                   size: 18.w,
-                  color: AppColors.primary,
+                  color: context.colors.primary,
                 ),
               ),
               SizedBox(width: 12.w),
@@ -400,7 +401,7 @@ class _ManageRequirementsScreenState extends State<ManageRequirementsScreen> {
               Text(
                 '${req.degreeLevel}  •  Cut-off: ${req.cutOffScore}',
                 style: AppTextStyles.caption.copyWith(
-                  color: AppColors.textSecondary,
+                  color: context.colors.textSecondary,
                   fontWeight: FontWeight.w500,
                 ),
               ),

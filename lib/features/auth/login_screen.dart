@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/theme/app_palette.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:school_admission_application/core/constants/app_colors.dart';
 import 'package:school_admission_application/core/constants/app_text_styles.dart';
@@ -129,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: context.colors.background,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 24.w),
@@ -146,7 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: 64.w,
                     height: 64.w,
                     decoration: BoxDecoration(
-                      color: AppColors.surfaceAlt,
+                      color: context.colors.surfaceAlt,
                       borderRadius: BorderRadius.circular(16.r),
                     ),
                     child: Padding(
@@ -190,7 +191,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     hintText: 'Enter your email',
                     prefixIcon: Icon(
                       Icons.email_outlined,
-                      color: AppColors.textHint,
+                      color: context.colors.textHint,
                     ),
                   ),
                   validator: (value) {
@@ -217,7 +218,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     hintText: 'Enter your password',
                     prefixIcon: Icon(
                       Icons.lock_outline,
-                      color: AppColors.textHint,
+                      color: context.colors.textHint,
                     ),
                     suffixIcon: GestureDetector(
                       onTap: _togglePassword,
@@ -225,7 +226,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         _obscurePassword
                         ? Icons.visibility_outlined
                             : Icons.visibility_off_outlined,
-                        color: AppColors.textHint,
+                        color: context.colors.textHint,
                       ),
                     ),
                   ),
@@ -252,7 +253,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Text(
                       'Forgot Password?',
                       style: AppTextStyles.bodyMedium.copyWith(
-                        color: AppColors.primary,
+                        color: context.colors.primary,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -271,13 +272,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           height: 20.w,
                           decoration: BoxDecoration(
                             color: _rememberMe
-                                ? AppColors.primary
-                                : AppColors.surface,
+                                ? context.colors.primary
+                                : context.colors.surface,
                             borderRadius: BorderRadius.circular(5.r),
                             border: Border.all(
                               color: _rememberMe
-                                  ? AppColors.primary
-                                  : AppColors.border,
+                                  ? context.colors.primary
+                                  : context.colors.border,
                               width: 1.5,
                             ),
                           ),
@@ -285,7 +286,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ? const Icon(
                                   Icons.check,
                                   size: 14,
-                                  color: AppColors.background,
+                                  color: context.colors.background,
                                 )
                               : null,
                         ),
@@ -293,7 +294,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Text(
                           'Enable fingerprint sign-in',
                           style: AppTextStyles.bodySmall.copyWith(
-                            color: AppColors.textSecondary,
+                            color: context.colors.textSecondary,
                           ),
                         ),
                       ],
@@ -311,7 +312,7 @@ class _LoginScreenState extends State<LoginScreen> {
                        width: 20.w,
                        height: 20.w,
                        child: CircularProgressIndicator(
-                         color: AppColors.background,
+                         color: context.colors.background,
                          strokeWidth: 2,
                        ),
                      )
@@ -333,7 +334,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               width: 18.w,
                               height: 18.w,
                               child: const CircularProgressIndicator(
-                                color: AppColors.primary,
+                                color: context.colors.primary,
                                 strokeWidth: 2,
                               ),
                             )
@@ -345,8 +346,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       style: OutlinedButton.styleFrom(
                         minimumSize: const Size(double.infinity, 48),
-                        side: const BorderSide(color: AppColors.border),
-                        foregroundColor: AppColors.primary,
+                        side: BorderSide(color: context.colors.border),
+                        foregroundColor: context.colors.primary,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
@@ -388,7 +389,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Text(
                         'Create Account',
                         style: AppTextStyles.bodyMedium.copyWith(
-                          color: AppColors.primary,
+                          color: context.colors.primary,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
@@ -404,7 +405,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Text(
                       'Admin Portal',
                       style: AppTextStyles.bodyMedium.copyWith(
-                        color: AppColors.textHint,
+                        color: context.colors.textHint,
                         decoration: TextDecoration.underline,
                       ),
                     ),

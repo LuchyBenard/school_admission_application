@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../../../core/theme/app_palette.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_text_styles.dart';
 
 
@@ -18,7 +18,7 @@ class CustomBottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.background,
+        color: context.colors.background,
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.05),
@@ -80,7 +80,7 @@ class CustomBottomNavBar extends StatelessWidget {
         children: [
           Icon(
             isActive ? filledIcon : outlineIcon,
-            color: isActive ? AppColors.primary : AppColors.textHint,
+            color: isActive ? context.colors.primary : context.colors.textHint,
             size: 24.w,
           ),
           SizedBox(height: 4.h),
@@ -88,7 +88,7 @@ class CustomBottomNavBar extends StatelessWidget {
           Text(
             label,
             style: AppTextStyles.caption.copyWith(
-              color: isActive ? AppColors.primary : AppColors.textHint,
+              color: isActive ? context.colors.primary : context.colors.textHint,
               fontWeight: isActive ? FontWeight.w600 : FontWeight.w400,
             ),
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/theme/app_palette.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
@@ -16,15 +17,15 @@ class SchoolDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final school = ModalRoute.of(context)!.settings.arguments as SchoolModel;
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: context.colors.background,
       appBar: AppBar(
-        backgroundColor: AppColors.background,
+        backgroundColor: context.colors.background,
         elevation: 0,
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
           child: const Icon(
             Icons.arrow_back_ios,
-            color: AppColors.primary,
+            color: context.colors.primary,
           ),
         ),
         title: Text(
@@ -64,7 +65,7 @@ class SchoolDetailScreen extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
                   child: Icon(
                     isFavorite ? Icons.favorite : Icons.favorite_border,
-                    color: isFavorite ? AppColors.error : AppColors.textPrimary,
+                    color: isFavorite ? AppColors.error : context.colors.textPrimary,
                     size: 22.w,
                   ),
                 ),
@@ -88,7 +89,7 @@ class SchoolDetailScreen extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.location_on_outlined,
-                    color: AppColors.textHint,
+                    color: context.colors.textHint,
                     size: 16.w,
                   ),
                   SizedBox(width: 4.w),
@@ -153,8 +154,8 @@ class SchoolDetailScreen extends StatelessWidget {
                   },
                   style: OutlinedButton.styleFrom(
                     minimumSize: const Size(double.infinity, 52),
-                    side: BorderSide(color: AppColors.border),
-                    foregroundColor: AppColors.primary,
+                    side: BorderSide(color: context.colors.border),
+                    foregroundColor: context.colors.primary,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -178,8 +179,8 @@ class SchoolDetailScreen extends StatelessWidget {
                   },
                   style: OutlinedButton.styleFrom(
                     minimumSize: const Size(double.infinity, 52),
-                    side: BorderSide(color: AppColors.border),
-                    foregroundColor: AppColors.primary,
+                    side: BorderSide(color: context.colors.border),
+                    foregroundColor: context.colors.primary,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -206,7 +207,7 @@ class SchoolDetailScreen extends StatelessWidget {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.textHint,
+                      backgroundColor: context.colors.textHint,
                       disabledForegroundColor: Colors.white,
                     ),
                     child: const Text('Applications Closed'),
@@ -242,7 +243,7 @@ class SchoolDetailScreen extends StatelessWidget {
           Text(
             label,
             style: AppTextStyles.label.copyWith(
-              color: labelColor ?? AppColors.textHint,
+              color: labelColor ?? context.colors.textHint,
             ),
           ),
           const SizedBox(height: 4),

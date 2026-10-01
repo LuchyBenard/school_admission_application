@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/theme/app_palette.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -115,7 +116,7 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
   void _showSourceSheet(String dockey) {
     showModalBottomSheet(
       context: context,
-      backgroundColor: AppColors.background,
+      backgroundColor: context.colors.background,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
       ),
@@ -133,12 +134,12 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
             ListTile(
               leading: Icon(
                 Icons.photo_library_outlined,
-                color: AppColors.primary,
+                color: context.colors.primary,
               ),
               title: Text(
                 'Choose from Gallery',
                 style: AppTextStyles.bodyMedium.copyWith(
-                  color: AppColors.textPrimary,
+                  color: context.colors.textPrimary,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -150,12 +151,12 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
             ListTile(
               leading: Icon(
                 Icons.camera_alt_outlined,
-                color: AppColors.primary,
+                color: context.colors.primary,
               ),
               title: Text(
                 'Take a Photo',
                 style: AppTextStyles.bodyMedium.copyWith(
-                  color: AppColors.textPrimary,
+                  color: context.colors.textPrimary,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -305,15 +306,15 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: context.colors.background,
       appBar: AppBar(
-        backgroundColor: AppColors.background,
+        backgroundColor: context.colors.background,
         elevation: 0,
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
           child: const Icon(
             Icons.arrow_back_ios,
-            color: AppColors.textPrimary,
+            color: context.colors.textPrimary,
           ),
         ),
         title: Text(
@@ -334,17 +335,17 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
             Container(
               padding: EdgeInsets.all(16.w),
               decoration: BoxDecoration(
-                color: AppColors.surfaceAlt,
+                color: context.colors.surfaceAlt,
                 borderRadius: BorderRadius.circular(12.r),
                 border: Border.all(
-                  color: AppColors.primaryLight.withValues(alpha: 0.3),
+                  color: context.colors.primaryLight.withValues(alpha: 0.3),
                 ),
               ),
               child: Row(
                 children: [
                   Icon(
                     Icons.info_outline,
-                    color: AppColors.primary,
+                    color: context.colors.primary,
                     size: 20.w,
                   ),
                   SizedBox(width: 12.w),
@@ -352,7 +353,7 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
                     child: Text(
                       'All documents must be clear and readable. Accepted formats: JPG, PNG.',
                       style: AppTextStyles.bodySmall.copyWith(
-                        color: AppColors.textPrimary,
+                        color: context.colors.textPrimary,
                       ),
                     ),
                   ),
@@ -384,12 +385,12 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
                 decoration: BoxDecoration(
                   color: isUploaded
                       ? AppColors.success.withValues(alpha: 0.05)
-                      : AppColors.background,
+                      : context.colors.background,
                   borderRadius: BorderRadius.circular(16.r),
                   border: Border.all(
                     color: isUploaded
                         ? AppColors.success.withValues(alpha: 0.4)
-                        : AppColors.border,
+                        : context.colors.border,
                   ),
                 ),
                 child: Row(
@@ -400,15 +401,15 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
                       height: 48.w,
                       decoration: BoxDecoration(
                         color: isUploaded
-                            ? AppColors.primary.withValues(alpha: 0.1)
-                            : AppColors.surfaceAlt,
+                            ? context.colors.primary.withValues(alpha: 0.1)
+                            : context.colors.surfaceAlt,
                         borderRadius: BorderRadius.circular(12.r),
                       ),
                       child: Icon(
                         isUploaded
                             ? Icons.check_circle_outline
                             : doc['icon'] as IconData,
-                        color: isUploaded ? AppColors.success : AppColors.primary,
+                        color: isUploaded ? AppColors.success : context.colors.primary,
                         size: 24.w,
                       ),
                     ),
@@ -426,7 +427,7 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
                                 doc['title'] as String,
                                 style: AppTextStyles.bodyMedium.copyWith(
                                   fontWeight: FontWeight.w600,
-                                  color: AppColors.textPrimary,
+                                  color: context.colors.textPrimary,
                                 ),
                               ),
                               SizedBox(width: 4.w),
@@ -442,7 +443,7 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
                           Text(
                             isUploaded ? 'uploaded successfully' : doc['subtitle'] as String,
                             style: AppTextStyles.bodySmall.copyWith(
-                              color: isUploaded ? AppColors.success : AppColors.textHint,
+                              color: isUploaded ? AppColors.success : context.colors.textHint,
                             ),
                           ),
                         ],
@@ -457,7 +458,7 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
                         width: 24.w,
                         height: 24.w,
                         child: CircularProgressIndicator(
-                          color: AppColors.primary,
+                          color: context.colors.primary,
                           strokeWidth: 2.w,
                         ),
                       )
@@ -470,15 +471,15 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
                             vertical: 6.h,
                           ),
                           decoration: BoxDecoration(
-                            color: isUploaded ? AppColors.surface : AppColors.primary,
+                            color: isUploaded ? context.colors.surface : context.colors.primary,
                             borderRadius: BorderRadius.circular(8.r),
                           ),
                           child: Text(
                             isUploaded ? 'Replace' : 'Upload',
                             style: AppTextStyles.caption.copyWith(
                               color: isUploaded
-                                  ? AppColors.textSecondary
-                                  : AppColors.background,
+                                  ? context.colors.textSecondary
+                                  : context.colors.background,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
@@ -497,14 +498,14 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
                 Text(
                   '${_uploadedUrls.values.where((v) => v != null).length} of ${_documents.length} uploaded',
                   style: AppTextStyles.bodySmall.copyWith(
-                    color: AppColors.textSecondary,
+                    color: context.colors.textSecondary,
                   ),
                 ),
                 const Spacer(),
                 Text(
                   _allRequiredUploaded ? 'All Done' : 'Required: all 4',
                   style: AppTextStyles.bodySmall.copyWith(
-                    color: _allRequiredUploaded ? AppColors.success : AppColors.textHint,
+                    color: _allRequiredUploaded ? AppColors.success : context.colors.textHint,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -519,9 +520,9 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
               child: LinearProgressIndicator(
                 value: _uploadedUrls.values.where((v) => v != null).length /
                     _documents.length,
-                backgroundColor: AppColors.border,
+                backgroundColor: context.colors.border,
                 valueColor: AlwaysStoppedAnimation<Color>(
-                  _allRequiredUploaded ? AppColors.success : AppColors.primary,
+                  _allRequiredUploaded ? AppColors.success : context.colors.primary,
                 ),
                 minHeight: 6,
               ),
@@ -539,7 +540,7 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
                         width: 20.w,
                         height: 20.w,
                         child: const CircularProgressIndicator(
-                          color: AppColors.background,
+                          color: context.colors.background,
                           strokeWidth: 2,
                         ),
                       )

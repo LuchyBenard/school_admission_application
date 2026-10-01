@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import '../../../core/theme/app_palette.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:school_admission_application/core/constants/app_colors.dart';
 import 'package:school_admission_application/core/constants/app_text_styles.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -57,7 +57,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: context.colors.background,
       body: SafeArea(
         child: Column(
           children: [
@@ -72,7 +72,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   child: Text(
                     'Skip',
                     style: AppTextStyles.bodyMedium.copyWith(
-                      color: AppColors.primary,
+                      color: context.colors.primary,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -108,8 +108,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   height: 8.h,
                   decoration: BoxDecoration(
                     color: _currentPage == index
-                        ? AppColors.primary
-                        : AppColors.border,
+                        ? context.colors.primary
+                        : context.colors.border,
                     borderRadius: BorderRadius.circular(4.r),
                   ),
                 ),

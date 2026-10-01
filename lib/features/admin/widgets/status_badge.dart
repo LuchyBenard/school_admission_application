@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/theme/app_palette.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_text_styles.dart';
@@ -11,7 +12,7 @@ class StatusBadge extends StatelessWidget {
     required this.status,
   });
 
-  Color _getStatusColor(String status) {
+  Color _getStatusColor(String status, AppPalette colors) {
     switch (status) {
       case 'accepted':
         return AppColors.success;
@@ -22,9 +23,9 @@ class StatusBadge extends StatelessWidget {
       case 'more_documents':
         return AppColors.info;
       case 'withdrawn':
-        return AppColors.textSecondary;
+        return colors.textSecondary;
       default:
-        return AppColors.textHint;
+        return colors.textHint;
     }
   }
 

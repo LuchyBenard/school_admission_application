@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/theme/app_palette.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:school_admission_application/core/constants/app_colors.dart';
@@ -54,15 +55,15 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: context.colors.background,
       appBar: AppBar(
-        backgroundColor: AppColors.background,
+        backgroundColor: context.colors.background,
         elevation: 0,
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
           child: const Icon(
             Icons.arrow_back_ios,
-            color: AppColors.textPrimary,
+            color: context.colors.textPrimary,
           ),
         ),
       ),
@@ -80,12 +81,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   width: 64.w,
                   height: 64.w,
                   decoration: BoxDecoration(
-                    color: AppColors.surfaceAlt,
+                    color: context.colors.surfaceAlt,
                     borderRadius: BorderRadius.circular(16.r),
                   ),
                   child: const Icon(
                     Icons.lock_reset_rounded,
-                    color: AppColors.textPrimary,
+                    color: context.colors.textPrimary,
                   ),
                 ),
                 SizedBox(height: 24.h),
@@ -116,7 +117,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     hintText: 'Enter your email',
                     prefixIcon: Icon(
                       Icons.email_outlined,
-                      color: AppColors.textHint,
+                      color: context.colors.textHint,
                     ),
                   ),
                   validator: (value) {
@@ -139,7 +140,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       child: ElevatedButton(
                         onPressed: authProvider.isLoading ? null : _sendOTP,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.primary,
+                          backgroundColor: context.colors.primary,
                           padding: EdgeInsets.symmetric(vertical: 16.h),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12.r),
@@ -180,7 +181,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       child: Text(
                         'Sign In',
                         style: AppTextStyles.bodyMedium.copyWith(
-                          color: AppColors.primary,
+                          color: context.colors.primary,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
