@@ -19,7 +19,7 @@ class ApplicationCard extends StatelessWidget {
     this.onWithdraw,
   });
 
-  Color _getStatusColor(String status) {
+  Color _getStatusColor(String status, AppPalette colors) {
     switch (status) {
       case 'accepted':
         return AppColors.success;
@@ -30,7 +30,7 @@ class ApplicationCard extends StatelessWidget {
       case 'more_documents':
         return AppColors.warning;
       case 'withdrawn':
-        return context.colors.textSecondary;
+        return colors.textSecondary;
       default:
         return AppColors.info;
     }
@@ -72,7 +72,7 @@ class ApplicationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final statusColor = _getStatusColor(application.status);
+    final statusColor = _getStatusColor(application.status, context.colors);
     final statusLabel = _getStatusLabel(application.status);
     final statusIconData = _getStatusIcon(application.status);
 

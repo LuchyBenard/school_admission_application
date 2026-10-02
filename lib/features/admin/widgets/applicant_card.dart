@@ -15,7 +15,7 @@ class ApplicantCard extends StatelessWidget {
     required this.onTap,
   });
 
-  Color _getStatusColor(String status) {
+  Color _getStatusColor(String status, AppPalette colors) {
     switch (status) {
       case 'accepted':
         return AppColors.success;
@@ -26,9 +26,9 @@ class ApplicantCard extends StatelessWidget {
       case 'more_documents':
         return AppColors.info;
       case 'withdrawn':
-        return context.colors.textSecondary;
+        return colors.textSecondary;
       default:
-        return context.colors.textHint;
+        return colors.textHint;
     }
   }
 
@@ -51,7 +51,7 @@ class ApplicantCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final statusColor = _getStatusColor(application.status);
+    final statusColor = _getStatusColor(application.status, context.colors);
     final statusLabel = _getStatusLabel(application.status);
 
     return GestureDetector(

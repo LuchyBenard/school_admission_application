@@ -48,7 +48,7 @@ class StatusBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = _getStatusColor(status);
+    final color = _getStatusColor(status, context.colors);
     
     return Container(
       padding: EdgeInsets.symmetric(

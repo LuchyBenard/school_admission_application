@@ -12,7 +12,7 @@ import '../../../providers/application_provider.dart';
 class ApplicationDetailScreen extends StatelessWidget {
   const ApplicationDetailScreen({super.key});
 
-  Color _getStatusColor(String status) {
+  Color _getStatusColor(String status, AppPalette colors) {
     switch (status) {
       case 'accepted':
         return AppColors.success;
@@ -23,7 +23,7 @@ class ApplicationDetailScreen extends StatelessWidget {
       case 'more_documents':
         return AppColors.warning;
       case 'withdrawn':
-        return context.colors.textSecondary;
+        return colors.textSecondary;
       default:
         return AppColors.info;
     }
@@ -74,10 +74,10 @@ class ApplicationDetailScreen extends StatelessWidget {
               width: double.infinity,
               padding: EdgeInsets.all(16.w),
               decoration: BoxDecoration(
-                color: _getStatusColor(application.status).withValues(alpha: 0.1),
+                color: _getStatusColor(application.status, context.colors).withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(16.r),
                 border: Border.all(
-                  color: _getStatusColor(application.status).withValues(alpha: 0.3),
+                  color: _getStatusColor(application.status, context.colors).withValues(alpha: 0.3),
                 ),
               ),
               child: Column(
@@ -85,7 +85,7 @@ class ApplicationDetailScreen extends StatelessWidget {
                   Text(
                     _getStatusLabel(application.status),
                     style: AppTextStyles.h2.copyWith(
-                      color: _getStatusColor(application.status),
+                      color: _getStatusColor(application.status, context.colors),
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -102,10 +102,11 @@ class ApplicationDetailScreen extends StatelessWidget {
 
             // School Info
             _buildSection(
+              context,
               title: 'School Information',
               children: [
-                _buildDetailRow('School', application.schoolName),
-                _buildDetailRow('Country', application.schoolCountry),
+                _buildDetailRow(context, 'School', application.schoolName),
+                _buildDetailRow(context, 'Country', application.schoolCountry),
               ],
             ),
 
@@ -113,12 +114,13 @@ class ApplicationDetailScreen extends StatelessWidget {
 
             // Personal Details
             _buildSection(
+              context,
               title: 'Personal Details',
               children: [
-                _buildDetailRow('Full Name', application.fullName),
-                _buildDetailRow('Date of Birth', application.dateOfBirth),
-                _buildDetailRow('Gender', application.gender),
-                _buildDetailRow('Nationality', application.nationality),
+                _buildDetailRow(context, 'Full Name', application.fullName),
+                _buildDetailRow(context, 'Date of Birth', application.dateOfBirth),
+                _buildDetailRow(context, 'Gender', application.gender),
+                _buildDetailRow(context, 'Nationality', application.nationality),
               ],
             ),
 
@@ -126,11 +128,12 @@ class ApplicationDetailScreen extends StatelessWidget {
 
             // Academic Details
             _buildSection(
+              context,
               title: 'Academic Details',
               children: [
-                _buildDetailRow('Qualification', application.qualification),
-                _buildDetailRow('Grade/Result', application.grade),
-                _buildDetailRow('Graduation Year', application.graduationYear),
+                _buildDetailRow(context, 'Qualification', application.qualification),
+                _buildDetailRow(context, 'Grade/Result', application.grade),
+                _buildDetailRow(context, 'Graduation Year', application.graduationYear),
               ],
             ),
 
@@ -138,11 +141,12 @@ class ApplicationDetailScreen extends StatelessWidget {
 
             // Programme Details
             _buildSection(
+              context,
               title: 'Programme Details',
               children: [
-                _buildDetailRow('Course of Study', application.courseOfStudy),
-                _buildDetailRow('Entry Level', application.entryLevel),
-                _buildDetailRow('Session', application.session),
+                _buildDetailRow(context, 'Course of Study', application.courseOfStudy),
+                _buildDetailRow(context, 'Entry Level', application.entryLevel),
+                _buildDetailRow(context, 'Session', application.session),
               ],
             ),
 
@@ -150,15 +154,17 @@ class ApplicationDetailScreen extends StatelessWidget {
 
             // Submission Info
             _buildSection(
+              context,
               title: 'Submission Information',
               children: [
                 _buildDetailRow(
+                  context,
                   'Date Submitted',
                   application.createdAt != null
                       ? _formatDate(application.createdAt!)
                       : 'Recently',
                 ),
-                _buildDetailRow('Status', _getStatusLabel(application.status)),
+                _buildDetailRow(context, 'Status', _getStatusLabel(application.status)),
               ],
             ),
             SizedBox(height: 32.h),
@@ -358,7 +364,8 @@ class ApplicationDetailScreen extends StatelessWidget {
     }
   }
 
-  Widget _buildSection({
+  Widget _buildSection(
+    BuildContext context, {
     required String title,
     required List<Widget> children,
   }) {
@@ -386,7 +393,7 @@ class ApplicationDetailScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildDetailRow(String label, String value) {
+  Widget _buildDetailRow(BuildContext context, String label, String value) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 8.h),
       child: Row(

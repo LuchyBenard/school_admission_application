@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../../../core/theme/app_palette.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../core/constants/app_text_styles.dart';
 
+import '../../../core/constants/app_text_styles.dart';
+import '../../../core/theme/app_palette.dart';
+import '../../../l10n/generated/app_localizations.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
   final int currentIndex;
@@ -16,6 +17,8 @@ class CustomBottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
     return Container(
       decoration: BoxDecoration(
         color: context.colors.background,
@@ -34,28 +37,32 @@ class CustomBottomNavBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               _buildNavItem(
+                context,
                 index: 0,
                 outlineIcon: Icons.home_outlined,
                 filledIcon: Icons.home,
-                label: 'Home',
+                label: l10n.navHome,
               ),
               _buildNavItem(
+                context,
                 index: 1,
                 outlineIcon: Icons.school_outlined,
                 filledIcon: Icons.school,
-                label: 'Schools',
+                label: l10n.navSchools,
               ),
               _buildNavItem(
+                context,
                 index: 2,
                 outlineIcon: Icons.assignment_outlined,
                 filledIcon: Icons.assignment,
-                label: 'Applications',
+                label: l10n.navApplications,
               ),
               _buildNavItem(
+                context,
                 index: 3,
                 outlineIcon: Icons.person_outline,
                 filledIcon: Icons.person,
-                label: 'Profile',
+                label: l10n.navProfile,
               ),
             ],
           ),
@@ -64,13 +71,16 @@ class CustomBottomNavBar extends StatelessWidget {
     );
   }
 
-  Widget _buildNavItem({
+  Widget _buildNavItem(
+    BuildContext context, {
     required int index,
     required IconData outlineIcon,
     required IconData filledIcon,
     required String label,
   }) {
     final bool isActive = currentIndex == index;
+    final color =
+        isActive ? context.colors.primary : context.colors.textHint;
 
     return GestureDetector(
       onTap: () => onTap(index),
@@ -80,15 +90,14 @@ class CustomBottomNavBar extends StatelessWidget {
         children: [
           Icon(
             isActive ? filledIcon : outlineIcon,
-            color: isActive ? context.colors.primary : context.colors.textHint,
+            color: color,
             size: 24.w,
           ),
           SizedBox(height: 4.h),
-
           Text(
             label,
             style: AppTextStyles.caption.copyWith(
-              color: isActive ? context.colors.primary : context.colors.textHint,
+              color: color,
               fontWeight: isActive ? FontWeight.w600 : FontWeight.w400,
             ),
           ),

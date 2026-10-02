@@ -104,23 +104,24 @@ class SchoolDetailScreen extends StatelessWidget {
               SizedBox(height: 24.h),
 
               // Info Section
-              _buildInfoSection('Country', school.country),
+              _buildInfoSection(context, 'Country', school.country),
               _buildInfoSection(
+                context,
                 'Location',
                 school.state.isNotEmpty
                     ? '${school.state}, ${school.country}'
                     : school.country,
               ),
-              _buildInfoSection('Website', school.website),
+              _buildInfoSection(context, 'Website', school.website),
 
               if (school.description != null && school.description!.isNotEmpty)
-                _buildInfoSection('About', school.description!),
+                _buildInfoSection(context, 'About', school.description!),
 
               if (school.applicationFee != null && school.applicationFee!.isNotEmpty)
-                _buildInfoSection('Application Fee', school.applicationFee!),
+                _buildInfoSection(context, 'Application Fee', school.applicationFee!),
 
               if (school.deadline != null && school.deadline!.isNotEmpty) ...[
-                _buildInfoSection('Deadline', school.deadline!),
+                _buildInfoSection(context, 'Deadline', school.deadline!),
                 // Countdown chip
                 if (!school.isDeadlinePassed) ...[
                   Align(
@@ -130,6 +131,7 @@ class SchoolDetailScreen extends StatelessWidget {
                   SizedBox(height: 16.h),
                 ] else
                   _buildInfoSection(
+                    context,
                     'Status',
                     'Applications closed',
                     labelColor: AppColors.error,
@@ -234,7 +236,12 @@ class SchoolDetailScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildInfoSection(String label, String value, {Color? labelColor}) {
+  Widget _buildInfoSection(
+    BuildContext context,
+    String label,
+    String value, {
+    Color? labelColor,
+  }) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
       child: Column(
