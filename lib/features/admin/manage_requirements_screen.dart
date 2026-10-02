@@ -229,7 +229,7 @@ class _ManageRequirementsScreenState extends State<ManageRequirementsScreen> {
             TextFormField(
               controller: _schoolNameController,
               style: AppTextStyles.bodyLarge,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 hintText: 'e.g University of Lagos',
                 prefixIcon: Icon(Icons.school_outlined, color: context.colors.textHint),
               ),
@@ -238,7 +238,7 @@ class _ManageRequirementsScreenState extends State<ManageRequirementsScreen> {
             TextFormField(
               controller: _countryController,
               style: AppTextStyles.bodyLarge,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 hintText: 'Country',
                 prefixIcon: Icon(Icons.public_outlined, color: context.colors.textHint),
               ),
@@ -281,7 +281,7 @@ class _ManageRequirementsScreenState extends State<ManageRequirementsScreen> {
               controller: _programController,
               style: AppTextStyles.bodyLarge,
               textCapitalization: TextCapitalization.words,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 hintText: 'e.g Computer Science',
                 prefixIcon: Icon(Icons.book_outlined, color: context.colors.textHint),
               ),
@@ -294,7 +294,7 @@ class _ManageRequirementsScreenState extends State<ManageRequirementsScreen> {
             DropdownButtonFormField<String>(
               initialValue: _degreeLevel,
               style: AppTextStyles.bodyLarge,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 prefixIcon: Icon(Icons.layers_outlined, color: context.colors.textHint),
               ),
               items: _degreeLevels
@@ -310,7 +310,7 @@ class _ManageRequirementsScreenState extends State<ManageRequirementsScreen> {
             TextFormField(
               controller: _cutOffController,
               style: AppTextStyles.bodyLarge,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 hintText: 'e.g 200 or 70%',
                 prefixIcon: Icon(Icons.speed_outlined, color: context.colors.textHint),
               ),
@@ -339,7 +339,7 @@ class _ManageRequirementsScreenState extends State<ManageRequirementsScreen> {
                     ? SizedBox(
                         width: 18.w,
                         height: 18.w,
-                        child: const CircularProgressIndicator(
+                        child: CircularProgressIndicator(
                           color: context.colors.background,
                           strokeWidth: 2,
                         ),

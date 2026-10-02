@@ -163,7 +163,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                   style: AppTextStyles.bodyLarge,
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     hintText: 'Enter admin email',
                     prefixIcon: Icon(
                       Icons.email_outlined,
@@ -195,7 +195,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                   style: AppTextStyles.bodyLarge,
                   decoration: InputDecoration(
                     hintText: 'Enter Password',
-                    prefixIcon: const Icon(
+                    prefixIcon: Icon(
                       Icons.lock_outline,
                       color: context.colors.textHint,
                     ),
@@ -240,7 +240,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                             ),
                           ),
                           child: _rememberMe
-                              ? const Icon(
+                              ? Icon(
                             Icons.check,
                             size: 14,
                             color: context.colors.background,
@@ -269,7 +269,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                         ? SizedBox(
                       width: 20.w,
                       height: 20.w,
-                      child: const CircularProgressIndicator(
+                      child: CircularProgressIndicator(
                         color: context.colors.background,
                         strokeWidth: 2,
                       ),
@@ -290,7 +290,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                           ? SizedBox(
                         width: 18.w,
                         height: 18.w,
-                        child: const CircularProgressIndicator(
+                        child: CircularProgressIndicator(
                           color: context.colors.primary,
                           strokeWidth: 2,
                         ),

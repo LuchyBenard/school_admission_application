@@ -12,6 +12,7 @@
   "commonContinue": "Continue",
   "commonDone": "Done",
   "commonSubmit": "Submit",
+  "commonOr": "or",
 
   "navHome": "Home",
   "navSchools": "Schools",
@@ -36,6 +37,7 @@
   "loginForgotPassword": "Forgot Password?",
   "loginCreateAccount": "Create Account",
   "loginAdminPortal": "Admin Portal",
+  "loginNoAccount": "Don't have an account?",
   "loginFingerprintSignIn": "Sign in with fingerprint",
   "loginEnableFingerprint": "Enable fingerprint sign-in",
   "loginFingerprintNotRecognised": "Fingerprint not recognised. Try again or sign in manually.",

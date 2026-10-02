@@ -257,7 +257,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                   style: AppTextStyles.bodyLarge,
                   decoration: InputDecoration(
                     hintText: 'Confirm new password',
-                    prefixIcon: const Icon(
+                    prefixIcon: Icon(
                       Icons.lock_outline,
                       color: context.colors.textHint,
                     ),

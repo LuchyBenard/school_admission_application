@@ -225,7 +225,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                   controller: _codeController,
                   style: AppTextStyles.bodyLarge,
                   textInputAction: TextInputAction.done,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     hintText: 'Paste verification code',
                     prefixIcon: Icon(
                       Icons.pin_outlined,
@@ -268,7 +268,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                       width: double.infinity,
                       child: TextButton(
                         onPressed: authProvider.isLoading ? null : _checkVerified,
-                        child: const Text(
+                        child: Text(
                           "I've verified — Continue",
                           style: TextStyle(
                             color: context.colors.primary,

@@ -424,7 +424,7 @@ class _BatchUploadScreenState extends State<BatchUploadScreen> {
                 ? SizedBox(
                     width: 20.w,
                     height: 20.w,
-                    child: const CircularProgressIndicator(
+                    child: CircularProgressIndicator(
                       color: context.colors.background,
                       strokeWidth: 2,
                     ),

@@ -12,6 +12,7 @@
   "commonContinue": "Continuar",
   "commonDone": "Listo",
   "commonSubmit": "Enviar",
+  "commonOr": "o",
 
   "navHome": "Inicio",
   "navSchools": "Colegios",
@@ -36,6 +37,7 @@
   "loginForgotPassword": "¿Olvidaste tu contraseña?",
   "loginCreateAccount": "Crear cuenta",
   "loginAdminPortal": "Portal de administrador",
+  "loginNoAccount": "¿No tienes una cuenta?",
   "loginFingerprintSignIn": "Iniciar sesión con huella dactilar",
   "loginEnableFingerprint": "Activar inicio de sesión con huella",
   "loginFingerprintNotRecognised": "Huella no reconocida. Inténtalo de nuevo o inicia sesión manualmente.",

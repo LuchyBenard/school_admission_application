@@ -11,7 +11,7 @@ import '../../core/constants/app_text_styles.dart';
 import '../../models/application_model.dart';
 
 class ApplicantDetailScreen extends StatefulWidget {
-  ApplicantDetailScreen({super.key});
+  const ApplicantDetailScreen({super.key});
 
   @override
   State<ApplicantDetailScreen> createState() => _ApplicantDetailScreenState();
@@ -249,7 +249,7 @@ class _ApplicantDetailScreenState extends State<ApplicantDetailScreen> {
         elevation: 0,
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
-          child: const Icon(
+          child: Icon(
             Icons.arrow_back_ios,
             color: context.colors.textPrimary,
           ),
@@ -267,7 +267,7 @@ class _ApplicantDetailScreenState extends State<ApplicantDetailScreen> {
                 Container(
                   width: 56.w,
                   height: 56.w,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     color: context.colors.primary,
                     shape: BoxShape.circle,
                   ),
@@ -450,7 +450,7 @@ class _ApplicantDetailScreenState extends State<ApplicantDetailScreen> {
                 ),
               ),
             ] else
-              const Center(
+              Center(
                 child: CircularProgressIndicator(
                   color: context.colors.primary,
                 ),
@@ -465,7 +465,7 @@ class _ApplicantDetailScreenState extends State<ApplicantDetailScreen> {
 
   List<Widget> _buildDocumentRows() {
     if (_documentsLoading) {
-      return const [
+      return [
         Padding(
           padding: EdgeInsets.symmetric(vertical: 16),
           child: Center(

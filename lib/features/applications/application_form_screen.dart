@@ -163,7 +163,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
-            colorScheme: const ColorScheme.light(
+            colorScheme: ColorScheme.light(
               primary: context.colors.primary,
               onPrimary: context.colors.background,
             ),
@@ -189,7 +189,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
         elevation: 0,
         leading: GestureDetector(
           onTap: _currentStep > 0 ? _previousStep : () => Navigator.pop(context),
-          child: const Icon(
+          child: Icon(
             Icons.arrow_back_ios,
             color: context.colors.textPrimary,
           ),
@@ -249,7 +249,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
             child: LinearProgressIndicator(
               value: (_currentStep + 1) / _totalSteps,
               backgroundColor: context.colors.border,
-              valueColor: const AlwaysStoppedAnimation<Color>(
+              valueColor: AlwaysStoppedAnimation<Color>(
                 context.colors.primary,
               ),
               minHeight: 6,
@@ -292,7 +292,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
               controller: _fullNameController,
               style: AppTextStyles.bodyLarge,
               textCapitalization: TextCapitalization.words,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 hintText: 'Enter your full name',
                 prefixIcon: Icon(Icons.person_outline, color: context.colors.textHint),
               ),
@@ -310,7 +310,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                 child: TextFormField(
                   controller: _dobController,
                   style: AppTextStyles.bodyLarge,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     hintText: 'Select your date of birth',
                     prefixIcon:
                     Icon(Icons.calendar_today_outlined, color: context.colors.textHint),
@@ -328,7 +328,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
             DropdownButtonFormField<String>(
               initialValue: _selectedGender,
               style: AppTextStyles.bodyLarge,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 prefixIcon: Icon(Icons.wc_outlined, color: context.colors.textHint),
               ),
               hint: const Text('Select gender', style: AppTextStyles.hint),
@@ -348,7 +348,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
               controller: _nationalityController,
               style: AppTextStyles.bodyLarge,
               textCapitalization: TextCapitalization.words,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 hintText: 'e.g Nigerian',
                 prefixIcon: Icon(Icons.flag_outlined, color: context.colors.textHint),
               ),
@@ -383,7 +383,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
             DropdownButtonFormField<String>(
               initialValue: _selectedQualification,
               style: AppTextStyles.bodyLarge,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 prefixIcon: Icon(Icons.school_outlined, color: context.colors.textHint),
               ),
               hint: const Text('Select qualification', style: AppTextStyles.hint),
@@ -410,7 +410,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
             TextFormField(
               controller: _gradeController,
               style: AppTextStyles.bodyLarge,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 hintText: 'e.g 5 A\'s and 2 B\'s',
                 prefixIcon: Icon(Icons.grade_outlined, color: context.colors.textHint),
               ),
@@ -426,7 +426,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
               controller: _graduationYearController,
               style: AppTextStyles.bodyLarge,
               keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 hintText: 'e.g 2023',
                 prefixIcon: Icon(Icons.date_range_outlined, color: context.colors.textHint),
               ),
@@ -445,7 +445,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
               controller: _jambScoreController,
               style: AppTextStyles.bodyLarge,
               keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 hintText: 'e.g 200',
                 prefixIcon: Icon(Icons.score_outlined, color: context.colors.textHint),
               ),
@@ -469,7 +469,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
               controller: _jambYearController,
               style: AppTextStyles.bodyLarge,
               keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 hintText: 'e.g 2023',
                 prefixIcon: Icon(
                   Icons.calendar_month_outlined,
@@ -513,7 +513,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
               controller: _courseController,
               style: AppTextStyles.bodyLarge,
               textCapitalization: TextCapitalization.words,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 hintText: 'e.g Computer Science',
                 prefixIcon: Icon(Icons.book_outlined, color: context.colors.textHint),
               ),
@@ -528,7 +528,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
             DropdownButtonFormField<String>(
               initialValue: _selectedEntryLevel,
               style: AppTextStyles.bodyLarge,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 prefixIcon: Icon(Icons.layers_outlined, color: context.colors.textHint),
               ),
               hint: const Text('Select entry level', style: AppTextStyles.hint),
@@ -551,7 +551,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
             TextFormField(
               controller: _sessionController,
               style: AppTextStyles.bodyLarge,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 hintText: 'e.g 2023/2024',
                 prefixIcon: Icon(Icons.event_outlined, color: context.colors.textHint),
               ),
@@ -580,7 +580,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                   ? SizedBox(
                 width: 20.w,
                 height: 20.w,
-                child: const CircularProgressIndicator(
+                child: CircularProgressIndicator(
                   color: context.colors.background,
                   strokeWidth: 2,
                 ),

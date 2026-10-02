@@ -283,7 +283,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           child: _rememberMe
-                              ? const Icon(
+                              ? Icon(
                                   Icons.check,
                                   size: 14,
                                   color: context.colors.background,
@@ -333,7 +333,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ? SizedBox(
                               width: 18.w,
                               height: 18.w,
-                              child: const CircularProgressIndicator(
+                              child: CircularProgressIndicator(
                                 color: context.colors.primary,
                                 strokeWidth: 2,
                               ),

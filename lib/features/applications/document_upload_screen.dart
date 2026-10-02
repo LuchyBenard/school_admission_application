@@ -312,7 +312,7 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
         elevation: 0,
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
-          child: const Icon(
+          child: Icon(
             Icons.arrow_back_ios,
             color: context.colors.textPrimary,
           ),
@@ -539,7 +539,7 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
                     ? SizedBox(
                         width: 20.w,
                         height: 20.w,
-                        child: const CircularProgressIndicator(
+                        child: CircularProgressIndicator(
                           color: context.colors.background,
                           strokeWidth: 2,
                         ),

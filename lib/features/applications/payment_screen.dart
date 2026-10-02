@@ -159,7 +159,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
         elevation: 0,
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
-          child: const Icon(
+          child: Icon(
             Icons.arrow_back_ios,
             color: context.colors.textPrimary,
           ),
@@ -399,7 +399,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 child: Container(
                   width: 10.w,
                   height: 10.w,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     color: context.colors.primary,
                     shape: BoxShape.circle,
                   ),

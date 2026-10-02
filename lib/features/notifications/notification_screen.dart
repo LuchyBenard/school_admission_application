@@ -77,7 +77,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         elevation: 0,
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
-          child: const Icon(
+          child: Icon(
             Icons.arrow_back_ios,
             color: context.colors.textPrimary,
           ),
@@ -149,7 +149,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                     Container(
                       width: 40.w,
                       height: 40.w,
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                         color: context.colors.border,
                         shape: BoxShape.circle,
                       ),
@@ -319,7 +319,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                           Container(
                             width: 8.w,
                             height: 8.w,
-                            decoration: const BoxDecoration(
+                            decoration: BoxDecoration(
                               color: context.colors.primary,
                               shape: BoxShape.circle,
                             ),

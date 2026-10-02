@@ -40,7 +40,7 @@ class _AdmissionRequirementsScreenState
         elevation: 0,
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
-          child: const Icon(
+          child: Icon(
             Icons.arrow_back_ios,
             color: context.colors.textPrimary,
           ),
@@ -72,7 +72,7 @@ class _AdmissionRequirementsScreenState
               builder: (context, reqProvider, child) {
                 // Loading state
                 if (reqProvider.isLoading) {
-                  return const Center(
+                  return Center(
                     child: CircularProgressIndicator(
                       color: context.colors.primary,
                     ),

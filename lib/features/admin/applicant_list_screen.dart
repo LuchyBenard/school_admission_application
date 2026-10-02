@@ -111,7 +111,7 @@ class _ApplicantListScreenState extends State<ApplicantListScreen> {
         elevation: 0,
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
-          child: const Icon(
+          child: Icon(
             Icons.arrow_back_ios,
             color: context.colors.textPrimary,
           ),
@@ -132,7 +132,7 @@ class _ApplicantListScreenState extends State<ApplicantListScreen> {
               onChanged: (_) => _applyFilters(),
               decoration: InputDecoration(
                 hintText: 'Search by name or course...',
-                prefixIcon: const Icon(
+                prefixIcon: Icon(
                   Icons.search,
                   color: context.colors.textHint,
                 ),
@@ -142,7 +142,7 @@ class _ApplicantListScreenState extends State<ApplicantListScreen> {
                           _searchController.clear();
                           _applyFilters();
                         },
-                        child: const Icon(
+                        child: Icon(
                           Icons.close,
                           color: context.colors.textHint,
                         ),
@@ -201,7 +201,7 @@ class _ApplicantListScreenState extends State<ApplicantListScreen> {
           // List
           Expanded(
             child: _isLoading
-                ? const Center(
+                ? Center(
                     child: CircularProgressIndicator(
                       color: context.colors.primary,
                     ),

@@ -12,6 +12,7 @@
   "commonContinue": "Continuer",
   "commonDone": "Terminé",
   "commonSubmit": "Envoyer",
+  "commonOr": "ou",
 
   "navHome": "Accueil",
   "navSchools": "Écoles",
@@ -36,6 +37,7 @@
   "loginForgotPassword": "Mot de passe oublié ?",
   "loginCreateAccount": "Créer un compte",
   "loginAdminPortal": "Portail administrateur",
+  "loginNoAccount": "Pas encore de compte ?",
   "loginFingerprintSignIn": "Se connecter par empreinte digitale",
   "loginEnableFingerprint": "Activer la connexion par empreinte digitale",
   "loginFingerprintNotRecognised": "Empreinte non reconnue. Réessayez ou connectez-vous manuellement.",
