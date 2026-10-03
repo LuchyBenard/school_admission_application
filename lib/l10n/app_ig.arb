@@ -12,6 +12,7 @@
   "commonContinue": "Gaa n'ihu",
   "commonDone": "Kwụ",
   "commonSubmit": "Zitere",
+  "commonOr": "ma ọ bụla",
 
   "navHome": "Ụlọ",
   "navSchools": "Ụlọ-akụkọ",
@@ -36,6 +37,7 @@
   "loginForgotPassword": "Ị chefuola okwuntughe gị?",
   "loginCreateAccount": "Meụta akaụntụ",
   "loginAdminPortal": "Ọbụnna nke onye nchịkwa",
+  "loginNoAccount": "Ị nweghị akaụntụ?",
   "loginFingerprintSignIn": "Banye site na mgbuanyị",
   "loginEnableFingerprint": "Kwado banye site na mgbuanyị",
   "loginFingerprintNotRecognised": "Ị natakwara mgbuanyị ahụ. Laghachi azụ ma ọ bụ banye site na okwuntughe.",
@@ -361,5 +363,8 @@
   "profilePhotoUpdateFailed": "Emeghie ịmeghe foto. Biko laghachi azụ.",
   "profilePhotoPickFailed": "Emeghie ịhọọ foto. Biko laghachi azụ.",
 
+  "signupErrorNameShort": "Banye aha gá»‹ mbá»¥ na nke ikpeazá»¥",
+  "signupErrorPasswordMismatchShort": "Okwuntughe abá»¥á» ahá»¥ dá»‹ iche",
+  "signupHaveAccount": "á»Š nwere akaá»¥ntá»¥ ugbu a?",
   "errorGeneric": "E zigara ihe ọ dị ọma. Biko laghachi azụ."
 }

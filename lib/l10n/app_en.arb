@@ -371,5 +371,8 @@
   "profilePhotoUpdateFailed": "Failed to update photo. Please try again.",
   "profilePhotoPickFailed": "Failed to pick photo. Please try again.",
 
+  "signupErrorNameShort": "Please enter your first and last name",
+  "signupErrorPasswordMismatchShort": "Passwords do not match",
+  "signupHaveAccount": "Already have an account?",
   "errorGeneric": "Something went wrong. Please try again."
 }

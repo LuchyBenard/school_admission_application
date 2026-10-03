@@ -39,6 +39,9 @@ class AppLocalizationsIg extends AppLocalizations {
   String get commonSubmit => 'Zitere';
 
   @override
+  String get commonOr => 'ma ọ bụla';
+
+  @override
   String get navHome => 'Ụlọ';
 
   @override
@@ -102,6 +105,9 @@ class AppLocalizationsIg extends AppLocalizations {
 
   @override
   String get loginAdminPortal => 'Ọbụnna nke onye nchịkwa';
+
+  @override
+  String get loginNoAccount => 'Ị nweghị akaụntụ?';
 
   @override
   String get loginFingerprintSignIn => 'Banye site na mgbuanyị';

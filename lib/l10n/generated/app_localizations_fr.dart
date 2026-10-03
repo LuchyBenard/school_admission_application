@@ -39,6 +39,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get commonSubmit => 'Envoyer';
 
   @override
+  String get commonOr => 'ou';
+
+  @override
   String get navHome => 'Accueil';
 
   @override
@@ -104,6 +107,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get loginAdminPortal => 'Portail administrateur';
+
+  @override
+  String get loginNoAccount => 'Pas encore de compte ?';
 
   @override
   String get loginFingerprintSignIn => 'Se connecter par empreinte digitale';

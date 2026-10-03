@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import '../../../core/theme/app_palette.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:school_admission_application/core/constants/app_colors.dart';
-import 'package:school_admission_application/core/constants/app_text_styles.dart';
-import 'package:provider/provider.dart';
 import 'package:oktoast/oktoast.dart';
+import 'package:provider/provider.dart';
+
+import '../../../core/constants/app_colors.dart';
+import '../../../core/constants/app_text_styles.dart';
+import '../../../core/theme/app_palette.dart';
+import '../../../l10n/generated/app_localizations.dart';
 import '../../providers/auth_provider.dart';
 import '../../services/biometric_service.dart';
 
@@ -51,6 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
       _savedEmail = credentials?.email;
     });
   }
+
   void _togglePassword() {
     setState(() {
       _obscurePassword = !_obscurePassword;
@@ -95,11 +98,12 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> _signInWithFingerprint() async {
+    final l10n = AppLocalizations.of(context);
     final authenticated = await _biometricService.authenticate();
     if (!authenticated) {
       if (!mounted) return;
       showToast(
-        'Fingerprint not recognised. Try again or sign in manually.',
+        l10n.loginFingerprintNotRecognised,
         backgroundColor: AppColors.warning,
         textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
       );
@@ -112,7 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (credentials == null) {
       setState(() => _savedEmail = null);
       showToast(
-        'No saved credentials found. Sign in manually once first.',
+        l10n.loginNoSavedCredentials,
         backgroundColor: AppColors.warning,
         textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
       );
@@ -127,10 +131,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if (mounted) setState(() => _isFingerprintLoading = false);
   }
+
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
     return Scaffold(
-      backgroundColor: context.colors.background,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 24.w),
@@ -164,7 +170,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 // Welcome Text
                 Text(
-                  'Welcome Back',
+                  l10n.loginTitle,
                   style: AppTextStyles.displayMedium,
                 ),
 
@@ -172,13 +178,13 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 // sub text
                 Text(
-                  'Sign in to continue your admission journey',
+                  l10n.loginSubtitle,
                   style: AppTextStyles.bodyMedium,
                 ),
                 SizedBox(height: 40.h),
                 // email field
                 Text(
-                  'Email address',
+                  l10n.loginEmailLabel,
                   style: AppTextStyles.label,
                 ),
                 SizedBox(height: 8.h),
@@ -188,7 +194,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   textInputAction: TextInputAction.next,
                   style: AppTextStyles.bodyLarge,
                   decoration: InputDecoration(
-                    hintText: 'Enter your email',
+                    hintText: l10n.loginEmailHint,
                     prefixIcon: Icon(
                       Icons.email_outlined,
                       color: context.colors.textHint,
@@ -196,16 +202,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter your email';
+                      return l10n.loginErrorEmailRequired;
                     }
-                  return null;
-                },
+                    return null;
+                  },
                 ),
                 SizedBox(height: 20.h),
 
                 //Password field
                 Text(
-                  'Password',
+                  l10n.loginPasswordLabel,
                   style: AppTextStyles.label,
                 ),
                 SizedBox(height: 8.h),
@@ -215,7 +221,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   textInputAction: TextInputAction.done,
                   style: AppTextStyles.bodyLarge,
                   decoration: InputDecoration(
-                    hintText: 'Enter your password',
+                    hintText: l10n.loginPasswordHint,
                     prefixIcon: Icon(
                       Icons.lock_outline,
                       color: context.colors.textHint,
@@ -224,18 +230,18 @@ class _LoginScreenState extends State<LoginScreen> {
                       onTap: _togglePassword,
                       child: Icon(
                         _obscurePassword
-                        ? Icons.visibility_outlined
+                            ? Icons.visibility_outlined
                             : Icons.visibility_off_outlined,
                         color: context.colors.textHint,
                       ),
                     ),
                   ),
                   validator: (value) {
-                    if(value == null || value.isEmpty) {
-                      return 'Please enter your password';
+                    if (value == null || value.isEmpty) {
+                      return l10n.loginErrorPasswordRequired;
                     }
                     if (value.length < 8) {
-                      return 'Password must be at least 8 characters';
+                      return l10n.loginErrorPasswordTooShort;
                     }
                     return null;
                   },
@@ -251,7 +257,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Navigator.pushNamed(context, '/forgot-password');
                     },
                     child: Text(
-                      'Forgot Password?',
+                      l10n.loginForgotPassword,
                       style: AppTextStyles.bodyMedium.copyWith(
                         color: context.colors.primary,
                         fontWeight: FontWeight.w600,
@@ -286,13 +292,13 @@ class _LoginScreenState extends State<LoginScreen> {
                               ? Icon(
                                   Icons.check,
                                   size: 14,
-                                  color: context.colors.background,
+                                  color: context.colors.onPrimary,
                                 )
                               : null,
                         ),
                         SizedBox(width: 8.w),
                         Text(
-                          'Enable fingerprint sign-in',
+                          l10n.loginEnableFingerprint,
                           style: AppTextStyles.bodySmall.copyWith(
                             color: context.colors.textSecondary,
                           ),
@@ -304,23 +310,23 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(height: 20.h),
 
                 // Login Button
-               Consumer<AuthProvider> (
-                 builder: (context, authProvider, child){
-                   return ElevatedButton(
-                     onPressed: authProvider.isLoading ? null : _login,
-                     child: authProvider.isLoading ? SizedBox(
-                       width: 20.w,
-                       height: 20.w,
-                       child: CircularProgressIndicator(
-                         color: context.colors.background,
-                         strokeWidth: 2,
-                       ),
-                     )
-                         : Text('Sign In'),
-                   );
-                 }
-
-               ),
+                Consumer<AuthProvider>(
+                  builder: (context, authProvider, child) {
+                    return ElevatedButton(
+                      onPressed: authProvider.isLoading ? null : _login,
+                      child: authProvider.isLoading
+                          ? SizedBox(
+                              width: 20.w,
+                              height: 20.w,
+                              child: CircularProgressIndicator(
+                                color: context.colors.onPrimary,
+                                strokeWidth: 2,
+                              ),
+                            )
+                          : Text(l10n.loginSignIn),
+                    );
+                  },
+                ),
 
                 // Fingerprint sign-in
                 if (_biometricAvailable && _savedEmail != null) ...[
@@ -328,7 +334,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     width: double.infinity,
                     child: OutlinedButton.icon(
-                      onPressed: _isFingerprintLoading ? null : _signInWithFingerprint,
+                      onPressed:
+                          _isFingerprintLoading ? null : _signInWithFingerprint,
                       icon: _isFingerprintLoading
                           ? SizedBox(
                               width: 18.w,
@@ -341,8 +348,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           : const Icon(Icons.fingerprint),
                       label: Text(
                         _isFingerprintLoading
-                            ? 'Signing in...'
-                            : 'Sign in with fingerprint',
+                            ? l10n.loginSigningIn
+                            : l10n.loginFingerprintSignIn,
                       ),
                       style: OutlinedButton.styleFrom(
                         minimumSize: const Size(double.infinity, 48),
@@ -365,7 +372,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 12.w),
                       child: Text(
-                        'or',
+                        l10n.commonOr,
                         style: AppTextStyles.bodyMedium,
                       ),
                     ),
@@ -379,7 +386,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Don't have an account?",
+                      l10n.loginNoAccount,
                       style: AppTextStyles.bodyMedium,
                     ),
                     GestureDetector(
@@ -387,7 +394,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Navigator.pushNamed(context, '/register');
                       },
                       child: Text(
-                        'Create Account',
+                        l10n.loginCreateAccount,
                         style: AppTextStyles.bodyMedium.copyWith(
                           color: context.colors.primary,
                           fontWeight: FontWeight.w700,
@@ -403,7 +410,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   onTap: () => Navigator.pushNamed(context, '/admin-login'),
                   child: Center(
                     child: Text(
-                      'Admin Portal',
+                      l10n.loginAdminPortal,
                       style: AppTextStyles.bodyMedium.copyWith(
                         color: context.colors.textHint,
                         decoration: TextDecoration.underline,
@@ -415,7 +422,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
         ),
-      )
+      ),
     );
   }
 }

@@ -363,5 +363,8 @@
   "profilePhotoUpdateFailed": "Ba a iya sabuntar hoto. Sake gwada.",
   "profilePhotoPickFailed": "Ba a iya zaɓi hoto. Sake gwada.",
 
+  "signupErrorNameShort": "Ka shigar da suna na kwanan sunanka",
+  "signupErrorPasswordMismatchShort": "Kalmar shigirge ba daidai",
+  "signupHaveAccount": "Ka riga ka sami asusun?",
   "errorGeneric": "Wani abu ya yi kuskure. Ka sake gwada."
 }

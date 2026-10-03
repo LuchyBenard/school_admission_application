@@ -363,5 +363,8 @@
   "profilePhotoUpdateFailed": "No se pudo actualizar la foto. Inténtalo de nuevo.",
   "profilePhotoPickFailed": "No se pudo elegir la foto. Inténtalo de nuevo.",
 
+  "signupErrorNameShort": "Introduce tu nombre y apellidos",
+  "signupErrorPasswordMismatchShort": "Las contraseÃ±as no coinciden",
+  "signupHaveAccount": "Â¿Ya tienes una cuenta?",
   "errorGeneric": "Algo salió mal. Inténtalo de nuevo."
 }

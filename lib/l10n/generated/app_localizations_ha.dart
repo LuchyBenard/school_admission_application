@@ -18,7 +18,7 @@ class AppLocalizationsHa extends AppLocalizations {
   String get commonCancel => 'Sawaƙo';
 
   @override
-  String get commonDelete => 'Delete';
+  String get commonDelete => 'Ƙaɗe';
 
   @override
   String get commonRetry => 'Sake gwada';
@@ -36,7 +36,10 @@ class AppLocalizationsHa extends AppLocalizations {
   String get commonDone => 'An gama';
 
   @override
-  String get commonSubmit => 'Tura';
+  String get commonSubmit => 'Aika';
+
+  @override
+  String get commonOr => 'ko';
 
   @override
   String get navHome => 'Gida';
@@ -102,6 +105,9 @@ class AppLocalizationsHa extends AppLocalizations {
 
   @override
   String get loginAdminPortal => 'Babban shafi';
+
+  @override
+  String get loginNoAccount => 'Ba ka da asusun ba?';
 
   @override
   String get loginFingerprintSignIn => 'Shiga da yatsa';

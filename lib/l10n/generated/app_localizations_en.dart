@@ -39,6 +39,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get commonSubmit => 'Submit';
 
   @override
+  String get commonOr => 'or';
+
+  @override
   String get navHome => 'Home';
 
   @override
@@ -102,6 +105,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get loginAdminPortal => 'Admin Portal';
+
+  @override
+  String get loginNoAccount => 'Don\'t have an account?';
 
   @override
   String get loginFingerprintSignIn => 'Sign in with fingerprint';

@@ -39,6 +39,9 @@ class AppLocalizationsYo extends AppLocalizations {
   String get commonSubmit => 'Fi sílẹ̀';
 
   @override
+  String get commonOr => 'tàbí';
+
+  @override
   String get navHome => 'Ilé';
 
   @override
@@ -102,6 +105,9 @@ class AppLocalizationsYo extends AppLocalizations {
 
   @override
   String get loginAdminPortal => 'Àgbẹ̀rè ìsàkori';
+
+  @override
+  String get loginNoAccount => 'O kò ní àkọọ́lẹ̀ sé?';
 
   @override
   String get loginFingerprintSignIn => 'Wọlé pẹ̀lú ìtàn ọ́wọ́';

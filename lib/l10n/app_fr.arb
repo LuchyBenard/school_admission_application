@@ -363,5 +363,8 @@
   "profilePhotoUpdateFailed": "Échec de la mise à jour de la photo. Veuillez réessayer.",
   "profilePhotoPickFailed": "Échec de la sélection de la photo. Veuillez réessayer.",
 
+  "signupErrorNameShort": "Veuillez saisir votre prÃ©nom et votre nom",
+  "signupErrorPasswordMismatchShort": "Les mots de passe ne correspondent pas",
+  "signupHaveAccount": "Vous avez dÃ©jÃ  un compte ?",
   "errorGeneric": "Une erreur est survenue. Veuillez réessayer."
 }

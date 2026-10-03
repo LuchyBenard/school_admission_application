@@ -166,6 +166,12 @@ abstract class AppLocalizations {
   /// **'Submit'**
   String get commonSubmit;
 
+  /// No description provided for @commonOr.
+  ///
+  /// In en, this message translates to:
+  /// **'or'**
+  String get commonOr;
+
   /// No description provided for @navHome.
   ///
   /// In en, this message translates to:
@@ -291,6 +297,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Admin Portal'**
   String get loginAdminPortal;
+
+  /// No description provided for @loginNoAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t have an account?'**
+  String get loginNoAccount;
 
   /// No description provided for @loginFingerprintSignIn.
   ///
