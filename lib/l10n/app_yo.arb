@@ -12,6 +12,7 @@
   "commonContinue": "Tẹ̀síwájú",
   "commonDone": "Ṣẹ̀",
   "commonSubmit": "Fi sílẹ̀",
+  "commonOr": "tàbí",
 
   "navHome": "Ilé",
   "navSchools": "Ilé-ìwé",
@@ -36,6 +37,7 @@
   "loginForgotPassword": "Ṣé o gbàgbé ọ̀rọ̀ ìpamọ́ rẹ?",
   "loginCreateAccount": "Ṣẹ̀dá àkọọ́lẹ̀",
   "loginAdminPortal": "Àgbẹ̀rè ìsàkori",
+  "loginNoAccount": "O kò ní àkọọ́lẹ̀ sé?",
   "loginFingerprintSignIn": "Wọlé pẹ̀lú ìtàn ọ́wọ́",
   "loginEnableFingerprint": "Ṣe àgbẹ̀ẹ́ wọlé pẹ̀lú ìtàn ọ́wọ́",
   "loginFingerprintNotRecognised": "A kò mọ̀ ìtàn ọ́wọ́ náà. Tún gbìyànjú tàbí wọlé pẹ̀lú ọwọ́.",
