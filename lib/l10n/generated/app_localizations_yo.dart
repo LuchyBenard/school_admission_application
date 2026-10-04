@@ -1093,5 +1093,16 @@ class AppLocalizationsYo extends AppLocalizations {
   String get profilePhotoPickFailed => 'A kò lè yàn fótò. Jọ́wọ́ tún gbìyànjú.';
 
   @override
+  String get signupErrorNameShort =>
+      'Já»Ìwá»Ì táº¹ orÃºká» Ã tÃºná¹£eÃ ti ráº¹';
+
+  @override
+  String get signupErrorPasswordMismatchShort =>
+      'á»ŒÌ€rá»Ì€ Ã¬pamá»Ì ká»Ì€ á»Ì€kan';
+
+  @override
+  String get signupHaveAccount => 'á¹¢Ã© o nÃ­ Ã ká»á»Ìláº¹Ì€ táº¹Ìláº¹Ì€?';
+
+  @override
   String get errorGeneric => 'Kòí àwọn ohun kan ṣe. Jọ́wọ́ tún gbìyànjú.';
 }

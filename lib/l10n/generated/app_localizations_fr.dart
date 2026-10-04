@@ -1132,5 +1132,16 @@ class AppLocalizationsFr extends AppLocalizations {
       'Échec de la sélection de la photo. Veuillez réessayer.';
 
   @override
+  String get signupErrorNameShort =>
+      'Veuillez saisir votre prÃ©nom et votre nom';
+
+  @override
+  String get signupErrorPasswordMismatchShort =>
+      'Les mots de passe ne correspondent pas';
+
+  @override
+  String get signupHaveAccount => 'Vous avez dÃ©jÃ  un compte ?';
+
+  @override
   String get errorGeneric => 'Une erreur est survenue. Veuillez réessayer.';
 }

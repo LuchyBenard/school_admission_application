@@ -1087,5 +1087,14 @@ class AppLocalizationsHa extends AppLocalizations {
   String get profilePhotoPickFailed => 'Ba a iya zaɓi hoto. Sake gwada.';
 
   @override
+  String get signupErrorNameShort => 'Ka shigar da suna na kwanan sunanka';
+
+  @override
+  String get signupErrorPasswordMismatchShort => 'Kalmar shigirge ba daidai';
+
+  @override
+  String get signupHaveAccount => 'Ka riga ka sami asusun?';
+
+  @override
   String get errorGeneric => 'Wani abu ya yi kuskure. Ka sake gwada.';
 }

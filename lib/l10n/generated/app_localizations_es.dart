@@ -1112,5 +1112,15 @@ class AppLocalizationsEs extends AppLocalizations {
       'No se pudo elegir la foto. Inténtalo de nuevo.';
 
   @override
+  String get signupErrorNameShort => 'Introduce tu nombre y apellidos';
+
+  @override
+  String get signupErrorPasswordMismatchShort =>
+      'Las contraseÃ±as no coinciden';
+
+  @override
+  String get signupHaveAccount => 'Â¿Ya tienes una cuenta?';
+
+  @override
   String get errorGeneric => 'Algo salió mal. Inténtalo de nuevo.';
 }

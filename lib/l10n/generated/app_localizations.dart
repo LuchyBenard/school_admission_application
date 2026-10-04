@@ -457,7 +457,7 @@ abstract class AppLocalizations {
   /// No description provided for @signupErrorNameRequired.
   ///
   /// In en, this message translates to:
-  /// **'Please enter your first and last name'**
+  /// **'Please enter your name and password'**
   String get signupErrorNameRequired;
 
   /// No description provided for @signupErrorEmailRequired.
@@ -2145,6 +2145,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Failed to pick photo. Please try again.'**
   String get profilePhotoPickFailed;
+
+  /// No description provided for @signupErrorNameShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your first and last name'**
+  String get signupErrorNameShort;
+
+  /// No description provided for @signupErrorPasswordMismatchShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
+  String get signupErrorPasswordMismatchShort;
+
+  /// No description provided for @signupHaveAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have an account?'**
+  String get signupHaveAccount;
 
   /// No description provided for @errorGeneric.
   ///

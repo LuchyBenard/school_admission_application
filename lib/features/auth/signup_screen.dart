@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import '../../../core/theme/app_palette.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:school_admission_application/core/constants/app_text_styles.dart';
-import 'package:school_admission_application/core/constants/app_colors.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
+
+import '../../../core/constants/app_colors.dart';
+import '../../../core/constants/app_text_styles.dart';
+import '../../../core/theme/app_palette.dart';
+import '../../../l10n/generated/app_localizations.dart';
 import '../../providers/auth_provider.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -37,16 +39,18 @@ class _SignupScreenState extends State<SignupScreen> {
   }
 
   void _register() async {
+    final l10n = AppLocalizations.of(context);
+
     if (!_acceptedTerms) {
       showToast(
-        'Please accept the terms and condition to continue.',
+        l10n.signupErrorTermsRequired,
         backgroundColor: AppColors.error,
         textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
       );
-    return;
-  }
+      return;
+    }
 
-  if (_formKey.currentState!.validate()) {
+    if (_formKey.currentState!.validate()) {
       final authProvider = context.read<AuthProvider>();
 
       final success = await authProvider.register(
@@ -64,7 +68,7 @@ class _SignupScreenState extends State<SignupScreen> {
         Navigator.pushNamedAndRemoveUntil(
           context,
           '/email-verification',
-              (route) => false,
+          (route) => false,
         );
       }
     }
@@ -72,11 +76,10 @@ class _SignupScreenState extends State<SignupScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
     return Scaffold(
-      backgroundColor: context.colors.background,
       appBar: AppBar(
-        backgroundColor: context.colors.background,
-        elevation: 0,
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
           child: Icon(
@@ -97,19 +100,19 @@ class _SignupScreenState extends State<SignupScreen> {
 
                 // TITLE
                 Text(
-                  'Create Account',
+                  l10n.signupTitle,
                   style: AppTextStyles.displayMedium,
                 ),
                 SizedBox(height: 8.h),
                 Text(
-                  'Join thousands of students applying to their dream schools.',
+                  l10n.signupSubtitle,
                   style: AppTextStyles.bodyMedium,
                 ),
                 SizedBox(height: 32.h),
 
                 // FULL NAME
                 Text(
-                  'Full Name',
+                  l10n.signupFullNameLabel,
                   style: AppTextStyles.label,
                 ),
                 SizedBox(height: 8.h),
@@ -120,7 +123,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   textCapitalization: TextCapitalization.words,
                   style: AppTextStyles.bodyLarge,
                   decoration: InputDecoration(
-                    hintText: 'Enter your full name',
+                    hintText: l10n.signupFullNameHint,
                     prefixIcon: Icon(
                       Icons.person_outline,
                       color: context.colors.textHint,
@@ -128,159 +131,156 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'please enter your name';
+                      return l10n.signupErrorNameRequired;
                     }
-                    if (value
-                        .trim()
-                        .split(' ')
-                        .length < 2) {
-                      return 'Please enter your first and last name';
+                    if (value.trim().split(' ').length < 2) {
+                      return l10n.signupErrorNameShort;
                     }
                     return null;
-                  }
+                  },
                 ),
                 SizedBox(height: 20.h),
 
                 // email field
                 Text(
-                  'Email Address',
+                  l10n.signupEmailLabel,
                   style: AppTextStyles.label,
                 ),
                 SizedBox(height: 8.h),
                 TextFormField(
-                    controller: _emailController,
-                    keyboardType: TextInputType.emailAddress,
-                    textInputAction: TextInputAction.next,
-                    style: AppTextStyles.bodyLarge,
-                    decoration: InputDecoration(
-                      hintText: 'Enter your email',
-                      prefixIcon: Icon(
-                        Icons.email_outlined,
-                        color: context.colors.textHint,
-                      ),
+                  controller: _emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  textInputAction: TextInputAction.next,
+                  style: AppTextStyles.bodyLarge,
+                  decoration: InputDecoration(
+                    hintText: l10n.signupEmailHint,
+                    prefixIcon: Icon(
+                      Icons.email_outlined,
+                      color: context.colors.textHint,
                     ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'please enter your email';
-                      }
-                      if (!value.contains('@') || !value.contains('.')) {
-                        return 'Please enter a valid email address';
-                      }
-                      return null;
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return l10n.signupErrorEmailRequired;
                     }
+                    if (!value.contains('@') || !value.contains('.')) {
+                      return l10n.signupErrorEmailInvalid;
+                    }
+                    return null;
+                  },
                 ),
                 SizedBox(height: 20.h),
 
                 // Phone field
                 Text(
-                  'Phone Number',
+                  l10n.signupPhoneLabel,
                   style: AppTextStyles.label,
                 ),
                 SizedBox(height: 8.h),
                 TextFormField(
-                    controller: _phoneController,
-                    keyboardType: TextInputType.phone,
-                    textInputAction: TextInputAction.next,
-                    style: AppTextStyles.bodyLarge,
-                    decoration: InputDecoration(
-                      hintText: 'Enter your digits. e.g 08012345678',
-                      prefixIcon: Icon(
-                        Icons.phone_outlined,
-                        color: context.colors.textHint,
-                      ),
+                  controller: _phoneController,
+                  keyboardType: TextInputType.phone,
+                  textInputAction: TextInputAction.next,
+                  style: AppTextStyles.bodyLarge,
+                  decoration: InputDecoration(
+                    hintText: l10n.signupPhoneHint,
+                    prefixIcon: Icon(
+                      Icons.phone_outlined,
+                      color: context.colors.textHint,
                     ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'please enter your phone number';
-                      }
-                      if (value.length < 11) {
-                        return 'Please enter a valid phone number';
-                      }
-                      return null;
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return l10n.signupErrorPhoneRequired;
                     }
+                    if (value.length < 11) {
+                      return l10n.signupErrorPhoneInvalid;
+                    }
+                    return null;
+                  },
                 ),
                 SizedBox(height: 20.h),
 
                 // password field
                 Text(
-                  'Password',
+                  l10n.signupPasswordLabel,
                   style: AppTextStyles.label,
                 ),
                 SizedBox(height: 8.h),
                 TextFormField(
-                    controller: _passwordController,
-                    obscureText: _obscurePassword,
-                    textInputAction: TextInputAction.next,
-                    style: AppTextStyles.bodyLarge,
-                    decoration: InputDecoration(
-                      hintText: 'Create a password',
-                      prefixIcon: Icon(
-                        Icons.lock_outlined,
+                  controller: _passwordController,
+                  obscureText: _obscurePassword,
+                  textInputAction: TextInputAction.next,
+                  style: AppTextStyles.bodyLarge,
+                  decoration: InputDecoration(
+                    hintText: l10n.signupPasswordHint,
+                    prefixIcon: Icon(
+                      Icons.lock_outlined,
+                      color: context.colors.textHint,
+                    ),
+                    suffixIcon: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _obscurePassword = !_obscurePassword;
+                        });
+                      },
+                      child: Icon(
+                        _obscurePassword
+                            ? Icons.visibility_outlined
+                            : Icons.visibility_off_outlined,
                         color: context.colors.textHint,
                       ),
-                      suffixIcon: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _obscurePassword = !_obscurePassword;
-                          });
-                        },
-                        child: Icon(
-                          _obscurePassword
-                              ? Icons.visibility_outlined
-                              : Icons.visibility_off_outlined,
-                          color: context.colors.textHint,
-                        ),
-                      ),
                     ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'please create a password';
-                      }
-                      if (value.length < 8) {
-                        return 'Password must be at least 8 characters';
-                      }
-                      return null;
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return l10n.signupErrorPasswordRequired;
                     }
+                    if (value.length < 8) {
+                      return l10n.loginErrorPasswordTooShort;
+                    }
+                    return null;
+                  },
                 ),
                 SizedBox(height: 20.h),
 
                 // Confirm password field
                 Text(
-                  'Confirm Password',
+                  l10n.signupConfirmPasswordLabel,
                   style: AppTextStyles.label,
                 ),
                 SizedBox(height: 8.h),
                 TextFormField(
-                    controller: _confirmPasswordController,
-                    obscureText: _obscureConfirm,
-                    textInputAction: TextInputAction.done,
-                    style: AppTextStyles.bodyLarge,
-                    decoration: InputDecoration(
-                      hintText: 'Confirm your password',
-                      prefixIcon: Icon(
-                        Icons.lock_outlined,
+                  controller: _confirmPasswordController,
+                  obscureText: _obscureConfirm,
+                  textInputAction: TextInputAction.done,
+                  style: AppTextStyles.bodyLarge,
+                  decoration: InputDecoration(
+                    hintText: l10n.signupConfirmPasswordHint,
+                    prefixIcon: Icon(
+                      Icons.lock_outlined,
+                      color: context.colors.textHint,
+                    ),
+                    suffixIcon: GestureDetector(
+                      onTap: () =>
+                          setState(() => _obscureConfirm = !_obscureConfirm),
+                      child: Icon(
+                        _obscureConfirm
+                            ? Icons.visibility_outlined
+                            : Icons.visibility_off_outlined,
                         color: context.colors.textHint,
                       ),
-                      suffixIcon: GestureDetector(
-                        onTap: () =>
-                          setState(() => _obscureConfirm = !_obscureConfirm),
-                        child: Icon(
-                          _obscureConfirm
-                              ? Icons.visibility_outlined
-                              : Icons.visibility_off_outlined,
-                          color: context.colors.textHint,
-                        ),
-                      ),
                     ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'please confirm your  password';
-                      }
-                      if (value!= _passwordController.text) {
-                        return 'Password do not match';
-                      }
-                      return null;
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return l10n.signupErrorConfirmPasswordRequired;
                     }
+                    if (value != _passwordController.text) {
+                      return l10n.signupErrorPasswordMismatchShort;
+                    }
+                    return null;
+                  },
                 ),
                 SizedBox(height: 20.h),
 
@@ -289,8 +289,8 @@ class _SignupScreenState extends State<SignupScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     GestureDetector(
-                      onTap: () => setState(
-                          () => _acceptedTerms = !_acceptedTerms),
+                      onTap: () =>
+                          setState(() => _acceptedTerms = !_acceptedTerms),
                       child: Container(
                         width: 22.w,
                         height: 22.w,
@@ -307,40 +307,40 @@ class _SignupScreenState extends State<SignupScreen> {
                           ),
                         ),
                         child: _acceptedTerms
-                        ? Icon(
-                          Icons.check,
-                          color: context.colors.background,
-                          size: 14.w,
-                        )
+                            ? Icon(
+                                Icons.check,
+                                color: context.colors.onPrimary,
+                                size: 14.w,
+                              )
                             : null,
                       ),
+                    ),
+                    SizedBox(width: 12.w),
+                    Expanded(
+                      child: RichText(
+                        text: TextSpan(
+                          style: AppTextStyles.bodyMedium,
+                          children: [
+                            TextSpan(text: l10n.signupTermsPrefix),
+                            TextSpan(
+                              text: l10n.signupTermsAndConditions,
+                              style: AppTextStyles.bodyMedium.copyWith(
+                                color: context.colors.primary,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            TextSpan(text: l10n.signupTermsSeparator),
+                            TextSpan(
+                              text: l10n.signupPrivacyPolicy,
+                              style: AppTextStyles.bodyMedium.copyWith(
+                                color: context.colors.primary,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-      SizedBox(width: 12.w),
-      Expanded(
-        child: RichText(
-          text: TextSpan(
-            style: AppTextStyles.bodyMedium,
-            children: [
-              TextSpan(text: 'I agree to the '),
-              TextSpan(
-                  text: 'Terms of Service ',
-                style: AppTextStyles.bodyMedium.copyWith(
-                  color: context.colors.primary,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              TextSpan(text: 'and '),
-          TextSpan(
-              text: 'Private Policy',
-              style: AppTextStyles.bodyMedium.copyWith(
-                color: context.colors.primary,
-                fontWeight: FontWeight.w600,
-              ),
-          ),
-            ],
-          ),
-        ),
-      ),
+                    ),
                   ],
                 ),
                 SizedBox(height: 32.h),
@@ -348,48 +348,48 @@ class _SignupScreenState extends State<SignupScreen> {
                 // Register Button
                 Consumer<AuthProvider>(
                   builder: (context, authProvider, child) {
-                    return  ElevatedButton(
+                    return ElevatedButton(
                       onPressed: authProvider.isLoading ? null : _register,
-                      child: authProvider.isLoading ? SizedBox(
-                        width: 20.w,
-                        height: 20.w,
-                        child: CircularProgressIndicator(
-                          color: context.colors.background,
-                          strokeWidth: 2,
-                        ),
-                      )
-                          : Text('Register'),
+                      child: authProvider.isLoading
+                          ? SizedBox(
+                              width: 20.w,
+                              height: 20.w,
+                              child: CircularProgressIndicator(
+                                color: context.colors.onPrimary,
+                                strokeWidth: 2,
+                              ),
+                            )
+                          : Text(l10n.signupButton),
                     );
-                  }
+                  },
                 ),
                 SizedBox(height: 24.h),
 
                 // Login link
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Already have an account?",
-                  style: AppTextStyles.bodyMedium,
-                ),
-                GestureDetector(
-                  onTap: () =>
-                    Navigator.pop(context,),
-                  child: Text(
-                    'Sign In',
-                    style: AppTextStyles.bodyMedium.copyWith(
-                      color: context.colors.primary,
-                      fontWeight: FontWeight.w700,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      l10n.signupHaveAccount,
+                      style: AppTextStyles.bodyMedium,
                     ),
-                  ),
-            ),
+                    GestureDetector(
+                      onTap: () => Navigator.pop(context),
+                      child: Text(
+                        l10n.signupSignInLink,
+                        style: AppTextStyles.bodyMedium.copyWith(
+                          color: context.colors.primary,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 40.h),
               ],
             ),
-            SizedBox(height: 40.h),
-            ],
           ),
         ),
-      ),
       ),
     );
   }

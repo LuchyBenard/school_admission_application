@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import '../../../core/theme/app_palette.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
-import 'package:school_admission_application/core/constants/app_colors.dart';
-import 'package:school_admission_application/core/constants/app_text_styles.dart';
 import 'package:provider/provider.dart';
+
+import '../../../core/constants/app_colors.dart';
+import '../../../core/constants/app_text_styles.dart';
+import '../../../core/theme/app_palette.dart';
+import '../../../l10n/generated/app_localizations.dart';
 import '../../providers/auth_provider.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
@@ -25,6 +27,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   }
 
   void _sendOTP() async {
+    final l10n = AppLocalizations.of(context);
+
     if (_formKey.currentState!.validate()) {
       final authProvider = context.read<AuthProvider>();
 
@@ -36,7 +40,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
       if (success) {
         showToast(
-          "OTP sent! Please check your email",
+          l10n.forgotPasswordSentToast,
           backgroundColor: AppColors.success,
           textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
         );
@@ -54,11 +58,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
     return Scaffold(
-      backgroundColor: context.colors.background,
       appBar: AppBar(
-        backgroundColor: context.colors.background,
-        elevation: 0,
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
           child: Icon(
@@ -92,19 +95,19 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 SizedBox(height: 24.h),
                 //Title
                 Text(
-                  'Forgot Password?',
+                  l10n.forgotPasswordTitle,
                   style: AppTextStyles.displayMedium,
                 ),
                 SizedBox(height: 8.h),
                 Text(
-                  'Enter your email address and we\'ll send you a link to reset your password.',
+                  l10n.forgotPasswordDescription,
                   style: AppTextStyles.bodyMedium,
                 ),
                 SizedBox(height: 40.h),
 
                 // Email field
                 Text(
-                  'Email Address',
+                  l10n.forgotPasswordEmailLabel,
                   style: AppTextStyles.label,
                 ),
                 SizedBox(height: 8.h),
@@ -114,7 +117,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   textInputAction: TextInputAction.done,
                   style: AppTextStyles.bodyLarge,
                   decoration: InputDecoration(
-                    hintText: 'Enter your email',
+                    hintText: l10n.forgotPasswordEmailHint,
                     prefixIcon: Icon(
                       Icons.email_outlined,
                       color: context.colors.textHint,
@@ -122,10 +125,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter your email';
+                      return l10n.forgotPasswordErrorEmailRequired;
                     }
                     if (!value.contains('@')) {
-                      return 'Please enter a valid email address';
+                      return l10n.forgotPasswordErrorEmailInvalid;
                     }
                     return null;
                   },

@@ -1093,5 +1093,15 @@ class AppLocalizationsIg extends AppLocalizations {
   String get profilePhotoPickFailed => 'Emeghie ịhọọ foto. Biko laghachi azụ.';
 
   @override
+  String get signupErrorNameShort => 'Banye aha gá»‹ mbá»¥ na nke ikpeazá»¥';
+
+  @override
+  String get signupErrorPasswordMismatchShort =>
+      'Okwuntughe abá»¥á» ahá»¥ dá»‹ iche';
+
+  @override
+  String get signupHaveAccount => 'á»Š nwere akaá»¥ntá»¥ ugbu a?';
+
+  @override
   String get errorGeneric => 'E zigara ihe ọ dị ọma. Biko laghachi azụ.';
 }

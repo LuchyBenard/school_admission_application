@@ -189,7 +189,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get signupTermsSeparator => 'and ';
 
   @override
-  String get signupErrorNameRequired => 'Please enter your first and last name';
+  String get signupErrorNameRequired => 'Please enter your name and password';
 
   @override
   String get signupErrorEmailRequired => 'please enter your email';
@@ -1097,6 +1097,15 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get profilePhotoPickFailed =>
       'Failed to pick photo. Please try again.';
+
+  @override
+  String get signupErrorNameShort => 'Please enter your first and last name';
+
+  @override
+  String get signupErrorPasswordMismatchShort => 'Passwords do not match';
+
+  @override
+  String get signupHaveAccount => 'Already have an account?';
 
   @override
   String get errorGeneric => 'Something went wrong. Please try again.';

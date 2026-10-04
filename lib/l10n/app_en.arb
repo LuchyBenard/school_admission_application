@@ -64,7 +64,7 @@
   "signupTermsAndConditions": "Terms of Service",
   "signupPrivacyPolicy": "Private Policy",
   "signupTermsSeparator": "and ",
-  "signupErrorNameRequired": "Please enter your first and last name",
+  "signupErrorNameRequired": "Please enter your name and password",
   "signupErrorEmailRequired": "please enter your email",
   "signupErrorEmailInvalid": "Please enter a valid email address",
   "signupErrorPhoneRequired": "please enter your phone number",
