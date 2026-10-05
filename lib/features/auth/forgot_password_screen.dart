@@ -176,13 +176,13 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Remember your password? ',
+                      l10n.forgotPasswordRememberPassword,
                       style: AppTextStyles.bodyMedium,
                     ),
                     GestureDetector(
                       onTap: () => Navigator.pop(context),
                       child: Text(
-                        'Sign In',
+                        l10n.forgotPasswordSignIn,
                         style: AppTextStyles.bodyMedium.copyWith(
                           color: context.colors.primary,
                           fontWeight: FontWeight.w700,
