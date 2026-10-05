@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import '../../../core/theme/app_palette.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pinput/pinput.dart';
 import 'package:oktoast/oktoast.dart';
+import 'package:pinput/pinput.dart';
+import 'package:provider/provider.dart';
+
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_text_styles.dart';
-import 'package:provider/provider.dart';
+import '../../core/theme/app_palette.dart';
+import '../../l10n/generated/app_localizations.dart';
 import '../../providers/auth_provider.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
@@ -38,10 +40,12 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
     super.dispose();
   }
   void _resetPassword() async {
+    final l10n = AppLocalizations.of(context);
+
     if (_formKey.currentState!.validate()) {
       if (_otpController.text.length < 6) {
         showToast(
-          'Please enter the complete 6-digit  OTP',
+          l10n.otpErrorRequired,
           backgroundColor: AppColors.error,
           textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
         );
@@ -69,6 +73,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   }
   }
   void _resendOTP() async {
+    final l10n = AppLocalizations.of(context);
     final authProvider = context.read<AuthProvider>();
 
     final success = await authProvider.sendPasswordResetEmail(email: _email);
@@ -77,7 +82,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
 
     if (success) {
       showToast(
-        'A new OTP has been sent to $_email',
+        l10n.otpResendToast(_email),
         backgroundColor: AppColors.success,
         textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
       );
@@ -85,6 +90,8 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   }
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
     //Pinput theme setup
     final defaultPinTheme = PinTheme(
       width: 52.w,
@@ -109,10 +116,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
       ),
     );
     return Scaffold(
-      backgroundColor: context.colors.background,
       appBar: AppBar(
-        backgroundColor: context.colors.background,
-        elevation: 0,
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
             child: Icon(
@@ -149,7 +153,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
 
                 // Title
                 Text(
-                  'Check your Email',
+                  l10n.otpTitle,
                   style: AppTextStyles.displayMedium,
                 ),
 
@@ -160,16 +164,11 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                   text: TextSpan(
                     style: AppTextStyles.bodyMedium,
                     children: [
-                      TextSpan(text: 'We sent a 6-digit OTP to '),
+                      TextSpan(text: l10n.otpDescription(_email)),
                       TextSpan(
-                        text: _email,
-                        style: AppTextStyles.bodyMedium.copyWith(
-                          color: context.colors.primary,
-                          fontWeight: FontWeight.w600,
-                        ),
+                        text: l10n.otpDescriptionTail,
+                        style: AppTextStyles.bodyMedium,
                       ),
-                      TextSpan(
-                          text: '. Enter it below along with your new password.'),
                     ],
                   ),
                 ),
@@ -177,7 +176,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                 SizedBox(height: 40.h),
 
                 // OTP input
-                Text('Enter OTP', style: AppTextStyles.label),
+                Text(l10n.otpCodeLabel, style: AppTextStyles.label),
                 SizedBox(height: 12.h),
                 Center(
                   child: Pinput(
@@ -198,7 +197,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                   child: GestureDetector(
                     onTap: _resendOTP,
                     child: Text(
-                      'Resend OTP',
+                      l10n.otpResendButton,
                       style: AppTextStyles.bodyMedium.copyWith(
                         color: context.colors.primary,
                         fontWeight: FontWeight.w600,
@@ -210,7 +209,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                 SizedBox(height: 28.h),
 
                 // New password
-                Text('New Password', style: AppTextStyles.label),
+                Text(l10n.otpNewPasswordLabel, style: AppTextStyles.label),
                 SizedBox(height: 8.h),
                 TextFormField(
                   controller: _newPasswordController,
@@ -218,7 +217,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                   textInputAction: TextInputAction.next,
                   style: AppTextStyles.bodyLarge,
                   decoration: InputDecoration(
-                    hintText: 'Enter new password',
+                    hintText: l10n.otpNewPasswordHint,
                     prefixIcon: Icon(
                       Icons.lock_outline,
                       color: context.colors.textHint,
@@ -236,10 +235,10 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter a new password';
+                      return l10n.otpErrorPasswordRequired;
                     }
                     if (value.length < 6) {
-                      return 'Password must be at least 6 characters';
+                      return l10n.otpErrorPasswordTooShort;
                     }
                     return null;
                   },
@@ -248,7 +247,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                 SizedBox(height: 20.h),
 
                 // Confirm password
-                Text('Confirm Password', style: AppTextStyles.label),
+                Text(l10n.otpConfirmPasswordLabel, style: AppTextStyles.label),
                 SizedBox(height: 8.h),
                 TextFormField(
                   controller: _confirmPasswordController,
@@ -256,7 +255,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                   textInputAction: TextInputAction.done,
                   style: AppTextStyles.bodyLarge,
                   decoration: InputDecoration(
-                    hintText: 'Confirm new password',
+                    hintText: l10n.otpConfirmPasswordHint,
                     prefixIcon: Icon(
                       Icons.lock_outline,
                       color: context.colors.textHint,
@@ -274,10 +273,10 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please confirm your password';
+                      return l10n.otpErrorConfirmPasswordRequired;
                     }
                     if (value != _newPasswordController.text) {
-                      return 'Passwords do not match';
+                      return l10n.otpErrorPasswordMismatch;
                     }
                     return null;
                   },
@@ -295,11 +294,11 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                         width: 20.w,
                         height: 20.w,
                         child: CircularProgressIndicator(
-                          color: context.colors.background,
+                          color: context.colors.onPrimary,
                           strokeWidth: 2,
                         ),
                       )
-                          : const Text('Reset Password'),
+                          : Text(l10n.otpResetPasswordButton),
                     );
                   }
                 ),

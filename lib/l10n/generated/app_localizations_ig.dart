@@ -1107,5 +1107,14 @@ class AppLocalizationsIg extends AppLocalizations {
       'Ezipá»¥la koodu! Biko lelá»‹rá»‹ ozi-e gá»‹';
 
   @override
+  String get otpDescriptionTail =>
+      '. Tinye ya n\'okpuru n\'okpuru á»ná»¥ma á»há»¥ná»¥ gá»‹.';
+
+  @override
+  String otpResendToast(String email) {
+    return 'Ezipá»¥la koodu á»há»¥ná»¥ na $email';
+  }
+
+  @override
   String get errorGeneric => 'E zigara ihe ọ dị ọma. Biko laghachi azụ.';
 }

@@ -367,5 +367,8 @@
   "signupErrorPasswordMismatchShort": "Las contraseÃ±as no coinciden",
   "signupHaveAccount": "Â¿Ya tienes una cuenta?",
   "forgotPasswordSentToast": "Â¡CÃ³digo enviado! Revisa tu correo",
+  "otpDescriptionTail": ". IntrodÃºcelo abajo junto con tu nueva contraseÃ±a.",
+  "otpResendToast": "Se ha enviado un nuevo cÃ³digo a {email}",
+  "@otpResendToast": { "placeholders": { "email": { "type": "String" } } },
   "errorGeneric": "Algo salió mal. Inténtalo de nuevo."
 }

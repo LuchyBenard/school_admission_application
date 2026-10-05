@@ -367,5 +367,8 @@
   "signupErrorPasswordMismatchShort": "Les mots de passe ne correspondent pas",
   "signupHaveAccount": "Vous avez dÃ©jÃ  un compte ?",
   "forgotPasswordSentToast": "Code envoyÃ© ! VÃ©rifiez votre boÃ®te mail",
+  "otpDescriptionTail": ". Saisissez-le ci-dessous avec votre nouveau mot de passe.",
+  "otpResendToast": "Un nouveau code a Ã©tÃ© envoyÃ© Ã  {email}",
+  "@otpResendToast": { "placeholders": { "email": { "type": "String" } } },
   "errorGeneric": "Une erreur est survenue. Veuillez réessayer."
 }

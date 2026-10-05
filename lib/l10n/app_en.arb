@@ -375,5 +375,8 @@
   "signupErrorPasswordMismatchShort": "Passwords do not match",
   "signupHaveAccount": "Already have an account?",
   "forgotPasswordSentToast": "OTP sent! Please check your email",
+  "otpDescriptionTail": ". Enter it below along with your new password.",
+  "otpResendToast": "A new OTP has been sent to {email}",
+  "@otpResendToast": { "placeholders": { "email": { "type": "String" } } },
   "errorGeneric": "Something went wrong. Please try again."
 }

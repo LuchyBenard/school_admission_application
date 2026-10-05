@@ -1108,5 +1108,14 @@ class AppLocalizationsYo extends AppLocalizations {
       'A fi kÃ³Ã³di rÃ¡ná¹£áº¹Ì! Já»Ìwá»Ì wo Ã­meÃ¨lÃ¬ ráº¹';
 
   @override
+  String get otpDescriptionTail =>
+      '. Táº¹Ì€ áº¹Ì€yáº¹Ì sÃ láº¹Ì€ páº¹Ì€lÃº á»Ì€rá»Ì€ Ã¬gbaniwá»lÃ© tuntun ráº¹.';
+
+  @override
+  String otpResendToast(String email) {
+    return 'A fi kÃ³Ã³di tuntun rÃ¡ná¹£áº¹Ì sÃ­ $email';
+  }
+
+  @override
   String get errorGeneric => 'Kòí àwọn ohun kan ṣe. Jọ́wọ́ tún gbìyànjú.';
 }

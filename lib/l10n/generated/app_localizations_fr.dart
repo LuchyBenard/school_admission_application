@@ -1147,5 +1147,14 @@ class AppLocalizationsFr extends AppLocalizations {
       'Code envoyÃ© ! VÃ©rifiez votre boÃ®te mail';
 
   @override
+  String get otpDescriptionTail =>
+      '. Saisissez-le ci-dessous avec votre nouveau mot de passe.';
+
+  @override
+  String otpResendToast(String email) {
+    return 'Un nouveau code a Ã©tÃ© envoyÃ© Ã  $email';
+  }
+
+  @override
   String get errorGeneric => 'Une erreur est survenue. Veuillez réessayer.';
 }

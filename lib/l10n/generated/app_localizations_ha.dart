@@ -1099,5 +1099,13 @@ class AppLocalizationsHa extends AppLocalizations {
   String get forgotPasswordSentToast => 'An aika lambobi! Ka duba imel É—inka';
 
   @override
+  String get otpDescriptionTail => '. Shigar da tare mu da sabo.';
+
+  @override
+  String otpResendToast(String email) {
+    return 'An aika sabuwar lambobi zuwa $email';
+  }
+
+  @override
   String get errorGeneric => 'Wani abu ya yi kuskure. Ka sake gwada.';
 }

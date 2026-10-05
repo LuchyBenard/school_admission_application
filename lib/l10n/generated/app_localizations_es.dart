@@ -1125,5 +1125,14 @@ class AppLocalizationsEs extends AppLocalizations {
   String get forgotPasswordSentToast => 'Â¡CÃ³digo enviado! Revisa tu correo';
 
   @override
+  String get otpDescriptionTail =>
+      '. IntrodÃºcelo abajo junto con tu nueva contraseÃ±a.';
+
+  @override
+  String otpResendToast(String email) {
+    return 'Se ha enviado un nuevo cÃ³digo a $email';
+  }
+
+  @override
   String get errorGeneric => 'Algo salió mal. Inténtalo de nuevo.';
 }

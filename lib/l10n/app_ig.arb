@@ -367,5 +367,8 @@
   "signupErrorPasswordMismatchShort": "Okwuntughe abá»¥á» ahá»¥ dá»‹ iche",
   "signupHaveAccount": "á»Š nwere akaá»¥ntá»¥ ugbu a?",
   "forgotPasswordSentToast": "Ezipá»¥la koodu! Biko lelá»‹rá»‹ ozi-e gá»‹",
+  "otpDescriptionTail": ". Tinye ya n'okpuru n'okpuru á»ná»¥ma á»há»¥ná»¥ gá»‹.",
+  "otpResendToast": "Ezipá»¥la koodu á»há»¥ná»¥ na {email}",
+  "@otpResendToast": { "placeholders": { "email": { "type": "String" } } },
   "errorGeneric": "E zigara ihe ọ dị ọma. Biko laghachi azụ."
 }

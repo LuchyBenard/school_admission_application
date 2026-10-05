@@ -2170,6 +2170,18 @@ abstract class AppLocalizations {
   /// **'OTP sent! Please check your email'**
   String get forgotPasswordSentToast;
 
+  /// No description provided for @otpDescriptionTail.
+  ///
+  /// In en, this message translates to:
+  /// **'. Enter it below along with your new password.'**
+  String get otpDescriptionTail;
+
+  /// No description provided for @otpResendToast.
+  ///
+  /// In en, this message translates to:
+  /// **'A new OTP has been sent to {email}'**
+  String otpResendToast(String email);
+
   /// No description provided for @errorGeneric.
   ///
   /// In en, this message translates to:
