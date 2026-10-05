@@ -366,5 +366,6 @@
   "signupErrorNameShort": "Introduce tu nombre y apellidos",
   "signupErrorPasswordMismatchShort": "Las contraseÃ±as no coinciden",
   "signupHaveAccount": "Â¿Ya tienes una cuenta?",
+  "forgotPasswordSentToast": "Â¡CÃ³digo enviado! Revisa tu correo",
   "errorGeneric": "Algo salió mal. Inténtalo de nuevo."
 }

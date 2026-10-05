@@ -366,5 +366,6 @@
   "signupErrorNameShort": "Ka shigar da suna na kwanan sunanka",
   "signupErrorPasswordMismatchShort": "Kalmar shigirge ba daidai",
   "signupHaveAccount": "Ka riga ka sami asusun?",
+  "forgotPasswordSentToast": "An aika lambobi! Ka duba imel É—inka",
   "errorGeneric": "Wani abu ya yi kuskure. Ka sake gwada."
 }

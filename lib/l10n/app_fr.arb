@@ -366,5 +366,6 @@
   "signupErrorNameShort": "Veuillez saisir votre prÃ©nom et votre nom",
   "signupErrorPasswordMismatchShort": "Les mots de passe ne correspondent pas",
   "signupHaveAccount": "Vous avez dÃ©jÃ  un compte ?",
+  "forgotPasswordSentToast": "Code envoyÃ© ! VÃ©rifiez votre boÃ®te mail",
   "errorGeneric": "Une erreur est survenue. Veuillez réessayer."
 }

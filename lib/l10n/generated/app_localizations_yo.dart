@@ -1104,5 +1104,9 @@ class AppLocalizationsYo extends AppLocalizations {
   String get signupHaveAccount => 'á¹¢Ã© o nÃ­ Ã ká»á»Ìláº¹Ì€ táº¹Ìláº¹Ì€?';
 
   @override
+  String get forgotPasswordSentToast =>
+      'A fi kÃ³Ã³di rÃ¡ná¹£áº¹Ì! Já»Ìwá»Ì wo Ã­meÃ¨lÃ¬ ráº¹';
+
+  @override
   String get errorGeneric => 'Kòí àwọn ohun kan ṣe. Jọ́wọ́ tún gbìyànjú.';
 }

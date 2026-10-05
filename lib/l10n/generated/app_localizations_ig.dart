@@ -1103,5 +1103,9 @@ class AppLocalizationsIg extends AppLocalizations {
   String get signupHaveAccount => 'á»Š nwere akaá»¥ntá»¥ ugbu a?';
 
   @override
+  String get forgotPasswordSentToast =>
+      'Ezipá»¥la koodu! Biko lelá»‹rá»‹ ozi-e gá»‹';
+
+  @override
   String get errorGeneric => 'E zigara ihe ọ dị ọma. Biko laghachi azụ.';
 }

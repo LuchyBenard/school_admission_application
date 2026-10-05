@@ -374,5 +374,6 @@
   "signupErrorNameShort": "Please enter your first and last name",
   "signupErrorPasswordMismatchShort": "Passwords do not match",
   "signupHaveAccount": "Already have an account?",
+  "forgotPasswordSentToast": "OTP sent! Please check your email",
   "errorGeneric": "Something went wrong. Please try again."
 }

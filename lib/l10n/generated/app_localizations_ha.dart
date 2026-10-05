@@ -1096,5 +1096,8 @@ class AppLocalizationsHa extends AppLocalizations {
   String get signupHaveAccount => 'Ka riga ka sami asusun?';
 
   @override
+  String get forgotPasswordSentToast => 'An aika lambobi! Ka duba imel É—inka';
+
+  @override
   String get errorGeneric => 'Wani abu ya yi kuskure. Ka sake gwada.';
 }

@@ -1108,5 +1108,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get signupHaveAccount => 'Already have an account?';
 
   @override
+  String get forgotPasswordSentToast => 'OTP sent! Please check your email';
+
+  @override
   String get errorGeneric => 'Something went wrong. Please try again.';
 }

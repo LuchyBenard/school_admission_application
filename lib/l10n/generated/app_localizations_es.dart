@@ -1122,5 +1122,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get signupHaveAccount => 'Â¿Ya tienes una cuenta?';
 
   @override
+  String get forgotPasswordSentToast => 'Â¡CÃ³digo enviado! Revisa tu correo';
+
+  @override
   String get errorGeneric => 'Algo salió mal. Inténtalo de nuevo.';
 }

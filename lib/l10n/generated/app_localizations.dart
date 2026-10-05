@@ -2164,6 +2164,12 @@ abstract class AppLocalizations {
   /// **'Already have an account?'**
   String get signupHaveAccount;
 
+  /// No description provided for @forgotPasswordSentToast.
+  ///
+  /// In en, this message translates to:
+  /// **'OTP sent! Please check your email'**
+  String get forgotPasswordSentToast;
+
   /// No description provided for @errorGeneric.
   ///
   /// In en, this message translates to:

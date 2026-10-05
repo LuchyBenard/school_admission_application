@@ -1143,5 +1143,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get signupHaveAccount => 'Vous avez dÃ©jÃ  un compte ?';
 
   @override
+  String get forgotPasswordSentToast =>
+      'Code envoyÃ© ! VÃ©rifiez votre boÃ®te mail';
+
+  @override
   String get errorGeneric => 'Une erreur est survenue. Veuillez réessayer.';
 }
