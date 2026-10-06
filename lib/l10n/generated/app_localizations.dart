@@ -847,7 +847,7 @@ abstract class AppLocalizations {
   /// No description provided for @schoolsListSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Browse thousands of school worldwide'**
+  /// **'Browse thousands of schools worldwide'**
   String get schoolsListSubtitle;
 
   /// No description provided for @schoolsEmptyTitle.
@@ -1165,7 +1165,7 @@ abstract class AppLocalizations {
   /// No description provided for @applicationFormGradeHint.
   ///
   /// In en, this message translates to:
-  /// **'e.g 2023'**
+  /// **'e.g 5 A\'s and 2 B\'s'**
   String get applicationFormGradeHint;
 
   /// No description provided for @applicationFormGraduationYear.
@@ -2187,6 +2187,426 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Something went wrong. Please try again.'**
   String get errorGeneric;
+
+  /// No description provided for @splashAppName.
+  ///
+  /// In en, this message translates to:
+  /// **'CampusApply'**
+  String get splashAppName;
+
+  /// No description provided for @splashTagline.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Admission, Simplified'**
+  String get splashTagline;
+
+  /// No description provided for @onboardingSlide1Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Find Your Perfect School'**
+  String get onboardingSlide1Title;
+
+  /// No description provided for @onboardingSlide1Subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore thousands of universities and institutions across Nigeria and worldwide all in one place.'**
+  String get onboardingSlide1Subtitle;
+
+  /// No description provided for @onboardingSlide2Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply & Track With Ease'**
+  String get onboardingSlide2Title;
+
+  /// No description provided for @onboardingSlide2Subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit applications, upload documents, pay fees and get real-time updates on your admission status.'**
+  String get onboardingSlide2Subtitle;
+
+  /// No description provided for @onboardingNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get onboardingNext;
+
+  /// No description provided for @onboardingSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get onboardingSkip;
+
+  /// No description provided for @emailVerifyAutoDetect.
+  ///
+  /// In en, this message translates to:
+  /// **'Once verified, you will be taken to your dashboard automatically.'**
+  String get emailVerifyAutoDetect;
+
+  /// No description provided for @emailVerifyVerifyWithCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify with code'**
+  String get emailVerifyVerifyWithCode;
+
+  /// No description provided for @emailVerifyCodeDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'In the email, copy the code from the verification link and paste it below.'**
+  String get emailVerifyCodeDescription;
+
+  /// No description provided for @emailVerifyCodeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Paste verification code'**
+  String get emailVerifyCodeHint;
+
+  /// No description provided for @emailVerifyVerifyCodeButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify Code'**
+  String get emailVerifyVerifyCodeButton;
+
+  /// No description provided for @emailVerifyResendButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend Email'**
+  String get emailVerifyResendButton;
+
+  /// No description provided for @emailVerifyManualRefresh.
+  ///
+  /// In en, this message translates to:
+  /// **'I\'ve verified — Continue'**
+  String get emailVerifyManualRefresh;
+
+  /// No description provided for @emailVerifySentToast.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification email sent. Check your inbox.'**
+  String get emailVerifySentToast;
+
+  /// No description provided for @emailVerifySuccessToast.
+  ///
+  /// In en, this message translates to:
+  /// **'Email verified. Welcome aboard!'**
+  String get emailVerifySuccessToast;
+
+  /// No description provided for @emailVerifySendFailedToast.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not send verification email. Please wait a minute and retry.'**
+  String get emailVerifySendFailedToast;
+
+  /// No description provided for @schoolsTryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Try Again'**
+  String get schoolsTryAgain;
+
+  /// No description provided for @schoolDetailSavedToFavorites.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} saved to favorites'**
+  String schoolDetailSavedToFavorites(Object name);
+
+  /// No description provided for @schoolDetailRemovedFromFavorites.
+  ///
+  /// In en, this message translates to:
+  /// **'Removed from favorites'**
+  String get schoolDetailRemovedFromFavorites;
+
+  /// No description provided for @schoolDetailApplicationsClosedToast.
+  ///
+  /// In en, this message translates to:
+  /// **'Applications are closed for {name}'**
+  String schoolDetailApplicationsClosedToast(Object name);
+
+  /// No description provided for @requirementsCutOffLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cut-off: {score}'**
+  String requirementsCutOffLabel(Object score);
+
+  /// No description provided for @requirementsTryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Try Again'**
+  String get requirementsTryAgain;
+
+  /// No description provided for @applicationFormStep1Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Personal Details'**
+  String get applicationFormStep1Title;
+
+  /// No description provided for @applicationFormStep1Subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tell us about yourself'**
+  String get applicationFormStep1Subtitle;
+
+  /// No description provided for @applicationFormStep2Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Academic Details'**
+  String get applicationFormStep2Title;
+
+  /// No description provided for @applicationFormStep2Subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tell us about your educational background'**
+  String get applicationFormStep2Subtitle;
+
+  /// No description provided for @applicationFormStep3Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Programme Selection'**
+  String get applicationFormStep3Title;
+
+  /// No description provided for @applicationFormStep3Subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select your programme of study'**
+  String get applicationFormStep3Subtitle;
+
+  /// No description provided for @applicationFormQualificationWAEC.
+  ///
+  /// In en, this message translates to:
+  /// **'WAEC/SSCE'**
+  String get applicationFormQualificationWAEC;
+
+  /// No description provided for @applicationFormQualificationNECO.
+  ///
+  /// In en, this message translates to:
+  /// **'NECO'**
+  String get applicationFormQualificationNECO;
+
+  /// No description provided for @applicationFormQualificationOND.
+  ///
+  /// In en, this message translates to:
+  /// **'OND'**
+  String get applicationFormQualificationOND;
+
+  /// No description provided for @applicationFormQualificationHND.
+  ///
+  /// In en, this message translates to:
+  /// **'HND'**
+  String get applicationFormQualificationHND;
+
+  /// No description provided for @applicationFormQualificationBachelors.
+  ///
+  /// In en, this message translates to:
+  /// **'Bachelor\'s Degree'**
+  String get applicationFormQualificationBachelors;
+
+  /// No description provided for @applicationFormQualificationMasters.
+  ///
+  /// In en, this message translates to:
+  /// **'Master\'s Degree'**
+  String get applicationFormQualificationMasters;
+
+  /// No description provided for @applicationFormJambScoreHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g 200'**
+  String get applicationFormJambScoreHint;
+
+  /// No description provided for @applicationFormJambYearHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g 2023'**
+  String get applicationFormJambYearHint;
+
+  /// No description provided for @applicationFormNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get applicationFormNext;
+
+  /// No description provided for @applicationFormSavedToast.
+  ///
+  /// In en, this message translates to:
+  /// **'Application saved! Please upload your documents.'**
+  String get applicationFormSavedToast;
+
+  /// No description provided for @applicationFormSubmitFailedToast.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to submit application. Please try again.'**
+  String get applicationFormSubmitFailedToast;
+
+  /// No description provided for @applicationFormDeadlinePassedToast.
+  ///
+  /// In en, this message translates to:
+  /// **'The application deadline for {name} has passed.'**
+  String applicationFormDeadlinePassedToast(Object name);
+
+  /// No description provided for @statusFilterPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get statusFilterPending;
+
+  /// No description provided for @statusFilterUnderReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Under Review'**
+  String get statusFilterUnderReview;
+
+  /// No description provided for @statusFilterAccepted.
+  ///
+  /// In en, this message translates to:
+  /// **'Accepted'**
+  String get statusFilterAccepted;
+
+  /// No description provided for @statusFilterRejected.
+  ///
+  /// In en, this message translates to:
+  /// **'Rejected'**
+  String get statusFilterRejected;
+
+  /// No description provided for @statusFilterWithdrawn.
+  ///
+  /// In en, this message translates to:
+  /// **'Withdrawn'**
+  String get statusFilterWithdrawn;
+
+  /// No description provided for @statusEmptyTitleAll.
+  ///
+  /// In en, this message translates to:
+  /// **'No Applications yet'**
+  String get statusEmptyTitleAll;
+
+  /// No description provided for @statusEmptyTitleFiltered.
+  ///
+  /// In en, this message translates to:
+  /// **'No {filter} applications'**
+  String statusEmptyTitleFiltered(Object filter);
+
+  /// No description provided for @statusTryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Try Again'**
+  String get statusTryAgain;
+
+  /// No description provided for @statusWithdrawConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Withdraw Application'**
+  String get statusWithdrawConfirmTitle;
+
+  /// No description provided for @statusWithdrawConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to withdraw your application to {school}? You can re-apply later.'**
+  String statusWithdrawConfirmBody(Object school);
+
+  /// No description provided for @statusDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Application'**
+  String get statusDeleteConfirmTitle;
+
+  /// No description provided for @statusDeleteConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete your application to {school}? This cannot be undone.'**
+  String statusDeleteConfirmBody(Object school);
+
+  /// No description provided for @statusWithdrawSuccessToast.
+  ///
+  /// In en, this message translates to:
+  /// **'Application withdrawn'**
+  String get statusWithdrawSuccessToast;
+
+  /// No description provided for @statusWithdrawFailedToast.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to withdraw application'**
+  String get statusWithdrawFailedToast;
+
+  /// No description provided for @statusDeleteSuccessToast.
+  ///
+  /// In en, this message translates to:
+  /// **'Application deleted'**
+  String get statusDeleteSuccessToast;
+
+  /// No description provided for @statusDeleteFailedToast.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to delete application'**
+  String get statusDeleteFailedToast;
+
+  /// No description provided for @applicationDetailWithdrawnToast.
+  ///
+  /// In en, this message translates to:
+  /// **'Application withdrawn'**
+  String get applicationDetailWithdrawnToast;
+
+  /// No description provided for @applicationDetailWithdrawFailedToast.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to withdraw application'**
+  String get applicationDetailWithdrawFailedToast;
+
+  /// No description provided for @applicationDetailDeletedToast.
+  ///
+  /// In en, this message translates to:
+  /// **'Application deleted'**
+  String get applicationDetailDeletedToast;
+
+  /// No description provided for @applicationDetailDeleteFailedToast.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to delete application'**
+  String get applicationDetailDeleteFailedToast;
+
+  /// No description provided for @applicationDetailCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get applicationDetailCancel;
+
+  /// No description provided for @documentUploadUploadedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'{title} uploaded successfully'**
+  String documentUploadUploadedSuccessfully(Object title);
+
+  /// No description provided for @documentUploadSavedLocally.
+  ///
+  /// In en, this message translates to:
+  /// **'{title} saved locally — it will sync when you are back online'**
+  String documentUploadSavedLocally(Object title);
+
+  /// No description provided for @documentUploadProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'{current} of {total} uploaded'**
+  String documentUploadProgress(Object current, Object total);
+
+  /// No description provided for @paymentPaystackTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Paystack'**
+  String get paymentPaystackTitle;
+
+  /// No description provided for @paymentFlutterwaveTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Flutterwave'**
+  String get paymentFlutterwaveTitle;
+
+  /// No description provided for @paymentPayButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay ₦{amount}'**
+  String paymentPayButton(Object amount);
+
+  /// No description provided for @notificationsCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get notificationsCancel;
 }
 
 class _AppLocalizationsDelegate

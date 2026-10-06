@@ -6,6 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import '../../core/constants/app_text_styles.dart';
+import '../../l10n/generated/app_localizations.dart';
 import '../../providers/offline_queue_provider.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -116,6 +117,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
       backgroundColor: context.colors.primary,
       body: Center(
@@ -158,7 +160,7 @@ class _SplashScreenState extends State<SplashScreen>
 
                 // App Name
                 Text(
-                  'CampusApply',
+                  l10n.splashAppName,
                   style: AppTextStyles.displayMedium.copyWith(
                     color: context.colors.background,
                     letterSpacing: 0.5,
@@ -168,7 +170,7 @@ class _SplashScreenState extends State<SplashScreen>
 
                 // TagLine
                 Text(
-                  'Your Admission, Simplified',
+                  l10n.splashTagline,
                   style: AppTextStyles.bodyMedium.copyWith(
                     color: context.colors.background.withValues(alpha: 0.75),
                   ),
@@ -187,9 +189,4 @@ class _SplashScreenState extends State<SplashScreen>
                 ),
               ],
             ),
-          ),
-        ),
-      ),
-    );
-  }
-}
+         

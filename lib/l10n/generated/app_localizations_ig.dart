@@ -1117,4 +1117,247 @@ class AppLocalizationsIg extends AppLocalizations {
 
   @override
   String get errorGeneric => 'E zigara ihe ọ dị ọma. Biko laghachi azụ.';
+
+  @override
+  String get splashAppName => 'CampusApply';
+
+  @override
+  String get splashTagline => 'Your Admission, Simplified';
+
+  @override
+  String get onboardingSlide1Title => 'Find Your Perfect School';
+
+  @override
+  String get onboardingSlide1Subtitle =>
+      'Explore thousands of universities and institutions across Nigeria and worldwide all in one place.';
+
+  @override
+  String get onboardingSlide2Title => 'Apply & Track With Ease';
+
+  @override
+  String get onboardingSlide2Subtitle =>
+      'Submit applications, upload documents, pay fees and get real-time updates on your admission status.';
+
+  @override
+  String get onboardingNext => 'Next';
+
+  @override
+  String get onboardingSkip => 'Skip';
+
+  @override
+  String get emailVerifyAutoDetect =>
+      'Once verified, you will be taken to your dashboard automatically.';
+
+  @override
+  String get emailVerifyVerifyWithCode => 'Verify with code';
+
+  @override
+  String get emailVerifyCodeDescription =>
+      'In the email, copy the code from the verification link and paste it below.';
+
+  @override
+  String get emailVerifyCodeHint => 'Paste verification code';
+
+  @override
+  String get emailVerifyVerifyCodeButton => 'Verify Code';
+
+  @override
+  String get emailVerifyResendButton => 'Resend Email';
+
+  @override
+  String get emailVerifyManualRefresh => 'I\'ve verified — Continue';
+
+  @override
+  String get emailVerifySentToast =>
+      'Verification email sent. Check your inbox.';
+
+  @override
+  String get emailVerifySuccessToast => 'Email verified. Welcome aboard!';
+
+  @override
+  String get emailVerifySendFailedToast =>
+      'Could not send verification email. Please wait a minute and retry.';
+
+  @override
+  String get schoolsTryAgain => 'Try Again';
+
+  @override
+  String schoolDetailSavedToFavorites(Object name) {
+    return '$name saved to favorites';
+  }
+
+  @override
+  String get schoolDetailRemovedFromFavorites => 'Removed from favorites';
+
+  @override
+  String schoolDetailApplicationsClosedToast(Object name) {
+    return 'Applications are closed for $name';
+  }
+
+  @override
+  String requirementsCutOffLabel(Object score) {
+    return 'Cut-off: $score';
+  }
+
+  @override
+  String get requirementsTryAgain => 'Try Again';
+
+  @override
+  String get applicationFormStep1Title => 'Personal Details';
+
+  @override
+  String get applicationFormStep1Subtitle => 'Tell us about yourself';
+
+  @override
+  String get applicationFormStep2Title => 'Academic Details';
+
+  @override
+  String get applicationFormStep2Subtitle =>
+      'Tell us about your educational background';
+
+  @override
+  String get applicationFormStep3Title => 'Programme Selection';
+
+  @override
+  String get applicationFormStep3Subtitle => 'Select your programme of study';
+
+  @override
+  String get applicationFormQualificationWAEC => 'WAEC/SSCE';
+
+  @override
+  String get applicationFormQualificationNECO => 'NECO';
+
+  @override
+  String get applicationFormQualificationOND => 'OND';
+
+  @override
+  String get applicationFormQualificationHND => 'HND';
+
+  @override
+  String get applicationFormQualificationBachelors => 'Bachelor\'s Degree';
+
+  @override
+  String get applicationFormQualificationMasters => 'Master\'s Degree';
+
+  @override
+  String get applicationFormJambScoreHint => 'e.g 200';
+
+  @override
+  String get applicationFormJambYearHint => 'e.g 2023';
+
+  @override
+  String get applicationFormNext => 'Next';
+
+  @override
+  String get applicationFormSavedToast =>
+      'Application saved! Please upload your documents.';
+
+  @override
+  String get applicationFormSubmitFailedToast =>
+      'Failed to submit application. Please try again.';
+
+  @override
+  String applicationFormDeadlinePassedToast(Object name) {
+    return 'The application deadline for $name has passed.';
+  }
+
+  @override
+  String get statusFilterPending => 'Pending';
+
+  @override
+  String get statusFilterUnderReview => 'Under Review';
+
+  @override
+  String get statusFilterAccepted => 'Accepted';
+
+  @override
+  String get statusFilterRejected => 'Rejected';
+
+  @override
+  String get statusFilterWithdrawn => 'Withdrawn';
+
+  @override
+  String get statusEmptyTitleAll => 'No Applications yet';
+
+  @override
+  String statusEmptyTitleFiltered(Object filter) {
+    return 'No $filter applications';
+  }
+
+  @override
+  String get statusTryAgain => 'Try Again';
+
+  @override
+  String get statusWithdrawConfirmTitle => 'Withdraw Application';
+
+  @override
+  String statusWithdrawConfirmBody(Object school) {
+    return 'Are you sure you want to withdraw your application to $school? You can re-apply later.';
+  }
+
+  @override
+  String get statusDeleteConfirmTitle => 'Delete Application';
+
+  @override
+  String statusDeleteConfirmBody(Object school) {
+    return 'Are you sure you want to delete your application to $school? This cannot be undone.';
+  }
+
+  @override
+  String get statusWithdrawSuccessToast => 'Application withdrawn';
+
+  @override
+  String get statusWithdrawFailedToast => 'Failed to withdraw application';
+
+  @override
+  String get statusDeleteSuccessToast => 'Application deleted';
+
+  @override
+  String get statusDeleteFailedToast => 'Failed to delete application';
+
+  @override
+  String get applicationDetailWithdrawnToast => 'Application withdrawn';
+
+  @override
+  String get applicationDetailWithdrawFailedToast =>
+      'Failed to withdraw application';
+
+  @override
+  String get applicationDetailDeletedToast => 'Application deleted';
+
+  @override
+  String get applicationDetailDeleteFailedToast =>
+      'Failed to delete application';
+
+  @override
+  String get applicationDetailCancel => 'Cancel';
+
+  @override
+  String documentUploadUploadedSuccessfully(Object title) {
+    return '$title uploaded successfully';
+  }
+
+  @override
+  String documentUploadSavedLocally(Object title) {
+    return '$title saved locally — it will sync when you are back online';
+  }
+
+  @override
+  String documentUploadProgress(Object current, Object total) {
+    return '$current of $total uploaded';
+  }
+
+  @override
+  String get paymentPaystackTitle => 'Paystack';
+
+  @override
+  String get paymentFlutterwaveTitle => 'Flutterwave';
+
+  @override
+  String paymentPayButton(Object amount) {
+    return 'Pay ₦$amount';
+  }
+
+  @override
+  String get notificationsCancel => 'Cancel';
 }
