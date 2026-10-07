@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../../providers/school_provider.dart';
 import '../../core/widgets/skeleton_loader.dart';
 import 'widgets/school_card.dart';
+import '../../l10n/generated/app_localizations.dart';
 
 class SchoolListScreen extends StatefulWidget {
   const SchoolListScreen({super.key});
@@ -33,6 +34,7 @@ class _SchoolListScreenState extends State<SchoolListScreen> {
   }
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
       backgroundColor: context.colors.background,
         body: SafeArea(
@@ -48,10 +50,10 @@ class _SchoolListScreenState extends State<SchoolListScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Find Schools', style: AppTextStyles.displayMedium),
+                    Text(l10n.schoolsTitle, style: AppTextStyles.displayMedium),
                     SizedBox(height: 4.h),
                     Text(
-                      'Browse thousands of school worldwide',
+                      l10n.schoolsListSubtitle,
                       style: AppTextStyles.bodyMedium,
                     ),
                   ],
@@ -68,7 +70,7 @@ class _SchoolListScreenState extends State<SchoolListScreen> {
                     context.read<SchoolProvider>().search(value);
                   },
                   decoration: InputDecoration(
-                    hintText: 'Search Schools...',
+                    hintText: l10n.schoolsSearchHint,
                     prefixIcon: Icon(
                       Icons.search,
                       color: context.colors.textHint,
@@ -134,8 +136,8 @@ class _SchoolListScreenState extends State<SchoolListScreen> {
                                     ? context.colors.background
                                     : context.colors.textSecondary,
                                 fontWeight: isSelected
-                                  ? FontWeight.w600
-                                    : FontWeight.w400,
+                              ? FontWeight.w600
+                                : FontWeight.w400,
                               ),
                             ),
                           ),
@@ -173,12 +175,12 @@ class _SchoolListScreenState extends State<SchoolListScreen> {
                             ),
                             SizedBox(height: 16.h),
                             Text(
-                              'Failed to load schools',
+                              l10n.schoolsLoadFailed,
                               style: AppTextStyles.h3,
                             ),
                             SizedBox(height: 8.h),
                             Text(
-                              'Check your internet connection and try again',
+                              l10n.schoolsOffline,
                               style: AppTextStyles.bodyMedium,
                               textAlign: TextAlign.center,
                             ),
@@ -188,7 +190,7 @@ class _SchoolListScreenState extends State<SchoolListScreen> {
                                 context.read<SchoolProvider>()
                                     .loadSchools();
                               },
-                              child: Text('Try Again'),
+                              child: Text(l10n.schoolsTryAgain),
                             ),
                           ],
                         ),
@@ -208,12 +210,12 @@ class _SchoolListScreenState extends State<SchoolListScreen> {
                         ),
                         SizedBox(height: 16.h),
                         Text(
-                          'No schools found',
+                          l10n.schoolsEmptyTitle,
                           style: AppTextStyles.h3,
                         ),
                         SizedBox(height: 8.h),
                         Text(
-                          'Try searching with a different name or country',
+                          l10n.schoolsEmptyMessage,
                           style: AppTextStyles.bodyMedium,
                           textAlign: TextAlign.center,
                         ),

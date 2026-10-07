@@ -3,6 +3,7 @@ import '../../../../core/theme/app_palette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/constants/app_text_styles.dart';
+import '../../../l10n/generated/app_localizations.dart';
 
 class FeaturedSchoolsBanner extends StatefulWidget {
   const FeaturedSchoolsBanner({super.key});
@@ -40,6 +41,7 @@ class _FeaturedSchoolsBannerState extends State<FeaturedSchoolsBanner> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     // COMING BACK TO FINISH YOU UP
     return Column(
       children: [

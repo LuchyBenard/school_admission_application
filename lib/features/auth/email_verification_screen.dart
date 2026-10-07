@@ -1,12 +1,13 @@
 import 'dart:async';
 import '../../../core/theme/app_palette.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'
 import 'package:firebase_auth/firebase_auth.dart' hide AuthProvider;
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_text_styles.dart';
+import '../../l10n/generated/app_localizations.dart';
 import '../../providers/auth_provider.dart';
 
 /// Shown after signup (and for unverified users on login / splash) until
@@ -65,19 +66,21 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
   }
 
   Future<void> _resend() async {
+    final l10n = AppLocalizations.of(context);
     final authProvider = context.read<AuthProvider>();
     final sent = await authProvider.sendVerificationEmail();
     if (!mounted) return;
     showToast(
       sent
-          ? 'Verification email sent. Check your inbox.'
-          : 'Could not send verification email. Please wait a minute and retry.',
+          ? l10n.emailVerifySentToast
+          : l10n.emailVerifySendFailedToast,
       backgroundColor: sent ? AppColors.success : AppColors.error,
       textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
     );
   }
 
   Future<void> _verifyWithCode() async {
+    final l10n = AppLocalizations.of(context);
     if (!_formKey.currentState!.validate()) return;
     final authProvider = context.read<AuthProvider>();
     final verified = await authProvider.verifyEmailWithCode(
@@ -88,7 +91,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
     if (verified) {
       _pollTimer?.cancel();
       showToast(
-        'Email verified. Welcome aboard!',
+        l10n.emailVerifySuccessToast,
         backgroundColor: AppColors.success,
         textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
       );
@@ -99,7 +102,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
       );
     } else {
       showToast(
-        'Invalid or expired verification code.',
+        l10n.emailVerifyCodeInvalid,
         backgroundColor: AppColors.error,
         textStyle: AppTextStyles.bodySmall.copyWith(color: Colors.white),
       );
@@ -113,6 +116,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
       backgroundColor: context.colors.background,
       appBar: AppBar(
@@ -151,7 +155,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
 
                 // Title
                 Text(
-                  'Verify your email',
+                  l10n.emailVerifyTitle,
                   style: AppTextStyles.displayMedium,
                 ),
                 SizedBox(height: 8.h),
@@ -161,17 +165,10 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                   text: TextSpan(
                     style: AppTextStyles.bodyMedium,
                     children: [
-                      TextSpan(text: 'We sent a verification email to '),
+                      TextSpan(text: l10n.emailVerifySentTo(_email.isEmpty ? l10n.emailVerifyInbox : _email)),
                       TextSpan(
-                        text: _email.isEmpty ? 'your inbox' : _email,
-                        style: AppTextStyles.bodyMedium.copyWith(
-                          color: context.colors.primary,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      TextSpan(
-                        text:
-                            '. Open it and click the link to confirm your account.',
+                        text: '. Open it and click the link to confirm your account.',
+                        style: AppTextStyles.bodyMedium,
                       ),
                     ],
                   ),
@@ -199,7 +196,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                       SizedBox(width: 12.w),
                       Expanded(
                         child: Text(
-                          'Once verified, you will be taken to your dashboard automatically.',
+                          l10n.emailVerifyAutoDetect,
                           style: AppTextStyles.bodySmall.copyWith(
                             color: context.colors.textPrimary,
                           ),
@@ -212,10 +209,10 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                 SizedBox(height: 24.h),
 
                 // Verify with code (optional OTP-style)
-                Text('Verify with code', style: AppTextStyles.h2),
+                Text(l10n.emailVerifyVerifyWithCode, style: AppTextStyles.h2),
                 SizedBox(height: 4.h),
                 Text(
-                  'In the email, copy the code from the verification link and paste it below.',
+                  l10n.emailVerifyCodeDescription,
                   style: AppTextStyles.bodySmall.copyWith(
                     color: context.colors.textSecondary,
                   ),
@@ -226,7 +223,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                   style: AppTextStyles.bodyLarge,
                   textInputAction: TextInputAction.done,
                   decoration: InputDecoration(
-                    hintText: 'Paste verification code',
+                    hintText: l10n.emailVerifyCodeHint,
                     prefixIcon: Icon(
                       Icons.pin_outlined,
                       color: context.colors.textHint,
@@ -234,7 +231,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                   ),
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return 'Please enter the verification code';
+                      return l10n.emailVerifyCodeRequired;
                     }
                     return null;
                   },
@@ -244,7 +241,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: _verifyWithCode,
-                    child: const Text('Verify Code'),
+                    child: Text(l10n.emailVerifyVerifyCodeButton),
                   ),
                 ),
 
@@ -255,7 +252,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                   width: double.infinity,
                   child: OutlinedButton(
                     onPressed: _resend,
-                    child: const Text('Resend Email'),
+                    child: Text(l10n.emailVerifyResendButton),
                   ),
                 ),
 
@@ -269,7 +266,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                       child: TextButton(
                         onPressed: authProvider.isLoading ? null : _checkVerified,
                         child: Text(
-                          "I've verified — Continue",
+                          l10n.emailVerifyManualRefresh,
                           style: TextStyle(
                             color: context.colors.primary,
                             fontWeight: FontWeight.w600,
@@ -287,7 +284,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                   child: GestureDetector(
                     onTap: _signOut,
                     child: Text(
-                      'Sign out',
+                      l10n.emailVerifySignOut,
                       style: AppTextStyles.bodySmall.copyWith(
                         color: context.colors.textHint,
                         decoration: TextDecoration.underline,

@@ -3,6 +3,7 @@ import '../../../core/theme/app_palette.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:school_admission_application/core/constants/app_text_styles.dart';
+import '../../l10n/generated/app_localizations.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -15,18 +16,25 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
 
-  final List<Map<String, String>> _slides = [
-    {
-      'title': 'Find Your Perfect School',
-      'subtitle': 'Explore thousands of universities and institutions across Nigeria and worldwide all in one place.',
-      'image': 'assets/images/universitybuilding.jpg', // Will attach a picture later to it.
-    },
-    {
-      'title': 'Apply & Track With Ease',
-      'subtitle': 'Submit applications, upload documents, pay fees and get real-time updates on your admission status.',
-      'image': 'assets/images/studentUpload.png', // also will attach picture to this later.
-    },
-  ];
+  late final List<Map<String, String>> _slides;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final l10n = AppLocalizations.of(context);
+    _slides = [
+      {
+        'title': l10n.onboardingSlide1Title,
+        'subtitle': l10n.onboardingSlide1Subtitle,
+        'image': 'assets/images/universitybuilding.jpg',
+      },
+      {
+        'title': l10n.onboardingSlide2Title,
+        'subtitle': l10n.onboardingSlide2Subtitle,
+        'image': 'assets/images/studentUpload.png',
+      },
+    ];
+  }
 
   void _onPageChanged(int index) {
     setState(() {
@@ -56,6 +64,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
       backgroundColor: context.colors.background,
       body: SafeArea(
@@ -70,14 +79,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     ? GestureDetector(
                   onTap: _skip,
                   child: Text(
-                    'Skip',
+                    l10n.onboardingSkip,
                     style: AppTextStyles.bodyMedium.copyWith(
                       color: context.colors.primary,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                 )
-                    : SizedBox(), // hides skip on the last slide
+                    : const SizedBox(), // hides skip on the last slide
               ),
             ),
             // PageView
@@ -95,7 +104,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 },
               ),
             ),
-            // Dot Indicators
             // Dot Indicators
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -124,7 +132,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               child: ElevatedButton(
                 onPressed: _goToNextPage,
                 child: Text(
-                  _currentPage < _slides.length -1 ? 'Next' : 'Get Started',
+                  _currentPage < _slides.length - 1 ? l10n.onboardingNext : l10n.onboardingGetStarted,
                 ),
               ),
             ),

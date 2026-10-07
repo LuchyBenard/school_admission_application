@@ -5,7 +5,8 @@ import 'package:country_flags/country_flags.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 import '../../../core/constants/app_colors.dart';
-import '../../../core/constants/app_text_styles.dart';
+import '../../../core/constants/app_text_styles.dart'
+import '../../../l10n/generated/app_localizations.dart';
 import '../../../models/school_model.dart';
 import '../../../providers/favorites_provider.dart';
 
@@ -36,6 +37,7 @@ class SavedSchoolsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Consumer<FavoritesProvider>(
       builder: (context, favProvider, child) {
         final favorites = favProvider.favorites;
@@ -70,7 +72,7 @@ class SavedSchoolsSection extends StatelessWidget {
                 SizedBox(width: 12.w),
                 Expanded(
                   child: Text(
-                    'No saved schools yet. Tap the heart on any school to save it here.',
+                    l10n.homeNoSavedSchools,
                     style: AppTextStyles.bodySmall.copyWith(
                       color: context.colors.textSecondary,
                     ),
@@ -106,6 +108,7 @@ class _SavedSchoolCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(
@@ -144,7 +147,7 @@ class _SavedSchoolCard extends StatelessWidget {
                   onTap: () {
                     context.read<FavoritesProvider>().removeFavorite(school);
                     showToast(
-                      'Removed from favorites',
+                      l10n.homeRemovedFromFavorites,
                       backgroundColor: AppColors.info,
                       textStyle: AppTextStyles.bodySmall.copyWith(
                         color: Colors.white,

@@ -6,6 +6,7 @@ import 'package:oktoast/oktoast.dart';
 import 'package:school_admission_application/providers/application_provider.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_text_styles.dart';
+import '../../l10n/generated/app_localizations.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/favorites_provider.dart';
 import 'widgets/featured_schools_banner.dart';
@@ -39,6 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final authProvider = context.watch<AuthProvider>();
     final String firstName = authProvider.userProfile?['fullName']
             ?.toString()
@@ -64,12 +66,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Hello, $firstName 👋',
+                        l10n.homeGreeting(firstName),
                         style: AppTextStyles.displayMedium,
                       ),
                       SizedBox(height: 4.h),
                       Text(
-                        'Find and apply to your dream school',
+                        l10n.homeSearchTitle,
                         style: AppTextStyles.bodyMedium,
                       ),
                     ],
@@ -133,21 +135,21 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(height: 28.h),
 
               // Featured Schools
-              Text('Featured Schools', style: AppTextStyles.h2),
+              Text(l10n.homeFeaturedSchools, style: AppTextStyles.h2),
               SizedBox(height: 16.h),
               const FeaturedSchoolsBanner(),
 
               SizedBox(height: 28.h),
 
               // Saved Schools
-              Text('Saved Schools', style: AppTextStyles.h2),
+              Text(l10n.homeSavedSchools, style: AppTextStyles.h2),
               SizedBox(height: 16.h),
               const SavedSchoolsSection(),
 
               SizedBox(height: 28.h),
 
               // Application summary
-              Text('My Applications', style: AppTextStyles.h2),
+              Text(l10n.homeMyApplications, style: AppTextStyles.h2),
               SizedBox(height: 16.h),
 
               Consumer<ApplicationProvider>(
@@ -166,25 +168,25 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       ApplicationSummaryCard(
                         count: appProvider.totalApplied.toString(),
-                        label: 'Total Applied',
+                        label: l10n.homeStatsTotalApplied,
                         color: context.colors.primary,
                         icon: Icons.assignment_outlined,
                       ),
                       ApplicationSummaryCard(
                         count: appProvider.underReview.toString(),
-                        label: 'Under Review',
+                        label: l10n.homeStatsUnderReview,
                         color: AppColors.warning,
                         icon: Icons.hourglass_empty_outlined,
                       ),
                       ApplicationSummaryCard(
                         count: appProvider.accepted.toString(),
-                        label: 'Accepted',
+                        label: l10n.homeStatsAccepted,
                         color: AppColors.success,
                         icon: Icons.check_circle_outline,
                       ),
                       ApplicationSummaryCard(
                         count: appProvider.rejected.toString(),
-                        label: 'Rejected',
+                        label: l10n.homeStatsRejected,
                         color: AppColors.error,
                         icon: Icons.cancel_outlined,
                       ),
@@ -196,7 +198,7 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(height: 28.h),
 
               // Quick Actions
-              Text('Quick Actions', style: AppTextStyles.h2),
+              Text(l10n.homeQuickActions, style: AppTextStyles.h2),
               SizedBox(height: 16.h),
 
               Row(
@@ -205,7 +207,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: _buildQuickAction(
                       context: context,
                       icon: Icons.search,
-                      label: 'Find Schools',
+                      label: l10n.homeFindSchools,
                       onTap: () {
                         widget.onFindSchoolsTapped?.call();
                       },
@@ -216,7 +218,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: _buildQuickAction(
                       context: context,
                       icon: Icons.description_outlined,
-                      label: 'My Documents',
+                      label: l10n.homeMyDocuments,
                       onTap: () {
                         final appProvider =
                             context.read<ApplicationProvider>();
@@ -224,7 +226,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         final apps = appProvider.applications;
                         if (apps.isEmpty) {
                           showToast(
-                            'You have no application yet. Apply to a school first.',
+                            l10n.homeNoApplicationsYet,
                             backgroundColor: AppColors.warning,
                             textStyle: AppTextStyles.bodySmall
                                 .copyWith(color: Colors.white),
