@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_text_styles.dart';
+import '../../l10n/generated/app_localizations.dart';
 import '../../models/admission_requirement_model.dart';
 import '../../models/school_model.dart';
 import '../../providers/admission_requirement_provider.dart';
@@ -33,6 +34,7 @@ class _AdmissionRequirementsScreenState
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
       backgroundColor: context.colors.background,
       appBar: AppBar(
@@ -45,7 +47,7 @@ class _AdmissionRequirementsScreenState
             color: context.colors.textPrimary,
           ),
         ),
-        title: Text('Admission Requirements', style: AppTextStyles.h2),
+        title: Text(l10n.requirementsTitle, style: AppTextStyles.h2),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,7 +61,7 @@ class _AdmissionRequirementsScreenState
                 Text(_school.name, style: AppTextStyles.displayMedium),
                 SizedBox(height: 4.h),
                 Text(
-                  'Programmes and cut-off scores',
+                  l10n.requirementsProgrammesHeading,
                   style: AppTextStyles.bodyMedium,
                 ),
               ],
@@ -92,7 +94,7 @@ class _AdmissionRequirementsScreenState
                         ),
                         SizedBox(height: 16.h),
                         Text(
-                          'Failed to load requirements',
+                          l10n.requirementsLoadFailed,
                           style: AppTextStyles.h3,
                         ),
                         SizedBox(height: 8.h),
@@ -105,7 +107,7 @@ class _AdmissionRequirementsScreenState
                                   schoolCountry: _school.country,
                                 );
                           },
-                          child: const Text('Try Again'),
+                          child: Text(l10n.requirementsTryAgain),
                         ),
                       ],
                     ),
@@ -127,13 +129,13 @@ class _AdmissionRequirementsScreenState
                           ),
                           SizedBox(height: 16.h),
                           Text(
-                            'No requirements published yet',
+                            l10n.requirementsEmptyTitle,
                             style: AppTextStyles.h3,
                             textAlign: TextAlign.center,
                           ),
                           SizedBox(height: 8.h),
                           Text(
-                            'Check the school website or contact the admission office for the latest requirements.',
+                            l10n.requirementsEmptyNote,
                             style: AppTextStyles.bodyMedium,
                             textAlign: TextAlign.center,
                           ),
@@ -168,6 +170,7 @@ class _RequirementCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Container(
       margin: EdgeInsets.only(bottom: 12.h),
       padding: EdgeInsets.all(16.w),
@@ -243,8 +246,8 @@ class _RequirementCard extends StatelessWidget {
                     SizedBox(width: 6.w),
                     Text(
                       requirement.cutOffScore.isNotEmpty
-                          ? 'Cut-off: ${requirement.cutOffScore}'
-                          : 'No cut-off published',
+                          ? l10n.requirementsCutOffLabel(requirement.cutOffScore)
+                          : l10n.requirementsNoCutOff,
                       style: AppTextStyles.caption.copyWith(
                         color: AppColors.success,
                         fontWeight: FontWeight.w700,
@@ -259,7 +262,7 @@ class _RequirementCard extends StatelessWidget {
           // Additional requirements
           if (requirement.requirements.isNotEmpty) ...[
             SizedBox(height: 12.h),
-            Text('Requirements', style: AppTextStyles.label),
+            Text(l10n.requirementsRequirementsHeading, style: AppTextStyles.label),
             SizedBox(height: 6.h),
             ...requirement.requirements.map(
               (r) => Padding(

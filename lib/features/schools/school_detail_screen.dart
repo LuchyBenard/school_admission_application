@@ -7,6 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_text_styles.dart';
 import '../../core/widgets/deadline_chip.dart';
+import '../../l10n/generated/app_localizations.dart';
 import '../../models/school_model.dart';
 import '../../providers/favorites_provider.dart';
 
@@ -15,6 +16,7 @@ class SchoolDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final school = ModalRoute.of(context)!.settings.arguments as SchoolModel;
     return Scaffold(
       backgroundColor: context.colors.background,
@@ -45,7 +47,7 @@ class SchoolDetailScreen extends StatelessWidget {
                   favProvider.toggleFavorite(school);
                   if (adding) {
                     showToast(
-                      '${school.name} saved to favorites',
+                      l10n.schoolDetailSavedToFavorites(school.name),
                       backgroundColor: AppColors.success,
                       textStyle: AppTextStyles.bodySmall.copyWith(
                         color: Colors.white,
@@ -53,7 +55,7 @@ class SchoolDetailScreen extends StatelessWidget {
                     );
                   } else {
                     showToast(
-                      'Removed from favorites',
+                      l10n.schoolDetailRemovedFromFavorites,
                       backgroundColor: AppColors.info,
                       textStyle: AppTextStyles.bodySmall.copyWith(
                         color: Colors.white,
@@ -104,24 +106,24 @@ class SchoolDetailScreen extends StatelessWidget {
               SizedBox(height: 24.h),
 
               // Info Section
-              _buildInfoSection(context, 'Country', school.country),
+              _buildInfoSection(context, l10n.schoolDetailCountry, school.country),
               _buildInfoSection(
                 context,
-                'Location',
+                l10n.schoolDetailLocation,
                 school.state.isNotEmpty
                     ? '${school.state}, ${school.country}'
                     : school.country,
               ),
-              _buildInfoSection(context, 'Website', school.website),
+              _buildInfoSection(context, l10n.schoolDetailWebsite, school.website),
 
               if (school.description != null && school.description!.isNotEmpty)
-                _buildInfoSection(context, 'About', school.description!),
+                _buildInfoSection(context, l10n.schoolDetailAbout, school.description!),
 
               if (school.applicationFee != null && school.applicationFee!.isNotEmpty)
-                _buildInfoSection(context, 'Application Fee', school.applicationFee!),
+                _buildInfoSection(context, l10n.schoolDetailApplicationFee, school.applicationFee!),
 
               if (school.deadline != null && school.deadline!.isNotEmpty) ...[
-                _buildInfoSection(context, 'Deadline', school.deadline!),
+                _buildInfoSection(context, l10n.schoolDetailDeadline, school.deadline!),
                 // Countdown chip
                 if (!school.isDeadlinePassed) ...[
                   Align(
@@ -132,8 +134,8 @@ class SchoolDetailScreen extends StatelessWidget {
                 ] else
                   _buildInfoSection(
                     context,
-                    'Status',
-                    'Applications closed',
+                    l10n.schoolDetailStatus,
+                    l10n.schoolDetailApplicationsClosed,
                     labelColor: AppColors.error,
                   ),
               ],
@@ -163,7 +165,7 @@ class SchoolDetailScreen extends StatelessWidget {
                     ),
                   ),
                   icon: const Icon(Icons.language_outlined),
-                  label: const Text('Visit Website'),
+                  label: Text(l10n.schoolDetailVisitWebsite),
                 ),
 
               SizedBox(height: 12.h),
@@ -188,7 +190,7 @@ class SchoolDetailScreen extends StatelessWidget {
                     ),
                   ),
                   icon: const Icon(Icons.school_outlined),
-                  label: const Text('Admission Requirements'),
+                  label: Text(l10n.schoolDetailAdmissionRequirements),
                 ),
               ),
 
@@ -201,7 +203,7 @@ class SchoolDetailScreen extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {
                       showToast(
-                        'Applications are closed for ${school.name}',
+                        l10n.schoolDetailApplicationsClosedToast(school.name),
                         backgroundColor: AppColors.error,
                         textStyle: AppTextStyles.bodySmall.copyWith(
                           color: Colors.white,
@@ -212,7 +214,7 @@ class SchoolDetailScreen extends StatelessWidget {
                       backgroundColor: context.colors.textHint,
                       disabledForegroundColor: Colors.white,
                     ),
-                    child: const Text('Applications Closed'),
+                    child: Text(l10n.schoolDetailApplicationsClosed),
                   ),
                 ),
               ] else
@@ -226,7 +228,7 @@ class SchoolDetailScreen extends StatelessWidget {
                         arguments: school,
                       );
                     },
-                    child: const Text('Apply Now'),
+                    child: Text(l10n.schoolDetailApplyNow),
                   ),
                 ),
             ],
