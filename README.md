@@ -21,6 +21,7 @@ The system is designed to serve two main user roles:
 - **Secure Document Upload:** Integrated image picking; images are compressed and stored as base64 in a Firestore subcollection (no paid Firebase Storage needed).
 - **Notification System:** Real-time in-app updates plus push notification triggers via Firebase Cloud Functions.
 - **Profile Management:** Complete control over personal information and account settings.
+- **Multi-language Support:** Fully localized in English, Spanish, French, Hausa, Igbo, and Yoruba with system locale detection and manual language selection in Settings.
 
 ### For Administrators
 - **Admin Portal:** Secure login restricted to authorized administrative users.
@@ -41,6 +42,7 @@ The system is designed to serve two main user roles:
 - **State Management:** Provider
 - **Networking:** Dio (global school listings via jsDelivr CDN mirror, GitHub raw mirror, and Hipolabs API)
 - **Local Storage:** GetStorage (Session, onboarding, and school list caching)
+- **Internationalization:** `flutter_localizations` with `intl` package — ARB files for 6 languages
 - **UI/UX Enhancements:** 
   - `flutter_screenutil` for responsive design.
   - `skeleton_loader` for smooth data loading transitions.
@@ -54,6 +56,7 @@ The system is designed to serve two main user roles:
 lib/
 ├── core/             # Constants, themes, and shared widgets
 ├── features/         # Feature-based folders (Auth, Dashboard, Schools, Admin, etc.)
+├── l10n/             # Localization files (ARB + generated Dart)
 ├── models/           # Data models and Firebase factories
 ├── providers/        # Business logic and state management
 ├── services/         # Firebase and API communication logic
@@ -71,6 +74,32 @@ The school list never appears empty. Data loads from the first available source:
 4. **Hipolabs API** — original source, used as a last resort.
 5. **Firestore** — schools auto-seeded from API results on first successful load.
 6. **Bundled asset** — `assets/data/nigerian_schools.json` (115 real Nigerian universities), guaranteed offline fallback.
+
+---
+
+## 🌍 Internationalization (i18n)
+CampusApply supports **6 languages** out of the box:
+
+| Language | Code | File |
+|----------|------|------|
+| English | `en` | `lib/l10n/app_en.arb` |
+| Spanish | `es` | `lib/l10n/app_es.arb` |
+| French | `fr` | `lib/l10n/app_fr.arb` |
+| Hausa | `ha` | `lib/l10n/app_ha.arb` |
+| Igbo | `ig` | `lib/l10n/app_ig.arb` |
+| Yoruba | `yo` | `lib/l10n/app_yo.arb` |
+
+### How it works
+- **Auto-detection:** App uses system locale on first launch via `flutter_localizations`.
+- **Manual override:** Users can change language in Settings → Language (persisted via GetStorage).
+- **Generation:** Run `flutter gen-l10n` after editing ARB files to regenerate `lib/l10n/generated/app_localizations.dart`.
+- **Usage:** Access strings via `AppLocalizations.of(context).keyName` — no hardcoded strings in UI.
+
+### Adding a new language
+1. Copy `lib/l10n/app_en.arb` to `lib/l10n/app_<code>.arb`
+2. Translate all values
+3. Add locale to `supportedLocales` in `main.dart` (auto-handled by `AppLocalizations.supportedLocales`)
+4. Run `flutter gen-l10n`
 
 ---
 
