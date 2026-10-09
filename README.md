@@ -158,6 +158,7 @@ flutter run
 - [x] Global school search with multi-source fallback + offline bundled list.
 - [x] Push notification triggers via Cloud Functions (built; deploy with `firebase deploy`).
 - [x] Admin batch school upload (CSV).
+- [x] Full localization (English, Spanish, French, Hausa, Igbo, Yoruba).
 - [ ] Real-time PayStack/Flutterwave payment integration.
 
 ---
