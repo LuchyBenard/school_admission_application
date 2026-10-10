@@ -259,6 +259,9 @@ class AppLocalizationsHa extends AppLocalizations {
   }
 
   @override
+  String get otpCodeLabel => 'OTP Code';
+
+  @override
   String get otpVerifyButton => 'Tabbatar da lambobi';
 
   @override

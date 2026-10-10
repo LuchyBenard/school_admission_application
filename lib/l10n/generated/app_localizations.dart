@@ -580,6 +580,12 @@ abstract class AppLocalizations {
   /// **'We sent a 6-digit OTP to {email}'**
   String otpDescription(String email);
 
+  /// No description provided for @otpCodeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'OTP Code'**
+  String get otpCodeLabel;
+
   /// No description provided for @otpVerifyButton.
   ///
   /// In en, this message translates to:

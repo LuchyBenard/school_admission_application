@@ -257,6 +257,9 @@ class AppLocalizationsYo extends AppLocalizations {
   }
 
   @override
+  String get otpCodeLabel => 'OTP Code';
+
+  @override
   String get otpVerifyButton => 'Fọwọ́sí kóódi';
 
   @override

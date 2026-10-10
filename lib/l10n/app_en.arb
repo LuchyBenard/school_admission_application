@@ -85,9 +85,10 @@
   "forgotPasswordErrorEmailRequired": "Please enter your email",
   "forgotPasswordErrorEmailInvalid": "Please enter a valid email address",
 
-  "otpTitle": "Enter OTP",
+"otpTitle": "Enter OTP",
   "otpDescription": "We sent a 6-digit OTP to {email}",
   "@otpDescription": { "placeholders": { "email": { "type": "String" } } },
+  "otpCodeLabel": "OTP Code",
   "otpVerifyButton": "Verify Code",
   "otpResendButton": "Resend OTP",
   "otpErrorRequired": "Please enter the complete 6-digit  OTP",

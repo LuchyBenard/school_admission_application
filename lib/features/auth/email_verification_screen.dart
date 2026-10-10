@@ -1,7 +1,7 @@
 import 'dart:async';
 import '../../../core/theme/app_palette.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart'
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide AuthProvider;
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
