@@ -5,7 +5,7 @@ import 'package:country_flags/country_flags.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 import '../../../core/constants/app_colors.dart';
-import '../../../core/constants/app_text_styles.dart'
+import '../../../core/constants/app_text_styles.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../../models/school_model.dart';
 import '../../../providers/favorites_provider.dart';
