@@ -163,6 +163,34 @@ flutter run
 
 ---
 
+## ✅ Code Quality Status
+- **`flutter analyze`**: ✅ No issues (all 17 feature folders + core)
+- **`flutter gen-l10n`**: ✅ Generates successfully (6 locales)
+- **Localization coverage**: 16 screens fully localized (Auth, Home, Schools, Applications, Notifications, Profile, Admin)
+- **Settings persistence**: Theme (Light/Dark/System) + Language (6 locales + System) via GetStorage
+
+---
+
+## 🛠 Development Commands
+```bash
+# Install dependencies
+flutter pub get
+
+# Generate localizations after editing ARB files
+flutter gen-l10n
+
+# Static analysis
+flutter analyze
+
+# Run the app
+flutter run
+
+# Build release APK
+flutter build apk --release
+```
+
+---
+
 ## 🤝 Contributing
 Contributions are welcome! Please feel free to submit a Pull Request.
 
