@@ -357,6 +357,19 @@ Import to Firestore `schools/` collection
 - Providers call services and hold state — no widgets
 - Models have fromFirestore(), fromApi(), toMap() methods
 
+## Internationalization (i18n)
+- **Supported locales (6):** en, es, fr, ha, ig, yo — defined in `SettingsProvider.supportedLocales`
+- **Source files:** `lib/l10n/app_<code>.arb` (ARB format)
+- **Generated:** `lib/l10n/generated/app_localizations.dart` via `flutter gen-l10n`
+- **Usage:** `AppLocalizations.of(context).keyName` — no hardcoded strings in UI
+- **Persistence:** User language choice saved in GetStorage via `SettingsProvider.setLocale()`
+- **Auto-detection:** System locale used on first launch; manual override in Profile → Settings → Language
+- **Adding a language:**
+  1. Copy `lib/l10n/app_en.arb` → `lib/l10n/app_<code>.arb`
+  2. Translate all values
+  3. Run `flutter gen-l10n`
+- **Localized screens (16):** Splash, Onboarding, Auth (5), Home (3 widgets), Schools (4), Applications (5), Notifications, Profile (Settings)
+
 ## Known Placeholders
 - Payment: currently simulates success after 2s delay
   Real integration: PayStack or FlutterWave
