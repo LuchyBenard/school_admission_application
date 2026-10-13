@@ -114,6 +114,7 @@
   "emailVerifyCodeRequired": "Introduce el código de verificación",
   "emailVerifyCodeInvalid": "Código de verificación no válido o caducado.",
   "emailVerifyInbox": "tu bandeja de entrada",
+  "emailVerifyOpenLink": ". Ábrelo y haz clic en el enlace para confirmar tu cuenta.",
 
   "homeGreeting": "Hola, {name}",
   "homeSearchTitle": "Encuentra y postula a tu colegio soñado",
@@ -184,11 +185,6 @@
   "applicationFormNationalityHint": "p. ej. Nigerians",
   "applicationFormQualification": "Titulación más alta",
   "applicationFormQualificationHint": "Selecciona una titulación",
-  "applicationFormQualificationOLevel": "WAEC/SSCE",
-  "applicationFormQualificationNeco": "NECO",
-  "applicationFormQualificationALevels": "A-Levels",
-  "applicationFormQualificationOnd": "OND",
-  "applicationFormQualificationHnd": "HND",
   "applicationFormGrade": "Nota/Resultado",
   "applicationFormGradeHint": "p. ej. 2023",
   "applicationFormGraduationYear": "Año de graduación",
@@ -364,12 +360,12 @@
   "profilePhotoPickFailed": "No se pudo elegir la foto. Inténtalo de nuevo.",
 
   "signupErrorNameShort": "Introduce tu nombre y apellidos",
-  "signupErrorPasswordMismatchShort": "Las contraseÃ±as no coinciden",
-  "signupHaveAccount": "Â¿Ya tienes una cuenta?",
-  "forgotPasswordSentToast": "Â¡CÃ³digo enviado! Revisa tu correo",
-  "otpDescriptionTail": ". IntrodÃºcelo abajo junto con tu nueva contraseÃ±a.",
-  "otpResendToast": "Se ha enviado un nuevo cÃ³digo a {email}",
+  "signupErrorPasswordMismatchShort": "Las contraseñas no coinciden",
+  "signupHaveAccount": "¿Ya tienes una cuenta?",
+  "forgotPasswordSentToast": "¡Código enviado! Revisa tu correo",
+  "otpDescriptionTail": ". Introdúcelo abajo junto con tu nueva contraseña.",
+  "otpResendToast": "Se ha enviado un nuevo código a {email}",
   "@otpResendToast": { "placeholders": { "email": { "type": "String" } } },
-  "otpCodeLabel": "Introduce el cÃ³digo",
+  "otpCodeLabel": "Introduce el código",
   "errorGeneric": "Algo salió mal. Inténtalo de nuevo."
 }

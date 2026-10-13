@@ -257,7 +257,7 @@ class AppLocalizationsYo extends AppLocalizations {
   }
 
   @override
-  String get otpCodeLabel => 'Táº¹Ì€ kÃ³Ã³di nÃ¡Ã ';
+  String get otpCodeLabel => 'Tẹ̀ kóódi náà';
 
   @override
   String get otpVerifyButton => 'Fọwọ́sí kóódi';
@@ -547,21 +547,6 @@ class AppLocalizationsYo extends AppLocalizations {
 
   @override
   String get applicationFormQualificationHint => 'Yàn ìwé tí o gba';
-
-  @override
-  String get applicationFormQualificationOLevel => 'WAEC/SSCE';
-
-  @override
-  String get applicationFormQualificationNeco => 'NECO';
-
-  @override
-  String get applicationFormQualificationALevels => 'A-Levels';
-
-  @override
-  String get applicationFormQualificationOnd => 'OND';
-
-  @override
-  String get applicationFormQualificationHnd => 'HND';
 
   @override
   String get applicationFormGrade => 'Ìsọ̀rí/Ìsègùn';
@@ -1096,27 +1081,25 @@ class AppLocalizationsYo extends AppLocalizations {
   String get profilePhotoPickFailed => 'A kò lè yàn fótò. Jọ́wọ́ tún gbìyànjú.';
 
   @override
-  String get signupErrorNameShort =>
-      'Já»Ìwá»Ì táº¹ orÃºká» Ã tÃºná¹£eÃ ti ráº¹';
+  String get signupErrorNameShort => 'Jọ́wọ́ tẹ orúkọ àtúnṣeàti rẹ';
 
   @override
-  String get signupErrorPasswordMismatchShort =>
-      'á»ŒÌ€rá»Ì€ Ã¬pamá»Ì ká»Ì€ á»Ì€kan';
+  String get signupErrorPasswordMismatchShort => 'Ọ̀rọ̀ ìpamọ́ kọ̀ ọ̀kan';
 
   @override
-  String get signupHaveAccount => 'á¹¢Ã© o nÃ­ Ã ká»á»Ìláº¹Ì€ táº¹Ìláº¹Ì€?';
+  String get signupHaveAccount => 'Ṣé o ní àkọọ́lẹ̀ tẹ́lẹ̀?';
 
   @override
   String get forgotPasswordSentToast =>
-      'A fi kÃ³Ã³di rÃ¡ná¹£áº¹Ì! Já»Ìwá»Ì wo Ã­meÃ¨lÃ¬ ráº¹';
+      'A fi kóódi ránṣẹ́! Jọ́wọ́ wo ímeèlì rẹ';
 
   @override
   String get otpDescriptionTail =>
-      '. Táº¹Ì€ áº¹Ì€yáº¹Ì sÃ láº¹Ì€ páº¹Ì€lÃº á»Ì€rá»Ì€ Ã¬gbaniwá»lÃ© tuntun ráº¹.';
+      '. Tẹ̀ ẹ̀yẹ́ sàlẹ̀ pẹ̀lú ọ̀rọ̀ ìgbaniwọlé tuntun rẹ.';
 
   @override
   String otpResendToast(String email) {
-    return 'A fi kÃ³Ã³di tuntun rÃ¡ná¹£áº¹Ì sÃ­ $email';
+    return 'A fi kóódi tuntun ránṣẹ́ sí $email';
   }
 
   @override
@@ -1230,6 +1213,9 @@ class AppLocalizationsYo extends AppLocalizations {
 
   @override
   String get applicationFormQualificationNECO => 'NECO';
+
+  @override
+  String get applicationFormQualificationALevels => 'A-Levels';
 
   @override
   String get applicationFormQualificationOND => 'OND';

@@ -551,21 +551,6 @@ class AppLocalizationsIg extends AppLocalizations {
   String get applicationFormQualificationHint => 'Họọ ihe ọ bụ gị';
 
   @override
-  String get applicationFormQualificationOLevel => 'WAEC/SSCE';
-
-  @override
-  String get applicationFormQualificationNeco => 'NECO';
-
-  @override
-  String get applicationFormQualificationALevels => 'A-Levels';
-
-  @override
-  String get applicationFormQualificationOnd => 'OND';
-
-  @override
-  String get applicationFormQualificationHnd => 'HND';
-
-  @override
   String get applicationFormGrade => 'Ọkwa/Mkpụrụedemede';
 
   @override
@@ -1096,26 +1081,24 @@ class AppLocalizationsIg extends AppLocalizations {
   String get profilePhotoPickFailed => 'Emeghie ịhọọ foto. Biko laghachi azụ.';
 
   @override
-  String get signupErrorNameShort => 'Banye aha gá»‹ mbá»¥ na nke ikpeazá»¥';
+  String get signupErrorNameShort => 'Banye aha gị mbụ na nke ikpeazụ';
 
   @override
-  String get signupErrorPasswordMismatchShort =>
-      'Okwuntughe abá»¥á» ahá»¥ dá»‹ iche';
+  String get signupErrorPasswordMismatchShort => 'Okwuntughe abụọ ahụ dị iche';
 
   @override
-  String get signupHaveAccount => 'á»Š nwere akaá»¥ntá»¥ ugbu a?';
+  String get signupHaveAccount => 'Ị nwere akaụntụ ugbu a?';
 
   @override
-  String get forgotPasswordSentToast =>
-      'Ezipá»¥la koodu! Biko lelá»‹rá»‹ ozi-e gá»‹';
+  String get forgotPasswordSentToast => 'Ezipụla koodu! Biko lelịrị ozi-e gị';
 
   @override
   String get otpDescriptionTail =>
-      '. Tinye ya n\'okpuru n\'okpuru á»ná»¥ma á»há»¥ná»¥ gá»‹.';
+      '. Tinye ya n\'okpuru n\'okpuru ọnụma ọhụnụ gị.';
 
   @override
   String otpResendToast(String email) {
-    return 'Ezipá»¥la koodu á»há»¥ná»¥ na $email';
+    return 'Ezipụla koodu ọhụnụ na $email';
   }
 
   @override
@@ -1229,6 +1212,9 @@ class AppLocalizationsIg extends AppLocalizations {
 
   @override
   String get applicationFormQualificationNECO => 'NECO';
+
+  @override
+  String get applicationFormQualificationALevels => 'A-Levels';
 
   @override
   String get applicationFormQualificationOND => 'OND';

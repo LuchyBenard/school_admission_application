@@ -262,7 +262,7 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get otpCodeLabel => 'Introduce el cÃ³digo';
+  String get otpCodeLabel => 'Introduce el código';
 
   @override
   String get otpVerifyButton => 'Verificar código';
@@ -554,21 +554,6 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get applicationFormQualificationHint => 'Selecciona una titulación';
-
-  @override
-  String get applicationFormQualificationOLevel => 'WAEC/SSCE';
-
-  @override
-  String get applicationFormQualificationNeco => 'NECO';
-
-  @override
-  String get applicationFormQualificationALevels => 'A-Levels';
-
-  @override
-  String get applicationFormQualificationOnd => 'OND';
-
-  @override
-  String get applicationFormQualificationHnd => 'HND';
 
   @override
   String get applicationFormGrade => 'Nota/Resultado';
@@ -1118,22 +1103,21 @@ class AppLocalizationsEs extends AppLocalizations {
   String get signupErrorNameShort => 'Introduce tu nombre y apellidos';
 
   @override
-  String get signupErrorPasswordMismatchShort =>
-      'Las contraseÃ±as no coinciden';
+  String get signupErrorPasswordMismatchShort => 'Las contraseñas no coinciden';
 
   @override
-  String get signupHaveAccount => 'Â¿Ya tienes una cuenta?';
+  String get signupHaveAccount => '¿Ya tienes una cuenta?';
 
   @override
-  String get forgotPasswordSentToast => 'Â¡CÃ³digo enviado! Revisa tu correo';
+  String get forgotPasswordSentToast => '¡Código enviado! Revisa tu correo';
 
   @override
   String get otpDescriptionTail =>
-      '. IntrodÃºcelo abajo junto con tu nueva contraseÃ±a.';
+      '. Introdúcelo abajo junto con tu nueva contraseña.';
 
   @override
   String otpResendToast(String email) {
-    return 'Se ha enviado un nuevo cÃ³digo a $email';
+    return 'Se ha enviado un nuevo código a $email';
   }
 
   @override
@@ -1247,6 +1231,9 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get applicationFormQualificationNECO => 'NECO';
+
+  @override
+  String get applicationFormQualificationALevels => 'A-Levels';
 
   @override
   String get applicationFormQualificationOND => 'OND';

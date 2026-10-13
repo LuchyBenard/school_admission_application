@@ -567,21 +567,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String get applicationFormQualificationHint => 'Sélectionnez un diplôme';
 
   @override
-  String get applicationFormQualificationOLevel => 'WAEC/SSCE';
-
-  @override
-  String get applicationFormQualificationNeco => 'NECO';
-
-  @override
-  String get applicationFormQualificationALevels => 'A-Levels';
-
-  @override
-  String get applicationFormQualificationOnd => 'OND';
-
-  @override
-  String get applicationFormQualificationHnd => 'HND';
-
-  @override
   String get applicationFormGrade => 'Mention/Résultat';
 
   @override
@@ -1136,18 +1121,18 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get signupErrorNameShort =>
-      'Veuillez saisir votre prÃ©nom et votre nom';
+      'Veuillez saisir votre prénom et votre nom';
 
   @override
   String get signupErrorPasswordMismatchShort =>
       'Les mots de passe ne correspondent pas';
 
   @override
-  String get signupHaveAccount => 'Vous avez dÃ©jÃ  un compte ?';
+  String get signupHaveAccount => 'Vous avez déjà un compte ?';
 
   @override
   String get forgotPasswordSentToast =>
-      'Code envoyÃ© ! VÃ©rifiez votre boÃ®te mail';
+      'Code envoyé ! Vérifiez votre boîte mail';
 
   @override
   String get otpDescriptionTail =>
@@ -1155,7 +1140,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String otpResendToast(String email) {
-    return 'Un nouveau code a Ã©tÃ© envoyÃ© Ã  $email';
+    return 'Un nouveau code a été envoyé à $email';
   }
 
   @override
@@ -1269,6 +1254,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get applicationFormQualificationNECO => 'NECO';
+
+  @override
+  String get applicationFormQualificationALevels => 'A-Levels';
 
   @override
   String get applicationFormQualificationOND => 'OND';

@@ -1132,36 +1132,6 @@ abstract class AppLocalizations {
   /// **'Select qualification'**
   String get applicationFormQualificationHint;
 
-  /// No description provided for @applicationFormQualificationOLevel.
-  ///
-  /// In en, this message translates to:
-  /// **'WAEC/SSCE'**
-  String get applicationFormQualificationOLevel;
-
-  /// No description provided for @applicationFormQualificationNeco.
-  ///
-  /// In en, this message translates to:
-  /// **'NECO'**
-  String get applicationFormQualificationNeco;
-
-  /// No description provided for @applicationFormQualificationALevels.
-  ///
-  /// In en, this message translates to:
-  /// **'A-Levels'**
-  String get applicationFormQualificationALevels;
-
-  /// No description provided for @applicationFormQualificationOnd.
-  ///
-  /// In en, this message translates to:
-  /// **'OND'**
-  String get applicationFormQualificationOnd;
-
-  /// No description provided for @applicationFormQualificationHnd.
-  ///
-  /// In en, this message translates to:
-  /// **'HND'**
-  String get applicationFormQualificationHnd;
-
   /// No description provided for @applicationFormGrade.
   ///
   /// In en, this message translates to:
@@ -2385,6 +2355,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'NECO'**
   String get applicationFormQualificationNECO;
+
+  /// No description provided for @applicationFormQualificationALevels.
+  ///
+  /// In en, this message translates to:
+  /// **'A-Levels'**
+  String get applicationFormQualificationALevels;
 
   /// No description provided for @applicationFormQualificationOND.
   ///

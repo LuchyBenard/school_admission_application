@@ -550,21 +550,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get applicationFormQualificationHint => 'Select qualification';
 
   @override
-  String get applicationFormQualificationOLevel => 'WAEC/SSCE';
-
-  @override
-  String get applicationFormQualificationNeco => 'NECO';
-
-  @override
-  String get applicationFormQualificationALevels => 'A-Levels';
-
-  @override
-  String get applicationFormQualificationOnd => 'OND';
-
-  @override
-  String get applicationFormQualificationHnd => 'HND';
-
-  @override
   String get applicationFormGrade => 'Grade';
 
   @override
@@ -1233,6 +1218,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get applicationFormQualificationNECO => 'NECO';
+
+  @override
+  String get applicationFormQualificationALevels => 'A-Levels';
 
   @override
   String get applicationFormQualificationOND => 'OND';

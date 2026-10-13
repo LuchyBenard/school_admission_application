@@ -551,21 +551,6 @@ class AppLocalizationsHa extends AppLocalizations {
   String get applicationFormQualificationHint => 'Zaɓi diploma';
 
   @override
-  String get applicationFormQualificationOLevel => 'WAEC/SSCE';
-
-  @override
-  String get applicationFormQualificationNeco => 'NECO';
-
-  @override
-  String get applicationFormQualificationALevels => 'A-Levels';
-
-  @override
-  String get applicationFormQualificationOnd => 'OND';
-
-  @override
-  String get applicationFormQualificationHnd => 'HND';
-
-  @override
   String get applicationFormGrade => 'Maki/Mataki';
 
   @override
@@ -1099,7 +1084,7 @@ class AppLocalizationsHa extends AppLocalizations {
   String get signupHaveAccount => 'Ka riga ka sami asusun?';
 
   @override
-  String get forgotPasswordSentToast => 'An aika lambobi! Ka duba imel É—inka';
+  String get forgotPasswordSentToast => 'An aika lambobi! Ka duba imel ɗinka';
 
   @override
   String get otpDescriptionTail => '. Shigar da tare mu da sabo.';
@@ -1220,6 +1205,9 @@ class AppLocalizationsHa extends AppLocalizations {
 
   @override
   String get applicationFormQualificationNECO => 'NECO';
+
+  @override
+  String get applicationFormQualificationALevels => 'A-Levels';
 
   @override
   String get applicationFormQualificationOND => 'OND';
