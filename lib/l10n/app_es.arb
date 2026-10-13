@@ -370,5 +370,6 @@
   "otpDescriptionTail": ". IntrodÃºcelo abajo junto con tu nueva contraseÃ±a.",
   "otpResendToast": "Se ha enviado un nuevo cÃ³digo a {email}",
   "@otpResendToast": { "placeholders": { "email": { "type": "String" } } },
+  "otpCodeLabel": "Introduce el cÃ³digo",
   "errorGeneric": "Algo salió mal. Inténtalo de nuevo."
 }

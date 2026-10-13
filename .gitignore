@@ -46,3 +46,7 @@ app.*.map.json
 
 # Keystore credentials (release signing) - never commit
 android/key.properties
+
+# Firebase config - never commit (contains API keys)
+android/app/google-services.json
+ios/Runner/GoogleService-Info.plist

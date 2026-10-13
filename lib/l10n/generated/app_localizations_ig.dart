@@ -258,7 +258,7 @@ class AppLocalizationsIg extends AppLocalizations {
   }
 
   @override
-  String get otpCodeLabel => 'OTP Code';
+  String get otpCodeLabel => 'Tinye koodu';
 
   @override
   String get otpVerifyButton => 'Kwado koodu';
