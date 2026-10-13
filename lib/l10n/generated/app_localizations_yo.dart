@@ -345,6 +345,10 @@ class AppLocalizationsYo extends AppLocalizations {
   String get emailVerifyInbox => 'àpò ẹ rẹ';
 
   @override
+  String get emailVerifyOpenLink =>
+      '. Ṣí i kí o sì tẹ ìjápọ̀ náà láti jẹ́rìí àkọọ́lẹ̀ rẹ.';
+
+  @override
   String homeGreeting(String name) {
     return 'Pẹ̀lẹ́ o, $name';
   }

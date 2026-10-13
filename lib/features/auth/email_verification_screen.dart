@@ -167,7 +167,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                     children: [
                       TextSpan(text: l10n.emailVerifySentTo(_email.isEmpty ? l10n.emailVerifyInbox : _email)),
                       TextSpan(
-                        text: '. Open it and click the link to confirm your account.',
+                        text: l10n.emailVerifyOpenLink,
                         style: AppTextStyles.bodyMedium,
                       ),
                     ],

@@ -347,6 +347,10 @@ class AppLocalizationsIg extends AppLocalizations {
   String get emailVerifyInbox => 'nchekwa ozi-e gị';
 
   @override
+  String get emailVerifyOpenLink =>
+      '. Mepee ya ma pịa njikọ ahụ iji kwado akaụntụ gị.';
+
+  @override
   String homeGreeting(String name) {
     return 'Nnọọ, $name';
   }

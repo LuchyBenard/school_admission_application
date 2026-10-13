@@ -351,6 +351,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String get emailVerifyInbox => 'tu bandeja de entrada';
 
   @override
+  String get emailVerifyOpenLink =>
+      '. Ábrelo y haz clic en el enlace para confirmar tu cuenta.';
+
+  @override
   String homeGreeting(String name) {
     return 'Hola, $name';
   }

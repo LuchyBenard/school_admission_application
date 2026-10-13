@@ -742,6 +742,12 @@ abstract class AppLocalizations {
   /// **'your inbox'**
   String get emailVerifyInbox;
 
+  /// No description provided for @emailVerifyOpenLink.
+  ///
+  /// In en, this message translates to:
+  /// **'. Open it and click the link to confirm your account.'**
+  String get emailVerifyOpenLink;
+
   /// No description provided for @homeGreeting.
   ///
   /// In en, this message translates to:

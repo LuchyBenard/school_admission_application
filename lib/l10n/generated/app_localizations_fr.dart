@@ -361,6 +361,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get emailVerifyInbox => 'votre boîte de réception';
 
   @override
+  String get emailVerifyOpenLink =>
+      '. Ouvrez-le et cliquez sur le lien pour confirmer votre compte.';
+
+  @override
   String homeGreeting(String name) {
     return 'Bonjour, $name';
   }

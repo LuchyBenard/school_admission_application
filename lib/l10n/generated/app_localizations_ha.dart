@@ -348,6 +348,10 @@ class AppLocalizationsHa extends AppLocalizations {
   String get emailVerifyInbox => 'akwandinka';
 
   @override
+  String get emailVerifyOpenLink =>
+      '. Bude shi ka danna hanyar da za a tabbatar da asusunka.';
+
+  @override
   String homeGreeting(String name) {
     return 'Sannu, $name';
   }

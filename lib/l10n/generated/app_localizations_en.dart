@@ -347,6 +347,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get emailVerifyInbox => 'your inbox';
 
   @override
+  String get emailVerifyOpenLink =>
+      '. Open it and click the link to confirm your account.';
+
+  @override
   String homeGreeting(String name) {
     return 'Hello, $name';
   }
