@@ -1,52 +1,67 @@
 # CampusApply — School Admission Application System
 
-CampusApply is a professional, cross-platform mobile application built with Flutter that digitalizes and simplifies the school admission process for students and institutions. It provides a seamless experience for browsing schools, submitting applications, managing documents, and tracking admission status.
+CampusApply is a professional, cross-platform mobile application built with Flutter that digitalizes and simplifies the school admission process for students and institutions. It provides a seamless experience for browsing schools, submitting applications, managing documents, tracking admission status, and managing institutions offline and online.
 
 ---
 
 ## 🚀 Project Overview
 
 The system is designed to serve two main user roles:
-- **Students:** Can search for schools worldwide, apply to multiple institutions, upload required documents (WAEC, JAMB, etc.), and monitor their application progress in real-time.
-- **Admins:** Can manage applications, review student documents, and update admission statuses (Accept, Reject, Under Review, Request More Docs).
+- **Students:** Can search for schools worldwide, bookmark favorite institutions, apply to multiple institutions with offline resilience, upload required documents (WAEC, JAMB, etc.), and monitor application progress in real-time.
+- **Admins:** Can manage applications, review student documents, update admission statuses (Accept, Reject, Under Review, Request More Docs), and bulk-import schools via CSV.
 
 ---
 
 ## ✨ Key Features
 
 ### For Students
-- **Smart Dashboard:** Overview of application statistics (Applied, Under Review, Accepted, Rejected).
-- **Global School Search:** Browse thousands of schools worldwide via multiple fallback data sources — including a bundled offline list of 115 Nigerian universities that always works.
-- **Multi-Step Application Form:** User-friendly wizard for personal, academic, and programme details.
-- **Secure Document Upload:** Integrated image picking; images are compressed and stored as base64 in a Firestore subcollection (no paid Firebase Storage needed).
-- **Notification System:** Real-time in-app updates plus push notification triggers via Firebase Cloud Functions.
-- **Profile Management:** Complete control over personal information and account settings.
-- **Multi-language Support:** Fully localized in English, Spanish, French, Hausa, Igbo, and Yoruba with system locale detection and manual language selection in Settings.
+- **Smart Dashboard:** Live application overview metrics (Applied, Under Review, Accepted, Rejected) with real-time updates.
+- **Biometric Authentication:** Quick, secure biometric fingerprint and Face ID login powered by `local_auth` and encrypted with `flutter_secure_storage`.
+- **Offline-First Resilience & Sync:** Built-in network connectivity detection (`connectivity_plus`) and background write queue (`OfflineQueueService`). Submissions and document uploads made while offline or on unstable networks are safely persisted locally via `GetStorage` and automatically replayed once reconnected.
+- **Offline Sync Banner:** Interactive, responsive status banner (`OfflineSyncBanner`) displaying connection state, pending upload counts, sync progress, and a manual "Sync Now" trigger.
+- **Saved / Favorite Schools:** One-tap school bookmarking with real-time Firestore synchronization and a dedicated quick-access carousel on the Home dashboard.
+- **Application Deadline Countdowns:** Dynamic countdown timer chips (`DeadlineChip`) updating every second to display remaining application windows and auto-closing when deadlines pass.
+- **Global School Search:** Browse thousands of institutions worldwide with a 6-tier resilience chain — including a bundled offline dataset of 115 Nigerian universities.
+- **Multi-Step Application Wizard:** Intuitive 3-step application flow covering personal information, academic credentials (including JAMB scores/years), and programme selections.
+- **Secure Document Upload:** Integrated photo/document picking with automatic compression and base64 Firestore storage (eliminating reliance on paid Firebase Storage Blaze plans).
+- **Dual Theme Support:** High-contrast Material 3 Light and Dark modes built from a unified `AppPalette`, with automatic system detection or manual user preference.
+- **Multi-Language Support (i18n):** Localized in 6 languages — English, Spanish, French, Hausa, Igbo, and Yorùbá — with instant in-app switching.
+- **Real-Time Notifications:** In-app notification center plus push notification deep linking via Firebase Cloud Messaging and Cloud Functions.
+- **Profile & Settings Management:** Control personal details, profile picture (stored as compressed base64), biometric login toggles, language, and theme preferences.
 
 ### For Administrators
-- **Admin Portal:** Secure login restricted to authorized administrative users.
-- **Applicant Management:** Centralized list of all applications with advanced filtering (by status, name, or course).
-- **Review System:** Detailed view of applicant data and one-click status updates with optional admin messages.
-- **Batch School Upload:** Import schools in bulk from a CSV file (with validation, preview, and duplicate detection).
+- **Secure Admin Portal:** Role-gated login with email/password and biometric sign-in, restricted to users with `role: 'admin'` in Firestore.
+- **Applicant Management:** Centralized dashboard with multi-criteria filtering (status, applicant name, programme).
+- **Document & Application Review:** In-depth review screen for applicant documents, academic scores, and instantaneous status transitions with optional student feedback notes.
+- **Batch School Upload (CSV):** High-speed batch import supporting up to 5,000 schools per CSV file with duplicate prevention, format validation, and batch Firestore writes.
+- **Programme Requirements Manager:** Configure cut-off marks and custom entry requirements per school and degree level.
 
 ---
 
 ## 🛠 Tech Stack
 
-- **Frontend:** Flutter (Dart)
-- **Backend:** Google Firebase
-  - **Authentication:** Email/Password based secure login.
-  - **Firestore:** Real-time database for user profiles, applications, documents, and notifications.
-  - **Cloud Functions:** Push notification trigger that fires when an admin updates an application.
-  - **Cloud Messaging:** Device push notification infrastructure.
-- **State Management:** Provider
-- **Networking:** Dio (global school listings via jsDelivr CDN mirror, GitHub raw mirror, and Hipolabs API)
-- **Local Storage:** GetStorage (Session, onboarding, and school list caching)
-- **Internationalization:** `flutter_localizations` with `intl` package — ARB files for 6 languages
-- **UI/UX Enhancements:** 
-  - `flutter_screenutil` for responsive design.
-  - `skeleton_loader` for smooth data loading transitions.
-  - `oktoast` for interactive user feedback.
+- **Frontend:** Flutter (Dart 3.x)
+- **Backend Services:** Google Firebase
+  - **Firebase Authentication:** Secure email/password login and session management.
+  - **Cloud Firestore:** Real-time NoSQL database for user profiles, school directories, applications, documents (base64 subcollections), favorites, and notifications.
+  - **Cloud Functions:** Serverless triggers dispatching push notifications on application status updates.
+  - **Firebase Cloud Messaging (FCM):** Push delivery and deep linking to specific application records.
+- **State Management:** Provider (MultiProvider & ChangeNotifier architecture)
+- **Local Caching & Storage:**
+  - `GetStorage`: Fast key-value persistence for theme, language, session flags, offline school cache, and offline write queues.
+  - `flutter_secure_storage`: Hardware-backed encrypted storage for biometric credentials.
+- **Security & Biometrics:** `local_auth` for biometric fingerprint / face identification.
+- **Networking & Connectivity:**
+  - `dio`: High-performance HTTP client for university dataset mirrors.
+  - `connectivity_plus`: Network connectivity monitoring.
+- **Internationalization:** `flutter_localizations` & `intl` with 6 ARB translation catalogs.
+- **UI & Interaction:**
+  - `flutter_screenutil`: Pixel-perfect responsive screen adaptation.
+  - `oktoast`: Non-intrusive interactive toast notifications.
+  - `carousel_slider`: Dynamic promotional and featured school banners.
+  - `country_flags`: Global country flag badges for international schools.
+  - `file_picker` & `csv`: CSV parsing and file selection for administrative bulk operations.
+  - `skeleton_loader`: Polished loading states during network fetches.
 
 ---
 
@@ -54,16 +69,36 @@ The system is designed to serve two main user roles:
 
 ```text
 lib/
-├── core/             # Constants, themes, and shared widgets
-├── features/         # Feature-based folders (Auth, Dashboard, Schools, Admin, etc.)
-├── l10n/             # Localization files (ARB + generated Dart)
-├── models/           # Data models and Firebase factories
-├── providers/        # Business logic and state management
-├── services/         # Firebase and API communication logic
-└── main.dart         # Entry point and route configuration
+├── core/
+│   ├── constants/            # AppColors, AppTextStyles, AppRoutes, AppStrings
+│   ├── navigation/           # App navigation keys and route observers
+│   ├── theme/                # AppTheme (Light & Dark), AppPalette
+│   ├── utils/                # Helpers, formatting, and input validators
+│   └── widgets/              # OfflineSyncBanner, DeadlineChip, CustomButton, CustomTextField
+├── features/
+│   ├── admin/                # Admin login, dashboard, applicant review, CSV batch upload
+│   ├── applications/         # Multi-step application wizard, document upload, payment, status
+│   ├── auth/                 # Login, signup, password reset, OTP & email verification
+│   ├── dashboard/            # Bottom navigation shell
+│   ├── home/                 # Greeting, featured schools, stats, and saved schools section
+│   ├── notifications/        # Notification list and reading screen
+│   ├── onboarding/           # Walkthrough onboarding carousel
+│   ├── profile/              # Profile editing, biometrics toggle, theme & language settings
+│   ├── schools/              # Global school search, filtering, detail, and requirements
+│   └── splash/               # Animated splash, session verification, and role routing
+├── l10n/
+│   ├── app_*.arb             # Localization catalogs (en, es, fr, ha, ig, yo)
+│   └── generated/            # Auto-generated localization classes
+├── models/                   # UserModel, SchoolModel, ApplicationModel, PushPayload, etc.
+├── providers/                # 10 State management providers (Auth, School, Application, Favorites, etc.)
+├── services/                 # Firebase, Biometric, OfflineQueue, Storage, and School API services
+└── main.dart                 # App bootstrap, Firebase & FCM initialization, provider tree
 
-functions/            # Firebase Cloud Functions (push notification trigger)
-assets/data/          # Bundled offline Nigerian school list
+functions/                    # Firebase Cloud Functions (status update push notifications)
+assets/
+├── data/                     # Offline fallback Nigerian universities dataset (115 schools)
+├── fonts/                    # PlusJakartaSans, Inter, DMSans typography
+└── images/                   # App assets, logos, and placeholders
 ```
 
 ## 🔌 School Data Sources (resilience chain)
@@ -151,23 +186,31 @@ flutter run
 
 ---
 
-## 📝 Roadmap
-- [x] Base architecture and Firebase integration.
-- [x] Student dashboard and application tracking.
-- [x] Admin portal and applicant review system.
-- [x] Global school search with multi-source fallback + offline bundled list.
-- [x] Push notification triggers via Cloud Functions (built; deploy with `firebase deploy`).
-- [x] Admin batch school upload (CSV).
-- [x] Full localization (English, Spanish, French, Hausa, Igbo, Yoruba).
-- [ ] Real-time PayStack/Flutterwave payment integration.
+## 📝 Roadmap & Current Status
+- [x] Clean architecture and Provider state management (10 providers)
+- [x] Biometric authentication (Fingerprint & Face ID) via `local_auth`
+- [x] Offline write queue & auto-sync banner with manual retry (`connectivity_plus`)
+- [x] Saved / Favorite schools system with real-time Firestore synchronization
+- [x] Dynamic application deadline countdown chips (`DeadlineChip`)
+- [x] Student dashboard and live application tracking
+- [x] Document compression and base64 Firestore storage (zero Blaze dependency)
+- [x] Global school search with 6-tier resilience chain + bundled offline list
+- [x] Admin portal and applicant review system
+- [x] Admin batch school upload via CSV
+- [x] Material 3 Light and Dark theme system with instant toggle
+- [x] Full localization across 6 languages (en, ha, yo, ig, fr, es)
+- [x] Push notification triggers via Cloud Functions & FCM deep linking
+- [ ] Real-time PayStack/Flutterwave payment gateway integration
 
 ---
 
-## ✅ Code Quality Status
-- **`flutter analyze`**: ✅ No issues (all 17 feature folders + core)
-- **`flutter gen-l10n`**: ✅ Generates successfully (6 locales)
-- **Localization coverage**: 16 screens fully localized (Auth, Home, Schools, Applications, Notifications, Profile, Admin)
-- **Settings persistence**: Theme (Light/Dark/System) + Language (6 locales + System) via GetStorage
+## ✅ Code Quality & Architecture Status
+- **`flutter analyze`**: ✅ Clean analysis across all feature directories, services, and core utilities.
+- **`flutter gen-l10n`**: ✅ Generates successfully for all 6 locales (English, Hausa, Yorùbá, Igbo, French, Spanish).
+- **Localization coverage**: 16 screens fully localized without hardcoded UI strings.
+- **Settings persistence**: Appearance (Light/Dark/System) and Language preference persisted offline via `GetStorage`.
+- **Biometric security**: Credentials stored in hardware-backed keystore/keychain via `FlutterSecureStorage`.
+- **Data resilience**: Zero blank screens guaranteed by multi-mirror fallbacks and local storage queues.
 
 ---
 
