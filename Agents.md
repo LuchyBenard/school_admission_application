@@ -1,405 +1,346 @@
 # CampusApply — School Admission Application System
 
 ## Project Overview
-CampusApply is a cross-platform mobile application built with Flutter that
-digitalises the school admission process for students and institutions across
-Nigeria and worldwide. Students can browse schools, submit applications, upload
-documents, make payments, and track admission status all from their phone.
+CampusApply is a production-grade, cross-platform mobile application built with Flutter that
+digitalises and streamlines the school admission process for students and institutions across
+Nigeria and worldwide. Students can browse thousands of schools, bookmark favorites, submit applications
+with offline resilience, upload documents, make payments, and track admission status in real-time.
+Administrators have access to a dedicated portal to manage applicants, review documents, update
+admission statuses, and batch-upload school listings via CSV.
 
 ## Tech Stack
-- **Framework:** Flutter (Dart)
-- **Backend:** Google Firebase (Auth, Firestore, Messaging)
-  Document images are stored as compressed base64 in a Firestore
-  subcollection (NO Firebase Storage — requires the Blaze plan).
-- **State Management:** Provider
-- **HTTP Client:** Dio (for GitHub mirror / Hipolabs Schools API)
-- **Local Storage:** GetStorage
-- **Navigation:** Named routes (MaterialApp routes map)
+- **Framework:** Flutter (Dart 3.x)
+- **Backend Services:** Google Firebase
+  - **Firebase Authentication:** Secure email/password login and session management.
+  - **Cloud Firestore:** Real-time NoSQL database for users, schools, applications, documents (stored as base64 in subcollections), favorites, and notifications.
+  - **Cloud Functions:** Serverless triggers dispatching push notifications upon application status updates.
+  - **Firebase Cloud Messaging (FCM):** Push notification delivery and deep linking infrastructure.
+- **State Management:** Provider (MultiProvider pattern across 10 specialized providers)
+- **Local Storage & Caching:**
+  - `GetStorage`: Fast key-value persistence for theme, language, session flags, offline school cache, and the offline write queue.
+  - `flutter_secure_storage`: Hardware-backed encrypted storage for student and admin biometric credentials.
+- **Biometric Security:** `local_auth` for fingerprint and Face ID identification.
+- **Networking & Connectivity:**
+  - `dio`: High-performance HTTP client for university dataset mirrors.
+  - `connectivity_plus`: Real-time network state observation.
+- **Navigation:** Named routes (`MaterialApp` routes map) orchestrated with `appNavigatorKey` and `appRouteObserver`.
+- **Localization:** `flutter_localizations` & `intl` supporting 6 languages (en, ha, yo, ig, fr, es).
+- **UI & Helpers:** `flutter_screenutil`, `oktoast`, `carousel_slider`, `country_flags`, `file_picker`, `csv`, `skeleton_loader`.
+
+---
+
 ## Project Structure
 
+```text
 lib/
-
-├── main.dart # App entry point, Firebase init, routes
-
-├── firebase_options.dart # Auto-generated Firebase config
-
+├── main.dart                          # App entry point, Firebase init, provider tree, routes
+├── firebase_options.dart              # Auto-generated Firebase config
 │
 ├── core/
-
-│ └── constants/
-
-│ ├── app_colors.dart # Indigo-blue color palette
-
-│ ├── app_text_styles.dart # Typography (PlusJakartaSans, Inter, DMSans)
-
-│ └── app_routes.dart # Route name constants
-
+│   ├── constants/
+│   │   ├── app_colors.dart            # Indigo-blue palette (light & dark mode)
+│   │   ├── app_text_styles.dart       # Typography (PlusJakartaSans, Inter, DMSans)
+│   │   ├── app_routes.dart            # Route name constants
+│   │   └── app_strings.dart           # Fallback string constants
+│   ├── navigation/
+│   │   └── app_navigation.dart        # appNavigatorKey + appRouteObserver
+│   ├── theme/
+│   │   ├── app_palette.dart           # AppPalette color contract (ThemeExtension)
+│   │   └── app_theme.dart             # Material 3 light & dark ThemeData
+│   ├── utils/
+│   │   ├── helpers.dart               # Formatting and date helpers
+│   │   └── validators.dart            # Form input validation rules
+│   └── widgets/
+│       ├── custom_button.dart         # Standard primary / outline button
+│       ├── custom_textfield.dart      # Custom styled input field
+│       ├── deadline_chip.dart         # Real-time countdown timer chip
+│       ├── loading_overlay.dart       # Modal progress blocker
+│       ├── offline_sync_banner.dart   # Offline / pending sync status banner
+│       └── skeleton_loader.dart       # Shimmer placeholder
 │
-
-
-├── core/
-
-│ └── navigation/
-
-│ └── app_navigation.dart # appNavigatorKey + appRouteObserver
-
-│
-├── l10n/ # Localization (ARB files + generated Dart)
-
-│ ├── app_en.arb # English (source)
-
-│ ├── app_es.arb # Spanish
-
-│ ├── app_fr.arb # French
-
-│ ├── app_ha.arb # Hausa
-
-│ ├── app_ig.arb # Igbo
-
-│ ├── app_yo.arb # Yoruba
-
-│ └── generated/ # Auto-generated by flutter gen-l10n
-
+├── l10n/                              # Localization (ARB files + generated Dart)
+│   ├── app_en.arb                     # English (source)
+│   ├── app_ha.arb                     # Hausa
+│   ├── app_yo.arb                     # Yorùbá
+│   ├── app_ig.arb                     # Igbo
+│   ├── app_fr.arb                     # French
+│   ├── app_es.arb                     # Spanish
+│   └── generated/                     # Auto-generated by flutter gen-l10n
 │
 ├── models/
-
-│ ├── user_model.dart
-
-│ ├── school_model.dart # fromApi() and fromFirestore() factories + deadline helpers
-
-│ ├── application_model.dart # Includes jambScore and jambYear fields
-
-│ ├── admission_requirement_model.dart # Per-school programmes + cut-off scores
-
-│ ├── push_payload.dart # FCM data payload contract (notificationId,
-│                        applicationId, type) — no Firebase imports
-
-│ └── notification_model.dart # Includes applicationId for deep linking
-
+│   ├── user_model.dart                # User profile data model
+│   ├── school_model.dart              # fromApi() & fromFirestore() + deadline helpers
+│   ├── application_model.dart         # Includes jambScore, jambYear, course, status
+│   ├── admission_requirement_model.dart # Per-school programmes + cut-off scores
+│   ├── push_payload.dart              # FCM data contract (notificationId, applicationId, type)
+│   └── notification_model.dart        # Includes applicationId for deep linking
 │
 ├── services/
-
-│ ├── auth_service.dart # Firebase Auth + Firestore user ops
-
-│ ├── notification_service.dart # FCM setup, token refresh, publishes
-│                                tapped PushPayloads (never navigates)
-
-│ └── school_api_service.dart # GitHub mirror + Hipolabs API + Firestore school ops
-
+│   ├── auth_service.dart              # Firebase Auth + Firestore user operations
+│   ├── biometric_service.dart         # local_auth + FlutterSecureStorage credential vault
+│   ├── firestore_service.dart         # General Firestore helper utilities
+│   ├── notification_service.dart      # FCM setup, token refresh, tapped PushPayload stream
+│   ├── offline_queue_service.dart     # Background queue, GetStorage persistence & sync replay
+│   ├── school_api_service.dart        # CDN mirrors + Hipolabs API + Firestore cache
+│   └── storage_service.dart           # Local storage helper routines
 │
 ├── providers/
-
-│ ├── auth_provider.dart # Auth state, login, register, logout
-
-│ ├── school_provider.dart # School listing, search, country filter
-
-│ ├── application_provider.dart # Submit, load, track applications
-
-│ ├── admission_requirement_provider.dart # Per-school programmes + cut-offs
-
-│ ├── notification_provider.dart # Load, read, delete notifications
-
-│ └── push_navigation_provider.dart # Turns a tapped PushPayload into a route
-
+│   ├── settings_provider.dart         # ThemeMode (Light/Dark/System) & Locale (6 languages)
+│   ├── auth_provider.dart             # Auth state, login, register, profile update, logout
+│   ├── school_provider.dart           # School listing, search, country filtering, caching
+│   ├── application_provider.dart      # Submit, load, track applications
+│   ├── favorites_provider.dart        # Real-time bookmarking with Firestore favorites collection
+│   ├── notification_provider.dart     # Load, mark read, delete notifications
+│   ├── push_navigation_provider.dart  # Turns tapped PushPayloads into deep links
+│   ├── admission_requirement_provider.dart # Per-school programmes & cut-off scores
+│   ├── offline_queue_provider.dart    # Connectivity state, pending count & syncNow()
+│   └── bottom_navigation_provider.dart # Dashboard active tab index management
 │
 └── features/
+    ├── splash/                        # SplashScreen (session check, role routing)
+    ├── onboarding/                    # OnboardingScreen (carousel walkthrough)
+    ├── auth/                          # LoginScreen, SignupScreen, ForgotPassword, OTP, Email
+    │   └── widgets/                   # AuthForm, social buttons
+    ├── dashboard/                     # DashboardScreen (bottom nav shell with 4 tabs)
+    │   └── widgets/                   # CustomBottomNavBar
+    ├── home/                          # Tab 1 — greeting, statistics, featured banner, saved schools
+    │   └── widgets/                   # ApplicationSummaryCard, FeaturedSchoolsBanner, SavedSchoolsSection
+    ├── schools/                       # Tab 2 — global school list, search, detail, requirements
+    │   └── widgets/                   # SchoolCard, CountryFilterChip
+    ├── applications/                  # Tab 3 — 3-step wizard, status, detail, upload, payment
+    │   └── widgets/                   # ApplicationCard, DocumentTile, FormStepIndicator
+    ├── profile/                       # Tab 4 — profile edit, photo upload, biometrics, theme, language
+    ├── notifications/                 # NotificationsScreen (list, unread markers)
+    └── admin/                         # AdminLogin, AdminDashboard, ApplicantList, ApplicantDetail,
+        └── widgets/                   # BatchUploadScreen (CSV), ManageRequirements, ApplicantCard
+```
 
-├── splash/
-
-├── onboarding/
-
-├── auth/ # login, signup, forgot_password, otp
-
-├── dashboard/ # Bottom nav shell (4 tabs)
-
-├── home/ # Tab 1 — greeting, carousel, stats
-
-├── schools/ # Tab 2 — listing, detail, card widget
-
-├── application/ # Tab 3 — form, status, detail, upload, payment
-
-├── profile/ # Tab 4 — view/edit profile, logout
-
-├── notifications/ # Notification list screen
-
-└── admin/ # Admin login, dashboard, applicant list/detail
-
+---
 
 ## Key Routes
-/ → SplashScreen
+- `/` → `SplashScreen`
+- `/onboarding` → `OnboardingScreen`
+- `/login` → `LoginScreen`
+- `/register` → `SignupScreen`
+- `/forgot-password` → `ForgotPasswordScreen`
+- `/otp-verification` → `OtpVerificationScreen`
+- `/email-verification` → `EmailVerificationScreen`
+- `/dashboard` → `DashboardScreen` (student home with 4 tabs)
+- `/school-detail` → `SchoolDetailScreen` (arguments: `SchoolModel`)
+- `/admission-requirements` → `AdmissionRequirementsScreen` (arguments: `SchoolModel`)
+- `/application-form` → `ApplicationFormScreen` (arguments: `SchoolModel`)
+- `/document-upload` → `DocumentUploadScreen` (arguments: `applicationId` String)
+- `/payment` → `PaymentScreen` (arguments: `applicationId` String)
+- `/application-detail` → `ApplicationDetailScreen` (arguments: `ApplicationModel`)
+- `/notifications` → `NotificationsScreen`
+- `/application-status` → `ApplicationStatusScreen`
+- `/admin-login` → `AdminLoginScreen`
+- `/admin-dashboard` → `AdminDashboardScreen`
+- `/admin-applicants` → `ApplicantListScreen`
+- `/admin-applicant-detail` → `ApplicantDetailScreen` (arguments: `ApplicationModel`)
+- `/admin-batch-upload` → `BatchUploadScreen` (CSV bulk import)
+- `/admin-requirements` → `ManageRequirementsScreen`
 
-/onboarding → OnboardingScreen
+---
 
-/login → LoginScreen
+## Firebase Collections & Schema
+- `users/` — `uid, fullName, email, phone, role (student/admin), createdAt`
+  - `users/{uid}.photo` — base64-encoded profile picture (optional)
+- `schools/` — `name, country, state, website, isFeatured, imageUrl, description, deadline, applicationFee`
+- `admission_requirements/` — `schoolName, schoolCountry, program, degreeLevel, cutOffScore, requirements[], createdAt` (one document per programme)
+- `applications/` — `userId, schoolName, status, jambScore, jambYear, course, degreeLevel, documents[], paid, createdAt`
+  - `applications/{id}/documents/` — subcollection with one document per image: `docKey, data (base64), userId, uploadedAt`
+- `favorites/` — `userId, name, country, state, website, imageUrl, deadline, createdAt` (real-time school bookmarks per user)
+- `notifications/` — `userId, title, message, type, applicationId, isRead, createdAt`
 
-/register → SignupScreen
+---
 
-/forgot-password → ForgotPasswordScreen
+## Application Flow (Student)
+1. **School Discovery:** Student searches/filters schools on Home or Schools Tab.
+2. **School Details & Requirements:** Views `SchoolDetailScreen` with live countdown `DeadlineChip`, requirements list, and save-to-favorites button.
+3. **Application Wizard (`ApplicationFormScreen`):**
+   - Step 1: Personal Information (Full name, phone, date of birth, state of origin).
+   - Step 2: Academic Background (JAMB registration number, score, year, previous school).
+   - Step 3: Programme Choice (Faculty, department, study mode).
+   - On submission, creates application in Firestore (or queues offline) and returns `applicationId`.
+4. **Document Upload (`DocumentUploadScreen`):**
+   - Upload WAEC/NECO, JAMB result, passport photograph, birth certificate.
+   - Images compressed and stored directly as base64 in `applications/{id}/documents/`.
+5. **Fee Payment (`PaymentScreen`):**
+   - Processes application processing fee (₦5,000 placeholder).
+   - Updates `applications/{id}.paid = true` and updates status to `Under Review`.
+6. **Live Tracking:**
+   - Monitored on `DashboardScreen` stats and `ApplicationStatusScreen`.
 
-/otp-verification → OtpVerificationScreen
-
-/email-verification → EmailVerificationScreen
-
-/dashboard → DashboardScreen (student home)
-
-/school-detail → SchoolDetailScreen (args: SchoolModel)
-
-/admission-requirements → AdmissionRequirementsScreen (args: SchoolModel)
-
-/application-form → ApplicationFormScreen (args: SchoolModel)
-
-/document-upload → DocumentUploadScreen (args: applicationId String)
-
-/payment → PaymentScreen (args: applicationId String)
-
-/application-detail → ApplicationDetailScreen (args: ApplicationModel)
-
-/notifications → NotificationsScreen
-
-/application-status → ApplicationStatusScreen
-
-/admin-login → AdminLoginScreen
-
-/admin-dashboard → AdminDashboardScreen
-
-/admin-applicant-detail → ApplicantDetailScreen (args: ApplicationModel)
-
-/admin-batch-upload → BatchUploadScreen
-
-/admin-requirements → ManageRequirementsScreen
-
-
-## Firebase Collections
-users/ # uid, fullName, email, phone, role (student/admin)
-  users/{uid}.photo # base64-encoded profile photo (optional)
-
-schools/ # name, country, state, website, isFeatured, imageUrl
-
-admission_requirements/ # schoolName, schoolCountry, program, degreeLevel,
-  # cutOffScore, requirements[], createdAt — one doc per programme
-
-applications/ # userId, schoolName, status, jambScore, documents[]
-  applications/{id}/documents/ # one doc per image: docKey, data (base64), userId
-
-notifications/ # userId, title, message, type, isRead, createdAt
-
-
-## Application Flow
-School Detail → Apply Now
-
-↓
-
-ApplicationFormScreen (3 steps: personal, academic, programme)
-
-↓ returns applicationId
-
-DocumentUploadScreen (WAEC, JAMB, passport, birth cert → Firestore documents subcollection as base64)
-
-↓ passes applicationId
-
-PaymentScreen (placeholder — ₦5,000 fee)
-
-↓
-
-Dashboard
+---
 
 ## Admin Flow
-AdminLoginScreen → checks role = 'admin' in Firestore
+1. **Admin Authentication:** `AdminLoginScreen` checks `users/{uid}.role == 'admin'` in Firestore. Supports biometric quick sign-in.
+2. **Dashboard Overview:** `AdminDashboardScreen` displays live counters (Total, Under Review, Accepted, Rejected).
+3. **Applicant Directory:** `ApplicantListScreen` with instant search and status filter tabs.
+4. **Application Review (`ApplicantDetailScreen`):**
+   - Inspect applicant details, academic scores, and uploaded base64 documents.
+   - Status transitions: **Accept**, **Reject**, **Under Review**, **Request More Docs**.
+   - Optional custom feedback note sent to student.
+   - Writes update to `applications/{id}` and generates a record in `notifications/`.
+5. **Batch Upload (`BatchUploadScreen`):**
+   - Import schools via CSV (up to 5,000 rows).
+   - Validates required fields, previews data, skips duplicates, and commits via batched writes (max 400 operations per batch).
+6. **Manage Requirements (`ManageRequirementsScreen`):**
+   - Add/edit cut-off scores and prerequisites per programme.
 
-↓
+---
 
-AdminDashboardScreen → stats overview
+## 💾 Offline Queue & Resilience Architecture
 
-↓
+The application is fully offline-resilient across both reading and writing:
 
-ApplicantListScreen → search + filter
+### Read Resilience (6-Tier Cascade)
+1. `GetStorage` local cache (instant display).
+2. jsDelivr CDN mirror (`world_universities_and_domains.json`).
+3. GitHub Raw mirror.
+4. Hipolabs API live endpoint.
+5. Cloud Firestore `schools/` collection (auto-seeded).
+6. Bundled asset `assets/data/nigerian_schools.json` (115 accredited Nigerian universities; guaranteed offline fallback).
 
-↓
+### Write Resilience (Offline Queue)
+- Handled by `OfflineQueueService` and `OfflineQueueProvider`.
+- Operations wrapped in offline handlers:
+  - `application_submit` → `applications/{appId}`
+  - `document_upload` → `applications/{appId}/documents/{docKey}`
+  - `application_complete` → updates `documentsUploaded: true`
+  - `payment_complete` → updates `paid: true`
+- If network is unavailable or write times out (>10s), operation is serialized into `GetStorage` under `offline_queue_items`.
+- `OfflineSyncBanner` appears on the Dashboard and Application screens showing:
+  - Yellow: "You are offline" + queued change count.
+  - Blue: "Syncing your changes" with remaining item progress.
+  - Manual retry button to trigger immediate sync pass.
+- When `connectivity_plus` detects connection restoration, `syncAll()` executes queued items sequentially in FIFO order and updates local state.
 
-ApplicantDetailScreen → Accept / Reject / Request Docs / Under Review
+---
 
-↓
+## 🔐 Biometric Authentication Architecture
 
-writes to applications/{id} + creates notification for student
+- Powered by `BiometricService` utilizing `local_auth` and `flutter_secure_storage`.
+- Secure credential keys:
+  - Student: `biometric_email`, `biometric_password`
+  - Admin: `biometric_admin_email`, `biometric_admin_password`
+- When biometric login is enabled, credentials are encrypted at rest with hardware-backed Android Keystore / iOS Keychain.
+- Login screen automatically detects enrolled biometrics (Fingerprint / Face ID) and shows a quick-login icon.
+- Tapping triggers `BiometricService.authenticate()`; upon success, credentials are automatically supplied to Firebase Auth.
+- Controlled via a toggle switch in `ProfileScreen` with validation against current session.
 
-## Push Notification Deep Links
-```
-Admin updates status
-↓
-notifications/{notifId} created (includes applicationId)
-↓  functions/index.js (onDocumentCreated)
-FCM push — data: {notificationId, applicationId, type}
-↓
-NotificationService publishes PushPayload (service never navigates)
-↓
+---
+
+## ⭐ Favorites / Saved Schools System
+
+- Managed by `FavoritesProvider` backed by the `favorites` Firestore collection.
+- Each bookmark stores a complete snapshot of `SchoolModel` under `{userId, ...schoolData}` so that external API schools can be accessed offline without needing pre-existing Firestore school IDs.
+- Real-time Firestore stream (`where('userId', isEqualTo: uid)`) keeps favorites in sync across all user devices.
+- `SchoolCard` and `SchoolDetailScreen` provide reactive bookmark icons with toast notifications.
+- `SavedSchoolsSection` displayed on the Home tab provides one-tap carousel navigation to saved institutions.
+
+---
+
+## 🎨 Theming & Appearance Architecture
+
+- Material 3 theming implemented with dynamic Light and Dark modes.
+- Built on `AppPalette` (ThemeExtension) and `AppTheme`:
+  - `AppTheme.light` (clean white/slate surfaces with primary Indigo `#4F46E5`).
+  - `AppTheme.dark` (deep dark `#0F172A` background with crisp contrast).
+- All screens resolve colors through `context.colors` (`AppPalette`) rather than hardcoding hex values.
+- `SettingsProvider` manages `AppThemePreference`:
+  - `system` (follows OS setting)
+  - `light`
+  - `dark`
+- Persisted locally in `GetStorage` under `themePreference` and initialized prior to `runApp` to avoid splash screen theme flicker.
+
+---
+
+## ⏳ Application Deadline Countdowns
+
+- `DeadlineChip` widget renders live countdown badges.
+- Internal `Timer.periodic(Duration(seconds: 1))` triggers live second-by-second updates.
+- Formats remaining duration into days, hours, minutes, and seconds.
+- Automatically switches to an amber/red "Closed" chip when `DateTime.now().isAfter(deadline)`.
+- Integrated directly into `SchoolCard` in search listings and `SchoolDetailScreen`.
+
+---
+
+## 🔔 Push Notification Deep Links
+
+```text
+Admin updates application status
+       ↓
+notifications/{notifId} created in Firestore (includes applicationId)
+       ↓
+Cloud Function (functions/index.js: onDocumentCreated) triggers FCM push
+       ↓
+Push notification delivered with data payload: {notificationId, applicationId, type}
+       ↓
+NotificationService receives tapped push and publishes PushPayload stream
+       ↓
 PushNavigationProvider
-  - buffers the payload until appRouteObserver.isReady
-    (waits out the splash/onboarding/login stack)
-  - ignores it if nobody is signed in
-  - marks notifications/{notifId} as read
-  - loads applications/{applicationId} and checks userId
-  - pushes /application-detail (student) or /admin-applicant-detail (admin)
-  - payload with no applicationId → /notifications
-↓
-The in-app notification list reuses openNotification(), so an
-in-app tap and a push tap behave identically
-```
-Notes:
-- `NotificationService.takeInitialPayload()` covers a cold start where
-  the payload already resolved; `launchPayloadReady` covers the usual
-  case where `getInitialMessage()` resolves after the first build
-- The Cloud Function must be redeployed (`firebase deploy`) before new
-  pushes carry `applicationId`
-
-## Role Detection
-- On splash screen, after Firebase Auth confirms a logged-in user,
-  the app reads `users/{uid}.role` from Firestore
-- role = 'admin' → navigate to /admin-dashboard
-- role = 'student' → navigate to /dashboard
-- No user → check GetStorage for onboarding flag → /onboarding or /login
-
-## Schools API
-- Primary: jsDelivr CDN mirror of the Hipo dataset
-  (https://cdn.jsdelivr.net/gh/Hipo/university-domains-list@master/world_universities_and_domains.json)
-- Backup mirror: GitHub raw
-  (https://raw.githubusercontent.com/Hipo/university-domains-list/master/world_universities_and_domains.json)
-- Fallback: Hipolabs (https://universities.hipolabs.com/search)
-- No API key required
-- Mirrors download full world list and filter in Dart by country;
-  Hipolabs does server-side filtering with `?country=Nigeria` etc.
-- Results merged with Firestore featured schools
-- On first successful load, API results are seeded into the
-  Firestore `schools/` collection so future loads work even when
-  all external sources are unreachable (seed needs an admin user
-  per Firestore rules)
-- Final fallback: `assets/data/nigerian_schools.json` — a bundled
-  list of 115 real Nigerian universities (from the Hipo dataset)
-  shipped inside the app, so the school list NEVER appears empty
-  even fully offline
-- URL must use HTTPS
-
-## School Batch Upload
-Admins can upload a batch list of schools to populate the
-Firestore `schools/` collection without relying on external APIs.
-
-### CSV Format
-The file must be a UTF-8 CSV with a header row. Required columns:
-
-| Column       | Required | Description                        | Example              |
-|------------- |----------|------------------------------------|----------------------|
-| name         | yes      | School name                        | University of Lagos  |
-| country      | yes      | Full country name                  | Nigeria              |
-| state        | no       | State / province                   | Lagos                |
-| website      | no       | Primary website URL (HTTPS)        | https://unilag.edu.ng|
-| isFeatured   | no       | `true` or `false` (default false)  | true                 |
-| description  | no       | Short description                  | Premier university...|
-| imageUrl     | no       | URL to school logo/photo           | https://...          |
-| applicationFee | no     | Application fee as string          | ₦5,000               |
-| deadline     | no       | Application deadline               | 2026-09-30           |
-
-Example CSV:
-```
-name,country,state,website,isFeatured,description
-University of Lagos,Nigeria,Lagos,https://unilag.edu.ng,true,Premier university in Nigeria
-Ahmadu Bello University,Nigeria,Zaria,https://abu.edu.ng,false,Federal university
+  - Buffers payload until appRouteObserver.isReady (waits out splash/onboarding/login)
+  - Marks notification as read in Firestore
+  - Validates user role and ownership
+  - Routes directly to /application-detail (student) or /admin-applicant-detail (admin)
+  - Payload without applicationId routes to /notifications
 ```
 
-### Upload Flow
-AdminDashboardScreen → Upload Schools button
+---
 
-↓
+## 🌐 Internationalization (i18n)
 
-BatchUploadScreen
-  - Pick CSV file from device (file_picker)
-  - Show preview table (first 10 rows + total count)
-  - Validate each row (name + country required)
-  - Show validation errors before import
+- 6 supported languages:
+  - English (`en`) — Source catalog
+  - Hausa (`ha`)
+  - Yorùbá (`yo`)
+  - Igbo (`ig`)
+  - French (`fr`)
+  - Spanish (`es`)
+- Auto-detected on initial launch; manual override available in **Profile → Settings → Language**.
+- Preference saved in `GetStorage` via `SettingsProvider.setLocale()`.
+- Generation via `flutter gen-l10n` targeting `lib/l10n/generated/app_localizations.dart`.
+- Access via `AppLocalizations.of(context).keyName`.
 
-↓ (confirm)
-
-Import to Firestore `schools/` collection
-  - Batched writes (max 400 per batch) to respect Firestore limits
-  - Duplicate detection by name + country (skip if exists)
-  - Show progress indicator (row N of M)
-  - On success: show count imported + skipped + errors
-  - Store imported schools in GetStorage cache so they appear
-    immediately in the student-facing school list
-
-### Validation Rules
-1. `name` is required and must be non-empty
-2. `country` is required and must be non-empty
-3. `website` must start with https:// if provided
-4. Rows with duplicate `name + country` are skipped (not an error)
-5. Total rows capped at 5000 per import
-
-### Error Handling
-- File not CSV → show "Please select a CSV file"
-- Missing required columns → list which columns are missing
-- Empty file → show "File contains no data"
-- Firestore write failure → show which rows failed, allow retry
-- Partial success → show imported/skipped/failed counts
+---
 
 ## State Management Rules
-- Use `context.read<Provider>()` inside methods/callbacks (no rebuild)
-- Use `context.watch<Provider>()` inside build() (triggers rebuild)
-- Use `Consumer<Provider>` to rebuild only a small part of the UI
-- StatefulWidget is used when screen has local UI state
-  (controllers, animations, local booleans)
-- Provider handles shared/business logic state only
+- Use `context.read<T>()` in event handlers/callbacks (avoids rebuilds).
+- Use `context.watch<T>()` or `Consumer<T>` in `build()` methods to bind UI updates.
+- Keep UI-local state (controllers, animation tickers, local booleans) in `StatefulWidget`.
+- Keep business logic, network communication, and shared datasets inside `ChangeNotifier` providers.
 
 ## Coding Conventions
-- All colors from AppColors — never hardcode hex values
-- All text styles from AppTextStyles — never hardcode TextStyle inline
-- All sizing via ScreenUtil (.w .h .r .sp)
-- Feature folders own their screens and their widgets subfolder
-- Shared widgets go in core/widgets/
-- Services only talk to Firebase/APIs — no UI logic
-- Providers call services and hold state — no widgets
-- Models have fromFirestore(), fromApi(), toMap() methods
+- All colors must come from `context.colors` (`AppPalette`) or `AppColors` — never hardcode hex literals inline.
+- All typography must come from `AppTextStyles` — never construct raw `TextStyle` inside widgets.
+- Responsive sizing via `ScreenUtil` extension methods (`.w`, `.h`, `.r`, `.sp`).
+- Feature folders own their screens and feature-specific widgets in a `widgets/` subfolder.
+- Reusable cross-feature widgets live in `core/widgets/`.
+- Services handle Firebase/API interactions only — never contain UI widgets.
+- Providers mediate between services and UI state.
 
-## Internationalization (i18n)
-- **Supported locales (6):** en, es, fr, ha, ig, yo — defined in `SettingsProvider.supportedLocales`
-- **Source files:** `lib/l10n/app_<code>.arb` (ARB format)
-- **Generated:** `lib/l10n/generated/app_localizations.dart` via `flutter gen-l10n`
-- **Usage:** `AppLocalizations.of(context).keyName` — no hardcoded strings in UI
-- **Persistence:** User language choice saved in GetStorage via `SettingsProvider.setLocale()`
-- **Auto-detection:** System locale used on first launch; manual override in Profile → Settings → Language
-- **Adding a language:**
-  1. Copy `lib/l10n/app_en.arb` → `lib/l10n/app_<code>.arb`
-  2. Translate all values
-  3. Run `flutter gen-l10n`
-- **Localized screens (16):** Splash, Onboarding, Auth (5), Home (3 widgets), Schools (4), Applications (5), Notifications, Profile (Settings)
+---
 
-## Known Placeholders
-- Payment: currently simulates success after 2s delay
-  Real integration: PayStack or FlutterWave
-- Firebase Cloud Messaging: taps are deep linked (see Push Notification
-  Deep Links), but the trigger Cloud Function is built
-  (`functions/index.js`) and not yet deployed via `firebase deploy`
-- Foreground pushes are only logged — the `notifications` collection is
-  the source of truth for the in-app list, so no local notification is
-  shown while the app is open
+## Known Placeholders & Stubs
+- **Payment Processing:** Currently simulates payment confirmation after a 2-second delay. Architecture is structured for integration with PayStack or Flutterwave webhooks.
+- **Push Notification Deployment:** Cloud Function in `functions/index.js` is complete and ready for deployment via `firebase deploy --only functions`.
 
-## Firebase Setup Required
-1. Enable Email/Password in Firebase Auth
-2. Create Firestore database in test mode
-3. Add google-services.json to android/app/
-4. Add GoogleService-Info.plist to ios/Runner/
-5. To create admin: set role field to 'admin'
-   in Firestore users collection for that user's document
-   (No Firebase Storage needed — documents are base64 in Firestore)
+---
 
-## Running the Project
+## Setup & Running Guide
+
 ```bash
+# 1. Install dependencies
 flutter pub get
-flutterfire configure   # if firebase_options.dart is missing
+
+# 2. Generate localizations
+flutter gen-l10n
+
+# 3. Configure Firebase (if firebase_options.dart is missing)
+flutterfire configure
+
+# 4. Run application
 flutter run
 ```
-
-## Common Issues
-- Firestore compound query (where + orderBy) requires composite index
-  Fix: remove orderBy and sort list manually in Dart
-- HTTP URLs blocked on Android: use HTTPS for all API calls
-- Gradle build timeout: download Gradle zip manually and place in
-  ~/.gradle/wrapper/dists/gradle-X.X-all/[random-folder]/
-- ADB Wi-Fi: run `adb tcpip 5555` then `adb connect [phone-ip]:5555`
