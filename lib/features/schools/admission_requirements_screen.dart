@@ -20,15 +20,23 @@ class AdmissionRequirementsScreen extends StatefulWidget {
 class _AdmissionRequirementsScreenState
     extends State<AdmissionRequirementsScreen> {
   late SchoolModel _school;
+  bool _initialized = false;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _school = ModalRoute.of(context)!.settings.arguments as SchoolModel;
+    if (!_initialized) {
+      _initialized = true;
+      _school = ModalRoute.of(context)!.settings.arguments as SchoolModel;
+      _loadRequirements();
+    }
+  }
 
+  void _loadRequirements({bool force = false}) {
     context.read<AdmissionRequirementProvider>().subscribeToRequirements(
           schoolName: _school.name,
           schoolCountry: _school.country,
+          force: force,
         );
   }
 
@@ -73,7 +81,7 @@ class _AdmissionRequirementsScreenState
             child: Consumer<AdmissionRequirementProvider>(
               builder: (context, reqProvider, child) {
                 // Loading state
-                if (reqProvider.isLoading) {
+                if (reqProvider.isLoading && reqProvider.requirements.isEmpty) {
                   return Center(
                     child: CircularProgressIndicator(
                       color: context.colors.primary,
@@ -82,40 +90,8 @@ class _AdmissionRequirementsScreenState
                 }
 
                 // Error state
-                if (reqProvider.status == RequirementStatus.error) {
-                  return Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.error_outline,
-                          size: 48.w,
-                          color: context.colors.textHint,
-                        ),
-                        SizedBox(height: 16.h),
-                        Text(
-                          l10n.requirementsLoadFailed,
-                          style: AppTextStyles.h3,
-                        ),
-                        SizedBox(height: 8.h),
-                        ElevatedButton(
-                          onPressed: () {
-                            context
-                                .read<AdmissionRequirementProvider>()
-                                .subscribeToRequirements(
-                                  schoolName: _school.name,
-                                  schoolCountry: _school.country,
-                                );
-                          },
-                          child: Text(l10n.requirementsTryAgain),
-                        ),
-                      ],
-                    ),
-                  );
-                }
-
-                // Empty state
-                if (reqProvider.requirements.isEmpty) {
+                if (reqProvider.status == RequirementStatus.error &&
+                    reqProvider.requirements.isEmpty) {
                   return Center(
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 32.w),
@@ -123,21 +99,30 @@ class _AdmissionRequirementsScreenState
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
-                            Icons.school_outlined,
-                            size: 64.w,
-                            color: context.colors.textHint,
+                            Icons.error_outline,
+                            size: 48.w,
+                            color: context.colors.error,
                           ),
                           SizedBox(height: 16.h),
                           Text(
-                            l10n.requirementsEmptyTitle,
+                            l10n.requirementsLoadFailed,
                             style: AppTextStyles.h3,
                             textAlign: TextAlign.center,
                           ),
                           SizedBox(height: 8.h),
                           Text(
-                            l10n.requirementsEmptyNote,
-                            style: AppTextStyles.bodyMedium,
+                            reqProvider.errorMessage ??
+                                'Check your connection and tap below to retry.',
+                            style: AppTextStyles.bodySmall.copyWith(
+                              color: context.colors.textSecondary,
+                            ),
                             textAlign: TextAlign.center,
+                          ),
+                          SizedBox(height: 16.h),
+                          ElevatedButton.icon(
+                            onPressed: () => _loadRequirements(force: true),
+                            icon: const Icon(Icons.refresh, size: 18),
+                            label: Text(l10n.requirementsTryAgain),
                           ),
                         ],
                       ),
@@ -145,14 +130,67 @@ class _AdmissionRequirementsScreenState
                   );
                 }
 
-                // Requirements list
-                return ListView.builder(
-                  padding: EdgeInsets.fromLTRB(24.w, 8.h, 24.w, 40.h),
-                  itemCount: reqProvider.requirements.length,
-                  itemBuilder: (context, index) {
-                    final req = reqProvider.requirements[index];
-                    return _RequirementCard(requirement: req);
+                // Empty state
+                if (reqProvider.requirements.isEmpty) {
+                  return RefreshIndicator(
+                    onRefresh: () async {
+                      _loadRequirements(force: true);
+                      await Future.delayed(const Duration(milliseconds: 600));
+                    },
+                    child: SingleChildScrollView(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      child: Container(
+                        height: 380.h,
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.symmetric(horizontal: 32.w),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.school_outlined,
+                              size: 64.w,
+                              color: context.colors.textHint,
+                            ),
+                            SizedBox(height: 16.h),
+                            Text(
+                              l10n.requirementsEmptyTitle,
+                              style: AppTextStyles.h3,
+                              textAlign: TextAlign.center,
+                            ),
+                            SizedBox(height: 8.h),
+                            Text(
+                              l10n.requirementsEmptyNote,
+                              style: AppTextStyles.bodyMedium,
+                              textAlign: TextAlign.center,
+                            ),
+                            SizedBox(height: 16.h),
+                            OutlinedButton.icon(
+                              onPressed: () => _loadRequirements(force: true),
+                              icon: const Icon(Icons.refresh, size: 18),
+                              label: Text(l10n.requirementsTryAgain),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                }
+
+                // Requirements list with pull-to-refresh
+                return RefreshIndicator(
+                  onRefresh: () async {
+                    _loadRequirements(force: true);
+                    await Future.delayed(const Duration(milliseconds: 600));
                   },
+                  child: ListView.builder(
+                    padding: EdgeInsets.fromLTRB(24.w, 8.h, 24.w, 40.h),
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    itemCount: reqProvider.requirements.length,
+                    itemBuilder: (context, index) {
+                      final req = reqProvider.requirements[index];
+                      return _RequirementCard(requirement: req);
+                    },
+                  ),
                 );
               },
             ),

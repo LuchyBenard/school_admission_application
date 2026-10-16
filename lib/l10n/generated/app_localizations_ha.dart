@@ -71,9 +71,6 @@ class AppLocalizationsHa extends AppLocalizations {
   String get onboardingTitleGetStarted => 'Fara';
 
   @override
-  String get onboardingGetStarted => 'Fara';
-
-  @override
   String get loginTitle => 'Barka da dawowa';
 
   @override
@@ -325,9 +322,6 @@ class AppLocalizationsHa extends AppLocalizations {
   String get emailVerifyResend => 'Sake aika imel';
 
   @override
-  String get emailVerifySignOut => 'Fita';
-
-  @override
   String get emailVerifySentToaster =>
       'An aika imel na tabbatarwa. Duba akwandi ɗinka.';
 
@@ -337,12 +331,6 @@ class AppLocalizationsHa extends AppLocalizations {
   @override
   String get emailVerifySendFailed =>
       'Ba a iya aika imel ba. Ka jima minti ɗaya ka sake gwada.';
-
-  @override
-  String get emailVerifyCodeRequired => 'Ka shigar da lambobi';
-
-  @override
-  String get emailVerifyCodeInvalid => 'Lambobi ba daidai ba ko ya ƙare.';
 
   @override
   String get emailVerifyInbox => 'akwandinka';
@@ -361,136 +349,11 @@ class AppLocalizationsHa extends AppLocalizations {
       'Nemo ka kuma yi aikacewa a makarantar da ka so';
 
   @override
-  String get homeFindSchools => 'Nemo makaranta';
-
-  @override
-  String get homeQuickActions => 'Ayyuka masu sauri';
-
-  @override
-  String get homeStatsTotalApplied => 'Duka aikacewa';
-
-  @override
-  String get homeStatsUnderReview => 'Ana duba';
-
-  @override
-  String get homeStatsAccepted => 'An karɓi';
-
-  @override
-  String get homeStatsRejected => 'An reject';
-
-  @override
-  String get homeMyApplications => 'Aikacewata';
-
-  @override
-  String get homeMyDocuments => 'Takardunata';
-
-  @override
-  String get homeSavedSchools => 'An adana makaranta';
-
-  @override
-  String get homeFeaturedSchools => 'Makaranta masu kyau';
-
-  @override
   String get homeNoApplicationsYet =>
       'Kana da babu aikacewa. Ka fara da yi aikacewa a makaranta.';
 
   @override
-  String get homeNoSavedSchools =>
-      'Babu makaranta da aka adana. Ka bugi zuciya a kan makaranta don adana ta.';
-
-  @override
-  String get homeRemovedFromFavorites => 'An cike daga favorites';
-
-  @override
   String get homeRoleStudent => 'Dalili';
-
-  @override
-  String get schoolsTitle => 'Nemo makaranta';
-
-  @override
-  String get schoolsSearchHint => 'Nemo makaranta...';
-
-  @override
-  String get schoolsListSubtitle => 'Bincike dubu na makaranta a duniya';
-
-  @override
-  String get schoolsEmptyTitle => 'Babban makaranta';
-
-  @override
-  String get schoolsEmptyMessage => 'Ka gwada nemo da suna ko ƙasa a cikakke';
-
-  @override
-  String get schoolsLoadFailed => 'Dama za ta kusa loading makaranta';
-
-  @override
-  String get schoolsOffline => 'Ka duba intanetinka ka sake gwada';
-
-  @override
-  String get schoolsFeaturedBadge => 'Wanda aka zaɓi';
-
-  @override
-  String get schoolsWebsiteAction => 'Yanayyan gizo';
-
-  @override
-  String get schoolsCouldNotOpenWebsite => 'Ba a iya buɗe gizoven ba';
-
-  @override
-  String get schoolsInvalidWebsiteUrl => 'Adireshin gizo ba daidai ba';
-
-  @override
-  String get schoolDetailAbout => 'Game da';
-
-  @override
-  String get schoolDetailLocation => 'Wurin';
-
-  @override
-  String get schoolDetailCountry => 'Kasa';
-
-  @override
-  String get schoolDetailWebsite => 'Yanayyan gizo';
-
-  @override
-  String get schoolDetailVisitWebsite => 'Bude gizo';
-
-  @override
-  String get schoolDetailStatus => 'Yanayi';
-
-  @override
-  String get schoolDetailDeadline => 'Kwanan lokaci';
-
-  @override
-  String get schoolDetailApplicationFee => 'Kujiyon aikacewa';
-
-  @override
-  String get schoolDetailApplicationsClosed => 'An rufe aikacewa';
-
-  @override
-  String get schoolDetailApplyNow => 'Yi aikacewa yanzu';
-
-  @override
-  String get schoolDetailAdmissionRequirements => 'Shar\'uɗun karɓar';
-
-  @override
-  String get requirementsTitle => 'Shar\'uɗun karɓar';
-
-  @override
-  String get requirementsProgrammesHeading => 'Fasaha da maki';
-
-  @override
-  String get requirementsRequirementsHeading => 'Abin da ake buƙata';
-
-  @override
-  String get requirementsEmptyTitle => 'Babbu shar\'uɗi a yanzu';
-
-  @override
-  String get requirementsEmptyNote =>
-      'Ka duba gizon makaranta ko ka tafi tuntuwa don sabuwar shar\'uɗi.';
-
-  @override
-  String get requirementsNoCutOff => 'Babban maki';
-
-  @override
-  String get requirementsLoadFailed => 'Dama za ta kusa loading shar\'uɗi';
 
   @override
   String get applicationFormTitle => 'Fom ɗin aikacewa';
@@ -516,152 +379,10 @@ class AppLocalizationsHa extends AppLocalizations {
   String get applicationFormStepProgrammeSubtitle => 'Zaɓi abin da kake koyi';
 
   @override
-  String get applicationFormFullName => 'Suna cikakke';
-
-  @override
-  String get applicationFormFullNameHint => 'Shigar da suna cikakke';
-
-  @override
-  String get applicationFormDateOfBirth => 'Ranar haihuwa';
-
-  @override
-  String get applicationFormDateOfBirthHint => 'Zaɓi ranar haihuwa';
-
-  @override
-  String get applicationFormGender => 'Jinsi';
-
-  @override
-  String get applicationFormGenderHint => 'Zaɓi jinsi';
-
-  @override
-  String get applicationFormGenderMale => 'Maza';
-
-  @override
-  String get applicationFormGenderFemale => 'Mata';
-
-  @override
-  String get applicationFormGenderPreferNotToSay => 'Ban son fa bayan';
-
-  @override
-  String get applicationFormNationality => 'Kasa';
-
-  @override
-  String get applicationFormNationalityHint => 'misali Mai Naijiriya';
-
-  @override
-  String get applicationFormQualification => 'Babban diploma';
-
-  @override
-  String get applicationFormQualificationHint => 'Zaɓi diploma';
-
-  @override
-  String get applicationFormGrade => 'Maki/Mataki';
-
-  @override
-  String get applicationFormGradeHint => 'misali 2023';
-
-  @override
-  String get applicationFormGraduationYear => 'Shekarar kammala';
-
-  @override
-  String get applicationFormGraduationYearHint => 'misali 2023';
-
-  @override
-  String get applicationFormJambScore => 'Maki na JAMB';
-
-  @override
-  String get applicationFormJambYear => 'Shekarar JAMB';
-
-  @override
-  String get applicationFormCourseOfStudy => 'Fasaha';
-
-  @override
-  String get applicationFormCourseOfStudyHint => 'misali Kwamfu\'Ina';
-
-  @override
-  String get applicationFormEntryLevel => 'Mataki';
-
-  @override
-  String get applicationFormEntryLevelHint => 'Zaɓi mataki';
-
-  @override
-  String get applicationFormEntryLevelUndergraduate => 'BSc (100 level)';
-
-  @override
-  String get applicationFormEntryLevelDirect => 'Shiga kai tsaye (200 level)';
-
-  @override
-  String get applicationFormEntryLevelPostgraduate => 'Bayan kammala';
-
-  @override
-  String get applicationFormEntryLevelMasters => 'Master';
-
-  @override
-  String get applicationFormEntryLevelPhd => 'PhD';
-
-  @override
-  String get applicationFormSession => 'Shekarar darasi';
-
-  @override
-  String get applicationFormSessionHint => 'misali 2023/2024';
-
-  @override
-  String get applicationFormSubmitButton => 'Tura aikacewa';
-
-  @override
   String get applicationFormSaved => 'An adana aikacewa! Ka upload takardai.';
 
   @override
   String get applicationFormSubmitFailed => 'Ba a iya tura ba. Ka sake gwada.';
-
-  @override
-  String get applicationFormErrorNameRequired => 'Ka shigar da suna cikakke';
-
-  @override
-  String get applicationFormErrorDobRequired => 'Ka zaɓi ranar haihuwa';
-
-  @override
-  String get applicationFormErrorGenderRequired => 'Ka zaɓi jinsi';
-
-  @override
-  String get applicationFormErrorNationalityRequired => 'Ka shigar da kasarka';
-
-  @override
-  String get applicationFormErrorQualificationRequired => 'Ka zaɓi diploma';
-
-  @override
-  String get applicationFormErrorGradeRequired => 'Ka shigar da maki ko mataki';
-
-  @override
-  String get applicationFormErrorGraduationYearRequired =>
-      'Ka shigar da shekarar kammala';
-
-  @override
-  String get applicationFormErrorYearInvalid =>
-      'Ka shigar da shekara mai inganci';
-
-  @override
-  String get applicationFormErrorJambScoreRequired =>
-      'Ka shigar da maki na JAMB';
-
-  @override
-  String get applicationFormErrorJambScoreInvalid =>
-      'Ka shigar da maki na JAMB mai inganci (0-400)';
-
-  @override
-  String get applicationFormErrorJambYearRequired =>
-      'Ka shigar da shekarar JAMB';
-
-  @override
-  String get applicationFormErrorCourseRequired =>
-      'Ka shigar da abin da kake koyi';
-
-  @override
-  String get applicationFormErrorEntryLevelRequired => 'Ka zaɓi mataki';
-
-  @override
-  String get applicationFormErrorSessionRequired =>
-      'Ka shigar da shekarar darasi';
 
   @override
   String get statusPending => 'Ana jiran';
@@ -685,116 +406,10 @@ class AppLocalizationsHa extends AppLocalizations {
   String get statusMoreDocumentsRequired => 'Karin takardai ana buƙata';
 
   @override
-  String get statusListTitle => 'Aikacewata';
-
-  @override
-  String get statusListSubtitle => 'Bin duk aikacewa na karɓar';
-
-  @override
-  String get statusFilterAll => 'Duka';
-
-  @override
   String get statusEmptyTitle => 'Babban aikacewa a yanzu';
 
   @override
-  String get statusBrowseSchools => 'Duba makaranta';
-
-  @override
-  String get statusLoadFailed => 'Dama za ta kusa loading aikacewa';
-
-  @override
-  String get applicationDetailTitle => 'Bayanai na aikacewa';
-
-  @override
-  String get applicationDetailSchoolInfo => 'Bayanai na makaranta';
-
-  @override
-  String get applicationDetailPersonalInfo => 'Bayanai na kanka';
-
-  @override
-  String get applicationDetailAcademicInfo => 'Bayanai na hankali';
-
-  @override
-  String get applicationDetailProgrammeInfo => 'Bayanai na fasa';
-
-  @override
-  String get applicationDetailSubmissionInfo => 'Bayanai na aika';
-
-  @override
-  String get applicationDetailRowSchool => 'Makaranta';
-
-  @override
-  String get applicationDetailRowCountry => 'Kasa';
-
-  @override
-  String get applicationDetailRowFullName => 'Suna cikakke';
-
-  @override
-  String get applicationDetailRowDateOfBirth => 'Ranar haihuwa';
-
-  @override
-  String get applicationDetailRowGender => 'Jinsi';
-
-  @override
-  String get applicationDetailRowNationality => 'Kasa';
-
-  @override
-  String get applicationDetailRowQualification => 'Diploma';
-
-  @override
-  String get applicationDetailRowGrade => 'Maki/Mataki';
-
-  @override
-  String get applicationDetailRowGraduationYear => 'Shekarar kammala';
-
-  @override
-  String get applicationDetailRowCourseOfStudy => 'Fasaha';
-
-  @override
-  String get applicationDetailRowEntryLevel => 'Mataki';
-
-  @override
-  String get applicationDetailRowSession => 'Shekarar darasi';
-
-  @override
-  String get applicationDetailRowDateSubmitted => 'Ranar aika';
-
-  @override
-  String get applicationDetailRowStatus => 'Yanayi';
-
-  @override
-  String get applicationDetailSubmittedRecently => 'Kwanan';
-
-  @override
   String get applicationDetailCardSubmittedRecently => 'An aika kwanan';
-
-  @override
-  String get applicationDetailWithdraw => 'Janye aikacewa';
-
-  @override
-  String get applicationDetailReapply => 'Yi aikacewa sake';
-
-  @override
-  String get applicationDetailDelete => 'Delete aikacewa';
-
-  @override
-  String get applicationDetailWithdrawConfirmTitle => 'Janye aikacewa';
-
-  @override
-  String applicationDetailWithdrawConfirmBody(String school) {
-    return 'Ka tabbata ka son janye aikacenka zuwa $school? Za ka iya sake yi.';
-  }
-
-  @override
-  String get applicationDetailDeleteConfirmTitle => 'Delete aikacewa';
-
-  @override
-  String applicationDetailDeleteConfirmBody(String school) {
-    return 'Ka tabbata ka son delete aikacenka zuwa $school? Ba za a iya dawo ba.';
-  }
-
-  @override
-  String get applicationDetailWithdrawAction => 'Janye';
 
   @override
   String get applicationDetailWithdrawn => 'An janye aikacewa';
@@ -807,173 +422,6 @@ class AppLocalizationsHa extends AppLocalizations {
 
   @override
   String get applicationDetailDeleteFailed => 'Ba a iya delete ba';
-
-  @override
-  String get documentUploadTitle => 'Upload takardai';
-
-  @override
-  String get documentUploadRequiredHeading => 'Takardai da ake buƙata';
-
-  @override
-  String get documentUploadUploadAll => 'Upload takardai 4 don ci gaba';
-
-  @override
-  String get documentUploadFormatNote =>
-      'Duk takardai suna buƙatar kasance a bayane. Formats: JPG, PNG.';
-
-  @override
-  String get documentUploadProceedToPayment => 'Ci gaba zuwa biyan';
-
-  @override
-  String get documentUploadChooseSource => 'Zaɓi wuri';
-
-  @override
-  String get documentUploadChooseFromGallery => 'Zaɓi daga gallery';
-
-  @override
-  String get documentUploadTakePhoto => 'Ɗauki hoto';
-
-  @override
-  String get documentUploadReplace => 'Sauya';
-
-  @override
-  String get documentUploadUpload => 'Upload';
-
-  @override
-  String get documentUploadAllDone => 'Duka ya kama';
-
-  @override
-  String get documentUploadRequiredAll => 'Abin da ake buƙata: 4';
-
-  @override
-  String get documentUploadWaecTitle => 'Sakauko na WAEC/NECO';
-
-  @override
-  String get documentUploadWaecSubtitle => 'Upload sakaukon O-level';
-
-  @override
-  String get documentUploadJambTitle => 'Sakauko na JAMB';
-
-  @override
-  String get documentUploadJambSubtitle => 'Upload takaddar JAMB';
-
-  @override
-  String get documentUploadPassportTitle => 'Hoto na pasaport';
-
-  @override
-  String get documentUploadPassportSubtitle => 'Upload sabon hoto na pasaport';
-
-  @override
-  String get documentUploadBirthCertTitle => 'Takaddar haihuwa';
-
-  @override
-  String get documentUploadBirthCertSubtitle => 'Upload takaddar haihuwa';
-
-  @override
-  String get documentUploadPickFailed =>
-      'Ba a iya zaɓi fayil ba. Ka sake gwada.';
-
-  @override
-  String get documentUploadFailed => 'Upload bai yi nasara ba. Ka sake gwada.';
-
-  @override
-  String get documentUploadNoActiveApplication =>
-      'Babban aikacewa da ke aiki. Ka fara sabo.';
-
-  @override
-  String get documentUploadIncomplete =>
-      'Ka upload duk takardai kafin ka ci gaba.';
-
-  @override
-  String get documentUploadSomethingWrong =>
-      'Wani abu ya yi kuskure. Ka sake gwada.';
-
-  @override
-  String get paymentTitle => 'Biyan kuɗi';
-
-  @override
-  String get paymentOrderSummary => 'Taƙaiti';
-
-  @override
-  String get paymentApplicationFee => 'Kujiyon aikacewa';
-
-  @override
-  String get paymentTotal => 'Duka';
-
-  @override
-  String get paymentMethodHeading => 'H hanyin biyan';
-
-  @override
-  String get paymentPaystackSubtitle => 'Biya da kati, sanya kuɗi ko USSD';
-
-  @override
-  String get paymentFlutterwaveSubtitle => 'Biya da kati, banki ko kudin waya';
-
-  @override
-  String get paymentDemoNotice =>
-      'Wannan biyan gwaji ne. Ba za a sanya kuɗi ba.';
-
-  @override
-  String get paymentBiometricReason => 'Tabbatar da yatsa don cika biyan';
-
-  @override
-  String get paymentBiometricCancelled => 'An soke tabbatarwa.';
-
-  @override
-  String get paymentSuccessTitle => 'Biyan ya yi nasara!';
-
-  @override
-  String get paymentSuccessBody =>
-      'An aika aikacenka cikin nasara. Za ka sani idan akai sabo.';
-
-  @override
-  String get paymentGoToDashboard => 'Je dashboard';
-
-  @override
-  String get paymentFailed => 'Biyan ya gaza. Ka sake gwada.';
-
-  @override
-  String get notificationsTitle => 'Sanarwa';
-
-  @override
-  String get notificationsMarkAllRead => 'Karanta duka';
-
-  @override
-  String get notificationsClear => 'Tsafta';
-
-  @override
-  String get notificationsClearTitle => 'Tsafta duka';
-
-  @override
-  String get notificationsClearBody =>
-      'Ka tabbata ka son delete duk sanarwa? Ba za a iya dawo ba.';
-
-  @override
-  String get notificationsClearConfirm => 'Tsafta duka';
-
-  @override
-  String get notificationsEmptyTitle => 'Babban sanarwa a yanzu';
-
-  @override
-  String get notificationsEmptyBody => 'Za ka sani idan akai sabo da aikacewa';
-
-  @override
-  String get notificationsTimeJustNow => 'Yanzu';
-
-  @override
-  String notificationsTimeMinutes(int count) {
-    return 'minti $count da';
-  }
-
-  @override
-  String notificationsTimeHours(int count) {
-    return 'awanni $count da';
-  }
-
-  @override
-  String notificationsTimeDays(int count) {
-    return 'kwanaki $count da';
-  }
 
   @override
   String get settingsTitle => 'Saituna';
@@ -1125,6 +573,9 @@ class AppLocalizationsHa extends AppLocalizations {
   String get onboardingNext => 'Next';
 
   @override
+  String get onboardingGetStarted => 'Fara';
+
+  @override
   String get onboardingSkip => 'Skip';
 
   @override
@@ -1151,6 +602,9 @@ class AppLocalizationsHa extends AppLocalizations {
   String get emailVerifyManualRefresh => 'I\'ve verified — Continue';
 
   @override
+  String get emailVerifySignOut => 'Fita';
+
+  @override
   String get emailVerifySentToast =>
       'Verification email sent. Check your inbox.';
 
@@ -1162,7 +616,116 @@ class AppLocalizationsHa extends AppLocalizations {
       'Could not send verification email. Please wait a minute and retry.';
 
   @override
+  String get emailVerifyCodeRequired => 'Ka shigar da lambobi';
+
+  @override
+  String get emailVerifyCodeInvalid => 'Lambobi ba daidai ba ko ya ƙare.';
+
+  @override
+  String get homeFeaturedSchools => 'Makaranta masu kyau';
+
+  @override
+  String get homeSavedSchools => 'An adana makaranta';
+
+  @override
+  String get homeMyApplications => 'Aikacewata';
+
+  @override
+  String get homeQuickActions => 'Ayyuka masu sauri';
+
+  @override
+  String get homeFindSchools => 'Nemo makaranta';
+
+  @override
+  String get homeMyDocuments => 'Takardunata';
+
+  @override
+  String get homeNoSavedSchools =>
+      'Babu makaranta da aka adana. Ka bugi zuciya a kan makaranta don adana ta.';
+
+  @override
+  String get homeRemovedFromFavorites => 'An cike daga favorites';
+
+  @override
+  String get homeStatsTotalApplied => 'Duka aikacewa';
+
+  @override
+  String get homeStatsUnderReview => 'Ana duba';
+
+  @override
+  String get homeStatsAccepted => 'An karɓi';
+
+  @override
+  String get homeStatsRejected => 'An reject';
+
+  @override
+  String get schoolsTitle => 'Nemo makaranta';
+
+  @override
+  String get schoolsSearchHint => 'Nemo makaranta...';
+
+  @override
+  String get schoolsListSubtitle => 'Bincike dubu na makaranta a duniya';
+
+  @override
+  String get schoolsEmptyTitle => 'Babban makaranta';
+
+  @override
+  String get schoolsEmptyMessage => 'Ka gwada nemo da suna ko ƙasa a cikakke';
+
+  @override
+  String get schoolsLoadFailed => 'Dama za ta kusa loading makaranta';
+
+  @override
+  String get schoolsOffline => 'Ka duba intanetinka ka sake gwada';
+
+  @override
+  String get schoolsFeaturedBadge => 'Wanda aka zaɓi';
+
+  @override
   String get schoolsTryAgain => 'Try Again';
+
+  @override
+  String get schoolsWebsiteAction => 'Yanayyan gizo';
+
+  @override
+  String get schoolsCouldNotOpenWebsite => 'Ba a iya buɗe gizoven ba';
+
+  @override
+  String get schoolsInvalidWebsiteUrl => 'Adireshin gizo ba daidai ba';
+
+  @override
+  String get schoolDetailAbout => 'Game da';
+
+  @override
+  String get schoolDetailLocation => 'Wurin';
+
+  @override
+  String get schoolDetailCountry => 'Kasa';
+
+  @override
+  String get schoolDetailWebsite => 'Yanayyan gizo';
+
+  @override
+  String get schoolDetailVisitWebsite => 'Bude gizo';
+
+  @override
+  String get schoolDetailStatus => 'Yanayi';
+
+  @override
+  String get schoolDetailDeadline => 'Kwanan lokaci';
+
+  @override
+  String get schoolDetailApplicationFee => 'Kujiyon aikacewa';
+
+  @override
+  String get schoolDetailApplicationsClosed => 'An rufe aikacewa';
+
+  @override
+  String get schoolDetailApplyNow => 'Yi aikacewa yanzu';
+
+  @override
+  String get schoolDetailAdmissionRequirements => 'Shar\'uɗun karɓar';
 
   @override
   String schoolDetailSavedToFavorites(Object name) {
@@ -1176,6 +739,28 @@ class AppLocalizationsHa extends AppLocalizations {
   String schoolDetailApplicationsClosedToast(Object name) {
     return 'Applications are closed for $name';
   }
+
+  @override
+  String get requirementsTitle => 'Shar\'uɗun karɓar';
+
+  @override
+  String get requirementsProgrammesHeading => 'Fasaha da maki';
+
+  @override
+  String get requirementsRequirementsHeading => 'Abin da ake buƙata';
+
+  @override
+  String get requirementsEmptyTitle => 'Babbu shar\'uɗi a yanzu';
+
+  @override
+  String get requirementsEmptyNote =>
+      'Ka duba gizon makaranta ko ka tafi tuntuwa don sabuwar shar\'uɗi.';
+
+  @override
+  String get requirementsNoCutOff => 'Babban maki';
+
+  @override
+  String get requirementsLoadFailed => 'Dama za ta kusa loading shar\'uɗi';
 
   @override
   String requirementsCutOffLabel(Object score) {
@@ -1205,6 +790,45 @@ class AppLocalizationsHa extends AppLocalizations {
   String get applicationFormStep3Subtitle => 'Select your programme of study';
 
   @override
+  String get applicationFormFullName => 'Suna cikakke';
+
+  @override
+  String get applicationFormFullNameHint => 'Shigar da suna cikakke';
+
+  @override
+  String get applicationFormDateOfBirth => 'Ranar haihuwa';
+
+  @override
+  String get applicationFormDateOfBirthHint => 'Zaɓi ranar haihuwa';
+
+  @override
+  String get applicationFormGender => 'Jinsi';
+
+  @override
+  String get applicationFormGenderHint => 'Zaɓi jinsi';
+
+  @override
+  String get applicationFormGenderMale => 'Maza';
+
+  @override
+  String get applicationFormGenderFemale => 'Mata';
+
+  @override
+  String get applicationFormGenderPreferNotToSay => 'Ban son fa bayan';
+
+  @override
+  String get applicationFormNationality => 'Kasa';
+
+  @override
+  String get applicationFormNationalityHint => 'misali Mai Naijiriya';
+
+  @override
+  String get applicationFormQualification => 'Babban diploma';
+
+  @override
+  String get applicationFormQualificationHint => 'Zaɓi diploma';
+
+  @override
   String get applicationFormQualificationWAEC => 'WAEC/SSCE';
 
   @override
@@ -1226,13 +850,67 @@ class AppLocalizationsHa extends AppLocalizations {
   String get applicationFormQualificationMasters => 'Master\'s Degree';
 
   @override
+  String get applicationFormGrade => 'Maki/Mataki';
+
+  @override
+  String get applicationFormGradeHint => 'misali 2023';
+
+  @override
+  String get applicationFormGraduationYear => 'Shekarar kammala';
+
+  @override
+  String get applicationFormGraduationYearHint => 'misali 2023';
+
+  @override
+  String get applicationFormJambScore => 'Maki na JAMB';
+
+  @override
   String get applicationFormJambScoreHint => 'e.g 200';
+
+  @override
+  String get applicationFormJambYear => 'Shekarar JAMB';
 
   @override
   String get applicationFormJambYearHint => 'e.g 2023';
 
   @override
+  String get applicationFormCourseOfStudy => 'Fasaha';
+
+  @override
+  String get applicationFormCourseOfStudyHint => 'misali Kwamfu\'Ina';
+
+  @override
+  String get applicationFormEntryLevel => 'Mataki';
+
+  @override
+  String get applicationFormEntryLevelHint => 'Zaɓi mataki';
+
+  @override
+  String get applicationFormEntryLevelUndergraduate => 'BSc (100 level)';
+
+  @override
+  String get applicationFormEntryLevelDirect => 'Shiga kai tsaye (200 level)';
+
+  @override
+  String get applicationFormEntryLevelPostgraduate => 'Bayan kammala';
+
+  @override
+  String get applicationFormEntryLevelMasters => 'Master';
+
+  @override
+  String get applicationFormEntryLevelPhd => 'PhD';
+
+  @override
+  String get applicationFormSession => 'Shekarar darasi';
+
+  @override
+  String get applicationFormSessionHint => 'misali 2023/2024';
+
+  @override
   String get applicationFormNext => 'Next';
+
+  @override
+  String get applicationFormSubmitButton => 'Tura aikacewa';
 
   @override
   String get applicationFormSavedToast =>
@@ -1246,6 +924,64 @@ class AppLocalizationsHa extends AppLocalizations {
   String applicationFormDeadlinePassedToast(Object name) {
     return 'The application deadline for $name has passed.';
   }
+
+  @override
+  String get applicationFormErrorNameRequired => 'Ka shigar da suna cikakke';
+
+  @override
+  String get applicationFormErrorDobRequired => 'Ka zaɓi ranar haihuwa';
+
+  @override
+  String get applicationFormErrorGenderRequired => 'Ka zaɓi jinsi';
+
+  @override
+  String get applicationFormErrorNationalityRequired => 'Ka shigar da kasarka';
+
+  @override
+  String get applicationFormErrorQualificationRequired => 'Ka zaɓi diploma';
+
+  @override
+  String get applicationFormErrorGradeRequired => 'Ka shigar da maki ko mataki';
+
+  @override
+  String get applicationFormErrorGraduationYearRequired =>
+      'Ka shigar da shekarar kammala';
+
+  @override
+  String get applicationFormErrorYearInvalid =>
+      'Ka shigar da shekara mai inganci';
+
+  @override
+  String get applicationFormErrorJambScoreRequired =>
+      'Ka shigar da maki na JAMB';
+
+  @override
+  String get applicationFormErrorJambScoreInvalid =>
+      'Ka shigar da maki na JAMB mai inganci (0-400)';
+
+  @override
+  String get applicationFormErrorJambYearRequired =>
+      'Ka shigar da shekarar JAMB';
+
+  @override
+  String get applicationFormErrorCourseRequired =>
+      'Ka shigar da abin da kake koyi';
+
+  @override
+  String get applicationFormErrorEntryLevelRequired => 'Ka zaɓi mataki';
+
+  @override
+  String get applicationFormErrorSessionRequired =>
+      'Ka shigar da shekarar darasi';
+
+  @override
+  String get statusListTitle => 'Aikacewata';
+
+  @override
+  String get statusListSubtitle => 'Bin duk aikacewa na karɓar';
+
+  @override
+  String get statusFilterAll => 'Duka';
 
   @override
   String get statusFilterPending => 'Pending';
@@ -1269,6 +1005,12 @@ class AppLocalizationsHa extends AppLocalizations {
   String statusEmptyTitleFiltered(Object filter) {
     return 'No $filter applications';
   }
+
+  @override
+  String get statusBrowseSchools => 'Duba makaranta';
+
+  @override
+  String get statusLoadFailed => 'Dama za ta kusa loading aikacewa';
 
   @override
   String get statusTryAgain => 'Try Again';
@@ -1302,6 +1044,97 @@ class AppLocalizationsHa extends AppLocalizations {
   String get statusDeleteFailedToast => 'Failed to delete application';
 
   @override
+  String get applicationDetailTitle => 'Bayanai na aikacewa';
+
+  @override
+  String get applicationDetailSchoolInfo => 'Bayanai na makaranta';
+
+  @override
+  String get applicationDetailPersonalInfo => 'Bayanai na kanka';
+
+  @override
+  String get applicationDetailAcademicInfo => 'Bayanai na hankali';
+
+  @override
+  String get applicationDetailProgrammeInfo => 'Bayanai na fasa';
+
+  @override
+  String get applicationDetailSubmissionInfo => 'Bayanai na aika';
+
+  @override
+  String get applicationDetailRowSchool => 'Makaranta';
+
+  @override
+  String get applicationDetailRowCountry => 'Kasa';
+
+  @override
+  String get applicationDetailRowFullName => 'Suna cikakke';
+
+  @override
+  String get applicationDetailRowDateOfBirth => 'Ranar haihuwa';
+
+  @override
+  String get applicationDetailRowGender => 'Jinsi';
+
+  @override
+  String get applicationDetailRowNationality => 'Kasa';
+
+  @override
+  String get applicationDetailRowQualification => 'Diploma';
+
+  @override
+  String get applicationDetailRowGrade => 'Maki/Mataki';
+
+  @override
+  String get applicationDetailRowGraduationYear => 'Shekarar kammala';
+
+  @override
+  String get applicationDetailRowCourseOfStudy => 'Fasaha';
+
+  @override
+  String get applicationDetailRowEntryLevel => 'Mataki';
+
+  @override
+  String get applicationDetailRowSession => 'Shekarar darasi';
+
+  @override
+  String get applicationDetailRowDateSubmitted => 'Ranar aika';
+
+  @override
+  String get applicationDetailRowStatus => 'Yanayi';
+
+  @override
+  String get applicationDetailSubmittedRecently => 'Kwanan';
+
+  @override
+  String get applicationDetailWithdraw => 'Janye aikacewa';
+
+  @override
+  String get applicationDetailReapply => 'Yi aikacewa sake';
+
+  @override
+  String get applicationDetailDelete => 'Delete aikacewa';
+
+  @override
+  String get applicationDetailWithdrawConfirmTitle => 'Janye aikacewa';
+
+  @override
+  String applicationDetailWithdrawConfirmBody(String school) {
+    return 'Ka tabbata ka son janye aikacenka zuwa $school? Za ka iya sake yi.';
+  }
+
+  @override
+  String get applicationDetailDeleteConfirmTitle => 'Delete aikacewa';
+
+  @override
+  String applicationDetailDeleteConfirmBody(String school) {
+    return 'Ka tabbata ka son delete aikacenka zuwa $school? Ba za a iya dawo ba.';
+  }
+
+  @override
+  String get applicationDetailWithdrawAction => 'Janye';
+
+  @override
   String get applicationDetailWithdrawnToast => 'Application withdrawn';
 
   @override
@@ -1319,6 +1152,86 @@ class AppLocalizationsHa extends AppLocalizations {
   String get applicationDetailCancel => 'Cancel';
 
   @override
+  String get documentUploadTitle => 'Upload takardai';
+
+  @override
+  String get documentUploadRequiredHeading => 'Takardai da ake buƙata';
+
+  @override
+  String get documentUploadUploadAll => 'Upload takardai 4 don ci gaba';
+
+  @override
+  String get documentUploadFormatNote =>
+      'Duk takardai suna buƙatar kasance a bayane. Formats: JPG, PNG.';
+
+  @override
+  String get documentUploadProceedToPayment => 'Ci gaba zuwa biyan';
+
+  @override
+  String get documentUploadChooseSource => 'Zaɓi wuri';
+
+  @override
+  String get documentUploadChooseFromGallery => 'Zaɓi daga gallery';
+
+  @override
+  String get documentUploadTakePhoto => 'Ɗauki hoto';
+
+  @override
+  String get documentUploadReplace => 'Sauya';
+
+  @override
+  String get documentUploadUpload => 'Upload';
+
+  @override
+  String get documentUploadAllDone => 'Duka ya kama';
+
+  @override
+  String get documentUploadRequiredAll => 'Abin da ake buƙata: 4';
+
+  @override
+  String get documentUploadWaecTitle => 'Sakauko na WAEC/NECO';
+
+  @override
+  String get documentUploadWaecSubtitle => 'Upload sakaukon O-level';
+
+  @override
+  String get documentUploadJambTitle => 'Sakauko na JAMB';
+
+  @override
+  String get documentUploadJambSubtitle => 'Upload takaddar JAMB';
+
+  @override
+  String get documentUploadPassportTitle => 'Hoto na pasaport';
+
+  @override
+  String get documentUploadPassportSubtitle => 'Upload sabon hoto na pasaport';
+
+  @override
+  String get documentUploadBirthCertTitle => 'Takaddar haihuwa';
+
+  @override
+  String get documentUploadBirthCertSubtitle => 'Upload takaddar haihuwa';
+
+  @override
+  String get documentUploadPickFailed =>
+      'Ba a iya zaɓi fayil ba. Ka sake gwada.';
+
+  @override
+  String get documentUploadFailed => 'Upload bai yi nasara ba. Ka sake gwada.';
+
+  @override
+  String get documentUploadNoActiveApplication =>
+      'Babban aikacewa da ke aiki. Ka fara sabo.';
+
+  @override
+  String get documentUploadIncomplete =>
+      'Ka upload duk takardai kafin ka ci gaba.';
+
+  @override
+  String get documentUploadSomethingWrong =>
+      'Wani abu ya yi kuskure. Ka sake gwada.';
+
+  @override
   String documentUploadUploadedSuccessfully(Object title) {
     return '$title uploaded successfully';
   }
@@ -1334,14 +1247,101 @@ class AppLocalizationsHa extends AppLocalizations {
   }
 
   @override
+  String get paymentTitle => 'Biyan kuɗi';
+
+  @override
+  String get paymentOrderSummary => 'Taƙaiti';
+
+  @override
+  String get paymentApplicationFee => 'Kujiyon aikacewa';
+
+  @override
+  String get paymentTotal => 'Duka';
+
+  @override
+  String get paymentMethodHeading => 'H hanyin biyan';
+
+  @override
   String get paymentPaystackTitle => 'Paystack';
+
+  @override
+  String get paymentPaystackSubtitle => 'Biya da kati, sanya kuɗi ko USSD';
 
   @override
   String get paymentFlutterwaveTitle => 'Flutterwave';
 
   @override
+  String get paymentFlutterwaveSubtitle => 'Biya da kati, banki ko kudin waya';
+
+  @override
+  String get paymentDemoNotice =>
+      'Wannan biyan gwaji ne. Ba za a sanya kuɗi ba.';
+
+  @override
+  String get paymentBiometricReason => 'Tabbatar da yatsa don cika biyan';
+
+  @override
+  String get paymentBiometricCancelled => 'An soke tabbatarwa.';
+
+  @override
+  String get paymentSuccessTitle => 'Biyan ya yi nasara!';
+
+  @override
+  String get paymentSuccessBody =>
+      'An aika aikacenka cikin nasara. Za ka sani idan akai sabo.';
+
+  @override
+  String get paymentGoToDashboard => 'Je dashboard';
+
+  @override
+  String get paymentFailed => 'Biyan ya gaza. Ka sake gwada.';
+
+  @override
   String paymentPayButton(Object amount) {
     return 'Pay ₦$amount';
+  }
+
+  @override
+  String get notificationsTitle => 'Sanarwa';
+
+  @override
+  String get notificationsMarkAllRead => 'Karanta duka';
+
+  @override
+  String get notificationsClear => 'Tsafta';
+
+  @override
+  String get notificationsClearTitle => 'Tsafta duka';
+
+  @override
+  String get notificationsClearBody =>
+      'Ka tabbata ka son delete duk sanarwa? Ba za a iya dawo ba.';
+
+  @override
+  String get notificationsClearConfirm => 'Tsafta duka';
+
+  @override
+  String get notificationsEmptyTitle => 'Babban sanarwa a yanzu';
+
+  @override
+  String get notificationsEmptyBody => 'Za ka sani idan akai sabo da aikacewa';
+
+  @override
+  String get notificationsTimeJustNow => 'Yanzu';
+
+  @override
+  String notificationsTimeMinutes(int count) {
+    return 'minti $count da';
+  }
+
+  @override
+  String notificationsTimeHours(int count) {
+    return 'awanni $count da';
+  }
+
+  @override
+  String notificationsTimeDays(int count) {
+    return 'kwanaki $count da';
   }
 
   @override

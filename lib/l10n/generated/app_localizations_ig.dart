@@ -71,9 +71,6 @@ class AppLocalizationsIg extends AppLocalizations {
   String get onboardingTitleGetStarted => 'Malịta';
 
   @override
-  String get onboardingGetStarted => 'Malịta';
-
-  @override
   String get loginTitle => 'Nnọọ';
 
   @override
@@ -323,9 +320,6 @@ class AppLocalizationsIg extends AppLocalizations {
   String get emailVerifyResend => 'Zigharịa ozi-e';
 
   @override
-  String get emailVerifySignOut => 'Pụọ';
-
-  @override
   String get emailVerifySentToaster =>
       'Anyị ezigharịla ozi-e njikọ. Nyocha nchekwa ozi-e gị.';
 
@@ -335,13 +329,6 @@ class AppLocalizationsIg extends AppLocalizations {
   @override
   String get emailVerifySendFailed =>
       'Anyị enweghị ike izigharị ozi-e njikọ. Bụta oge, laghachi azụ.';
-
-  @override
-  String get emailVerifyCodeRequired => 'Banye koodu njikọ';
-
-  @override
-  String get emailVerifyCodeInvalid =>
-      'Koodu njikọ ezighi ebe ọ dị anyị na-echere na ọ agbanyela.';
 
   @override
   String get emailVerifyInbox => 'nchekwa ozi-e gị';
@@ -359,139 +346,11 @@ class AppLocalizationsIg extends AppLocalizations {
   String get homeSearchTitle => 'Chọta ụlọ-akụkọ ị chọrọ ma zetaa aịịrị';
 
   @override
-  String get homeFindSchools => 'Chọta ụlọ-akụkọ';
-
-  @override
-  String get homeQuickActions => 'Ọrụ ngwa ngwa';
-
-  @override
-  String get homeStatsTotalApplied => 'Aịịrị niile';
-
-  @override
-  String get homeStatsUnderReview => 'Na-enyere aka';
-
-  @override
-  String get homeStatsAccepted => 'A na-anabata';
-
-  @override
-  String get homeStatsRejected => 'A na-ajaghị';
-
-  @override
-  String get homeMyApplications => 'Aịịrị m';
-
-  @override
-  String get homeMyDocuments => 'Akwukwo m';
-
-  @override
-  String get homeSavedSchools => 'Ụlọ-akụkọ echekwara';
-
-  @override
-  String get homeFeaturedSchools => 'Ụlọ-akụkọ pụrụnịma';
-
-  @override
   String get homeNoApplicationsYet =>
       'Ị nweghị ọụ ọbụna aịịrị. Malịta site na izi aịịrị na ụlọ-akụkọ.';
 
   @override
-  String get homeNoSavedSchools =>
-      'Enweghị ụlọ-akụkọ echekwara. Pịa akịkụ obi ụlọ-akụkọ iji chekwa ya.';
-
-  @override
-  String get homeRemovedFromFavorites => 'Anyị ebughara ya na ụlọ-akụkọ ị họrọ';
-
-  @override
   String get homeRoleStudent => 'Ọtụtụ ọrụ akụkọ';
-
-  @override
-  String get schoolsTitle => 'Chọta ụlọ-akụkọ';
-
-  @override
-  String get schoolsSearchHint => 'Chọta ụlọ-akụkọ...';
-
-  @override
-  String get schoolsListSubtitle =>
-      'Chọta n\'ime ụlọ-akụkọ pụọ ụgbọ ụgbọ dị ọma na ụwa niile';
-
-  @override
-  String get schoolsEmptyTitle => 'Enweghị ụlọ-akụkọ anyị hụ';
-
-  @override
-  String get schoolsEmptyMessage =>
-      'Laghachi azụ ma gbalịa aha ma ọ bụla obodo ọzọ';
-
-  @override
-  String get schoolsLoadFailed => 'Anyị enweghị ike ịbanye ụlọ-akụkọ';
-
-  @override
-  String get schoolsOffline => 'Lelịrị njikọ ọnụma gị ma laghachi azụ';
-
-  @override
-  String get schoolsFeaturedBadge => 'Pụrụnịma';
-
-  @override
-  String get schoolsWebsiteAction => 'Wezụ ebe ọnụma';
-
-  @override
-  String get schoolsCouldNotOpenWebsite =>
-      'Anyị enweghị ike imehe ebe ọnụma ahụ';
-
-  @override
-  String get schoolsInvalidWebsiteUrl => 'Adreesị ebe ọnụma ezighi ezi';
-
-  @override
-  String get schoolDetailAbout => 'N\'ime ya';
-
-  @override
-  String get schoolDetailLocation => 'Ebe';
-
-  @override
-  String get schoolDetailCountry => 'Obodo';
-
-  @override
-  String get schoolDetailWebsite => 'Ebe ọnụma';
-
-  @override
-  String get schoolDetailVisitWebsite => 'Banye ebe ọnụma';
-
-  @override
-  String get schoolDetailStatus => 'Ọnọma';
-
-  @override
-  String get schoolDetailDeadline => 'Oge ikpeazụ';
-
-  @override
-  String get schoolDetailApplicationFee => 'Ezi aịịrị';
-
-  @override
-  String get schoolDetailApplicationsClosed => 'Anyị akpọchiri ọbụna aịịrị';
-
-  @override
-  String get schoolDetailApplyNow => 'Zetaa aịịrị ugbu a';
-
-  @override
-  String get schoolDetailAdmissionRequirements => 'Nke ọma ịbanye';
-
-  @override
-  String get requirementsTitle => 'Nke ọma ịbanye';
-
-  @override
-  String get requirementsProgrammesHeading => 'Mmekọ na ọkwa';
-
-  @override
-  String get requirementsRequirementsHeading => 'Ihe niile dị mkpa';
-
-  @override
-  String get requirementsEmptyTitle => 'Enweghị nke ọma anyị debanyere';
-
-  @override
-  String get requirementsEmptyNote =>
-      'Lee ebe ọnụma ụlọ-akụkọ ma ọ bụ nye ụlọ-akụkọ nke ọma ọhụrụ maka nke ọma ọhụrụ.';
-
-  @override
-  String get requirementsNoCutOff => 'Enweghị ọkwa anyị debanyere';
-
-  @override
-  String get requirementsLoadFailed => 'Anyị enweghị ike ịbanye nke ọma';
 
   @override
   String get applicationFormTitle => 'Fọrmu aịịrị';
@@ -516,150 +375,12 @@ class AppLocalizationsIg extends AppLocalizations {
   String get applicationFormStepProgrammeSubtitle => 'Gị na-akọ mmakọ ọzọ';
 
   @override
-  String get applicationFormFullName => 'Aha zuru ezu';
-
-  @override
-  String get applicationFormFullNameHint => 'Pụta aha gị zuru ezu';
-
-  @override
-  String get applicationFormDateOfBirth => 'Ọbụna ebe e ji ji ọ bị';
-
-  @override
-  String get applicationFormDateOfBirthHint => 'Họọ ọbụna ebe e ji ji ọ bị gị';
-
-  @override
-  String get applicationFormGender => 'Dị ọgụdụ';
-
-  @override
-  String get applicationFormGenderHint => 'Họọ dị ọgụdụ gị';
-
-  @override
-  String get applicationFormGenderMale => 'Nwoke';
-
-  @override
-  String get applicationFormGenderFemale => 'Nwanyị';
-
-  @override
-  String get applicationFormGenderPreferNotToSay => 'Ejighị ị nwere ịza';
-
-  @override
-  String get applicationFormNationality => 'Obodo';
-
-  @override
-  String get applicationFormNationalityHint => 'ọmụma Ọbụnna Naịjẹ́ria';
-
-  @override
-  String get applicationFormQualification => 'Ịbụ ugbu a';
-
-  @override
-  String get applicationFormQualificationHint => 'Họọ ihe ọ bụ gị';
-
-  @override
-  String get applicationFormGrade => 'Ọkwa/Mkpụrụedemede';
-
-  @override
-  String get applicationFormGradeHint => 'ọmụma 2023';
-
-  @override
-  String get applicationFormGraduationYear => 'Oke ịba akụkọ';
-
-  @override
-  String get applicationFormGraduationYearHint => 'ọmụma 2023';
-
-  @override
-  String get applicationFormJambScore => 'Ọkwa JAMB';
-
-  @override
-  String get applicationFormJambYear => 'Oke JAMB';
-
-  @override
-  String get applicationFormCourseOfStudy => 'Ihe ọ gụ akụkọ';
-
-  @override
-  String get applicationFormCourseOfStudyHint => 'ọmụma sayensị kọmpụta';
-
-  @override
-  String get applicationFormEntryLevel => 'Oke ịbanye';
-
-  @override
-  String get applicationFormEntryLevelHint => 'Họọ ọkwa ịbanye gị';
-
-  @override
-  String get applicationFormEntryLevelUndergraduate => 'Nwagbaka (100 ọkwa)';
-
-  @override
-  String get applicationFormEntryLevelDirect => 'Banye ozugbo (200 ọkwa)';
-
-  @override
-  String get applicationFormEntryLevelPostgraduate => 'N\'abụka ụka';
-
-  @override
-  String get applicationFormEntryLevelMasters => 'Master\'s';
-
-  @override
-  String get applicationFormEntryLevelPhd => 'PhD';
-
-  @override
-  String get applicationFormSession => 'Oke akụkọ';
-
-  @override
-  String get applicationFormSessionHint => 'ọmụma 2023/2024';
-
-  @override
-  String get applicationFormSubmitButton => 'Zetaa aịịrị';
-
-  @override
   String get applicationFormSaved =>
       'Anyị debere aịịrị gị! Biko dọta akwukwo gị.';
 
   @override
   String get applicationFormSubmitFailed =>
       'Anyị enweghị ike izeta aịịrị. Biko laghachi azụ.';
-
-  @override
-  String get applicationFormErrorNameRequired => 'Banye aha gị zuru ezu';
-
-  @override
-  String get applicationFormErrorDobRequired => 'Họọ ọbụna ebe e ji ji ọ bị gị';
-
-  @override
-  String get applicationFormErrorGenderRequired => 'Họọ dị ọgụdụ gị';
-
-  @override
-  String get applicationFormErrorNationalityRequired => 'Banye obodo gị';
-
-  @override
-  String get applicationFormErrorQualificationRequired => 'Họọ ihe ọ bụ gị';
-
-  @override
-  String get applicationFormErrorGradeRequired =>
-      'Banye ọkwa ma ọ bụla mkpụrụedemede gị';
-
-  @override
-  String get applicationFormErrorGraduationYearRequired =>
-      'Banye oke ịba akụkọ gị';
-
-  @override
-  String get applicationFormErrorYearInvalid => 'Banye oke dị ezi';
-
-  @override
-  String get applicationFormErrorJambScoreRequired => 'Banye ọkwa JAMB gị';
-
-  @override
-  String get applicationFormErrorJambScoreInvalid =>
-      'Banye ọkwa JAMB dị ezi (0-400)';
-
-  @override
-  String get applicationFormErrorJambYearRequired => 'Banye oke JAMB gị';
-
-  @override
-  String get applicationFormErrorCourseRequired => 'Banye ihe ọ gụ akụkọ gị';
-
-  @override
-  String get applicationFormErrorEntryLevelRequired => 'Họọ ọkwa ịbanye gị';
-
-  @override
-  String get applicationFormErrorSessionRequired => 'Banye oke akụkọ gị';
 
   @override
   String get statusPending => 'Na-echere';
@@ -683,117 +404,11 @@ class AppLocalizationsIg extends AppLocalizations {
   String get statusMoreDocumentsRequired => 'A na-achọ akwukwo ọzọ';
 
   @override
-  String get statusListTitle => 'Aịịrị m';
-
-  @override
-  String get statusListSubtitle => 'Lelịrị ọụ ọbụna aịịrị ịbanye gị';
-
-  @override
-  String get statusFilterAll => 'Nile';
-
-  @override
   String get statusEmptyTitle => 'Enweghị aịịrị';
-
-  @override
-  String get statusBrowseSchools => 'Gaa n\'ụlọ-akụkọ';
-
-  @override
-  String get statusLoadFailed => 'Anyị enweghị ike ịbanye ọụ ọbụna aịịrị gị';
-
-  @override
-  String get applicationDetailTitle => 'Nkọwa aịịrị';
-
-  @override
-  String get applicationDetailSchoolInfo => 'Nkọwa ụlọ-akụkọ';
-
-  @override
-  String get applicationDetailPersonalInfo => 'Nzere onwe gị';
-
-  @override
-  String get applicationDetailAcademicInfo => 'Nzere akụkọ';
-
-  @override
-  String get applicationDetailProgrammeInfo => 'Nzere mmakọ';
-
-  @override
-  String get applicationDetailSubmissionInfo => 'Nzere izi aịịrị';
-
-  @override
-  String get applicationDetailRowSchool => 'Ụlọ-akụkọ';
-
-  @override
-  String get applicationDetailRowCountry => 'Obodo';
-
-  @override
-  String get applicationDetailRowFullName => 'Aha zuru ezu';
-
-  @override
-  String get applicationDetailRowDateOfBirth => 'Ọbụna ebe e ji ji ọ bị';
-
-  @override
-  String get applicationDetailRowGender => 'Dị ọgụdụ';
-
-  @override
-  String get applicationDetailRowNationality => 'Obodo';
-
-  @override
-  String get applicationDetailRowQualification => 'Ihe ọ bụ gị';
-
-  @override
-  String get applicationDetailRowGrade => 'Ọkwa/Mkpụrụedemede';
-
-  @override
-  String get applicationDetailRowGraduationYear => 'Oke ịba akụkọ';
-
-  @override
-  String get applicationDetailRowCourseOfStudy => 'Ihe ọ gụ akụkọ';
-
-  @override
-  String get applicationDetailRowEntryLevel => 'Oke ịbanye';
-
-  @override
-  String get applicationDetailRowSession => 'Oke akụkọ';
-
-  @override
-  String get applicationDetailRowDateSubmitted => 'Ebe ezitere aịịrị';
-
-  @override
-  String get applicationDetailRowStatus => 'Ọnọma';
-
-  @override
-  String get applicationDetailSubmittedRecently => 'N\'oge na-adịghị anya';
 
   @override
   String get applicationDetailCardSubmittedRecently =>
       'A zitere ya n\'oge na-adịghị anya';
-
-  @override
-  String get applicationDetailWithdraw => 'Hapụ aịịrị';
-
-  @override
-  String get applicationDetailReapply => 'Zetaa aịịrị ọzọ';
-
-  @override
-  String get applicationDetailDelete => 'Hapụ aịịrị gị';
-
-  @override
-  String get applicationDetailWithdrawConfirmTitle => 'Hapụ aịịrị';
-
-  @override
-  String applicationDetailWithdrawConfirmBody(String school) {
-    return 'Ị ji n\'aka gị hapụ aịịrị gị maka $school? Ị nwere ike izetaa ya ozugbo.';
-  }
-
-  @override
-  String get applicationDetailDeleteConfirmTitle => 'Hapụ aịịrị gị';
-
-  @override
-  String applicationDetailDeleteConfirmBody(String school) {
-    return 'Ị ji n\'aka gị hapụ aịịrị gị maka $school? Ị nweghị ike mere ya.';
-  }
-
-  @override
-  String get applicationDetailWithdrawAction => 'Hapụ';
 
   @override
   String get applicationDetailWithdrawn => 'A hapụ aịịrị gị';
@@ -808,177 +423,6 @@ class AppLocalizationsIg extends AppLocalizations {
   @override
   String get applicationDetailDeleteFailed =>
       'Anyị enweghị ike ihapụrụ aịịrị gị';
-
-  @override
-  String get documentUploadTitle => 'Dọta akwukwo gị';
-
-  @override
-  String get documentUploadRequiredHeading => 'Akwukwo dị mkpa';
-
-  @override
-  String get documentUploadUploadAll => 'Dọta akwukwo 4 niile iji gaa n\'ihu';
-
-  @override
-  String get documentUploadFormatNote =>
-      'Akwukwo niile kwesịrị inọọ ma dị n\'ime. Nhọrọ: JPG, PNG.';
-
-  @override
-  String get documentUploadProceedToPayment => 'Gaa n\'ihu ịzụ ụgwọ';
-
-  @override
-  String get documentUploadChooseSource => 'Họọ ebe';
-
-  @override
-  String get documentUploadChooseFromGallery => 'Họọ na nchekwa foto';
-
-  @override
-  String get documentUploadTakePhoto => 'Were foto';
-
-  @override
-  String get documentUploadReplace => 'Nye ọzọ';
-
-  @override
-  String get documentUploadUpload => 'Dọta';
-
-  @override
-  String get documentUploadAllDone => 'Ihe niile dọtara';
-
-  @override
-  String get documentUploadRequiredAll => 'A chọrọ niile: 4';
-
-  @override
-  String get documentUploadWaecTitle => 'Ọkwa WAEC/NECO';
-
-  @override
-  String get documentUploadWaecSubtitle => 'Dọta ọkwa O-level gị';
-
-  @override
-  String get documentUploadJambTitle => 'Ọkwa JAMB';
-
-  @override
-  String get documentUploadJambSubtitle => 'Dọta akwukwo ọkwa JAMB gị';
-
-  @override
-  String get documentUploadPassportTitle => 'Foto pasaportị';
-
-  @override
-  String get documentUploadPassportSubtitle =>
-      'Dọta foto pasaportị ọhụrụ nwere nkụtụtụ gị pụta';
-
-  @override
-  String get documentUploadBirthCertTitle => 'Akara mmadụ';
-
-  @override
-  String get documentUploadBirthCertSubtitle => 'Dọta akara mmadụ gị';
-
-  @override
-  String get documentUploadPickFailed =>
-      'Anyị enweghị ike ahọọ ahụka. Biko laghachi azụ.';
-
-  @override
-  String get documentUploadFailed => 'Dọtara emehie. Biko laghachi azụ.';
-
-  @override
-  String get documentUploadNoActiveApplication =>
-      'Enweghị aịịrị na-arị ọrụ. Malịta site ime aịịrị ọhụrụ.';
-
-  @override
-  String get documentUploadIncomplete =>
-      'Biko dọta akwukwo dị mkpa niile iji gaa n\'ihu.';
-
-  @override
-  String get documentUploadSomethingWrong =>
-      'E zigara ihe ọ dị ọma. Biko laghachi azụ.';
-
-  @override
-  String get paymentTitle => 'Ịzụ ụgwọ';
-
-  @override
-  String get paymentOrderSummary => 'Nkọka usere ahụa';
-
-  @override
-  String get paymentApplicationFee => 'Ezi aịịrị';
-
-  @override
-  String get paymentTotal => 'Ịzụ ọnụ';
-
-  @override
-  String get paymentMethodHeading => 'Ọzọ ịzụ ụgwọ';
-
-  @override
-  String get paymentPaystackSubtitle =>
-      'Ịzụ site na kaadị, akụụba ọzọ ma ọ bụ USSD';
-
-  @override
-  String get paymentFlutterwaveSubtitle =>
-      'Ịzụ site na kaadị, akaụntị bankị ma ọ bụ akụụba ọzọ';
-
-  @override
-  String get paymentDemoNotice =>
-      'Nke a bụ mmego ịzụ ụgwọ. Ị naghị ịzụ ezighe ụgwọ. Anyị ga-eme ihe niile dị ọma maka igbu ụzọ ụgwọ gị.';
-
-  @override
-  String get paymentBiometricReason => 'Kwado mgbuanyị gị iji mecha ịzụ ụgwọ';
-
-  @override
-  String get paymentBiometricCancelled => 'A kagbuola mgbuanyị n\'akụkọ.';
-
-  @override
-  String get paymentSuccessTitle => 'Iji ụzụ ụgwọ emeela!';
-
-  @override
-  String get paymentSuccessBody =>
-      'Anyị ezitere aịịrị gị nke ọma. Anyị ga-agwa gị mgbe ọ bụla mgbe ihe dị ọma anyị.';
-
-  @override
-  String get paymentGoToDashboard => 'Gaa na dashboard';
-
-  @override
-  String get paymentFailed => 'Ịzụ ụgwọ emeela njọ. Biko laghachi azụ.';
-
-  @override
-  String get notificationsTitle => 'Ozi';
-
-  @override
-  String get notificationsMarkAllRead => 'Debe ihe niile dọka';
-
-  @override
-  String get notificationsClear => 'Hapụ niile';
-
-  @override
-  String get notificationsClearTitle => 'Hapụ niile';
-
-  @override
-  String get notificationsClearBody =>
-      'Ị ji n\'aka gị hapụ ozi niile? Ị nweghị ike mere ha.';
-
-  @override
-  String get notificationsClearConfirm => 'Hapụ niile';
-
-  @override
-  String get notificationsEmptyTitle => 'Enweghị ozi';
-
-  @override
-  String get notificationsEmptyBody =>
-      'Anyị ga-agwa gị n\'ime ozi dịka ọ bụla aịịrị gị';
-
-  @override
-  String get notificationsTimeJustNow => 'N\'oge a';
-
-  @override
-  String notificationsTimeMinutes(int count) {
-    return 'nkeji $count bu ọzọ';
-  }
-
-  @override
-  String notificationsTimeHours(int count) {
-    return 'awa $count bu ọzọ';
-  }
-
-  @override
-  String notificationsTimeDays(int count) {
-    return 'ụbọchị $count bu ọzọ';
-  }
 
   @override
   String get settingsTitle => 'Nke ntọala';
@@ -1132,6 +576,9 @@ class AppLocalizationsIg extends AppLocalizations {
   String get onboardingNext => 'Next';
 
   @override
+  String get onboardingGetStarted => 'Malịta';
+
+  @override
   String get onboardingSkip => 'Skip';
 
   @override
@@ -1158,6 +605,9 @@ class AppLocalizationsIg extends AppLocalizations {
   String get emailVerifyManualRefresh => 'I\'ve verified — Continue';
 
   @override
+  String get emailVerifySignOut => 'Pụọ';
+
+  @override
   String get emailVerifySentToast =>
       'Verification email sent. Check your inbox.';
 
@@ -1169,7 +619,120 @@ class AppLocalizationsIg extends AppLocalizations {
       'Could not send verification email. Please wait a minute and retry.';
 
   @override
+  String get emailVerifyCodeRequired => 'Banye koodu njikọ';
+
+  @override
+  String get emailVerifyCodeInvalid =>
+      'Koodu njikọ ezighi ebe ọ dị anyị na-echere na ọ agbanyela.';
+
+  @override
+  String get homeFeaturedSchools => 'Ụlọ-akụkọ pụrụnịma';
+
+  @override
+  String get homeSavedSchools => 'Ụlọ-akụkọ echekwara';
+
+  @override
+  String get homeMyApplications => 'Aịịrị m';
+
+  @override
+  String get homeQuickActions => 'Ọrụ ngwa ngwa';
+
+  @override
+  String get homeFindSchools => 'Chọta ụlọ-akụkọ';
+
+  @override
+  String get homeMyDocuments => 'Akwukwo m';
+
+  @override
+  String get homeNoSavedSchools =>
+      'Enweghị ụlọ-akụkọ echekwara. Pịa akịkụ obi ụlọ-akụkọ iji chekwa ya.';
+
+  @override
+  String get homeRemovedFromFavorites => 'Anyị ebughara ya na ụlọ-akụkọ ị họrọ';
+
+  @override
+  String get homeStatsTotalApplied => 'Aịịrị niile';
+
+  @override
+  String get homeStatsUnderReview => 'Na-enyere aka';
+
+  @override
+  String get homeStatsAccepted => 'A na-anabata';
+
+  @override
+  String get homeStatsRejected => 'A na-ajaghị';
+
+  @override
+  String get schoolsTitle => 'Chọta ụlọ-akụkọ';
+
+  @override
+  String get schoolsSearchHint => 'Chọta ụlọ-akụkọ...';
+
+  @override
+  String get schoolsListSubtitle =>
+      'Chọta n\'ime ụlọ-akụkọ pụọ ụgbọ ụgbọ dị ọma na ụwa niile';
+
+  @override
+  String get schoolsEmptyTitle => 'Enweghị ụlọ-akụkọ anyị hụ';
+
+  @override
+  String get schoolsEmptyMessage =>
+      'Laghachi azụ ma gbalịa aha ma ọ bụla obodo ọzọ';
+
+  @override
+  String get schoolsLoadFailed => 'Anyị enweghị ike ịbanye ụlọ-akụkọ';
+
+  @override
+  String get schoolsOffline => 'Lelịrị njikọ ọnụma gị ma laghachi azụ';
+
+  @override
+  String get schoolsFeaturedBadge => 'Pụrụnịma';
+
+  @override
   String get schoolsTryAgain => 'Try Again';
+
+  @override
+  String get schoolsWebsiteAction => 'Wezụ ebe ọnụma';
+
+  @override
+  String get schoolsCouldNotOpenWebsite =>
+      'Anyị enweghị ike imehe ebe ọnụma ahụ';
+
+  @override
+  String get schoolsInvalidWebsiteUrl => 'Adreesị ebe ọnụma ezighi ezi';
+
+  @override
+  String get schoolDetailAbout => 'N\'ime ya';
+
+  @override
+  String get schoolDetailLocation => 'Ebe';
+
+  @override
+  String get schoolDetailCountry => 'Obodo';
+
+  @override
+  String get schoolDetailWebsite => 'Ebe ọnụma';
+
+  @override
+  String get schoolDetailVisitWebsite => 'Banye ebe ọnụma';
+
+  @override
+  String get schoolDetailStatus => 'Ọnọma';
+
+  @override
+  String get schoolDetailDeadline => 'Oge ikpeazụ';
+
+  @override
+  String get schoolDetailApplicationFee => 'Ezi aịịrị';
+
+  @override
+  String get schoolDetailApplicationsClosed => 'Anyị akpọchiri ọbụna aịịrị';
+
+  @override
+  String get schoolDetailApplyNow => 'Zetaa aịịrị ugbu a';
+
+  @override
+  String get schoolDetailAdmissionRequirements => 'Nke ọma ịbanye';
 
   @override
   String schoolDetailSavedToFavorites(Object name) {
@@ -1183,6 +746,28 @@ class AppLocalizationsIg extends AppLocalizations {
   String schoolDetailApplicationsClosedToast(Object name) {
     return 'Applications are closed for $name';
   }
+
+  @override
+  String get requirementsTitle => 'Nke ọma ịbanye';
+
+  @override
+  String get requirementsProgrammesHeading => 'Mmekọ na ọkwa';
+
+  @override
+  String get requirementsRequirementsHeading => 'Ihe niile dị mkpa';
+
+  @override
+  String get requirementsEmptyTitle => 'Enweghị nke ọma anyị debanyere';
+
+  @override
+  String get requirementsEmptyNote =>
+      'Lee ebe ọnụma ụlọ-akụkọ ma ọ bụ nye ụlọ-akụkọ nke ọma ọhụrụ maka nke ọma ọhụrụ.';
+
+  @override
+  String get requirementsNoCutOff => 'Enweghị ọkwa anyị debanyere';
+
+  @override
+  String get requirementsLoadFailed => 'Anyị enweghị ike ịbanye nke ọma';
 
   @override
   String requirementsCutOffLabel(Object score) {
@@ -1212,6 +797,45 @@ class AppLocalizationsIg extends AppLocalizations {
   String get applicationFormStep3Subtitle => 'Select your programme of study';
 
   @override
+  String get applicationFormFullName => 'Aha zuru ezu';
+
+  @override
+  String get applicationFormFullNameHint => 'Pụta aha gị zuru ezu';
+
+  @override
+  String get applicationFormDateOfBirth => 'Ọbụna ebe e ji ji ọ bị';
+
+  @override
+  String get applicationFormDateOfBirthHint => 'Họọ ọbụna ebe e ji ji ọ bị gị';
+
+  @override
+  String get applicationFormGender => 'Dị ọgụdụ';
+
+  @override
+  String get applicationFormGenderHint => 'Họọ dị ọgụdụ gị';
+
+  @override
+  String get applicationFormGenderMale => 'Nwoke';
+
+  @override
+  String get applicationFormGenderFemale => 'Nwanyị';
+
+  @override
+  String get applicationFormGenderPreferNotToSay => 'Ejighị ị nwere ịza';
+
+  @override
+  String get applicationFormNationality => 'Obodo';
+
+  @override
+  String get applicationFormNationalityHint => 'ọmụma Ọbụnna Naịjẹ́ria';
+
+  @override
+  String get applicationFormQualification => 'Ịbụ ugbu a';
+
+  @override
+  String get applicationFormQualificationHint => 'Họọ ihe ọ bụ gị';
+
+  @override
   String get applicationFormQualificationWAEC => 'WAEC/SSCE';
 
   @override
@@ -1233,13 +857,67 @@ class AppLocalizationsIg extends AppLocalizations {
   String get applicationFormQualificationMasters => 'Master\'s Degree';
 
   @override
+  String get applicationFormGrade => 'Ọkwa/Mkpụrụedemede';
+
+  @override
+  String get applicationFormGradeHint => 'ọmụma 2023';
+
+  @override
+  String get applicationFormGraduationYear => 'Oke ịba akụkọ';
+
+  @override
+  String get applicationFormGraduationYearHint => 'ọmụma 2023';
+
+  @override
+  String get applicationFormJambScore => 'Ọkwa JAMB';
+
+  @override
   String get applicationFormJambScoreHint => 'e.g 200';
+
+  @override
+  String get applicationFormJambYear => 'Oke JAMB';
 
   @override
   String get applicationFormJambYearHint => 'e.g 2023';
 
   @override
+  String get applicationFormCourseOfStudy => 'Ihe ọ gụ akụkọ';
+
+  @override
+  String get applicationFormCourseOfStudyHint => 'ọmụma sayensị kọmpụta';
+
+  @override
+  String get applicationFormEntryLevel => 'Oke ịbanye';
+
+  @override
+  String get applicationFormEntryLevelHint => 'Họọ ọkwa ịbanye gị';
+
+  @override
+  String get applicationFormEntryLevelUndergraduate => 'Nwagbaka (100 ọkwa)';
+
+  @override
+  String get applicationFormEntryLevelDirect => 'Banye ozugbo (200 ọkwa)';
+
+  @override
+  String get applicationFormEntryLevelPostgraduate => 'N\'abụka ụka';
+
+  @override
+  String get applicationFormEntryLevelMasters => 'Master\'s';
+
+  @override
+  String get applicationFormEntryLevelPhd => 'PhD';
+
+  @override
+  String get applicationFormSession => 'Oke akụkọ';
+
+  @override
+  String get applicationFormSessionHint => 'ọmụma 2023/2024';
+
+  @override
   String get applicationFormNext => 'Next';
+
+  @override
+  String get applicationFormSubmitButton => 'Zetaa aịịrị';
 
   @override
   String get applicationFormSavedToast =>
@@ -1253,6 +931,60 @@ class AppLocalizationsIg extends AppLocalizations {
   String applicationFormDeadlinePassedToast(Object name) {
     return 'The application deadline for $name has passed.';
   }
+
+  @override
+  String get applicationFormErrorNameRequired => 'Banye aha gị zuru ezu';
+
+  @override
+  String get applicationFormErrorDobRequired => 'Họọ ọbụna ebe e ji ji ọ bị gị';
+
+  @override
+  String get applicationFormErrorGenderRequired => 'Họọ dị ọgụdụ gị';
+
+  @override
+  String get applicationFormErrorNationalityRequired => 'Banye obodo gị';
+
+  @override
+  String get applicationFormErrorQualificationRequired => 'Họọ ihe ọ bụ gị';
+
+  @override
+  String get applicationFormErrorGradeRequired =>
+      'Banye ọkwa ma ọ bụla mkpụrụedemede gị';
+
+  @override
+  String get applicationFormErrorGraduationYearRequired =>
+      'Banye oke ịba akụkọ gị';
+
+  @override
+  String get applicationFormErrorYearInvalid => 'Banye oke dị ezi';
+
+  @override
+  String get applicationFormErrorJambScoreRequired => 'Banye ọkwa JAMB gị';
+
+  @override
+  String get applicationFormErrorJambScoreInvalid =>
+      'Banye ọkwa JAMB dị ezi (0-400)';
+
+  @override
+  String get applicationFormErrorJambYearRequired => 'Banye oke JAMB gị';
+
+  @override
+  String get applicationFormErrorCourseRequired => 'Banye ihe ọ gụ akụkọ gị';
+
+  @override
+  String get applicationFormErrorEntryLevelRequired => 'Họọ ọkwa ịbanye gị';
+
+  @override
+  String get applicationFormErrorSessionRequired => 'Banye oke akụkọ gị';
+
+  @override
+  String get statusListTitle => 'Aịịrị m';
+
+  @override
+  String get statusListSubtitle => 'Lelịrị ọụ ọbụna aịịrị ịbanye gị';
+
+  @override
+  String get statusFilterAll => 'Nile';
 
   @override
   String get statusFilterPending => 'Pending';
@@ -1276,6 +1008,12 @@ class AppLocalizationsIg extends AppLocalizations {
   String statusEmptyTitleFiltered(Object filter) {
     return 'No $filter applications';
   }
+
+  @override
+  String get statusBrowseSchools => 'Gaa n\'ụlọ-akụkọ';
+
+  @override
+  String get statusLoadFailed => 'Anyị enweghị ike ịbanye ọụ ọbụna aịịrị gị';
 
   @override
   String get statusTryAgain => 'Try Again';
@@ -1309,6 +1047,97 @@ class AppLocalizationsIg extends AppLocalizations {
   String get statusDeleteFailedToast => 'Failed to delete application';
 
   @override
+  String get applicationDetailTitle => 'Nkọwa aịịrị';
+
+  @override
+  String get applicationDetailSchoolInfo => 'Nkọwa ụlọ-akụkọ';
+
+  @override
+  String get applicationDetailPersonalInfo => 'Nzere onwe gị';
+
+  @override
+  String get applicationDetailAcademicInfo => 'Nzere akụkọ';
+
+  @override
+  String get applicationDetailProgrammeInfo => 'Nzere mmakọ';
+
+  @override
+  String get applicationDetailSubmissionInfo => 'Nzere izi aịịrị';
+
+  @override
+  String get applicationDetailRowSchool => 'Ụlọ-akụkọ';
+
+  @override
+  String get applicationDetailRowCountry => 'Obodo';
+
+  @override
+  String get applicationDetailRowFullName => 'Aha zuru ezu';
+
+  @override
+  String get applicationDetailRowDateOfBirth => 'Ọbụna ebe e ji ji ọ bị';
+
+  @override
+  String get applicationDetailRowGender => 'Dị ọgụdụ';
+
+  @override
+  String get applicationDetailRowNationality => 'Obodo';
+
+  @override
+  String get applicationDetailRowQualification => 'Ihe ọ bụ gị';
+
+  @override
+  String get applicationDetailRowGrade => 'Ọkwa/Mkpụrụedemede';
+
+  @override
+  String get applicationDetailRowGraduationYear => 'Oke ịba akụkọ';
+
+  @override
+  String get applicationDetailRowCourseOfStudy => 'Ihe ọ gụ akụkọ';
+
+  @override
+  String get applicationDetailRowEntryLevel => 'Oke ịbanye';
+
+  @override
+  String get applicationDetailRowSession => 'Oke akụkọ';
+
+  @override
+  String get applicationDetailRowDateSubmitted => 'Ebe ezitere aịịrị';
+
+  @override
+  String get applicationDetailRowStatus => 'Ọnọma';
+
+  @override
+  String get applicationDetailSubmittedRecently => 'N\'oge na-adịghị anya';
+
+  @override
+  String get applicationDetailWithdraw => 'Hapụ aịịrị';
+
+  @override
+  String get applicationDetailReapply => 'Zetaa aịịrị ọzọ';
+
+  @override
+  String get applicationDetailDelete => 'Hapụ aịịrị gị';
+
+  @override
+  String get applicationDetailWithdrawConfirmTitle => 'Hapụ aịịrị';
+
+  @override
+  String applicationDetailWithdrawConfirmBody(String school) {
+    return 'Ị ji n\'aka gị hapụ aịịrị gị maka $school? Ị nwere ike izetaa ya ozugbo.';
+  }
+
+  @override
+  String get applicationDetailDeleteConfirmTitle => 'Hapụ aịịrị gị';
+
+  @override
+  String applicationDetailDeleteConfirmBody(String school) {
+    return 'Ị ji n\'aka gị hapụ aịịrị gị maka $school? Ị nweghị ike mere ya.';
+  }
+
+  @override
+  String get applicationDetailWithdrawAction => 'Hapụ';
+
+  @override
   String get applicationDetailWithdrawnToast => 'Application withdrawn';
 
   @override
@@ -1326,6 +1155,87 @@ class AppLocalizationsIg extends AppLocalizations {
   String get applicationDetailCancel => 'Cancel';
 
   @override
+  String get documentUploadTitle => 'Dọta akwukwo gị';
+
+  @override
+  String get documentUploadRequiredHeading => 'Akwukwo dị mkpa';
+
+  @override
+  String get documentUploadUploadAll => 'Dọta akwukwo 4 niile iji gaa n\'ihu';
+
+  @override
+  String get documentUploadFormatNote =>
+      'Akwukwo niile kwesịrị inọọ ma dị n\'ime. Nhọrọ: JPG, PNG.';
+
+  @override
+  String get documentUploadProceedToPayment => 'Gaa n\'ihu ịzụ ụgwọ';
+
+  @override
+  String get documentUploadChooseSource => 'Họọ ebe';
+
+  @override
+  String get documentUploadChooseFromGallery => 'Họọ na nchekwa foto';
+
+  @override
+  String get documentUploadTakePhoto => 'Were foto';
+
+  @override
+  String get documentUploadReplace => 'Nye ọzọ';
+
+  @override
+  String get documentUploadUpload => 'Dọta';
+
+  @override
+  String get documentUploadAllDone => 'Ihe niile dọtara';
+
+  @override
+  String get documentUploadRequiredAll => 'A chọrọ niile: 4';
+
+  @override
+  String get documentUploadWaecTitle => 'Ọkwa WAEC/NECO';
+
+  @override
+  String get documentUploadWaecSubtitle => 'Dọta ọkwa O-level gị';
+
+  @override
+  String get documentUploadJambTitle => 'Ọkwa JAMB';
+
+  @override
+  String get documentUploadJambSubtitle => 'Dọta akwukwo ọkwa JAMB gị';
+
+  @override
+  String get documentUploadPassportTitle => 'Foto pasaportị';
+
+  @override
+  String get documentUploadPassportSubtitle =>
+      'Dọta foto pasaportị ọhụrụ nwere nkụtụtụ gị pụta';
+
+  @override
+  String get documentUploadBirthCertTitle => 'Akara mmadụ';
+
+  @override
+  String get documentUploadBirthCertSubtitle => 'Dọta akara mmadụ gị';
+
+  @override
+  String get documentUploadPickFailed =>
+      'Anyị enweghị ike ahọọ ahụka. Biko laghachi azụ.';
+
+  @override
+  String get documentUploadFailed => 'Dọtara emehie. Biko laghachi azụ.';
+
+  @override
+  String get documentUploadNoActiveApplication =>
+      'Enweghị aịịrị na-arị ọrụ. Malịta site ime aịịrị ọhụrụ.';
+
+  @override
+  String get documentUploadIncomplete =>
+      'Biko dọta akwukwo dị mkpa niile iji gaa n\'ihu.';
+
+  @override
+  String get documentUploadSomethingWrong =>
+      'E zigara ihe ọ dị ọma. Biko laghachi azụ.';
+
+  @override
   String documentUploadUploadedSuccessfully(Object title) {
     return '$title uploaded successfully';
   }
@@ -1341,14 +1251,104 @@ class AppLocalizationsIg extends AppLocalizations {
   }
 
   @override
+  String get paymentTitle => 'Ịzụ ụgwọ';
+
+  @override
+  String get paymentOrderSummary => 'Nkọka usere ahụa';
+
+  @override
+  String get paymentApplicationFee => 'Ezi aịịrị';
+
+  @override
+  String get paymentTotal => 'Ịzụ ọnụ';
+
+  @override
+  String get paymentMethodHeading => 'Ọzọ ịzụ ụgwọ';
+
+  @override
   String get paymentPaystackTitle => 'Paystack';
+
+  @override
+  String get paymentPaystackSubtitle =>
+      'Ịzụ site na kaadị, akụụba ọzọ ma ọ bụ USSD';
 
   @override
   String get paymentFlutterwaveTitle => 'Flutterwave';
 
   @override
+  String get paymentFlutterwaveSubtitle =>
+      'Ịzụ site na kaadị, akaụntị bankị ma ọ bụ akụụba ọzọ';
+
+  @override
+  String get paymentDemoNotice =>
+      'Nke a bụ mmego ịzụ ụgwọ. Ị naghị ịzụ ezighe ụgwọ. Anyị ga-eme ihe niile dị ọma maka igbu ụzọ ụgwọ gị.';
+
+  @override
+  String get paymentBiometricReason => 'Kwado mgbuanyị gị iji mecha ịzụ ụgwọ';
+
+  @override
+  String get paymentBiometricCancelled => 'A kagbuola mgbuanyị n\'akụkọ.';
+
+  @override
+  String get paymentSuccessTitle => 'Iji ụzụ ụgwọ emeela!';
+
+  @override
+  String get paymentSuccessBody =>
+      'Anyị ezitere aịịrị gị nke ọma. Anyị ga-agwa gị mgbe ọ bụla mgbe ihe dị ọma anyị.';
+
+  @override
+  String get paymentGoToDashboard => 'Gaa na dashboard';
+
+  @override
+  String get paymentFailed => 'Ịzụ ụgwọ emeela njọ. Biko laghachi azụ.';
+
+  @override
   String paymentPayButton(Object amount) {
     return 'Pay ₦$amount';
+  }
+
+  @override
+  String get notificationsTitle => 'Ozi';
+
+  @override
+  String get notificationsMarkAllRead => 'Debe ihe niile dọka';
+
+  @override
+  String get notificationsClear => 'Hapụ niile';
+
+  @override
+  String get notificationsClearTitle => 'Hapụ niile';
+
+  @override
+  String get notificationsClearBody =>
+      'Ị ji n\'aka gị hapụ ozi niile? Ị nweghị ike mere ha.';
+
+  @override
+  String get notificationsClearConfirm => 'Hapụ niile';
+
+  @override
+  String get notificationsEmptyTitle => 'Enweghị ozi';
+
+  @override
+  String get notificationsEmptyBody =>
+      'Anyị ga-agwa gị n\'ime ozi dịka ọ bụla aịịrị gị';
+
+  @override
+  String get notificationsTimeJustNow => 'N\'oge a';
+
+  @override
+  String notificationsTimeMinutes(int count) {
+    return 'nkeji $count bu ọzọ';
+  }
+
+  @override
+  String notificationsTimeHours(int count) {
+    return 'awa $count bu ọzọ';
+  }
+
+  @override
+  String notificationsTimeDays(int count) {
+    return 'ụbọchị $count bu ọzọ';
   }
 
   @override

@@ -44,15 +44,37 @@ class AdmissionRequirementModel {
     Map<String, dynamic> json,
     String id,
   ) {
+    List<String> parsedReqs = [];
+    final rawReqs = json['requirements'];
+    if (rawReqs is List) {
+      parsedReqs = rawReqs
+          .map((e) => e?.toString().trim() ?? '')
+          .where((e) => e.isNotEmpty)
+          .toList();
+    } else if (rawReqs is String && rawReqs.trim().isNotEmpty) {
+      parsedReqs = rawReqs
+          .split('\n')
+          .map((e) => e.trim())
+          .where((e) => e.isNotEmpty)
+          .toList();
+    }
+
     return AdmissionRequirementModel(
       id: id,
-      schoolName: json['schoolName'] ?? '',
-      schoolCountry: json['schoolCountry'] ?? '',
-      program: json['program'] ?? '',
-      degreeLevel: json['degreeLevel'] ?? '',
-      cutOffScore: json['cutOffScore'] ?? '',
-      requirements: List<String>.from(json['requirements'] ?? []),
+      schoolName: (json['schoolName'] ?? '').toString().trim(),
+      schoolCountry: (json['schoolCountry'] ?? '').toString().trim(),
+      program: (json['program'] ?? json['programme'] ?? json['course'] ?? '').toString().trim(),
+      degreeLevel: (json['degreeLevel'] ?? json['level'] ?? 'Undergraduate').toString().trim(),
+      cutOffScore: (json['cutOffScore'] ?? json['cutOff'] ?? json['cutoff'] ?? '').toString().trim(),
+      requirements: parsedReqs,
       createdAt: _parseDate(json['createdAt']),
+    );
+  }
+
+  factory AdmissionRequirementModel.fromMap(Map<String, dynamic> map, [String? id]) {
+    return AdmissionRequirementModel.fromFirestore(
+      map,
+      id ?? (map['id']?.toString() ?? ''),
     );
   }
 
@@ -61,6 +83,7 @@ class AdmissionRequirementModel {
     if (value is DateTime) return value;
     if (value is Timestamp) return value.toDate();
     if (value is String) return DateTime.tryParse(value);
+    if (value is int) return DateTime.fromMillisecondsSinceEpoch(value);
     return null;
   }
 }

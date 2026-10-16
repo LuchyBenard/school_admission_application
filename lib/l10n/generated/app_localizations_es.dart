@@ -71,9 +71,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String get onboardingTitleGetStarted => 'Empezar';
 
   @override
-  String get onboardingGetStarted => 'Empezar';
-
-  @override
   String get loginTitle => 'Bienvenido de nuevo';
 
   @override
@@ -327,9 +324,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String get emailVerifyResend => 'Reenviar correo';
 
   @override
-  String get emailVerifySignOut => 'Cerrar sesión';
-
-  @override
   String get emailVerifySentToaster =>
       'Correo de verificación enviado. Revisa tu bandeja de entrada.';
 
@@ -339,13 +333,6 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get emailVerifySendFailed =>
       'No se pudo enviar el correo de verificación. Espera un minuto e inténtalo de nuevo.';
-
-  @override
-  String get emailVerifyCodeRequired => 'Introduce el código de verificación';
-
-  @override
-  String get emailVerifyCodeInvalid =>
-      'Código de verificación no válido o caducado.';
 
   @override
   String get emailVerifyInbox => 'tu bandeja de entrada';
@@ -363,138 +350,11 @@ class AppLocalizationsEs extends AppLocalizations {
   String get homeSearchTitle => 'Encuentra y postula a tu colegio soñado';
 
   @override
-  String get homeFindSchools => 'Buscar colegios';
-
-  @override
-  String get homeQuickActions => 'Acciones rápidas';
-
-  @override
-  String get homeStatsTotalApplied => 'Total solicitudes';
-
-  @override
-  String get homeStatsUnderReview => 'En revisión';
-
-  @override
-  String get homeStatsAccepted => 'Aceptadas';
-
-  @override
-  String get homeStatsRejected => 'Rechazadas';
-
-  @override
-  String get homeMyApplications => 'Mis solicitudes';
-
-  @override
-  String get homeMyDocuments => 'Mis documentos';
-
-  @override
-  String get homeSavedSchools => 'Colegios guardados';
-
-  @override
-  String get homeFeaturedSchools => 'Colegos destacados';
-
-  @override
   String get homeNoApplicationsYet =>
       'Todavía no tienes solicitudes. Postula primero a un colegio.';
 
   @override
-  String get homeNoSavedSchools =>
-      'Aún no hay colegios guardados. Toca el corazón de cualquier colegio para guardarlo aquí.';
-
-  @override
-  String get homeRemovedFromFavorites => 'Eliminado de favoritos';
-
-  @override
   String get homeRoleStudent => 'Estudiante';
-
-  @override
-  String get schoolsTitle => 'Buscar colegios';
-
-  @override
-  String get schoolsSearchHint => 'Buscar colegios...';
-
-  @override
-  String get schoolsListSubtitle =>
-      'Explora miles de colegios en todo el mundo';
-
-  @override
-  String get schoolsEmptyTitle => 'No se encontraron colegios';
-
-  @override
-  String get schoolsEmptyMessage => 'Prueba a buscar con otro nombre o país';
-
-  @override
-  String get schoolsLoadFailed => 'No se pudieron cargar los colegios';
-
-  @override
-  String get schoolsOffline =>
-      'Comprueba tu conexión a internet e inténtalo de nuevo';
-
-  @override
-  String get schoolsFeaturedBadge => 'Destacado';
-
-  @override
-  String get schoolsWebsiteAction => 'Sitio web';
-
-  @override
-  String get schoolsCouldNotOpenWebsite => 'No se pudo abrir el sitio web';
-
-  @override
-  String get schoolsInvalidWebsiteUrl => 'URL del sitio web no válida';
-
-  @override
-  String get schoolDetailAbout => 'Acerca de';
-
-  @override
-  String get schoolDetailLocation => 'Ubicación';
-
-  @override
-  String get schoolDetailCountry => 'País';
-
-  @override
-  String get schoolDetailWebsite => 'Sitio web';
-
-  @override
-  String get schoolDetailVisitWebsite => 'Visitar sitio web';
-
-  @override
-  String get schoolDetailStatus => 'Estado';
-
-  @override
-  String get schoolDetailDeadline => 'Fecha límite';
-
-  @override
-  String get schoolDetailApplicationFee => 'Tasa de solicitud';
-
-  @override
-  String get schoolDetailApplicationsClosed => 'Solicitudes cerradas';
-
-  @override
-  String get schoolDetailApplyNow => 'Solicitar ahora';
-
-  @override
-  String get schoolDetailAdmissionRequirements => 'Requisitos de admisión';
-
-  @override
-  String get requirementsTitle => 'Requisitos de admisión';
-
-  @override
-  String get requirementsProgrammesHeading => 'Programas y notas de corte';
-
-  @override
-  String get requirementsRequirementsHeading => 'Requisitos';
-
-  @override
-  String get requirementsEmptyTitle => 'Aún no se han publicado requisitos';
-
-  @override
-  String get requirementsEmptyNote =>
-      'Consulta el sitio web del colegio o contacta con la oficina de admisiones para conocer los requisitos actualizados.';
-
-  @override
-  String get requirementsNoCutOff => 'No hay nota de corte publicada';
-
-  @override
-  String get requirementsLoadFailed => 'No se pudieron cargar los requisitos';
 
   @override
   String get applicationFormTitle => 'Formulario de solicitud';
@@ -520,159 +380,12 @@ class AppLocalizationsEs extends AppLocalizations {
       'Selecciona tu programa de estudio';
 
   @override
-  String get applicationFormFullName => 'Nombre completo';
-
-  @override
-  String get applicationFormFullNameHint => 'Introduce tu nombre completo';
-
-  @override
-  String get applicationFormDateOfBirth => 'Fecha de nacimiento';
-
-  @override
-  String get applicationFormDateOfBirthHint =>
-      'Selecciona tu fecha de nacimiento';
-
-  @override
-  String get applicationFormGender => 'Género';
-
-  @override
-  String get applicationFormGenderHint => 'Selecciona el género';
-
-  @override
-  String get applicationFormGenderMale => 'Masculino';
-
-  @override
-  String get applicationFormGenderFemale => 'Femenino';
-
-  @override
-  String get applicationFormGenderPreferNotToSay => 'Prefiero no decirlo';
-
-  @override
-  String get applicationFormNationality => 'Nacionalidad';
-
-  @override
-  String get applicationFormNationalityHint => 'p. ej. Nigerians';
-
-  @override
-  String get applicationFormQualification => 'Titulación más alta';
-
-  @override
-  String get applicationFormQualificationHint => 'Selecciona una titulación';
-
-  @override
-  String get applicationFormGrade => 'Nota/Resultado';
-
-  @override
-  String get applicationFormGradeHint => 'p. ej. 2023';
-
-  @override
-  String get applicationFormGraduationYear => 'Año de graduación';
-
-  @override
-  String get applicationFormGraduationYearHint => 'p. ej. 2023';
-
-  @override
-  String get applicationFormJambScore => 'Puntuación JAMB';
-
-  @override
-  String get applicationFormJambYear => 'Año JAMB';
-
-  @override
-  String get applicationFormCourseOfStudy => 'Carrera estudiada';
-
-  @override
-  String get applicationFormCourseOfStudyHint =>
-      'p. ej. Ciencias de la Computación';
-
-  @override
-  String get applicationFormEntryLevel => 'Nivel de acceso';
-
-  @override
-  String get applicationFormEntryLevelHint => 'Selecciona el nivel de acceso';
-
-  @override
-  String get applicationFormEntryLevelUndergraduate => 'Grado (100 level)';
-
-  @override
-  String get applicationFormEntryLevelDirect => 'Acceso directo (200 level)';
-
-  @override
-  String get applicationFormEntryLevelPostgraduate => 'Posgrado';
-
-  @override
-  String get applicationFormEntryLevelMasters => 'Máster';
-
-  @override
-  String get applicationFormEntryLevelPhd => 'Doctorado';
-
-  @override
-  String get applicationFormSession => 'Curso académico';
-
-  @override
-  String get applicationFormSessionHint => 'p. ej. 2023/2024';
-
-  @override
-  String get applicationFormSubmitButton => 'Enviar solicitud';
-
-  @override
   String get applicationFormSaved =>
       '¡Solicitud guardada! Sube ahora tus documentos.';
 
   @override
   String get applicationFormSubmitFailed =>
       'No se pudo enviar la solicitud. Inténtalo de nuevo.';
-
-  @override
-  String get applicationFormErrorNameRequired => 'Introduce tu nombre completo';
-
-  @override
-  String get applicationFormErrorDobRequired =>
-      'Selecciona tu fecha de nacimiento';
-
-  @override
-  String get applicationFormErrorGenderRequired => 'Selecciona tu género';
-
-  @override
-  String get applicationFormErrorNationalityRequired =>
-      'Introduce tu nacionalidad';
-
-  @override
-  String get applicationFormErrorQualificationRequired =>
-      'Selecciona tu titulación';
-
-  @override
-  String get applicationFormErrorGradeRequired =>
-      'Introduce tu nota o resultado';
-
-  @override
-  String get applicationFormErrorGraduationYearRequired =>
-      'Introduce tu año de graduación';
-
-  @override
-  String get applicationFormErrorYearInvalid => 'Introduce un año válido';
-
-  @override
-  String get applicationFormErrorJambScoreRequired =>
-      'Introduce tu puntuación JAMB';
-
-  @override
-  String get applicationFormErrorJambScoreInvalid =>
-      'Introduce una puntuación JAMB válida (0-400)';
-
-  @override
-  String get applicationFormErrorJambYearRequired => 'Introduce tu año JAMB';
-
-  @override
-  String get applicationFormErrorCourseRequired =>
-      'Introduce tu carrera estudiada';
-
-  @override
-  String get applicationFormErrorEntryLevelRequired =>
-      'Selecciona tu nivel de acceso';
-
-  @override
-  String get applicationFormErrorSessionRequired =>
-      'Introduce tu curso académico';
 
   @override
   String get statusPending => 'Pendiente';
@@ -696,116 +409,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String get statusMoreDocumentsRequired => 'Se requieren más documentos';
 
   @override
-  String get statusListTitle => 'Mis solicitudes';
-
-  @override
-  String get statusListSubtitle => 'Sigue todas tus solicitudes de admisión';
-
-  @override
-  String get statusFilterAll => 'Todas';
-
-  @override
   String get statusEmptyTitle => 'Todavía no hay solicitudes';
 
   @override
-  String get statusBrowseSchools => 'Explorar colegios';
-
-  @override
-  String get statusLoadFailed => 'No se pudieron cargar las solicitudes';
-
-  @override
-  String get applicationDetailTitle => 'Detalles de la solicitud';
-
-  @override
-  String get applicationDetailSchoolInfo => 'Información del colegio';
-
-  @override
-  String get applicationDetailPersonalInfo => 'Datos personales';
-
-  @override
-  String get applicationDetailAcademicInfo => 'Datos académicos';
-
-  @override
-  String get applicationDetailProgrammeInfo => 'Datos del programa';
-
-  @override
-  String get applicationDetailSubmissionInfo => 'Información de envío';
-
-  @override
-  String get applicationDetailRowSchool => 'Colegio';
-
-  @override
-  String get applicationDetailRowCountry => 'País';
-
-  @override
-  String get applicationDetailRowFullName => 'Nombre completo';
-
-  @override
-  String get applicationDetailRowDateOfBirth => 'Fecha de nacimiento';
-
-  @override
-  String get applicationDetailRowGender => 'Género';
-
-  @override
-  String get applicationDetailRowNationality => 'Nacionalidad';
-
-  @override
-  String get applicationDetailRowQualification => 'Titulación';
-
-  @override
-  String get applicationDetailRowGrade => 'Nota/Resultado';
-
-  @override
-  String get applicationDetailRowGraduationYear => 'Año de graduación';
-
-  @override
-  String get applicationDetailRowCourseOfStudy => 'Carrera estudiada';
-
-  @override
-  String get applicationDetailRowEntryLevel => 'Nivel de acceso';
-
-  @override
-  String get applicationDetailRowSession => 'Curso académico';
-
-  @override
-  String get applicationDetailRowDateSubmitted => 'Fecha de envío';
-
-  @override
-  String get applicationDetailRowStatus => 'Estado';
-
-  @override
-  String get applicationDetailSubmittedRecently => 'Recientemente';
-
-  @override
   String get applicationDetailCardSubmittedRecently => 'Enviada recientemente';
-
-  @override
-  String get applicationDetailWithdraw => 'Retirar solicitud';
-
-  @override
-  String get applicationDetailReapply => 'Volver a solicitar';
-
-  @override
-  String get applicationDetailDelete => 'Eliminar solicitud';
-
-  @override
-  String get applicationDetailWithdrawConfirmTitle => 'Retirar solicitud';
-
-  @override
-  String applicationDetailWithdrawConfirmBody(String school) {
-    return '¿Seguro que quieres retirar tu solicitud a $school? Puedes volver a solicitar más tarde.';
-  }
-
-  @override
-  String get applicationDetailDeleteConfirmTitle => 'Eliminar solicitud';
-
-  @override
-  String applicationDetailDeleteConfirmBody(String school) {
-    return '¿Seguro que quieres eliminar tu solicitud a $school? Esta acción no se puede deshacer.';
-  }
-
-  @override
-  String get applicationDetailWithdrawAction => 'Retirar';
 
   @override
   String get applicationDetailWithdrawn => 'Solicitud retirada';
@@ -820,179 +427,6 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get applicationDetailDeleteFailed =>
       'No se pudo eliminar la solicitud';
-
-  @override
-  String get documentUploadTitle => 'Subir documentos';
-
-  @override
-  String get documentUploadRequiredHeading => 'Documentos requeridos';
-
-  @override
-  String get documentUploadUploadAll => 'Sube los 4 documentos para continuar';
-
-  @override
-  String get documentUploadFormatNote =>
-      'Todos los documentos deben ser nítidos y legibles. Formatos aceptados: JPG, PNG.';
-
-  @override
-  String get documentUploadProceedToPayment => 'Continuar al pago';
-
-  @override
-  String get documentUploadChooseSource => 'Elegir fuente';
-
-  @override
-  String get documentUploadChooseFromGallery => 'Elegir de la galería';
-
-  @override
-  String get documentUploadTakePhoto => 'Hacer una foto';
-
-  @override
-  String get documentUploadReplace => 'Reemplazar';
-
-  @override
-  String get documentUploadUpload => 'Subir';
-
-  @override
-  String get documentUploadAllDone => 'Todo listo';
-
-  @override
-  String get documentUploadRequiredAll => 'Requeridos: los 4';
-
-  @override
-  String get documentUploadWaecTitle => 'Resultado WAEC/NECO';
-
-  @override
-  String get documentUploadWaecSubtitle => 'Sube tu resultado de O-Level';
-
-  @override
-  String get documentUploadJambTitle => 'Resultado JAMB';
-
-  @override
-  String get documentUploadJambSubtitle => 'Sube tu resultado JAMB';
-
-  @override
-  String get documentUploadPassportTitle => 'Foto de pasaporte';
-
-  @override
-  String get documentUploadPassportSubtitle =>
-      'Sube una foto reciente tamaño pasaporte';
-
-  @override
-  String get documentUploadBirthCertTitle => 'Certificado de nacimiento';
-
-  @override
-  String get documentUploadBirthCertSubtitle =>
-      'Sube tu certificado de nacimiento';
-
-  @override
-  String get documentUploadPickFailed =>
-      'No se pudo seleccionar el archivo. Inténtalo de nuevo.';
-
-  @override
-  String get documentUploadFailed => 'La subida falló. Inténtalo de nuevo.';
-
-  @override
-  String get documentUploadNoActiveApplication =>
-      'No se encontró ninguna solicitud activa. Comienza una nueva solicitud primero.';
-
-  @override
-  String get documentUploadIncomplete =>
-      'Sube todos los documentos requeridos antes de continuar.';
-
-  @override
-  String get documentUploadSomethingWrong =>
-      'Algo salió mal. Inténtalo de nuevo.';
-
-  @override
-  String get paymentTitle => 'Pago';
-
-  @override
-  String get paymentOrderSummary => 'Resumen del pedido';
-
-  @override
-  String get paymentApplicationFee => 'Tasa de solicitud';
-
-  @override
-  String get paymentTotal => 'Total';
-
-  @override
-  String get paymentMethodHeading => 'Método de pago';
-
-  @override
-  String get paymentPaystackSubtitle =>
-      'Paga con tarjeta, transferencia bancaria o USSD';
-
-  @override
-  String get paymentFlutterwaveSubtitle =>
-      'Paga con tarjeta, banco o dinero móvil';
-
-  @override
-  String get paymentDemoNotice =>
-      'Este es un pago de demostración. No se cobrará dinero real. La integración de la pasarela de pago llegará pronto.';
-
-  @override
-  String get paymentBiometricReason =>
-      'Confirma tu huella dactilar para completar el pago';
-
-  @override
-  String get paymentBiometricCancelled => 'Autenticación biométrica cancelada.';
-
-  @override
-  String get paymentSuccessTitle => '¡Pago realizado con éxito!';
-
-  @override
-  String get paymentSuccessBody =>
-      'Tu solicitud se ha enviado correctamente. Te notificaremos de cualquier actualización.';
-
-  @override
-  String get paymentGoToDashboard => 'Ir al panel';
-
-  @override
-  String get paymentFailed => 'El pago falló. Inténtalo de nuevo.';
-
-  @override
-  String get notificationsTitle => 'Notificaciones';
-
-  @override
-  String get notificationsMarkAllRead => 'Marcar todo como leído';
-
-  @override
-  String get notificationsClear => 'Limpiar';
-
-  @override
-  String get notificationsClearTitle => 'Limpiar todo';
-
-  @override
-  String get notificationsClearBody =>
-      '¿Seguro que quieres eliminar todas las notificaciones? Esta acción no se puede deshacer.';
-
-  @override
-  String get notificationsClearConfirm => 'Limpiar todo';
-
-  @override
-  String get notificationsEmptyTitle => 'Todavía no hay notificaciones';
-
-  @override
-  String get notificationsEmptyBody =>
-      'Te notificaremos cuando haya actualizaciones sobre tus solicitudes';
-
-  @override
-  String get notificationsTimeJustNow => 'Ahora mismo';
-
-  @override
-  String notificationsTimeMinutes(int count) {
-    return 'hace $count min';
-  }
-
-  @override
-  String notificationsTimeHours(int count) {
-    return 'hace $count h';
-  }
-
-  @override
-  String notificationsTimeDays(int count) {
-    return 'hace $count d';
-  }
 
   @override
   String get settingsTitle => 'Ajustes';
@@ -1151,6 +585,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get onboardingNext => 'Next';
 
   @override
+  String get onboardingGetStarted => 'Empezar';
+
+  @override
   String get onboardingSkip => 'Skip';
 
   @override
@@ -1177,6 +614,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get emailVerifyManualRefresh => 'I\'ve verified — Continue';
 
   @override
+  String get emailVerifySignOut => 'Cerrar sesión';
+
+  @override
   String get emailVerifySentToast =>
       'Verification email sent. Check your inbox.';
 
@@ -1188,7 +628,119 @@ class AppLocalizationsEs extends AppLocalizations {
       'Could not send verification email. Please wait a minute and retry.';
 
   @override
+  String get emailVerifyCodeRequired => 'Introduce el código de verificación';
+
+  @override
+  String get emailVerifyCodeInvalid =>
+      'Código de verificación no válido o caducado.';
+
+  @override
+  String get homeFeaturedSchools => 'Colegos destacados';
+
+  @override
+  String get homeSavedSchools => 'Colegios guardados';
+
+  @override
+  String get homeMyApplications => 'Mis solicitudes';
+
+  @override
+  String get homeQuickActions => 'Acciones rápidas';
+
+  @override
+  String get homeFindSchools => 'Buscar colegios';
+
+  @override
+  String get homeMyDocuments => 'Mis documentos';
+
+  @override
+  String get homeNoSavedSchools =>
+      'Aún no hay colegios guardados. Toca el corazón de cualquier colegio para guardarlo aquí.';
+
+  @override
+  String get homeRemovedFromFavorites => 'Eliminado de favoritos';
+
+  @override
+  String get homeStatsTotalApplied => 'Total solicitudes';
+
+  @override
+  String get homeStatsUnderReview => 'En revisión';
+
+  @override
+  String get homeStatsAccepted => 'Aceptadas';
+
+  @override
+  String get homeStatsRejected => 'Rechazadas';
+
+  @override
+  String get schoolsTitle => 'Buscar colegios';
+
+  @override
+  String get schoolsSearchHint => 'Buscar colegios...';
+
+  @override
+  String get schoolsListSubtitle =>
+      'Explora miles de colegios en todo el mundo';
+
+  @override
+  String get schoolsEmptyTitle => 'No se encontraron colegios';
+
+  @override
+  String get schoolsEmptyMessage => 'Prueba a buscar con otro nombre o país';
+
+  @override
+  String get schoolsLoadFailed => 'No se pudieron cargar los colegios';
+
+  @override
+  String get schoolsOffline =>
+      'Comprueba tu conexión a internet e inténtalo de nuevo';
+
+  @override
+  String get schoolsFeaturedBadge => 'Destacado';
+
+  @override
   String get schoolsTryAgain => 'Try Again';
+
+  @override
+  String get schoolsWebsiteAction => 'Sitio web';
+
+  @override
+  String get schoolsCouldNotOpenWebsite => 'No se pudo abrir el sitio web';
+
+  @override
+  String get schoolsInvalidWebsiteUrl => 'URL del sitio web no válida';
+
+  @override
+  String get schoolDetailAbout => 'Acerca de';
+
+  @override
+  String get schoolDetailLocation => 'Ubicación';
+
+  @override
+  String get schoolDetailCountry => 'País';
+
+  @override
+  String get schoolDetailWebsite => 'Sitio web';
+
+  @override
+  String get schoolDetailVisitWebsite => 'Visitar sitio web';
+
+  @override
+  String get schoolDetailStatus => 'Estado';
+
+  @override
+  String get schoolDetailDeadline => 'Fecha límite';
+
+  @override
+  String get schoolDetailApplicationFee => 'Tasa de solicitud';
+
+  @override
+  String get schoolDetailApplicationsClosed => 'Solicitudes cerradas';
+
+  @override
+  String get schoolDetailApplyNow => 'Solicitar ahora';
+
+  @override
+  String get schoolDetailAdmissionRequirements => 'Requisitos de admisión';
 
   @override
   String schoolDetailSavedToFavorites(Object name) {
@@ -1202,6 +754,28 @@ class AppLocalizationsEs extends AppLocalizations {
   String schoolDetailApplicationsClosedToast(Object name) {
     return 'Applications are closed for $name';
   }
+
+  @override
+  String get requirementsTitle => 'Requisitos de admisión';
+
+  @override
+  String get requirementsProgrammesHeading => 'Programas y notas de corte';
+
+  @override
+  String get requirementsRequirementsHeading => 'Requisitos';
+
+  @override
+  String get requirementsEmptyTitle => 'Aún no se han publicado requisitos';
+
+  @override
+  String get requirementsEmptyNote =>
+      'Consulta el sitio web del colegio o contacta con la oficina de admisiones para conocer los requisitos actualizados.';
+
+  @override
+  String get requirementsNoCutOff => 'No hay nota de corte publicada';
+
+  @override
+  String get requirementsLoadFailed => 'No se pudieron cargar los requisitos';
 
   @override
   String requirementsCutOffLabel(Object score) {
@@ -1231,6 +805,46 @@ class AppLocalizationsEs extends AppLocalizations {
   String get applicationFormStep3Subtitle => 'Select your programme of study';
 
   @override
+  String get applicationFormFullName => 'Nombre completo';
+
+  @override
+  String get applicationFormFullNameHint => 'Introduce tu nombre completo';
+
+  @override
+  String get applicationFormDateOfBirth => 'Fecha de nacimiento';
+
+  @override
+  String get applicationFormDateOfBirthHint =>
+      'Selecciona tu fecha de nacimiento';
+
+  @override
+  String get applicationFormGender => 'Género';
+
+  @override
+  String get applicationFormGenderHint => 'Selecciona el género';
+
+  @override
+  String get applicationFormGenderMale => 'Masculino';
+
+  @override
+  String get applicationFormGenderFemale => 'Femenino';
+
+  @override
+  String get applicationFormGenderPreferNotToSay => 'Prefiero no decirlo';
+
+  @override
+  String get applicationFormNationality => 'Nacionalidad';
+
+  @override
+  String get applicationFormNationalityHint => 'p. ej. Nigerians';
+
+  @override
+  String get applicationFormQualification => 'Titulación más alta';
+
+  @override
+  String get applicationFormQualificationHint => 'Selecciona una titulación';
+
+  @override
   String get applicationFormQualificationWAEC => 'WAEC/SSCE';
 
   @override
@@ -1252,13 +866,68 @@ class AppLocalizationsEs extends AppLocalizations {
   String get applicationFormQualificationMasters => 'Master\'s Degree';
 
   @override
+  String get applicationFormGrade => 'Nota/Resultado';
+
+  @override
+  String get applicationFormGradeHint => 'p. ej. 2023';
+
+  @override
+  String get applicationFormGraduationYear => 'Año de graduación';
+
+  @override
+  String get applicationFormGraduationYearHint => 'p. ej. 2023';
+
+  @override
+  String get applicationFormJambScore => 'Puntuación JAMB';
+
+  @override
   String get applicationFormJambScoreHint => 'e.g 200';
+
+  @override
+  String get applicationFormJambYear => 'Año JAMB';
 
   @override
   String get applicationFormJambYearHint => 'e.g 2023';
 
   @override
+  String get applicationFormCourseOfStudy => 'Carrera estudiada';
+
+  @override
+  String get applicationFormCourseOfStudyHint =>
+      'p. ej. Ciencias de la Computación';
+
+  @override
+  String get applicationFormEntryLevel => 'Nivel de acceso';
+
+  @override
+  String get applicationFormEntryLevelHint => 'Selecciona el nivel de acceso';
+
+  @override
+  String get applicationFormEntryLevelUndergraduate => 'Grado (100 level)';
+
+  @override
+  String get applicationFormEntryLevelDirect => 'Acceso directo (200 level)';
+
+  @override
+  String get applicationFormEntryLevelPostgraduate => 'Posgrado';
+
+  @override
+  String get applicationFormEntryLevelMasters => 'Máster';
+
+  @override
+  String get applicationFormEntryLevelPhd => 'Doctorado';
+
+  @override
+  String get applicationFormSession => 'Curso académico';
+
+  @override
+  String get applicationFormSessionHint => 'p. ej. 2023/2024';
+
+  @override
   String get applicationFormNext => 'Next';
+
+  @override
+  String get applicationFormSubmitButton => 'Enviar solicitud';
 
   @override
   String get applicationFormSavedToast =>
@@ -1272,6 +941,67 @@ class AppLocalizationsEs extends AppLocalizations {
   String applicationFormDeadlinePassedToast(Object name) {
     return 'The application deadline for $name has passed.';
   }
+
+  @override
+  String get applicationFormErrorNameRequired => 'Introduce tu nombre completo';
+
+  @override
+  String get applicationFormErrorDobRequired =>
+      'Selecciona tu fecha de nacimiento';
+
+  @override
+  String get applicationFormErrorGenderRequired => 'Selecciona tu género';
+
+  @override
+  String get applicationFormErrorNationalityRequired =>
+      'Introduce tu nacionalidad';
+
+  @override
+  String get applicationFormErrorQualificationRequired =>
+      'Selecciona tu titulación';
+
+  @override
+  String get applicationFormErrorGradeRequired =>
+      'Introduce tu nota o resultado';
+
+  @override
+  String get applicationFormErrorGraduationYearRequired =>
+      'Introduce tu año de graduación';
+
+  @override
+  String get applicationFormErrorYearInvalid => 'Introduce un año válido';
+
+  @override
+  String get applicationFormErrorJambScoreRequired =>
+      'Introduce tu puntuación JAMB';
+
+  @override
+  String get applicationFormErrorJambScoreInvalid =>
+      'Introduce una puntuación JAMB válida (0-400)';
+
+  @override
+  String get applicationFormErrorJambYearRequired => 'Introduce tu año JAMB';
+
+  @override
+  String get applicationFormErrorCourseRequired =>
+      'Introduce tu carrera estudiada';
+
+  @override
+  String get applicationFormErrorEntryLevelRequired =>
+      'Selecciona tu nivel de acceso';
+
+  @override
+  String get applicationFormErrorSessionRequired =>
+      'Introduce tu curso académico';
+
+  @override
+  String get statusListTitle => 'Mis solicitudes';
+
+  @override
+  String get statusListSubtitle => 'Sigue todas tus solicitudes de admisión';
+
+  @override
+  String get statusFilterAll => 'Todas';
 
   @override
   String get statusFilterPending => 'Pending';
@@ -1295,6 +1025,12 @@ class AppLocalizationsEs extends AppLocalizations {
   String statusEmptyTitleFiltered(Object filter) {
     return 'No $filter applications';
   }
+
+  @override
+  String get statusBrowseSchools => 'Explorar colegios';
+
+  @override
+  String get statusLoadFailed => 'No se pudieron cargar las solicitudes';
 
   @override
   String get statusTryAgain => 'Try Again';
@@ -1328,6 +1064,97 @@ class AppLocalizationsEs extends AppLocalizations {
   String get statusDeleteFailedToast => 'Failed to delete application';
 
   @override
+  String get applicationDetailTitle => 'Detalles de la solicitud';
+
+  @override
+  String get applicationDetailSchoolInfo => 'Información del colegio';
+
+  @override
+  String get applicationDetailPersonalInfo => 'Datos personales';
+
+  @override
+  String get applicationDetailAcademicInfo => 'Datos académicos';
+
+  @override
+  String get applicationDetailProgrammeInfo => 'Datos del programa';
+
+  @override
+  String get applicationDetailSubmissionInfo => 'Información de envío';
+
+  @override
+  String get applicationDetailRowSchool => 'Colegio';
+
+  @override
+  String get applicationDetailRowCountry => 'País';
+
+  @override
+  String get applicationDetailRowFullName => 'Nombre completo';
+
+  @override
+  String get applicationDetailRowDateOfBirth => 'Fecha de nacimiento';
+
+  @override
+  String get applicationDetailRowGender => 'Género';
+
+  @override
+  String get applicationDetailRowNationality => 'Nacionalidad';
+
+  @override
+  String get applicationDetailRowQualification => 'Titulación';
+
+  @override
+  String get applicationDetailRowGrade => 'Nota/Resultado';
+
+  @override
+  String get applicationDetailRowGraduationYear => 'Año de graduación';
+
+  @override
+  String get applicationDetailRowCourseOfStudy => 'Carrera estudiada';
+
+  @override
+  String get applicationDetailRowEntryLevel => 'Nivel de acceso';
+
+  @override
+  String get applicationDetailRowSession => 'Curso académico';
+
+  @override
+  String get applicationDetailRowDateSubmitted => 'Fecha de envío';
+
+  @override
+  String get applicationDetailRowStatus => 'Estado';
+
+  @override
+  String get applicationDetailSubmittedRecently => 'Recientemente';
+
+  @override
+  String get applicationDetailWithdraw => 'Retirar solicitud';
+
+  @override
+  String get applicationDetailReapply => 'Volver a solicitar';
+
+  @override
+  String get applicationDetailDelete => 'Eliminar solicitud';
+
+  @override
+  String get applicationDetailWithdrawConfirmTitle => 'Retirar solicitud';
+
+  @override
+  String applicationDetailWithdrawConfirmBody(String school) {
+    return '¿Seguro que quieres retirar tu solicitud a $school? Puedes volver a solicitar más tarde.';
+  }
+
+  @override
+  String get applicationDetailDeleteConfirmTitle => 'Eliminar solicitud';
+
+  @override
+  String applicationDetailDeleteConfirmBody(String school) {
+    return '¿Seguro que quieres eliminar tu solicitud a $school? Esta acción no se puede deshacer.';
+  }
+
+  @override
+  String get applicationDetailWithdrawAction => 'Retirar';
+
+  @override
   String get applicationDetailWithdrawnToast => 'Application withdrawn';
 
   @override
@@ -1345,6 +1172,88 @@ class AppLocalizationsEs extends AppLocalizations {
   String get applicationDetailCancel => 'Cancel';
 
   @override
+  String get documentUploadTitle => 'Subir documentos';
+
+  @override
+  String get documentUploadRequiredHeading => 'Documentos requeridos';
+
+  @override
+  String get documentUploadUploadAll => 'Sube los 4 documentos para continuar';
+
+  @override
+  String get documentUploadFormatNote =>
+      'Todos los documentos deben ser nítidos y legibles. Formatos aceptados: JPG, PNG.';
+
+  @override
+  String get documentUploadProceedToPayment => 'Continuar al pago';
+
+  @override
+  String get documentUploadChooseSource => 'Elegir fuente';
+
+  @override
+  String get documentUploadChooseFromGallery => 'Elegir de la galería';
+
+  @override
+  String get documentUploadTakePhoto => 'Hacer una foto';
+
+  @override
+  String get documentUploadReplace => 'Reemplazar';
+
+  @override
+  String get documentUploadUpload => 'Subir';
+
+  @override
+  String get documentUploadAllDone => 'Todo listo';
+
+  @override
+  String get documentUploadRequiredAll => 'Requeridos: los 4';
+
+  @override
+  String get documentUploadWaecTitle => 'Resultado WAEC/NECO';
+
+  @override
+  String get documentUploadWaecSubtitle => 'Sube tu resultado de O-Level';
+
+  @override
+  String get documentUploadJambTitle => 'Resultado JAMB';
+
+  @override
+  String get documentUploadJambSubtitle => 'Sube tu resultado JAMB';
+
+  @override
+  String get documentUploadPassportTitle => 'Foto de pasaporte';
+
+  @override
+  String get documentUploadPassportSubtitle =>
+      'Sube una foto reciente tamaño pasaporte';
+
+  @override
+  String get documentUploadBirthCertTitle => 'Certificado de nacimiento';
+
+  @override
+  String get documentUploadBirthCertSubtitle =>
+      'Sube tu certificado de nacimiento';
+
+  @override
+  String get documentUploadPickFailed =>
+      'No se pudo seleccionar el archivo. Inténtalo de nuevo.';
+
+  @override
+  String get documentUploadFailed => 'La subida falló. Inténtalo de nuevo.';
+
+  @override
+  String get documentUploadNoActiveApplication =>
+      'No se encontró ninguna solicitud activa. Comienza una nueva solicitud primero.';
+
+  @override
+  String get documentUploadIncomplete =>
+      'Sube todos los documentos requeridos antes de continuar.';
+
+  @override
+  String get documentUploadSomethingWrong =>
+      'Algo salió mal. Inténtalo de nuevo.';
+
+  @override
   String documentUploadUploadedSuccessfully(Object title) {
     return '$title uploaded successfully';
   }
@@ -1360,14 +1269,105 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
+  String get paymentTitle => 'Pago';
+
+  @override
+  String get paymentOrderSummary => 'Resumen del pedido';
+
+  @override
+  String get paymentApplicationFee => 'Tasa de solicitud';
+
+  @override
+  String get paymentTotal => 'Total';
+
+  @override
+  String get paymentMethodHeading => 'Método de pago';
+
+  @override
   String get paymentPaystackTitle => 'Paystack';
+
+  @override
+  String get paymentPaystackSubtitle =>
+      'Paga con tarjeta, transferencia bancaria o USSD';
 
   @override
   String get paymentFlutterwaveTitle => 'Flutterwave';
 
   @override
+  String get paymentFlutterwaveSubtitle =>
+      'Paga con tarjeta, banco o dinero móvil';
+
+  @override
+  String get paymentDemoNotice =>
+      'Este es un pago de demostración. No se cobrará dinero real. La integración de la pasarela de pago llegará pronto.';
+
+  @override
+  String get paymentBiometricReason =>
+      'Confirma tu huella dactilar para completar el pago';
+
+  @override
+  String get paymentBiometricCancelled => 'Autenticación biométrica cancelada.';
+
+  @override
+  String get paymentSuccessTitle => '¡Pago realizado con éxito!';
+
+  @override
+  String get paymentSuccessBody =>
+      'Tu solicitud se ha enviado correctamente. Te notificaremos de cualquier actualización.';
+
+  @override
+  String get paymentGoToDashboard => 'Ir al panel';
+
+  @override
+  String get paymentFailed => 'El pago falló. Inténtalo de nuevo.';
+
+  @override
   String paymentPayButton(Object amount) {
     return 'Pay ₦$amount';
+  }
+
+  @override
+  String get notificationsTitle => 'Notificaciones';
+
+  @override
+  String get notificationsMarkAllRead => 'Marcar todo como leído';
+
+  @override
+  String get notificationsClear => 'Limpiar';
+
+  @override
+  String get notificationsClearTitle => 'Limpiar todo';
+
+  @override
+  String get notificationsClearBody =>
+      '¿Seguro que quieres eliminar todas las notificaciones? Esta acción no se puede deshacer.';
+
+  @override
+  String get notificationsClearConfirm => 'Limpiar todo';
+
+  @override
+  String get notificationsEmptyTitle => 'Todavía no hay notificaciones';
+
+  @override
+  String get notificationsEmptyBody =>
+      'Te notificaremos cuando haya actualizaciones sobre tus solicitudes';
+
+  @override
+  String get notificationsTimeJustNow => 'Ahora mismo';
+
+  @override
+  String notificationsTimeMinutes(int count) {
+    return 'hace $count min';
+  }
+
+  @override
+  String notificationsTimeHours(int count) {
+    return 'hace $count h';
+  }
+
+  @override
+  String notificationsTimeDays(int count) {
+    return 'hace $count d';
   }
 
   @override
