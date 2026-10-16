@@ -1,30 +1,42 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:school_admission_application/main.dart';
+import 'package:school_admission_application/core/widgets/deadline_chip.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('DeadlineChip displays Closed for past deadline', (WidgetTester tester) async {
+    final pastDeadline = DateTime.now().subtract(const Duration(days: 2));
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    await tester.pumpWidget(
+      ScreenUtilInit(
+        designSize: const Size(375, 812),
+        builder: (context, child) => MaterialApp(
+          home: Scaffold(
+            body: DeadlineChip(deadline: pastDeadline),
+          ),
+        ),
+      ),
+    );
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
     await tester.pump();
+    expect(find.text('Closed'), findsOneWidget);
+  });
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+  testWidgets('DeadlineChip displays countdown for future deadline', (WidgetTester tester) async {
+    final futureDeadline = DateTime.now().add(const Duration(days: 5, hours: 3));
+
+    await tester.pumpWidget(
+      ScreenUtilInit(
+        designSize: const Size(375, 812),
+        builder: (context, child) => MaterialApp(
+          home: Scaffold(
+            body: DeadlineChip(deadline: futureDeadline),
+          ),
+        ),
+      ),
+    );
+
+    await tester.pump();
+    expect(find.textContaining('left'), findsOneWidget);
   });
 }
