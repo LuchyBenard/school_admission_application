@@ -7,8 +7,30 @@ import '../models/admission_requirement_model.dart';
 enum RequirementStatus { initial, loading, loaded, error }
 
 /// Region bucket used to select baseline admission requirement templates.
-/// International regions differ greatly from the Nigerian JAMB-based model.
-enum RequirementRegion { nigeria, uk, us, canada, generic }
+/// International regions differ greatly from the Nigerian JAMB-based model,
+/// and also from one another in language, credential recognition and
+/// application procedures.
+enum RequirementRegion {
+  nigeria,
+  uk,
+  us,
+  canada,
+  ghana,
+  kenya,
+  australia,
+  sweden,
+  germany,
+  belgium,
+  france,
+  netherlands,
+  denmark,
+  finland,
+  italy,
+  spain,
+  norway,
+  southKorea,
+  generic,
+}
 
 class AdmissionRequirementProvider extends ChangeNotifier {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
