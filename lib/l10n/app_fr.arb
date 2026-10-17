@@ -158,11 +158,16 @@
   "schoolDetailAdmissionRequirements": "Conditions d'admission",
 
   "requirementsTitle": "Conditions d'admission",
-  "requirementsProgrammesHeading": "Filières et scores d'admission",
+  "requirementsProgrammesHeading": "Filières et conditions d'admission",
   "requirementsRequirementsHeading": "Documents requis",
   "requirementsEmptyTitle": "Aucune condition publiée pour le moment",
   "requirementsEmptyNote": "Consultez le site de l'école ou contactez le bureau des admissions pour les conditions à jour.",
   "requirementsNoCutOff": "Aucun score minimum publié",
+  "requirementsEntryCriteriaLabel": "Critères d'admission : {score}",
+  "requirementsCategoryAcademic": "Diplômes académiques",
+  "requirementsCategoryEnglish": "Maîtrise de l'anglais",
+  "requirementsCategoryTests": "Tests standardisés",
+  "requirementsCategoryDocuments": "Documents requis",
   "requirementsLoadFailed": "Échec du chargement des conditions",
 
   "applicationFormTitle": "Formulaire de candidature",

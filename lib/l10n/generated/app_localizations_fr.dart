@@ -772,7 +772,8 @@ class AppLocalizationsFr extends AppLocalizations {
   String get requirementsTitle => 'Conditions d\'admission';
 
   @override
-  String get requirementsProgrammesHeading => 'Filières et scores d\'admission';
+  String get requirementsProgrammesHeading =>
+      'Filières et conditions d\'admission';
 
   @override
   String get requirementsRequirementsHeading => 'Documents requis';
@@ -787,6 +788,23 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get requirementsNoCutOff => 'Aucun score minimum publié';
+
+  @override
+  String requirementsEntryCriteriaLabel(Object score) {
+    return 'Critères d\'admission : $score';
+  }
+
+  @override
+  String get requirementsCategoryAcademic => 'Diplômes académiques';
+
+  @override
+  String get requirementsCategoryEnglish => 'Maîtrise de l\'anglais';
+
+  @override
+  String get requirementsCategoryTests => 'Tests standardisés';
+
+  @override
+  String get requirementsCategoryDocuments => 'Documents requis';
 
   @override
   String get requirementsLoadFailed => 'Échec du chargement des conditions';

@@ -98,5 +98,61 @@ void main() {
       expect(map['cutOffScore'], equals('175'));
       expect(map['requirements'], equals(['LSAT', 'Transcript']));
     });
+
+    test('parses structured categories and ignores empty ones', () {
+      final json = {
+        'schoolName': 'University of Manchester',
+        'schoolCountry': 'United Kingdom',
+        'program': 'Computer Science',
+        'degreeLevel': 'Undergraduate',
+        'cutOffScore': 'A-Level ABB',
+        'requirements': [],
+        'categories': [
+          {
+            'key': 'english',
+            'title': '',
+            'items': ['IELTS 6.5', 'TOEFL iBT 90'],
+          },
+          {
+            'key': 'documents',
+            'items': ['Personal statement'],
+          },
+          {
+            'key': 'academic',
+            'items': <String>[],
+          },
+        ],
+      };
+
+      final model = AdmissionRequirementModel.fromFirestore(json, 'req_uk');
+      expect(model.categories.length, equals(2));
+      expect(model.categories[0].key, equals('english'));
+      expect(model.categories[0].items.length, equals(2));
+      expect(model.categories[1].key, equals('documents'));
+    });
+
+    test('toMap flattens categories into requirements when list is empty', () {
+      final model = AdmissionRequirementModel(
+        schoolName: 'University of Toronto',
+        schoolCountry: 'Canada',
+        program: 'Engineering',
+        degreeLevel: 'Undergraduate',
+        cutOffScore: '',
+        categories: const [
+          RequirementCategory(
+            key: 'english',
+            items: ['IELTS 6.5'],
+          ),
+          RequirementCategory(
+            key: 'documents',
+            items: ['Transcript', 'Study permit'],
+          ),
+        ],
+      );
+
+      final map = model.toMap();
+      expect(map['requirements'], equals(['IELTS 6.5', 'Transcript', 'Study permit']));
+      expect((map['categories'] as List).length, equals(2));
+    });
   });
 }

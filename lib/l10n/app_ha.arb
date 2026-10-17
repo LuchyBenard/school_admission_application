@@ -158,11 +158,16 @@
   "schoolDetailAdmissionRequirements": "Shar'uɗun karɓar",
 
   "requirementsTitle": "Shar'uɗun karɓar",
-  "requirementsProgrammesHeading": "Fasaha da maki",
+  "requirementsProgrammesHeading": "Fasaha da shar'uɗun shiga",
   "requirementsRequirementsHeading": "Abin da ake buƙata",
   "requirementsEmptyTitle": "Babbu shar'uɗi a yanzu",
   "requirementsEmptyNote": "Ka duba gizon makaranta ko ka tafi tuntuwa don sabuwar shar'uɗi.",
   "requirementsNoCutOff": "Babban maki",
+  "requirementsEntryCriteriaLabel": "Shar'uɗin shiga: {score}",
+  "requirementsCategoryAcademic": "Shaidar ilimi",
+  "requirementsCategoryEnglish": "Ƙwarewar Ingilishi",
+  "requirementsCategoryTests": "Gwaje-gwajen daidaitacce",
+  "requirementsCategoryDocuments": "Takardun da ake buƙata",
   "requirementsLoadFailed": "Dama za ta kusa loading shar'uɗi",
 
   "applicationFormTitle": "Fom ɗin aikacewa",

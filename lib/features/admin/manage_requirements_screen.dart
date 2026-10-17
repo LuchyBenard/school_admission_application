@@ -31,6 +31,9 @@ class _ManageRequirementsScreenState extends State<ManageRequirementsScreen> {
   List<AdmissionRequirementModel> _existing = [];
   String? _editingId;
 
+  // Optional structured requirement sections (international schools).
+  final List<_ReqSection> _sections = [];
+
   final List<String> _degreeLevels = [
     'Undergraduate',
     'Diploma',
@@ -46,7 +49,28 @@ class _ManageRequirementsScreenState extends State<ManageRequirementsScreen> {
     _programController.dispose();
     _cutOffController.dispose();
     _requirementsController.dispose();
+    for (final s in _sections) {
+      s.dispose();
+    }
     super.dispose();
+  }
+
+  bool get _isNigeria =>
+      _countryController.text.trim().toLowerCase().contains('nigeria');
+
+  String get _cutOffHint =>
+      _isNigeria ? 'e.g 200' : 'e.g IELTS 6.5 / GPA 3.0 / ABB';
+
+  void _addSection(String key) {
+    setState(() {
+      _sections.add(_ReqSection(key: key));
+    });
+  }
+
+  void _removeSection(int index) {
+    setState(() {
+      _sections.removeAt(index).dispose();
+    });
   }
 
   Future<void> _loadExisting() async {
@@ -99,19 +123,36 @@ class _ManageRequirementsScreenState extends State<ManageRequirementsScreen> {
       );
       return;
     }
-    if (cutOff.isEmpty) {
-      showToast(
-        'Enter the cut-off score',
-        backgroundColor: AppColors.warning,
-      );
-      return;
-    }
 
     final reqLines = _requirementsController.text
         .split('\n')
         .map((e) => e.trim())
         .where((e) => e.isNotEmpty)
         .toList();
+
+    // Structured sections (international). Empty sections are ignored.
+    final sections = _sections.where((s) => !s.isEmpty).toList();
+    final categories = sections
+        .map((s) => RequirementCategory(
+              key: s.key,
+              title: s.title.text.trim(),
+              items: s.items.text
+                  .split('\n')
+                  .map((e) => e.trim())
+                  .where((e) => e.isNotEmpty)
+                  .toList(),
+            ))
+        .toList();
+
+    if (reqLines.isEmpty && categories.isEmpty) {
+      showToast(
+        _isNigeria
+            ? 'Add at least one requirement'
+            : 'Add a general requirement or at least one section',
+        backgroundColor: AppColors.warning,
+      );
+      return;
+    }
 
     setState(() => _saving = true);
 
@@ -123,6 +164,7 @@ class _ManageRequirementsScreenState extends State<ManageRequirementsScreen> {
       degreeLevel: _degreeLevel,
       cutOffScore: cutOff,
       requirements: reqLines,
+      categories: categories,
     );
 
     final success =
@@ -134,6 +176,10 @@ class _ManageRequirementsScreenState extends State<ManageRequirementsScreen> {
     setState(() {
       _saving = false;
       _editingId = null;
+      for (final s in _sections) {
+        s.dispose();
+      }
+      _sections.clear();
     });
 
     showToast(
@@ -218,8 +264,8 @@ class _ManageRequirementsScreenState extends State<ManageRequirementsScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Add, edit or remove admission requirements '
-                'and cut-off scores for a school.',
+            Text('Add, edit or remove admission requirements and entry '
+                'criteria for a school.',
                 style: AppTextStyles.bodyMedium),
             SizedBox(height: 20.h),
 
@@ -238,6 +284,7 @@ class _ManageRequirementsScreenState extends State<ManageRequirementsScreen> {
             TextFormField(
               controller: _countryController,
               style: AppTextStyles.bodyLarge,
+              onChanged: (_) => setState(() {}),
               decoration: InputDecoration(
                 hintText: 'Country',
                 prefixIcon: Icon(Icons.public_outlined, color: context.colors.textHint),
@@ -304,30 +351,78 @@ class _ManageRequirementsScreenState extends State<ManageRequirementsScreen> {
             ),
             SizedBox(height: 12.h),
 
-            // Cut-off score
-            Text('Cut-off Score', style: AppTextStyles.label),
+            // Cut-off score / entry criteria
+            Text(
+              _isNigeria ? 'Cut-off Score' : 'Entry Criteria',
+              style: AppTextStyles.label,
+            ),
             SizedBox(height: 8.h),
             TextFormField(
               controller: _cutOffController,
               style: AppTextStyles.bodyLarge,
               decoration: InputDecoration(
-                hintText: 'e.g 200 or 70%',
-                prefixIcon: Icon(Icons.speed_outlined, color: context.colors.textHint),
+                hintText: _cutOffHint,
+                prefixIcon: Icon(
+                  _isNigeria ? Icons.speed_outlined : Icons.verified_outlined,
+                  color: context.colors.textHint,
+                ),
+              ),
+            ),
+            SizedBox(height: 4.h),
+            Text(
+              'Optional for international schools (e.g. IELTS band, GPA or A-Level grades).',
+              style: AppTextStyles.caption.copyWith(
+                color: context.colors.textSecondary,
               ),
             ),
             SizedBox(height: 12.h),
 
-            // Requirements list
-            Text('Requirements (one per line)', style: AppTextStyles.label),
+            // General requirements list
+            Text('General requirements (one per line)',
+                style: AppTextStyles.label),
             SizedBox(height: 8.h),
             TextFormField(
               controller: _requirementsController,
               style: AppTextStyles.bodyMedium,
               maxLines: 3,
-              decoration: const InputDecoration(
-                hintText: 'e.g\nFive credit passes in O\'Level\nPass JAMB at cut-off',
+              decoration: InputDecoration(
+                hintText: _isNigeria
+                    ? 'e.g\nFive credit passes in O\'Level\nPass JAMB at cut-off'
+                    : 'e.g\nProof of English proficiency\nTwo letters of recommendation',
               ),
             ),
+            SizedBox(height: 16.h),
+
+            // Structured requirement sections
+            Text('Requirement Sections', style: AppTextStyles.label),
+            SizedBox(height: 4.h),
+            Text(
+              _isNigeria
+                  ? 'Optional. Group requirements by category.'
+                  : 'Recommended. Group entry criteria into categories.',
+              style: AppTextStyles.caption.copyWith(
+                color: context.colors.textSecondary,
+              ),
+            ),
+            SizedBox(height: 8.h),
+            Wrap(
+              spacing: 8.w,
+              runSpacing: 8.h,
+              children: [
+                _sectionChip('academic', 'Academic'),
+                _sectionChip('english', 'English'),
+                _sectionChip('tests', 'Tests'),
+                _sectionChip('documents', 'Documents'),
+                _sectionChip('other', 'Other'),
+              ],
+            ),
+            if (_sections.isNotEmpty) ...[
+              SizedBox(height: 12.h),
+              ...List.generate(
+                _sections.length,
+                (index) => _buildSectionEditor(index),
+              ),
+            ],
             SizedBox(height: 20.h),
 
             // Save button
@@ -396,20 +491,35 @@ class _ManageRequirementsScreenState extends State<ManageRequirementsScreen> {
             ],
           ),
           SizedBox(height: 6.h),
-          Row(
-            children: [
-              Text(
-                '${req.degreeLevel}  •  Cut-off: ${req.cutOffScore}',
-                style: AppTextStyles.caption.copyWith(
-                  color: context.colors.textSecondary,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
+          Text(
+            _tileSummary(req),
+            style: AppTextStyles.caption.copyWith(
+              color: context.colors.textSecondary,
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ],
       ),
     );
+  }
+
+  String _tileSummary(AdmissionRequirementModel req) {
+    final parts = <String>[req.degreeLevel];
+    if (req.cutOffScore.isNotEmpty) {
+      parts.add(
+        _isNigeria
+            ? 'Cut-off: ${req.cutOffScore}'
+            : 'Entry: ${req.cutOffScore}',
+      );
+    }
+    if (req.categories.isNotEmpty) {
+      final count = req.categories.length;
+      parts.add('$count section${count == 1 ? '' : 's'}');
+    } else if (req.requirements.isNotEmpty) {
+      final count = req.requirements.length;
+      parts.add('$count item${count == 1 ? '' : 's'}');
+    }
+    return parts.join('  •  ');
   }
 
   void _editEntry(AdmissionRequirementModel req) {
@@ -417,11 +527,165 @@ class _ManageRequirementsScreenState extends State<ManageRequirementsScreen> {
     _programController.text = req.program;
     _cutOffController.text = req.cutOffScore;
     _requirementsController.text = req.requirements.join('\n');
+
+    for (final s in _sections) {
+      s.dispose();
+    }
+    _sections.clear();
+    if (req.categories.isNotEmpty) {
+      _sections.addAll(
+        req.categories.map((c) => _ReqSection(
+              key: c.key,
+              titleText: c.title,
+              itemsText: c.items.join('\n'),
+            )),
+      );
+    }
+
     setState(() => _degreeLevel = req.degreeLevel);
 
     showToast(
       'Editing "${req.program}". Tap Save to update.',
       backgroundColor: AppColors.info,
     );
+  }
+
+  Widget _sectionChip(String key, String label) {
+    return ActionChip(
+      avatar: Icon(
+        _sectionIcon(key),
+        size: 16.w,
+        color: context.colors.primary,
+      ),
+      label: Text('+ $label', style: AppTextStyles.bodySmall),
+      onPressed: () => _addSection(key),
+      backgroundColor: context.colors.surface,
+      side: BorderSide(color: context.colors.border),
+    );
+  }
+
+  Widget _buildSectionEditor(int index) {
+    final section = _sections[index];
+    return Container(
+      margin: EdgeInsets.only(bottom: 12.h),
+      padding: EdgeInsets.all(14.w),
+      decoration: BoxDecoration(
+        color: context.colors.surface,
+        borderRadius: BorderRadius.circular(12.r),
+        border: Border.all(color: context.colors.border),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(
+                _sectionIcon(section.key),
+                size: 18.w,
+                color: context.colors.primary,
+              ),
+              SizedBox(width: 8.w),
+              Expanded(
+                child: Text(
+                  _sectionLabel(section.key),
+                  style: AppTextStyles.label,
+                ),
+              ),
+              GestureDetector(
+                onTap: () => _removeSection(index),
+                child: Icon(
+                  Icons.close,
+                  size: 18.w,
+                  color: AppColors.error,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 8.h),
+          TextFormField(
+            controller: section.title,
+            style: AppTextStyles.bodyMedium,
+            decoration: InputDecoration(
+              hintText: 'Section title (optional)',
+              isDense: true,
+            ),
+          ),
+          SizedBox(height: 8.h),
+          TextFormField(
+            controller: section.items,
+            style: AppTextStyles.bodySmall,
+            maxLines: 3,
+            decoration: InputDecoration(
+              hintText: '${_sectionHint(section.key)} (one per line)',
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  IconData _sectionIcon(String key) {
+    switch (key) {
+      case 'academic':
+        return Icons.school_outlined;
+      case 'english':
+        return Icons.translate_outlined;
+      case 'tests':
+        return Icons.fact_check_outlined;
+      case 'documents':
+        return Icons.description_outlined;
+      default:
+        return Icons.checklist_outlined;
+    }
+  }
+
+  String _sectionLabel(String key) {
+    switch (key) {
+      case 'academic':
+        return 'Academic Qualifications';
+      case 'english':
+        return 'English Proficiency';
+      case 'tests':
+        return 'Standardized Tests';
+      case 'documents':
+        return 'Required Documents';
+      default:
+        return 'Other Requirements';
+    }
+  }
+
+  String _sectionHint(String key) {
+    switch (key) {
+      case 'academic':
+        return 'e.g WAEC 5 credits / GPA 3.0';
+      case 'english':
+        return 'e.g IELTS 6.5 / TOEFL 80';
+      case 'tests':
+        return 'e.g SAT 1200 / GRE 300';
+      case 'documents':
+        return 'e.g Transcript, SOP, passport';
+      default:
+        return 'Requirement';
+    }
+  }
+}
+
+class _ReqSection {
+  final String key;
+  final TextEditingController title;
+  final TextEditingController items;
+
+  _ReqSection({
+    required this.key,
+    String titleText = '',
+    String itemsText = '',
+  })  : title = TextEditingController(text: titleText),
+        items = TextEditingController(text: itemsText);
+
+  bool get isEmpty => items.text.trim().isEmpty;
+
+  void dispose() {
+    title.dispose();
+    items.dispose();
   }
 }

@@ -749,7 +749,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get requirementsTitle => 'Admission Requirements';
 
   @override
-  String get requirementsProgrammesHeading => 'Programmes and cut-off scores';
+  String get requirementsProgrammesHeading =>
+      'Programmes and entry requirements';
 
   @override
   String get requirementsRequirementsHeading => 'Requirements';
@@ -763,6 +764,23 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get requirementsNoCutOff => 'No cut-off published';
+
+  @override
+  String requirementsEntryCriteriaLabel(Object score) {
+    return 'Entry criteria: $score';
+  }
+
+  @override
+  String get requirementsCategoryAcademic => 'Academic Qualifications';
+
+  @override
+  String get requirementsCategoryEnglish => 'English Proficiency';
+
+  @override
+  String get requirementsCategoryTests => 'Standardized Tests';
+
+  @override
+  String get requirementsCategoryDocuments => 'Required Documents';
 
   @override
   String get requirementsLoadFailed => 'Failed to load requirements';

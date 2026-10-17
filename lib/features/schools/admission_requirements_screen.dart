@@ -261,7 +261,7 @@ class _RequirementCard extends StatelessWidget {
           ),
           SizedBox(height: 12.h),
 
-          // Cut-off score
+          // Cut-off score / entry criteria
           Row(
             children: [
               Container(
@@ -277,14 +277,20 @@ class _RequirementCard extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Icon(
-                      Icons.speed_outlined,
+                      _isNigeria
+                          ? Icons.speed_outlined
+                          : Icons.verified_outlined,
                       size: 16.w,
                       color: AppColors.success,
                     ),
                     SizedBox(width: 6.w),
                     Text(
                       requirement.cutOffScore.isNotEmpty
-                          ? l10n.requirementsCutOffLabel(requirement.cutOffScore)
+                          ? (_isNigeria
+                              ? l10n.requirementsCutOffLabel(
+                                  requirement.cutOffScore)
+                              : l10n.requirementsEntryCriteriaLabel(
+                                  requirement.cutOffScore))
                           : l10n.requirementsNoCutOff,
                       style: AppTextStyles.caption.copyWith(
                         color: AppColors.success,
@@ -297,36 +303,111 @@ class _RequirementCard extends StatelessWidget {
             ],
           ),
 
-          // Additional requirements
-          if (requirement.requirements.isNotEmpty) ...[
+          // Structured requirement categories (international schools)
+          if (requirement.categories.isNotEmpty)
+            ...requirement.categories.map(
+              (category) => _buildCategory(context, l10n, category),
+            )
+
+          // Legacy flat requirements fallback
+          else if (requirement.requirements.isNotEmpty) ...[
             SizedBox(height: 12.h),
             Text(l10n.requirementsRequirementsHeading, style: AppTextStyles.label),
             SizedBox(height: 6.h),
-            ...requirement.requirements.map(
-              (r) => Padding(
-                padding: EdgeInsets.only(bottom: 4.h),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Icon(
-                      Icons.check_circle_outline,
-                      size: 14.w,
-                      color: context.colors.primary,
-                    ),
-                    SizedBox(width: 8.w),
-                    Expanded(
-                      child: Text(
-                        r,
-                        style: AppTextStyles.bodySmall,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            ...requirement.requirements.map((r) => _buildItem(context, r)),
           ],
         ],
       ),
     );
+  }
+
+  bool get _isNigeria =>
+      requirement.schoolCountry.trim().toLowerCase().contains('nigeria');
+
+  Widget _buildCategory(
+    BuildContext context,
+    AppLocalizations l10n,
+    RequirementCategory category,
+  ) {
+    return Padding(
+      padding: EdgeInsets.only(top: 14.h),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(
+                _categoryIcon(category.key),
+                size: 15.w,
+                color: context.colors.primary,
+              ),
+              SizedBox(width: 6.w),
+              Expanded(
+                child: Text(
+                  _categoryTitle(l10n, category),
+                  style: AppTextStyles.label,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 6.h),
+          ...category.items.map((r) => _buildItem(context, r)),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildItem(BuildContext context, String text) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 4.h),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(
+            Icons.check_circle_outline,
+            size: 14.w,
+            color: context.colors.primary,
+          ),
+          SizedBox(width: 8.w),
+          Expanded(
+            child: Text(
+              text,
+              style: AppTextStyles.bodySmall,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  String _categoryTitle(AppLocalizations l10n, RequirementCategory category) {
+    if (category.title.isNotEmpty) return category.title;
+    switch (category.key) {
+      case 'academic':
+        return l10n.requirementsCategoryAcademic;
+      case 'english':
+        return l10n.requirementsCategoryEnglish;
+      case 'tests':
+        return l10n.requirementsCategoryTests;
+      case 'documents':
+        return l10n.requirementsCategoryDocuments;
+      default:
+        return l10n.requirementsRequirementsHeading;
+    }
+  }
+
+  IconData _categoryIcon(String key) {
+    switch (key) {
+      case 'academic':
+        return Icons.school_outlined;
+      case 'english':
+        return Icons.translate_outlined;
+      case 'tests':
+        return Icons.fact_check_outlined;
+      case 'documents':
+        return Icons.description_outlined;
+      default:
+        return Icons.checklist_outlined;
+    }
   }
 }

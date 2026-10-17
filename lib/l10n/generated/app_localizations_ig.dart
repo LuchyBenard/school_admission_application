@@ -751,7 +751,7 @@ class AppLocalizationsIg extends AppLocalizations {
   String get requirementsTitle => 'Nke ọma ịbanye';
 
   @override
-  String get requirementsProgrammesHeading => 'Mmekọ na ọkwa';
+  String get requirementsProgrammesHeading => 'Mmekọ na ihe ndị a chọrọ';
 
   @override
   String get requirementsRequirementsHeading => 'Ihe niile dị mkpa';
@@ -765,6 +765,23 @@ class AppLocalizationsIg extends AppLocalizations {
 
   @override
   String get requirementsNoCutOff => 'Enweghị ọkwa anyị debanyere';
+
+  @override
+  String requirementsEntryCriteriaLabel(Object score) {
+    return 'Ihe a chọrọ: $score';
+  }
+
+  @override
+  String get requirementsCategoryAcademic => 'Asambodo agụmakwụkwọ';
+
+  @override
+  String get requirementsCategoryEnglish => 'Ọmụma Bekee';
+
+  @override
+  String get requirementsCategoryTests => 'Ule ọkọlọtọ';
+
+  @override
+  String get requirementsCategoryDocuments => 'Akwụkwọ ndị achọrọ';
 
   @override
   String get requirementsLoadFailed => 'Anyị enweghị ike ịbanye nke ọma';

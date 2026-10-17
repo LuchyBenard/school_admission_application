@@ -158,11 +158,16 @@
   "schoolDetailAdmissionRequirements": "Requisitos de admisión",
 
   "requirementsTitle": "Requisitos de admisión",
-  "requirementsProgrammesHeading": "Programas y notas de corte",
+  "requirementsProgrammesHeading": "Programas y requisitos de acceso",
   "requirementsRequirementsHeading": "Requisitos",
   "requirementsEmptyTitle": "Aún no se han publicado requisitos",
   "requirementsEmptyNote": "Consulta el sitio web del colegio o contacta con la oficina de admisiones para conocer los requisitos actualizados.",
   "requirementsNoCutOff": "No hay nota de corte publicada",
+  "requirementsEntryCriteriaLabel": "Criterios de admisión: {score}",
+  "requirementsCategoryAcademic": "Títulos académicos",
+  "requirementsCategoryEnglish": "Dominio del inglés",
+  "requirementsCategoryTests": "Pruebas estandarizadas",
+  "requirementsCategoryDocuments": "Documentos requeridos",
   "requirementsLoadFailed": "No se pudieron cargar los requisitos",
 
   "applicationFormTitle": "Formulario de solicitud",

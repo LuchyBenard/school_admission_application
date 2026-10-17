@@ -158,11 +158,16 @@
   "schoolDetailAdmissionRequirements": "Nke ọma ịbanye",
 
   "requirementsTitle": "Nke ọma ịbanye",
-  "requirementsProgrammesHeading": "Mmekọ na ọkwa",
+  "requirementsProgrammesHeading": "Mmekọ na ihe ndị a chọrọ",
   "requirementsRequirementsHeading": "Ihe niile dị mkpa",
   "requirementsEmptyTitle": "Enweghị nke ọma anyị debanyere",
   "requirementsEmptyNote": "Lee ebe ọnụma ụlọ-akụkọ ma ọ bụ nye ụlọ-akụkọ nke ọma ọhụrụ maka nke ọma ọhụrụ.",
   "requirementsNoCutOff": "Enweghị ọkwa anyị debanyere",
+  "requirementsEntryCriteriaLabel": "Ihe a chọrọ: {score}",
+  "requirementsCategoryAcademic": "Asambodo agụmakwụkwọ",
+  "requirementsCategoryEnglish": "Ọmụma Bekee",
+  "requirementsCategoryTests": "Ule ọkọlọtọ",
+  "requirementsCategoryDocuments": "Akwụkwọ ndị achọrọ",
   "requirementsLoadFailed": "Anyị enweghị ike ịbanye nke ọma",
 
   "applicationFormTitle": "Fọrmu aịịrị",

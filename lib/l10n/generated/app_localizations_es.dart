@@ -759,7 +759,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get requirementsTitle => 'Requisitos de admisión';
 
   @override
-  String get requirementsProgrammesHeading => 'Programas y notas de corte';
+  String get requirementsProgrammesHeading =>
+      'Programas y requisitos de acceso';
 
   @override
   String get requirementsRequirementsHeading => 'Requisitos';
@@ -773,6 +774,23 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get requirementsNoCutOff => 'No hay nota de corte publicada';
+
+  @override
+  String requirementsEntryCriteriaLabel(Object score) {
+    return 'Criterios de admisión: $score';
+  }
+
+  @override
+  String get requirementsCategoryAcademic => 'Títulos académicos';
+
+  @override
+  String get requirementsCategoryEnglish => 'Dominio del inglés';
+
+  @override
+  String get requirementsCategoryTests => 'Pruebas estandarizadas';
+
+  @override
+  String get requirementsCategoryDocuments => 'Documentos requeridos';
 
   @override
   String get requirementsLoadFailed => 'No se pudieron cargar los requisitos';

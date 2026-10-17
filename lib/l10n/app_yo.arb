@@ -158,11 +158,16 @@
   "schoolDetailAdmissionRequirements": "Àmì ìwọlé",
 
   "requirementsTitle": "Àmì ìwọlé",
-  "requirementsProgrammesHeading": "Màmọ́ kó àti ìsọ̀rí",
+  "requirementsProgrammesHeading": "Àwọn ẹ̀kọ́ àti àmì ìwọlé",
   "requirementsRequirementsHeading": "Àwọn ohun tí a nílò",
   "requirementsEmptyTitle": "Kò sí àmì tí a tẹ̀lẹ̀ síbẹ̀",
   "requirementsEmptyNote": "Wo ìwé ayélujára ilé-ìwé tàbí bá ọ̀kan sí ọjọ́ ìwọlé fún àmì tuntun.",
   "requirementsNoCutOff": "Kò sí ìsọ̀rí tí a tẹ̀lẹ̀",
+  "requirementsEntryCriteriaLabel": "Àmì ìwọlé: {score}",
+  "requirementsCategoryAcademic": "Àmì ẹ̀kọ́",
+  "requirementsCategoryEnglish": "Ìmọ̀ Gẹ̀ẹ́sì",
+  "requirementsCategoryTests": "Ìdánwò ìṣàkóso",
+  "requirementsCategoryDocuments": "Àwọn ìwé tí a nílò",
   "requirementsLoadFailed": "Kò ní lè fẹ́ àwọn àmì wọlé",
 
   "applicationFormTitle": "Fóọmu ìbéèrè",

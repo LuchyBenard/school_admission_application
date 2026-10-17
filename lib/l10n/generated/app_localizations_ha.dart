@@ -744,7 +744,7 @@ class AppLocalizationsHa extends AppLocalizations {
   String get requirementsTitle => 'Shar\'uɗun karɓar';
 
   @override
-  String get requirementsProgrammesHeading => 'Fasaha da maki';
+  String get requirementsProgrammesHeading => 'Fasaha da shar\'uɗun shiga';
 
   @override
   String get requirementsRequirementsHeading => 'Abin da ake buƙata';
@@ -758,6 +758,23 @@ class AppLocalizationsHa extends AppLocalizations {
 
   @override
   String get requirementsNoCutOff => 'Babban maki';
+
+  @override
+  String requirementsEntryCriteriaLabel(Object score) {
+    return 'Shar\'uɗin shiga: $score';
+  }
+
+  @override
+  String get requirementsCategoryAcademic => 'Shaidar ilimi';
+
+  @override
+  String get requirementsCategoryEnglish => 'Ƙwarewar Ingilishi';
+
+  @override
+  String get requirementsCategoryTests => 'Gwaje-gwajen daidaitacce';
+
+  @override
+  String get requirementsCategoryDocuments => 'Takardun da ake buƙata';
 
   @override
   String get requirementsLoadFailed => 'Dama za ta kusa loading shar\'uɗi';

@@ -1489,7 +1489,7 @@ abstract class AppLocalizations {
   /// No description provided for @requirementsProgrammesHeading.
   ///
   /// In en, this message translates to:
-  /// **'Programmes and cut-off scores'**
+  /// **'Programmes and entry requirements'**
   String get requirementsProgrammesHeading;
 
   /// No description provided for @requirementsRequirementsHeading.
@@ -1515,6 +1515,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No cut-off published'**
   String get requirementsNoCutOff;
+
+  /// No description provided for @requirementsEntryCriteriaLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Entry criteria: {score}'**
+  String requirementsEntryCriteriaLabel(Object score);
+
+  /// No description provided for @requirementsCategoryAcademic.
+  ///
+  /// In en, this message translates to:
+  /// **'Academic Qualifications'**
+  String get requirementsCategoryAcademic;
+
+  /// No description provided for @requirementsCategoryEnglish.
+  ///
+  /// In en, this message translates to:
+  /// **'English Proficiency'**
+  String get requirementsCategoryEnglish;
+
+  /// No description provided for @requirementsCategoryTests.
+  ///
+  /// In en, this message translates to:
+  /// **'Standardized Tests'**
+  String get requirementsCategoryTests;
+
+  /// No description provided for @requirementsCategoryDocuments.
+  ///
+  /// In en, this message translates to:
+  /// **'Required Documents'**
+  String get requirementsCategoryDocuments;
 
   /// No description provided for @requirementsLoadFailed.
   ///
