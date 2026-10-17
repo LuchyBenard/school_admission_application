@@ -224,6 +224,34 @@ class AdmissionRequirementProvider extends ChangeNotifier {
         return _usDefaults(schoolName, schoolCountry);
       case RequirementRegion.canada:
         return _canadaDefaults(schoolName, schoolCountry);
+      case RequirementRegion.ghana:
+        return _ghanaDefaults(schoolName, schoolCountry);
+      case RequirementRegion.kenya:
+        return _kenyaDefaults(schoolName, schoolCountry);
+      case RequirementRegion.australia:
+        return _australiaDefaults(schoolName, schoolCountry);
+      case RequirementRegion.sweden:
+        return _swedenDefaults(schoolName, schoolCountry);
+      case RequirementRegion.germany:
+        return _germanyDefaults(schoolName, schoolCountry);
+      case RequirementRegion.belgium:
+        return _belgiumDefaults(schoolName, schoolCountry);
+      case RequirementRegion.france:
+        return _franceDefaults(schoolName, schoolCountry);
+      case RequirementRegion.netherlands:
+        return _netherlandsDefaults(schoolName, schoolCountry);
+      case RequirementRegion.denmark:
+        return _denmarkDefaults(schoolName, schoolCountry);
+      case RequirementRegion.finland:
+        return _finlandDefaults(schoolName, schoolCountry);
+      case RequirementRegion.italy:
+        return _italyDefaults(schoolName, schoolCountry);
+      case RequirementRegion.spain:
+        return _spainDefaults(schoolName, schoolCountry);
+      case RequirementRegion.norway:
+        return _norwayDefaults(schoolName, schoolCountry);
+      case RequirementRegion.southKorea:
+        return _southKoreaDefaults(schoolName, schoolCountry);
       case RequirementRegion.generic:
         return _internationalDefaults(schoolName, schoolCountry);
     }
@@ -487,6 +515,700 @@ class AdmissionRequirementProvider extends ChangeNotifier {
     ];
   }
 
+  List<AdmissionRequirementModel> _ghanaDefaults(
+    String schoolName,
+    String schoolCountry,
+  ) {
+    return [
+      AdmissionRequirementModel(
+        id: 'gen_gh_ug',
+        schoolName: schoolName,
+        schoolCountry: schoolCountry,
+        program: 'Undergraduate Admission (WASSCE/SSSCE)',
+        degreeLevel: 'Undergraduate',
+        cutOffScore: 'WASSCE Aggregate 6–30',
+        categories: [
+          RequirementCategory(key: 'academic', items: [
+            'WASSCE/SSSCE with credits in 6 subjects: 3 core (English, Core Mathematics and Integrated Science or Social Studies) and 3 electives relevant to the programme.',
+            'Competitive programmes require an aggregate of roughly 6–24, determined by the university and programme.',
+          ]),
+          RequirementCategory(key: 'english', items: [
+            'Credit pass in English Language at WASSCE/SSSCE; instruction is in English.',
+          ]),
+          RequirementCategory(key: 'documents', items: [
+            'WASSCE/SSSCE results slip and certificate.',
+            'Ghana Card or valid passport, and proof of application fee payment.',
+            'Mature-entry candidates (25+) may be required to sit an entrance examination.',
+          ]),
+        ],
+      ),
+      AdmissionRequirementModel(
+        id: 'gen_gh_pg',
+        schoolName: schoolName,
+        schoolCountry: schoolCountry,
+        program: 'Postgraduate Admission (Master\'s / PhD)',
+        degreeLevel: 'Postgraduate',
+        cutOffScore: 'Second Class (Lower)',
+        categories: [
+          RequirementCategory(key: 'academic', items: [
+            'Bachelor\'s degree from a recognised university with at least Second Class Lower Division.',
+            'A relevant first degree; some programmes require a postgraduate diploma or a qualifying examination.',
+          ]),
+          RequirementCategory(key: 'english', items: [
+            'English language proficiency for instruction; no separate test where the prior degree was taught in English.',
+          ]),
+          RequirementCategory(key: 'documents', items: [
+            'Official transcripts, degree certificate, two academic referees and a statement of purpose.',
+            'Research proposal and evidence of supervisor availability for research/PhD programmes.',
+          ]),
+        ],
+      ),
+    ];
+  }
+
+  List<AdmissionRequirementModel> _kenyaDefaults(
+    String schoolName,
+    String schoolCountry,
+  ) {
+    return [
+      AdmissionRequirementModel(
+        id: 'gen_ke_ug',
+        schoolName: schoolName,
+        schoolCountry: schoolCountry,
+        program: 'Undergraduate Admission (KCSE)',
+        degreeLevel: 'Undergraduate',
+        cutOffScore: 'KCSE Mean Grade C+',
+        categories: [
+          RequirementCategory(key: 'academic', items: [
+            'KCSE with a minimum mean grade of C+ (plus) and the cluster subject requirements for the chosen programme.',
+            'Apply through KUCCPS (government-sponsored placement) or as a self/private-sponsored student.',
+          ]),
+          RequirementCategory(key: 'english', items: [
+            'Credit pass in English (and Kiswahili) at KCSE; instruction is in English.',
+          ]),
+          RequirementCategory(key: 'documents', items: [
+            'KCSE result slip/certificate and KCSE index number.',
+            'Birth certificate or national ID, and proof of application fee payment.',
+            'Diploma holders may qualify for credit transfer or entry into later years of study.',
+          ]),
+        ],
+      ),
+      AdmissionRequirementModel(
+        id: 'gen_ke_pg',
+        schoolName: schoolName,
+        schoolCountry: schoolCountry,
+        program: 'Postgraduate Admission (Master\'s / PhD)',
+        degreeLevel: 'Postgraduate',
+        cutOffScore: 'Second Class Honours',
+        categories: [
+          RequirementCategory(key: 'academic', items: [
+            'Bachelor\'s degree from a recognised university with at least Second Class Honours (Lower Division); some programmes require Upper Division.',
+          ]),
+          RequirementCategory(key: 'tests', items: [
+            'MBA and some professional programmes require relevant work experience and may require GMAT/GRE.',
+          ]),
+          RequirementCategory(key: 'english', items: [
+            'English language proficiency (instruction is in English).',
+          ]),
+          RequirementCategory(key: 'documents', items: [
+            'Official transcripts, degree certificate, two referees and a statement of purpose.',
+            'Research proposal for PhD/research programmes.',
+          ]),
+        ],
+      ),
+    ];
+  }
+
+  List<AdmissionRequirementModel> _australiaDefaults(
+    String schoolName,
+    String schoolCountry,
+  ) {
+    return [
+      AdmissionRequirementModel(
+        id: 'gen_au_ug',
+        schoolName: schoolName,
+        schoolCountry: schoolCountry,
+        program: 'Undergraduate Admission',
+        degreeLevel: 'Undergraduate',
+        cutOffScore: 'ATAR 70+',
+        categories: [
+          RequirementCategory(key: 'academic', items: [
+            'Completion of Year 12 (or equivalent) with an ATAR meeting the programme threshold.',
+            'Foundation Studies or a diploma pathway is available where direct entry requirements are not met.',
+          ]),
+          RequirementCategory(key: 'english', items: [
+            'IELTS Academic 6.5 (no band below 6.0) or TOEFL iBT 79+, or equivalent.',
+          ]),
+          RequirementCategory(key: 'documents', items: [
+            'Official secondary transcripts and certificate.',
+            'Valid passport and a Genuine Student (GS) statement for the student visa.',
+          ]),
+        ],
+      ),
+      AdmissionRequirementModel(
+        id: 'gen_au_pg',
+        schoolName: schoolName,
+        schoolCountry: schoolCountry,
+        program: 'Postgraduate Admission (Master\'s / PhD)',
+        degreeLevel: 'Postgraduate',
+        cutOffScore: 'Bachelor\'s / Credit average',
+        categories: [
+          RequirementCategory(key: 'academic', items: [
+            'Bachelor\'s degree in a relevant discipline; a minimum GPA or credit average is typically required.',
+          ]),
+          RequirementCategory(key: 'english', items: [
+            'IELTS Academic 6.5–7.0 or TOEFL iBT 79–94, depending on the programme.',
+          ]),
+          RequirementCategory(key: 'tests', items: [
+            'Some programmes (e.g. MBA) require GMAT/GRE and/or relevant work experience.',
+          ]),
+          RequirementCategory(key: 'documents', items: [
+            'Official transcripts, CV and statement of purpose; references for some programmes.',
+          ]),
+        ],
+      ),
+    ];
+  }
+
+  List<AdmissionRequirementModel> _swedenDefaults(
+    String schoolName,
+    String schoolCountry,
+  ) {
+    return [
+      AdmissionRequirementModel(
+        id: 'gen_se_ug',
+        schoolName: schoolName,
+        schoolCountry: schoolCountry,
+        program: 'Undergraduate Admission (Bachelor\'s)',
+        degreeLevel: 'Undergraduate',
+        cutOffScore: 'Upper Secondary Diploma',
+        categories: [
+          RequirementCategory(key: 'academic', items: [
+            'Completed upper secondary education providing general eligibility (grundläggande behörighet); programme-specific courses may also be required.',
+          ]),
+          RequirementCategory(key: 'language', title: 'Language Proficiency', items: [
+            'English 6 (IELTS 6.5 / TOEFL 90+) for English-taught programmes; Swedish for Swedish-taught programmes.',
+          ]),
+          RequirementCategory(key: 'documents', items: [
+            'Official secondary transcripts and certificates; apply via universityadmissions.se.',
+          ]),
+          RequirementCategory(key: 'tests', items: [
+            'Some programmes require a portfolio, interview or specific subject tests.',
+          ]),
+        ],
+      ),
+      AdmissionRequirementModel(
+        id: 'gen_se_pg',
+        schoolName: schoolName,
+        schoolCountry: schoolCountry,
+        program: 'Postgraduate Admission (Master\'s / PhD)',
+        degreeLevel: 'Postgraduate',
+        cutOffScore: 'Bachelor\'s (180 ECTS)',
+        categories: [
+          RequirementCategory(key: 'academic', items: [
+            'Bachelor\'s degree (180 ECTS) in a relevant field; specific course credits may be required.',
+          ]),
+          RequirementCategory(key: 'language', title: 'Language Proficiency', items: [
+            'English 6 (IELTS 6.5 / TOEFL 90+) for English-taught programmes.',
+          ]),
+          RequirementCategory(key: 'documents', items: [
+            'Official transcripts, degree certificate, CV and statement of purpose for some programmes.',
+          ]),
+        ],
+      ),
+    ];
+  }
+
+  List<AdmissionRequirementModel> _germanyDefaults(
+    String schoolName,
+    String schoolCountry,
+  ) {
+    return [
+      AdmissionRequirementModel(
+        id: 'gen_de_ug',
+        schoolName: schoolName,
+        schoolCountry: schoolCountry,
+        program: 'Undergraduate Admission (Bachelor\'s)',
+        degreeLevel: 'Undergraduate',
+        cutOffScore: 'Abitur / Feststellungsprüfung',
+        categories: [
+          RequirementCategory(key: 'academic', items: [
+            'Recognised secondary qualification equivalent to the German Abitur (Hochschulzugangsberechtigung).',
+            'Applicants without direct recognition may need a Studienkolleg and the Feststellungsprüfung.',
+            'Subjects such as medicine and psychology are subject to Numerus Clausus (NC) selection.',
+          ]),
+          RequirementCategory(key: 'language', title: 'Language Proficiency', items: [
+            'German (TestDaF/DSH) for German-taught programmes; IELTS 6.5 / TOEFL 90 for English-taught programmes.',
+          ]),
+          RequirementCategory(key: 'documents', items: [
+            'Recognised certificates and application via uni-assist.',
+            'APS certificate where required (e.g. for applicants from certain countries).',
+          ]),
+        ],
+      ),
+      AdmissionRequirementModel(
+        id: 'gen_de_pg',
+        schoolName: schoolName,
+        schoolCountry: schoolCountry,
+        program: 'Postgraduate Admission (Master\'s / PhD)',
+        degreeLevel: 'Postgraduate',
+        cutOffScore: 'Bachelor\'s (aptitude)',
+        categories: [
+          RequirementCategory(key: 'academic', items: [
+            'Bachelor\'s degree in a relevant field; many programmes use an aptitude assessment (Eignungsverfahren) instead of a fixed cut-off.',
+          ]),
+          RequirementCategory(key: 'language', title: 'Language Proficiency', items: [
+            'German (TestDaF/DSH) or English (IELTS 6.5 / TOEFL 90), depending on the programme.',
+          ]),
+          RequirementCategory(key: 'documents', items: [
+            'Official transcripts, degree certificate, CV and letter of motivation.',
+            'APS certificate where required.',
+          ]),
+        ],
+      ),
+    ];
+  }
+
+  List<AdmissionRequirementModel> _belgiumDefaults(
+    String schoolName,
+    String schoolCountry,
+  ) {
+    return [
+      AdmissionRequirementModel(
+        id: 'gen_be_ug',
+        schoolName: schoolName,
+        schoolCountry: schoolCountry,
+        program: 'Undergraduate Admission (Bachelor\'s)',
+        degreeLevel: 'Undergraduate',
+        cutOffScore: 'Secondary Diploma',
+        categories: [
+          RequirementCategory(key: 'academic', items: [
+            'Recognised secondary school diploma; applicants from non-EU countries may need an equivalence certificate (NARIC).',
+          ]),
+          RequirementCategory(key: 'language', title: 'Language Proficiency', items: [
+            'French (DELF B2/TCF) or Dutch (ITNA/CNaVT) depending on the institution; some programmes are English-taught.',
+          ]),
+          RequirementCategory(key: 'tests', items: [
+            'Medicine/dentistry and arts admissions are subject to an entrance examination and/or lottery.',
+          ]),
+          RequirementCategory(key: 'documents', items: [
+            'Secondary diploma, equivalence certificate where required, and proof of language proficiency.',
+          ]),
+        ],
+      ),
+      AdmissionRequirementModel(
+        id: 'gen_be_pg',
+        schoolName: schoolName,
+        schoolCountry: schoolCountry,
+        program: 'Postgraduate Admission (Master\'s / PhD)',
+        degreeLevel: 'Postgraduate',
+        cutOffScore: 'Bachelor\'s',
+        categories: [
+          RequirementCategory(key: 'academic', items: [
+            'Bachelor\'s degree in a relevant field; some programmes require an aptitude test or interview.',
+          ]),
+          RequirementCategory(key: 'language', title: 'Language Proficiency', items: [
+            'French/Dutch (B2) or English (IELTS 6.5), depending on the programme.',
+          ]),
+          RequirementCategory(key: 'documents', items: [
+            'Official transcripts, degree certificate, CV, letter of motivation and equivalence where required.',
+          ]),
+        ],
+      ),
+    ];
+  }
+
+  List<AdmissionRequirementModel> _franceDefaults(
+    String schoolName,
+    String schoolCountry,
+  ) {
+    return [
+      AdmissionRequirementModel(
+        id: 'gen_fr_ug',
+        schoolName: schoolName,
+        schoolCountry: schoolCountry,
+        program: 'Undergraduate Admission (Licence)',
+        degreeLevel: 'Undergraduate',
+        cutOffScore: 'Baccalauréat',
+        categories: [
+          RequirementCategory(key: 'academic', items: [
+            'Recognised secondary diploma equivalent to the French Baccalauréat.',
+          ]),
+          RequirementCategory(key: 'language', title: 'Language Proficiency', items: [
+            'French (DELF B2/DALF/TCF) for French-taught programmes; English tests for English-taught programmes.',
+          ]),
+          RequirementCategory(key: 'documents', items: [
+            'Application via Parcoursup (domestic) or the "Études en France"/DAP procedure via Campus France (international).',
+            'Transcripts and a motivation letter.',
+          ]),
+        ],
+      ),
+      AdmissionRequirementModel(
+        id: 'gen_fr_pg',
+        schoolName: schoolName,
+        schoolCountry: schoolCountry,
+        program: 'Postgraduate Admission (Master / Doctorat)',
+        degreeLevel: 'Postgraduate',
+        cutOffScore: 'Licence / Bachelor\'s',
+        categories: [
+          RequirementCategory(key: 'academic', items: [
+            'Bachelor\'s (Licence) or equivalent in a relevant field; selective programmes may require a competitive entrance exam or interview.',
+          ]),
+          RequirementCategory(key: 'language', title: 'Language Proficiency', items: [
+            'French (DELF B2/C1) or English (IELTS 6.5), depending on the programme.',
+          ]),
+          RequirementCategory(key: 'documents', items: [
+            'Campus France "Études en France" application, transcripts, degree certificate, CV and statement of purpose.',
+          ]),
+        ],
+      ),
+    ];
+  }
+
+  List<AdmissionRequirementModel> _netherlandsDefaults(
+    String schoolName,
+    String schoolCountry,
+  ) {
+    return [
+      AdmissionRequirementModel(
+        id: 'gen_nl_ug',
+        schoolName: schoolName,
+        schoolCountry: schoolCountry,
+        program: 'Undergraduate Admission (Bachelor\'s)',
+        degreeLevel: 'Undergraduate',
+        cutOffScore: 'VWO Diploma',
+        categories: [
+          RequirementCategory(key: 'academic', items: [
+            'Secondary diploma equivalent to the Dutch VWO; HAVO plus a propaedeutic year may qualify for some universities of applied sciences.',
+          ]),
+          RequirementCategory(key: 'language', title: 'Language Proficiency', items: [
+            'English (IELTS 6.5 / TOEFL 90) for English-taught programmes; Dutch (NT2) for Dutch-taught programmes.',
+          ]),
+          RequirementCategory(key: 'tests', items: [
+            'Numerus fixus programmes (e.g. medicine) use a selection procedure; apply via Studielink.',
+          ]),
+          RequirementCategory(key: 'documents', items: [
+            'Secondary transcripts, diploma and, for some programmes, a motivation letter or entrance exam.',
+          ]),
+        ],
+      ),
+      AdmissionRequirementModel(
+        id: 'gen_nl_pg',
+        schoolName: schoolName,
+        schoolCountry: schoolCountry,
+        program: 'Postgraduate Admission (Master\'s / PhD)',
+        degreeLevel: 'Postgraduate',
+        cutOffScore: 'Bachelor\'s / GPA',
+        categories: [
+          RequirementCategory(key: 'academic', items: [
+            'Bachelor\'s degree in a relevant field; a minimum GPA/grade average is required.',
+          ]),
+          RequirementCategory(key: 'language', title: 'Language Proficiency', items: [
+            'English (IELTS 6.5 / TOEFL 90) for English-taught programmes.',
+          ]),
+          RequirementCategory(key: 'tests', items: [
+            'Some programmes require GRE/GMAT or work experience (e.g. MBA).',
+          ]),
+          RequirementCategory(key: 'documents', items: [
+            'Official transcripts, degree certificate, CV and a motivation letter.',
+          ]),
+        ],
+      ),
+    ];
+  }
+
+  List<AdmissionRequirementModel> _denmarkDefaults(
+    String schoolName,
+    String schoolCountry,
+  ) {
+    return [
+      AdmissionRequirementModel(
+        id: 'gen_dk_ug',
+        schoolName: schoolName,
+        schoolCountry: schoolCountry,
+        program: 'Undergraduate Admission (Bachelor\'s)',
+        degreeLevel: 'Undergraduate',
+        cutOffScore: 'Upper Secondary (quota)',
+        categories: [
+          RequirementCategory(key: 'academic', items: [
+            'Recognised upper secondary qualification equivalent to the Danish STX/HF; admission is often quota-based on grade point average.',
+          ]),
+          RequirementCategory(key: 'language', title: 'Language Proficiency', items: [
+            'Danish (Studieprøven) for Danish-taught programmes; English (IELTS 6.5) for English-taught programmes.',
+          ]),
+          RequirementCategory(key: 'documents', items: [
+            'Secondary transcripts and diploma; some programmes require supplementary subject levels.',
+          ]),
+        ],
+      ),
+      AdmissionRequirementModel(
+        id: 'gen_dk_pg',
+        schoolName: schoolName,
+        schoolCountry: schoolCountry,
+        program: 'Postgraduate Admission (Master\'s / PhD)',
+        degreeLevel: 'Postgraduate',
+        cutOffScore: 'Bachelor\'s',
+        categories: [
+          RequirementCategory(key: 'academic', items: [
+            'Relevant Bachelor\'s degree; admission may be limited and competitive.',
+          ]),
+          RequirementCategory(key: 'language', title: 'Language Proficiency', items: [
+            'English (IELTS 6.5 / TOEFL 90) for English-taught programmes.',
+          ]),
+          RequirementCategory(key: 'documents', items: [
+            'Official transcripts, degree certificate, CV and motivation letter.',
+          ]),
+        ],
+      ),
+    ];
+  }
+
+  List<AdmissionRequirementModel> _finlandDefaults(
+    String schoolName,
+    String schoolCountry,
+  ) {
+    return [
+      AdmissionRequirementModel(
+        id: 'gen_fi_ug',
+        schoolName: schoolName,
+        schoolCountry: schoolCountry,
+        program: 'Undergraduate Admission (Bachelor\'s)',
+        degreeLevel: 'Undergraduate',
+        cutOffScore: 'Upper Secondary Certificate',
+        categories: [
+          RequirementCategory(key: 'academic', items: [
+            'Completed upper secondary education (ylioppilastutkinto or equivalent) giving eligibility.',
+          ]),
+          RequirementCategory(key: 'language', title: 'Language Proficiency', items: [
+            'English (IELTS 6.5 / TOEFL 92) for English-taught programmes; Finnish/Swedish for domestic programmes.',
+          ]),
+          RequirementCategory(key: 'tests', items: [
+            'Most programmes require an entrance examination; apply via Studyinfo (Opintopolku).',
+          ]),
+          RequirementCategory(key: 'documents', items: [
+            'Secondary certificates/transcripts and, where required, an official translation.',
+          ]),
+        ],
+      ),
+      AdmissionRequirementModel(
+        id: 'gen_fi_pg',
+        schoolName: schoolName,
+        schoolCountry: schoolCountry,
+        program: 'Postgraduate Admission (Master\'s / PhD)',
+        degreeLevel: 'Postgraduate',
+        cutOffScore: 'Bachelor\'s (exam)',
+        categories: [
+          RequirementCategory(key: 'academic', items: [
+            'Relevant Bachelor\'s degree; some programmes require an entrance examination.',
+          ]),
+          RequirementCategory(key: 'language', title: 'Language Proficiency', items: [
+            'English (IELTS 6.5 / TOEFL 92) or Finnish/Swedish, depending on the programme.',
+          ]),
+          RequirementCategory(key: 'documents', items: [
+            'Official transcripts, degree certificate, CV and motivation letter.',
+          ]),
+        ],
+      ),
+    ];
+  }
+
+  List<AdmissionRequirementModel> _italyDefaults(
+    String schoolName,
+    String schoolCountry,
+  ) {
+    return [
+      AdmissionRequirementModel(
+        id: 'gen_it_ug',
+        schoolName: schoolName,
+        schoolCountry: schoolCountry,
+        program: 'Undergraduate Admission (Laurea)',
+        degreeLevel: 'Undergraduate',
+        cutOffScore: 'Maturità',
+        categories: [
+          RequirementCategory(key: 'academic', items: [
+            'Recognised secondary diploma equivalent to the Italian Maturità; a "declaration of value" or CIMEA statement may be required.',
+          ]),
+          RequirementCategory(key: 'language', title: 'Language Proficiency', items: [
+            'Italian (B2) for Italian-taught programmes; English (IELTS 6.0–6.5) for English-taught programmes.',
+          ]),
+          RequirementCategory(key: 'tests', items: [
+            'Medicine, surgery and architecture require the IMAT/entrance exam; some programmes are capped (programmato).',
+          ]),
+          RequirementCategory(key: 'documents', items: [
+            'Pre-enrolment via Universitaly, secondary transcript and diploma.',
+            'Translation/legalisation of documents and declaration of value/CIMEA statement.',
+          ]),
+        ],
+      ),
+      AdmissionRequirementModel(
+        id: 'gen_it_pg',
+        schoolName: schoolName,
+        schoolCountry: schoolCountry,
+        program: 'Postgraduate Admission (Laurea Magistrale)',
+        degreeLevel: 'Postgraduate',
+        cutOffScore: 'Laurea / Bachelor\'s',
+        categories: [
+          RequirementCategory(key: 'academic', items: [
+            'Bachelor\'s degree (Laurea) in a relevant field; some programmes have admission exams or a limited number of places.',
+          ]),
+          RequirementCategory(key: 'language', title: 'Language Proficiency', items: [
+            'Italian (B2) or English (IELTS 6.5), depending on the programme.',
+          ]),
+          RequirementCategory(key: 'documents', items: [
+            'Official transcripts, degree certificate and declaration of value/CIMEA statement.',
+          ]),
+        ],
+      ),
+    ];
+  }
+
+  List<AdmissionRequirementModel> _spainDefaults(
+    String schoolName,
+    String schoolCountry,
+  ) {
+    return [
+      AdmissionRequirementModel(
+        id: 'gen_es_ug',
+        schoolName: schoolName,
+        schoolCountry: schoolCountry,
+        program: 'Undergraduate Admission (Grado)',
+        degreeLevel: 'Undergraduate',
+        cutOffScore: 'Bachillerato / PCE',
+        categories: [
+          RequirementCategory(key: 'academic', items: [
+            'Recognised secondary diploma equivalent to the Spanish Bachillerato; credential homologation may be required.',
+          ]),
+          RequirementCategory(key: 'language', title: 'Language Proficiency', items: [
+            'Spanish (DELE B2) for Spanish-taught programmes; English for English-taught programmes.',
+          ]),
+          RequirementCategory(key: 'tests', items: [
+            'Foreign applicants may need to sit the UNEDasiss PCE exams; competitive grades set the "nota de corte".',
+          ]),
+          RequirementCategory(key: 'documents', items: [
+            'Secondary transcript, diploma and credit recognition/homologation documentation.',
+          ]),
+        ],
+      ),
+      AdmissionRequirementModel(
+        id: 'gen_es_pg',
+        schoolName: schoolName,
+        schoolCountry: schoolCountry,
+        program: 'Postgraduate Admission (Máster / Doctorado)',
+        degreeLevel: 'Postgraduate',
+        cutOffScore: 'Grado / Bachelor\'s',
+        categories: [
+          RequirementCategory(key: 'academic', items: [
+            'Bachelor\'s degree (Grado) in a relevant field; some programmes require an entrance test or interview.',
+          ]),
+          RequirementCategory(key: 'language', title: 'Language Proficiency', items: [
+            'Spanish (DELE B2) or English (IELTS 6.5), depending on the programme.',
+          ]),
+          RequirementCategory(key: 'documents', items: [
+            'Official transcripts, degree certificate, CV and motivation letter.',
+          ]),
+        ],
+      ),
+    ];
+  }
+
+  List<AdmissionRequirementModel> _norwayDefaults(
+    String schoolName,
+    String schoolCountry,
+  ) {
+    return [
+      AdmissionRequirementModel(
+        id: 'gen_no_ug',
+        schoolName: schoolName,
+        schoolCountry: schoolCountry,
+        program: 'Undergraduate Admission (Bachelor\'s)',
+        degreeLevel: 'Undergraduate',
+        cutOffScore: 'Generell Studiekompetanse',
+        categories: [
+          RequirementCategory(key: 'academic', items: [
+            'Completed upper secondary education providing generell studiekompetanse; additional subject requirements may apply.',
+          ]),
+          RequirementCategory(key: 'language', title: 'Language Proficiency', items: [
+            'Norwegian (B2) for Norwegian-taught programmes; English (IELTS 6.5 / TOEFL 90) for English-taught programmes.',
+          ]),
+          RequirementCategory(key: 'documents', items: [
+            'Secondary transcripts and diploma; apply via Samordna Opptak (or directly for some international programmes).',
+          ]),
+        ],
+      ),
+      AdmissionRequirementModel(
+        id: 'gen_no_pg',
+        schoolName: schoolName,
+        schoolCountry: schoolCountry,
+        program: 'Postgraduate Admission (Master\'s / PhD)',
+        degreeLevel: 'Postgraduate',
+        cutOffScore: 'Bachelor\'s',
+        categories: [
+          RequirementCategory(key: 'academic', items: [
+            'Relevant Bachelor\'s degree; some programmes require specific coursework or work experience.',
+          ]),
+          RequirementCategory(key: 'language', title: 'Language Proficiency', items: [
+            'English (IELTS 6.5 / TOEFL 90) for English-taught programmes.',
+          ]),
+          RequirementCategory(key: 'documents', items: [
+            'Official transcripts, degree certificate and CV/statement of purpose.',
+          ]),
+        ],
+      ),
+    ];
+  }
+
+  List<AdmissionRequirementModel> _southKoreaDefaults(
+    String schoolName,
+    String schoolCountry,
+  ) {
+    return [
+      AdmissionRequirementModel(
+        id: 'gen_kr_ug',
+        schoolName: schoolName,
+        schoolCountry: schoolCountry,
+        program: 'Undergraduate Admission (International)',
+        degreeLevel: 'Undergraduate',
+        cutOffScore: 'High School Diploma',
+        categories: [
+          RequirementCategory(key: 'academic', items: [
+            'High school graduation (or equivalent); international applicants are usually assessed on transcripts and, for competitive universities, SAT/AP/A-Level results.',
+          ]),
+          RequirementCategory(key: 'language', title: 'Language Proficiency', items: [
+            'TOPIK (Korean) for Korean-taught programmes; IELTS 6.5 / TOEFL 90 for English-taught programmes.',
+          ]),
+          RequirementCategory(key: 'tests', items: [
+            'Domestic applicants take the CSAT (Suneung); international applicants typically submit documents and may attend an interview.',
+          ]),
+          RequirementCategory(key: 'documents', items: [
+            'High school transcript, graduation certificate, passport, financial statement and recommendation letters.',
+          ]),
+        ],
+      ),
+      AdmissionRequirementModel(
+        id: 'gen_kr_pg',
+        schoolName: schoolName,
+        schoolCountry: schoolCountry,
+        program: 'Postgraduate Admission (Master\'s / PhD)',
+        degreeLevel: 'Postgraduate',
+        cutOffScore: 'Bachelor\'s',
+        categories: [
+          RequirementCategory(key: 'academic', items: [
+            'Bachelor\'s degree in a relevant field; research programmes require contact with a prospective supervisor.',
+          ]),
+          RequirementCategory(key: 'language', title: 'Language Proficiency', items: [
+            'TOPIK or English (IELTS 6.5 / TOEFL 90), depending on the programme.',
+          ]),
+          RequirementCategory(key: 'tests', items: [
+            'Some programmes require GRE/GMAT; an interview is common.',
+          ]),
+          RequirementCategory(key: 'documents', items: [
+            'Official transcripts, degree certificate, study/research plan, CV and 1–2 recommendation letters.',
+          ]),
+        ],
+      ),
+    ];
+  }
+
   RequirementRegion _regionForCountry(String country) {
     final c = country.toLowerCase().trim();
     if (c.isEmpty) return RequirementRegion.generic;
@@ -513,6 +1235,24 @@ class AdmissionRequirementProvider extends ChangeNotifier {
     }
 
     if (c.contains('canada') || c == 'ca') return RequirementRegion.canada;
+    if (c.contains('ghana') || c == 'gh') return RequirementRegion.ghana;
+    if (c.contains('kenya') || c == 'ke') return RequirementRegion.kenya;
+    if (c.contains('australia') || c == 'au') return RequirementRegion.australia;
+    if (c.contains('sweden') || c == 'se') return RequirementRegion.sweden;
+    if (c.contains('germany') || c.contains('deutschland') || c == 'de') {
+      return RequirementRegion.germany;
+    }
+    if (c.contains('belgium') || c == 'be') return RequirementRegion.belgium;
+    if (c.contains('france') || c == 'fr') return RequirementRegion.france;
+    if (c.contains('netherlands') || c.contains('holland') || c == 'nl') {
+      return RequirementRegion.netherlands;
+    }
+    if (c.contains('denmark') || c == 'dk') return RequirementRegion.denmark;
+    if (c.contains('finland') || c == 'fi') return RequirementRegion.finland;
+    if (c.contains('italy') || c == 'it') return RequirementRegion.italy;
+    if (c.contains('spain') || c == 'es') return RequirementRegion.spain;
+    if (c.contains('norway') || c == 'no') return RequirementRegion.norway;
+    if (c.contains('korea') || c == 'kr') return RequirementRegion.southKorea;
 
     return RequirementRegion.generic;
   }

@@ -401,6 +401,7 @@ class _RequirementCard extends StatelessWidget {
       case 'academic':
         return Icons.school_outlined;
       case 'english':
+      case 'language':
         return Icons.translate_outlined;
       case 'tests':
         return Icons.fact_check_outlined;

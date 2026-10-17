@@ -629,6 +629,7 @@ class _ManageRequirementsScreenState extends State<ManageRequirementsScreen> {
       case 'academic':
         return Icons.school_outlined;
       case 'english':
+      case 'language':
         return Icons.translate_outlined;
       case 'tests':
         return Icons.fact_check_outlined;
@@ -645,6 +646,8 @@ class _ManageRequirementsScreenState extends State<ManageRequirementsScreen> {
         return 'Academic Qualifications';
       case 'english':
         return 'English Proficiency';
+      case 'language':
+        return 'Language Proficiency';
       case 'tests':
         return 'Standardized Tests';
       case 'documents':
