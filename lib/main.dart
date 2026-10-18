@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart' show CupertinoLocalizations;
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -140,9 +141,9 @@ class _AppShell extends StatelessWidget {
       supportedLocales: AppLocalizations.supportedLocales,
       localizationsDelegates: const [
         AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
+        _FallbackMaterialLocalizationsDelegate(),
         GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
+        _FallbackCupertinoLocalizationsDelegate(),
       ],
       initialRoute: '/',
       routes: {
@@ -174,4 +175,51 @@ class _AppShell extends StatelessWidget {
       },
     );
   }
+}
+
+/// Flutter ships built-in Material/Cupertino localisations for a fixed set of
+/// languages that does not include Hausa (`ha`), Yorùbá (`yo`) or Igbo (`ig`).
+/// When one of those is selected, the global delegates report the locale as
+/// unsupported, so no [MaterialLocalizations] is ever loaded and the first
+/// Material widget to read it throws "No MaterialLocalizations found".
+///
+/// These wrappers always report the locale as supported and transparently load
+/// the English global localisations as a fallback, while the app's own strings
+/// still come from [AppLocalizations] in the selected language.
+class _FallbackMaterialLocalizationsDelegate
+    extends LocalizationsDelegate<MaterialLocalizations> {
+  const _FallbackMaterialLocalizationsDelegate();
+
+  @override
+  bool isSupported(Locale locale) => true;
+
+  @override
+  Future<MaterialLocalizations> load(Locale locale) {
+    final target = GlobalMaterialLocalizations.delegate.isSupported(locale)
+        ? locale
+        : const Locale('en');
+    return GlobalMaterialLocalizations.delegate.load(target);
+  }
+
+  @override
+  bool shouldReload(_FallbackMaterialLocalizationsDelegate old) => false;
+}
+
+class _FallbackCupertinoLocalizationsDelegate
+    extends LocalizationsDelegate<CupertinoLocalizations> {
+  const _FallbackCupertinoLocalizationsDelegate();
+
+  @override
+  bool isSupported(Locale locale) => true;
+
+  @override
+  Future<CupertinoLocalizations> load(Locale locale) {
+    final target = GlobalCupertinoLocalizations.delegate.isSupported(locale)
+        ? locale
+        : const Locale('en');
+    return GlobalCupertinoLocalizations.delegate.load(target);
+  }
+
+  @override
+  bool shouldReload(_FallbackCupertinoLocalizationsDelegate old) => false;
 }

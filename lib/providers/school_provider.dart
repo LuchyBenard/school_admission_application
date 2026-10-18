@@ -163,13 +163,18 @@ loadSchools(country: country);
 }
 // Apply Filters
 void _applyFilters() {
-_filteredSchools = _schools.where((school) {
-final matchesSearch = _searchQuery.isEmpty ||
-school.name.toLowerCase().contains(
-_searchQuery.toLowerCase(),
-);
-return matchesSearch;
-}).toList();
+  final country = _selectedCountry.trim().toLowerCase();
+  final query = _searchQuery.trim().toLowerCase();
+  _filteredSchools = _schools.where((school) {
+    // Only ever show schools that belong to the selected country. Featured
+    // schools and the Firestore fallback are fetched globally, so this
+    // prevents e.g. a Ghanaian school appearing under another country.
+    final matchesCountry = country.isEmpty ||
+        school.country.trim().toLowerCase() == country;
+    final matchesSearch = query.isEmpty ||
+        school.name.toLowerCase().contains(query);
+    return matchesCountry && matchesSearch;
+  }).toList();
 }
 
 // Clear search

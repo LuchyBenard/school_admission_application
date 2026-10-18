@@ -45,6 +45,10 @@ class AdmissionRequirementProvider extends ChangeNotifier {
   StreamSubscription<QuerySnapshot<Map<String, dynamic>>>? _sub;
   String? _subscribedKey;
 
+  // Tracks which school the current `_requirements` actually belong to, so
+  // requirements from a previously viewed school are never shown for another.
+  String? _loadedKey;
+
   RequirementStatus get status => _status;
   List<AdmissionRequirementModel> get requirements => _requirements;
   String? get errorMessage => _errorMessage;
@@ -67,28 +71,39 @@ class AdmissionRequirementProvider extends ChangeNotifier {
       return;
     }
 
+    final isNewSchool = _subscribedKey != key;
     _sub?.cancel();
     _subscribedKey = key;
     _errorMessage = null;
+
+    // Never surface another school's requirements: when switching schools
+    // (or when the held list does not belong to this key), clear stale state
+    // and show a loading indicator until fresh data/cache arrives.
+    if (isNewSchool || _loadedKey != key) {
+      _requirements = [];
+      _loadedKey = null;
+      _status = RequirementStatus.loading;
+      notifyListeners();
+    }
 
     // Check offline cache first so content is shown immediately without delay
     final cached = _storage.read<List<dynamic>>(cacheKey);
     if (cached != null && cached.isNotEmpty) {
       try {
-        _requirements = cached
+        final parsed = cached
             .whereType<Map<String, dynamic>>()
             .map((m) => AdmissionRequirementModel.fromFirestore(
                   m,
                   m['id']?.toString() ?? '',
                 ))
             .toList();
-        _status = RequirementStatus.loaded;
-        notifyListeners();
+        if (parsed.isNotEmpty) {
+          _requirements = parsed;
+          _loadedKey = key;
+          _status = RequirementStatus.loaded;
+          notifyListeners();
+        }
       } catch (_) {}
-    } else if (_requirements.isEmpty) {
-      _status = RequirementStatus.loading;
-      _requirements = [];
-      notifyListeners();
     }
 
     // Subscribe to real-time Firestore updates
@@ -114,6 +129,7 @@ class AdmissionRequirementProvider extends ChangeNotifier {
     String cacheKey,
   ) {
     final lowerCountry = cleanCountry.toLowerCase();
+    final key = '${cleanName.toLowerCase()}|$lowerCountry';
     final list = <AdmissionRequirementModel>[];
 
     for (final doc in snapshot.docs) {
@@ -141,6 +157,7 @@ class AdmissionRequirementProvider extends ChangeNotifier {
 
     if (list.isNotEmpty) {
       _requirements = list;
+      _loadedKey = key;
       _status = RequirementStatus.loaded;
       _errorMessage = null;
       notifyListeners();
@@ -157,6 +174,7 @@ class AdmissionRequirementProvider extends ChangeNotifier {
     // If Firestore has 0 documents for this school, provide baseline accredited requirements
     final defaults = _getDefaultRequirements(cleanName, cleanCountry);
     _requirements = defaults;
+    _loadedKey = key;
     _status = RequirementStatus.loaded;
     _errorMessage = null;
     notifyListeners();
@@ -168,8 +186,11 @@ class AdmissionRequirementProvider extends ChangeNotifier {
     String cacheKey,
     dynamic error,
   ) async {
-    // 1. If we already have items loaded from cache, keep them
-    if (_requirements.isNotEmpty) {
+    final key = '${cleanName.toLowerCase()}|${cleanCountry.toLowerCase()}';
+
+    // 1. If we already have items loaded for THIS school (from its cache),
+    //    keep them. Data belonging to another school is never reused.
+    if (_requirements.isNotEmpty && _loadedKey == key) {
       _status = RequirementStatus.loaded;
       notifyListeners();
       return;
@@ -194,6 +215,7 @@ class AdmissionRequirementProvider extends ChangeNotifier {
     final defaults = _getDefaultRequirements(cleanName, cleanCountry);
     if (defaults.isNotEmpty) {
       _requirements = defaults;
+      _loadedKey = key;
       _status = RequirementStatus.loaded;
       _errorMessage = null;
       notifyListeners();
