@@ -130,11 +130,11 @@ class _SplashScreenState extends State<SplashScreen>
               children: [
                 // Logo
                 Container(
-                  width: 120.w,
-                  height: 120.w,
+                  width: 160.w,
+                  height: 160.w,
                   decoration: BoxDecoration(
                     color: context.colors.background,
-                    borderRadius: BorderRadius.circular(28.r),
+                    borderRadius: BorderRadius.circular(36.r),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withValues(alpha: 0.15),
@@ -144,14 +144,14 @@ class _SplashScreenState extends State<SplashScreen>
                     ],
                   ),
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(28.r),
+                    borderRadius: BorderRadius.circular(36.r),
                     child: Padding(
-                      padding: EdgeInsets.all(16.w),
+                      padding: EdgeInsets.all(20.w),
                       child: Image.asset(
                         'assets/images/universityLogo.png',
                         fit: BoxFit.contain,
                         errorBuilder: (context, error, stackTrace) =>
-                            Icon(Icons.school, size: 60, color: context.colors.primary),
+                            Icon(Icons.school, size: 80, color: context.colors.primary),
                       ),
                     ),
                   ),
@@ -161,7 +161,7 @@ class _SplashScreenState extends State<SplashScreen>
                 // App Name
                 Text(
                   l10n.splashAppName,
-                  style: AppTextStyles.displayMedium.copyWith(
+                  style: AppTextStyles.displayLarge.copyWith(
                     color: context.colors.background,
                     letterSpacing: 0.5,
                   ),
