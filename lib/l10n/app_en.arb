@@ -204,6 +204,18 @@
 
   "splashAppName": "CampusApply",
   "splashTagline": "Your Admission, Simplified",
+  "splashAdmissionsBadge": "Admissions 2025/2026",
+  "splashOfficialPortal": "Official Portal",
+  "splashHeroTagline": "Your gateway to world-class universities",
+  "splashPillIvyLeague": "Ivy League",
+  "splashPillRussellGroup": "Russell Group",
+  "splashPillGlobalTier1": "Global Tier-1",
+  "splashVerifiedNetwork": "Verified Network",
+  "splashConnectingInstitutions": "Connecting 500+ institutions worldwide",
+  "splashBeginApplication": "Begin Application",
+  "splashAlreadyApplied": "Already applied?",
+  "splashSslSecured": "256-Bit SSL Secured",
+  "splashAccreditation": "AACSB & EQUIS Aligned",
 
   "onboardingSlide1Title": "Find Your Perfect School",
   "onboardingSlide1Subtitle": "Explore thousands of universities and institutions across Nigeria and worldwide all in one place.",

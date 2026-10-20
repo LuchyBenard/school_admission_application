@@ -556,6 +556,43 @@ class AppLocalizationsYo extends AppLocalizations {
   String get splashTagline => 'Your Admission, Simplified';
 
   @override
+  String get splashAdmissionsBadge => 'Admissions 2025/2026';
+
+  @override
+  String get splashOfficialPortal => 'Official Portal';
+
+  @override
+  String get splashHeroTagline => 'Your gateway to world-class universities';
+
+  @override
+  String get splashPillIvyLeague => 'Ivy League';
+
+  @override
+  String get splashPillRussellGroup => 'Russell Group';
+
+  @override
+  String get splashPillGlobalTier1 => 'Global Tier-1';
+
+  @override
+  String get splashVerifiedNetwork => 'Verified Network';
+
+  @override
+  String get splashConnectingInstitutions =>
+      'Connecting 500+ institutions worldwide';
+
+  @override
+  String get splashBeginApplication => 'Begin Application';
+
+  @override
+  String get splashAlreadyApplied => 'Already applied?';
+
+  @override
+  String get splashSslSecured => '256-Bit SSL Secured';
+
+  @override
+  String get splashAccreditation => 'AACSB & EQUIS Aligned';
+
+  @override
   String get onboardingSlide1Title => 'Find Your Perfect School';
 
   @override

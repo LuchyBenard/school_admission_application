@@ -1132,6 +1132,78 @@ abstract class AppLocalizations {
   /// **'Your Admission, Simplified'**
   String get splashTagline;
 
+  /// No description provided for @splashAdmissionsBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Admissions 2025/2026'**
+  String get splashAdmissionsBadge;
+
+  /// No description provided for @splashOfficialPortal.
+  ///
+  /// In en, this message translates to:
+  /// **'Official Portal'**
+  String get splashOfficialPortal;
+
+  /// No description provided for @splashHeroTagline.
+  ///
+  /// In en, this message translates to:
+  /// **'Your gateway to world-class universities'**
+  String get splashHeroTagline;
+
+  /// No description provided for @splashPillIvyLeague.
+  ///
+  /// In en, this message translates to:
+  /// **'Ivy League'**
+  String get splashPillIvyLeague;
+
+  /// No description provided for @splashPillRussellGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Russell Group'**
+  String get splashPillRussellGroup;
+
+  /// No description provided for @splashPillGlobalTier1.
+  ///
+  /// In en, this message translates to:
+  /// **'Global Tier-1'**
+  String get splashPillGlobalTier1;
+
+  /// No description provided for @splashVerifiedNetwork.
+  ///
+  /// In en, this message translates to:
+  /// **'Verified Network'**
+  String get splashVerifiedNetwork;
+
+  /// No description provided for @splashConnectingInstitutions.
+  ///
+  /// In en, this message translates to:
+  /// **'Connecting 500+ institutions worldwide'**
+  String get splashConnectingInstitutions;
+
+  /// No description provided for @splashBeginApplication.
+  ///
+  /// In en, this message translates to:
+  /// **'Begin Application'**
+  String get splashBeginApplication;
+
+  /// No description provided for @splashAlreadyApplied.
+  ///
+  /// In en, this message translates to:
+  /// **'Already applied?'**
+  String get splashAlreadyApplied;
+
+  /// No description provided for @splashSslSecured.
+  ///
+  /// In en, this message translates to:
+  /// **'256-Bit SSL Secured'**
+  String get splashSslSecured;
+
+  /// No description provided for @splashAccreditation.
+  ///
+  /// In en, this message translates to:
+  /// **'AACSB & EQUIS Aligned'**
+  String get splashAccreditation;
+
   /// No description provided for @onboardingSlide1Title.
   ///
   /// In en, this message translates to:
