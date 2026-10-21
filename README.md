@@ -15,6 +15,7 @@ The system is designed to serve two main user roles:
 ## ✨ Key Features
 
 ### For Students
+- **Branded Welcome & Smart Routing:** A full-screen, image-backed landing screen introduces the app. First-time / signed-out visitors can **Begin Application** or **Sign In**, while returning signed-in users are automatically routed to their dashboard, admin portal, or email verification.
 - **Smart Dashboard:** Live application overview metrics (Applied, Under Review, Accepted, Rejected) with real-time updates.
 - **Biometric Authentication:** Quick, secure biometric fingerprint and Face ID login powered by `local_auth` and encrypted with `flutter_secure_storage`.
 - **Offline-First Resilience & Sync:** Built-in network connectivity detection (`connectivity_plus`) and background write queue (`OfflineQueueService`). Submissions and document uploads made while offline or on unstable networks are safely persisted locally via `GetStorage` and automatically replayed once reconnected.
@@ -22,6 +23,8 @@ The system is designed to serve two main user roles:
 - **Saved / Favorite Schools:** One-tap school bookmarking with real-time Firestore synchronization and a dedicated quick-access carousel on the Home dashboard.
 - **Application Deadline Countdowns:** Dynamic countdown timer chips (`DeadlineChip`) updating every second to display remaining application windows and auto-closing when deadlines pass.
 - **Global School Search:** Browse thousands of institutions worldwide with a 6-tier resilience chain — including a bundled offline dataset of 115 Nigerian universities.
+- **Country-Scoped Listings:** School results are filtered to the selected country, so globally featured or Firestore-seeded schools never leak into another country's list.
+- **Region-Aware Admission Requirements:** For schools without admin-configured requirements, the app presents region-specific baseline templates (e.g. Nigeria JAMB/UTME cut-offs, UK UCAS/IELTS, US GPA/SAT, Ghana WASSCE, EU language requirements) instead of one generic list.
 - **Multi-Step Application Wizard:** Intuitive 3-step application flow covering personal information, academic credentials (including JAMB scores/years), and programme selections.
 - **Secure Document Upload:** Integrated photo/document picking with automatic compression and base64 Firestore storage (eliminating reliance on paid Firebase Storage Blaze plans).
 - **Dual Theme Support:** High-contrast Material 3 Light and Dark modes built from a unified `AppPalette`, with automatic system detection or manual user preference.
@@ -85,7 +88,7 @@ lib/
 │   ├── onboarding/           # Walkthrough onboarding carousel
 │   ├── profile/              # Profile editing, biometrics toggle, theme & language settings
 │   ├── schools/              # Global school search, filtering, detail, and requirements
-│   └── splash/               # Animated splash, session verification, and role routing
+│   └── splash/               # Branded landing screen, session verification, and role routing
 ├── l10n/
 │   ├── app_*.arb             # Localization catalogs (en, es, fr, ha, ig, yo)
 │   └── generated/            # Auto-generated localization classes
@@ -127,6 +130,8 @@ CampusApply supports **6 languages** out of the box:
 ### How it works
 - **Auto-detection:** App uses system locale on first launch via `flutter_localizations`.
 - **Manual override:** Users can change language in Settings → Language (persisted via GetStorage).
+- **Global widget localization fallback:** Flutter's built-in Material/Cupertino localizations do not ship Hausa, Yorùbá, or Igbo. `main.dart` wraps the global delegates (`_FallbackMaterialLocalizationsDelegate` / `_FallbackCupertinoLocalizationsDelegate`) so these languages still resolve — app strings use the selected language, while built-in widget labels fall back to English instead of crashing with "No MaterialLocalizations found".
+- **Missing translations:** Any key not yet translated in a catalog automatically falls back to the English template value.
 - **Generation:** Run `flutter gen-l10n` after editing ARB files to regenerate `lib/l10n/generated/app_localizations.dart`.
 - **Usage:** Access strings via `AppLocalizations.of(context).keyName` — no hardcoded strings in UI.
 
@@ -200,14 +205,18 @@ flutter run
 - [x] Material 3 Light and Dark theme system with instant toggle
 - [x] Full localization across 6 languages (en, ha, yo, ig, fr, es)
 - [x] Push notification triggers via Cloud Functions & FCM deep linking
+- [x] Branded landing screen with smart first-timer vs returning-user routing
+- [x] Country-scoped school listings and region-aware admission requirement templates
+- [x] Safe language switching for Hausa / Yorùbá / Igbo (Material localizations fallback)
 - [ ] Real-time PayStack/Flutterwave payment gateway integration
 
 ---
 
 ## ✅ Code Quality & Architecture Status
-- **`flutter analyze`**: ✅ Clean analysis across all feature directories, services, and core utilities.
+- **`dart analyze lib`**: ✅ Clean analysis across all feature directories, services, and core utilities.
 - **`flutter gen-l10n`**: ✅ Generates successfully for all 6 locales (English, Hausa, Yorùbá, Igbo, French, Spanish).
-- **Localization coverage**: 16 screens fully localized without hardcoded UI strings.
+- **Localization coverage**: UI strings are sourced from ARB catalogs; keys not yet translated in a given locale fall back to English rather than failing.
+- **Language safety**: Hausa, Yorùbá and Igbo switch without crashing thanks to the global Material/Cupertino localization fallback delegates.
 - **Settings persistence**: Appearance (Light/Dark/System) and Language preference persisted offline via `GetStorage`.
 - **Biometric security**: Credentials stored in hardware-backed keystore/keychain via `FlutterSecureStorage`.
 - **Data resilience**: Zero blank screens guaranteed by multi-mirror fallbacks and local storage queues.
