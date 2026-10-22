@@ -24,7 +24,7 @@ admission statuses, and batch-upload school listings via CSV.
   - `dio`: High-performance HTTP client for university dataset mirrors.
   - `connectivity_plus`: Real-time network state observation.
 - **Navigation:** Named routes (`MaterialApp` routes map) orchestrated with `appNavigatorKey` and `appRouteObserver`.
-- **Localization:** `flutter_localizations` & `intl` supporting 6 languages (en, ha, yo, ig, fr, es).
+- **Localization:** `flutter_localizations` & `intl` supporting 6 languages (en, ha, yo, ig, fr, es), with fallback delegates for languages Flutter does not ship natively (ha/yo/ig).
 - **UI & Helpers:** `flutter_screenutil`, `oktoast`, `carousel_slider`, `country_flags`, `file_picker`, `csv`, `skeleton_loader`.
 
 ---
@@ -92,12 +92,12 @@ lib/
 │   ├── favorites_provider.dart        # Real-time bookmarking with Firestore favorites collection
 │   ├── notification_provider.dart     # Load, mark read, delete notifications
 │   ├── push_navigation_provider.dart  # Turns tapped PushPayloads into deep links
-│   ├── admission_requirement_provider.dart # Per-school programmes & cut-off scores
+│   ├── admission_requirement_provider.dart # Per-school programmes, cut-off scores + region-aware baseline templates (stale-safe per school)
 │   ├── offline_queue_provider.dart    # Connectivity state, pending count & syncNow()
 │   └── bottom_navigation_provider.dart # Dashboard active tab index management
 │
 └── features/
-    ├── splash/                        # SplashScreen (session check, role routing)
+    ├── splash/                        # SplashScreen (branded landing hero, session check, role routing)
     ├── onboarding/                    # OnboardingScreen (carousel walkthrough)
     ├── auth/                          # LoginScreen, SignupScreen, ForgotPassword, OTP, Email
     │   └── widgets/                   # AuthForm, social buttons
@@ -191,6 +191,28 @@ lib/
 
 ---
 
+## 🚪 App Entry & Splash Behavior
+
+- `/` renders `SplashScreen` (`features/splash/splash_screen.dart`): a branded,
+  full-bleed, image-backed landing hero (`assets/images/universitybuilding.jpg` +
+  navy gradient overlays), not a plain loader.
+- **First-time / signed-out users** stay on the landing screen and choose:
+  - **Begin Application** → `/onboarding` (if onboarding not yet seen) or `/register`.
+  - **Sign In** → `/login`.
+- **Returning signed-in users** (`FirebaseAuth.instance.currentUser != null`) are
+  auto-routed after the intro animation:
+  - `role == 'admin'` → `/admin-dashboard`
+  - verified student → `/dashboard`
+  - unverified student → `/email-verification`
+  - role lookup failure / offline → `/login`
+- The splash starts `OfflineQueueProvider.init()` after the first frame so
+  connectivity monitoring and queue replay begin immediately.
+- The splash uses a private fixed palette (`_SplashColors`) so the hero looks
+  identical in light and dark mode; it intentionally bypasses the theme
+  `AppPalette` (see Coding Conventions exception).
+
+---
+
 ## 💾 Offline Queue & Resilience Architecture
 
 The application is fully offline-resilient across both reading and writing:
@@ -239,6 +261,25 @@ The application is fully offline-resilient across both reading and writing:
 - Real-time Firestore stream (`where('userId', isEqualTo: uid)`) keeps favorites in sync across all user devices.
 - `SchoolCard` and `SchoolDetailScreen` provide reactive bookmark icons with toast notifications.
 - `SavedSchoolsSection` displayed on the Home tab provides one-tap carousel navigation to saved institutions.
+
+---
+
+## 🏫 School Listing & Admission Requirements
+
+- **Country-scoped listings:** `SchoolProvider._applyFilters()` requires
+  `school.country == selectedCountry` in addition to the search query. Featured
+  schools and the Firestore fallback are fetched globally, so without this guard a
+  school from another country (e.g. Ghana) can appear in every country's list.
+  Selecting a country reloads and caches `cached_schools_<country>`.
+- **Requirements source order:** `AdmissionRequirementProvider` streams Firestore
+  `admission_requirements` docs for the school. When Firestore has none, it renders
+  region-aware baseline templates keyed by `schoolCountry` (Nigeria JAMB/UTME, UK
+  UCAS/IELTS, US GPA/SAT, Ghana WASSCE, Canada, Australia, EU language models, …).
+  Admin-saved Firestore docs always take precedence over templates.
+- **Stale-state safety:** the provider tracks `_loadedKey` (`schoolName|country`).
+  Switching schools clears the previous list and shows a loading state, and
+  fallbacks never reuse another school's data — this prevents one school's
+  requirements appearing under a different school/country.
 
 ---
 
@@ -303,6 +344,20 @@ PushNavigationProvider
 - Preference saved in `GetStorage` via `SettingsProvider.setLocale()`.
 - Generation via `flutter gen-l10n` targeting `lib/l10n/generated/app_localizations.dart`.
 - Access via `AppLocalizations.of(context).keyName`.
+- `l10n.yaml` sets `nullable-getter: false`, so every getter is non-nullable.
+- **Global delegate fallback:** Flutter's built-in Material/Cupertino localizations
+  do **not** ship `ha`, `yo`, or `ig`. `main.dart` wraps the global delegates with
+  `_FallbackMaterialLocalizationsDelegate` / `_FallbackCupertinoLocalizationsDelegate`,
+  which always report the locale as supported and load English global localizations
+  for those languages. Without this, selecting Hausa/Yorùbá/Igbo throws
+  `No MaterialLocalizations found` and crashes the app.
+- **Untranslated keys:** any key missing from a locale's ARB falls back to the
+  English template value (getters still exist for every locale). `flutter gen-l10n`
+  prints an untranslated-message count per locale — treat it as a translation TODO,
+  not an error.
+- When adding new user-facing strings, add them to `app_en.arb` only (other locales
+  fall back to English) or translate the relevant catalogs, then re-run
+  `flutter gen-l10n`. Recent splash copy uses `splash*` keys.
 
 ---
 
@@ -314,6 +369,9 @@ PushNavigationProvider
 
 ## Coding Conventions
 - All colors must come from `context.colors` (`AppPalette`) or `AppColors` — never hardcode hex literals inline.
+  - **Exception:** the branded splash (`features/splash/splash_screen.dart`) uses a
+    private `_SplashColors` palette because it is a fixed dark, full-bleed hero that
+    must render identically in light and dark mode.
 - All typography must come from `AppTextStyles` — never construct raw `TextStyle` inside widgets.
 - Responsive sizing via `ScreenUtil` extension methods (`.w`, `.h`, `.r`, `.sp`).
 - Feature folders own their screens and feature-specific widgets in a `widgets/` subfolder.
